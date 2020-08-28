@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+<div class="container"></div>
+<!-- <login></login> -->
+  <!-- <div class="container">
     <div>
       <Logo />
       <h1 class="title">
@@ -24,7 +26,7 @@
         </a>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

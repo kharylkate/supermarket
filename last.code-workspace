@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\sample"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "lougeh"
+	}
+}

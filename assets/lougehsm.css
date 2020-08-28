@@ -1,0 +1,92 @@
+.sidebarNav ul li a.nav-link:hover {
+    background-color: #95c282;
+    border-radius: 100px;
+}
+
+.sidebar {
+    height: 70%;
+}
+
+.lg-btn {
+    background-color: #95c282;
+}
+
+.lg-btn:hover {
+    background-color: #bbe1aa;   
+}
+
+.active-page {
+    display: "";
+}
+
+.inactive-page {
+    display: none;
+}
+
+/* .low-stock {
+    height: 70%;
+    width: 70%;
+} */
+
+.login-btn {
+    background-color: #bbe1aa;
+    color: black;
+    font-weight: bold;
+}
+
+.card {
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+}
+
+.active-link {
+    background-color:#bbe1aa;
+    font-weight:bold
+}
+
+.inactive-link {
+    color:#000!important;
+    font-weight:bold;
+    border-left-color: white;
+}
+
+.thead-sea-green th {
+    background-color:#bbe1aa
+}
+
+
+
+
+
+@media only screen and (min-width: 760px) {
+    .sidebar{
+         height: 100vh; 
+    }
+
+    .main-content{
+        height: 100vh;
+    }
+
+    .table-graph {
+        height: 48vh;
+        width: 45vw;
+    }
+
+    /* .low-stock {
+        height: 50vh;
+        width: 21vw;
+    } */
+
+    /* .small-box {
+        height: 20vh;
+        width: 20vh;
+    } */ 
+}
+
+@media only screen and (min-width: 480px){
+    /* .table-graph {
+        height: 40vh;
+        width: 40vh;
+    }  */
+}
