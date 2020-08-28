@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody class="list">
-                        <tr v-for="supplier in suppliers">
+                        <tr v-for="supplier in suppliers" :key="supplier.id">
                             <td>{{supplier.code}}</td>
                             <td>{{supplier.compName}}</td>
                             <td>{{supplier.contactno}}</td>

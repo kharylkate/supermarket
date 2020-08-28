@@ -9,6 +9,7 @@
             <div>
                 <addDelTrans />
                 <editDelTrans />
+                <viewDelivery />
             </div>
         </div>
         
@@ -19,8 +20,9 @@
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
 import items from '../components/delivery';
-import addDelTrans from '../components/delivery/add_deliveryTrans'
-import editDelTrans from '../components/delivery/edit_deliveryTrans'
+import addDelTrans from '../components/delivery/add_deliveryTrans';
+import editDelTrans from '../components/delivery/edit_deliveryTrans';
+import viewDelivery from '../components/delivery/view_delivery';
 
 export default {
     name: 'items-body',
@@ -29,7 +31,8 @@ export default {
         'navbarCollapse': navbarCollapse,
         'items': items,
         'addDelTrans': addDelTrans,
-        'editDelTrans': editDelTrans
+        'editDelTrans': editDelTrans,
+        'viewDelivery': viewDelivery
     }
 }
 </script>

@@ -9,5 +9,43 @@ export default {
         // Vue.set(state.customers, )
         console.log(customerData)
         state.customers.push(customerData)
-      }
+    },
+
+    addSupplier: (state, supplierData) => {
+        console.log(supplierData)
+        state.suppliers.push(supplierData)
+    },
+
+    addSales: (state, salesData) => {
+        console.log(salesData)
+        state.sales.push(salesData)
+    },
+
+    addDelivery: (state, deliveryData) => {
+        console.log(deliveryData)
+        state.push(deliveryData)
+    },
+
+    // addSupplier: (state, supplierData) => {
+    //     console.log(supplierData)
+    //     state.push(supplierData)
+    // },
+
+    addInventory: (state, inventoryData) => {
+        console.log(inventoryData)
+        state.push(inventoryData)
+    },
+
+    addSelectedTransaction: (state, transaction) => {
+        state.selectedTransaction = transaction;
+    },
+
+    addSelectedDelivery: (state, delivery) => {
+        state.selectedDelivery = delivery;
+    }
+
+
+
+
+
 }

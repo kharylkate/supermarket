@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody class="list">
-                    <tr v-for="customer in customers">
+                    <tr v-for="customer in customers" :key="customer.id">
                         <td>{{customer.id}}</td>
                         <td>{{customer.name}}</td>
                         <td>{{customer.address}}</td>

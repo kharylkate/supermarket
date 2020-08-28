@@ -61,10 +61,10 @@ export default {
     },
     data(){
       return {
-        id: "165009",
-        name: "Hhhh",
-        address: "GGG",
-        contactno: "213212121",
+        id: "165005",
+        name: "",
+        address: "",
+        contactno: "",
         status: "active"
       }
     },
@@ -72,9 +72,6 @@ export default {
       ...mapActions(['addCustomer']),
       onSubmit(e){
         e.preventDefault();
-        // customerdata = {
-        //   id, name, address,contactno, status
-        // }
         this.addCustomer(
           {
             id: this.id, 
@@ -83,12 +80,14 @@ export default {
             contactno: this.contactno, 
             status: this.status}
           );
-        //this.addCustomer(this.customerdata);
         console.log('');
-        //console.log(this.addCustomer.name)
+        $('#addCustomer').modal('hide');
+        $('#add_item_form')[0].reset();
       }
-      
+
+    
     }
     
 }
+
 </script>

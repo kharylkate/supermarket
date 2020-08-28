@@ -7,13 +7,91 @@ export default {
         {number: 4, href: 'sales.html', name: 'Sales Transaction'},
         {number: 5, href: 'delivery.html', name: 'Delivery Transaction'}
     ],
-    items: [
-        {drNo: 567123, barcode: 15304218, description: 'Churned Milk 1kg', qty: 40, unitcost: 112.50, supplier: 'TENCENT Spy Lab', date: 'May 02, 2020'},
-        {drNo: 115647, barcode: 51404209, description: 'Cadbury 65g', qty: 75, unitcost: 76.75, supplier: 'Wall Maria', date: 'May 02, 2020'},
-        {drNo: 953226, barcode: 11443366, description: 'Dairy Meelk 250mL', qty: 45, unitcost: 89.60, supplier: 'Beech Lasagna Corporation', date: 'May 01, 2020'},
-        {drNo: 665498, barcode: 12196864, description: 'Hershey\'s Chocs 65g', qty: 70, unitcost: 82.25, supplier: 'Bucks Milwaukee', date: 'April 30, 2020'},
-        {drNo: 124121, barcode: 53170036, description: 'Oreo Cookies', qty: 50, unitcost: 54.75, supplier: 'Beech Lasagna Corporation', date: 'April 29, 2020'},
-        {drNo: 100034, barcode: 18773694, description: 'Muck n Cheez', qty: 40, unitcost: 98.15, supplier: 'Hirez Bugladins', date: 'April 29, 2020'}
+    delivery: [{
+        drNo: 567123,
+        supplier: 'TENCENT Spy Lab',
+        date: 'May 02, 2020',
+        totalAmt: 7260,
+        deliveries: [{
+            barcode: 15304218,
+            description: 'Churned Milk 1L', 
+            qty: 40, 
+            unitcost: 112.50
+        }, {
+            barcode: 15304220,
+            description: 'Churned Milk 500mL', 
+            qty: 40, 
+            unitcost: 69.50
+        }]
+    },{
+        drNo: 115647,
+        supplier: 'Wall Maria',
+        date: 'May 02, 2020',
+        totalAmt: 9742.50,
+        deliveries: [{
+            barcode: 51404209,
+            description: 'Cadbury 65g', 
+            qty: 30, 
+            unitcost: 76.50
+        }, {
+            barcode: 15304220,
+            description: 'Cadbury 150g', 
+            qty: 45, 
+            unitcost: 165.50
+        }]
+    },{
+        drNo: 953226,
+        supplier: 'Beech Lasagna Corporation',
+        date: 'May 01, 2020',
+        totalAmt: 7537.10,
+        deliveries: [{
+            barcode: 11443366,
+            description: 'Dairy Meelk 250mL', 
+            qty: 70, 
+            unitcost: 89.60
+        },{
+            barcode: 53170036,
+            description: 'Oreo Cookies', 
+            qty: 70, 
+            unitcost: 89.60
+        }]
+    },{
+        drNo: 665498,
+        supplier: 'Bucks Milwaukee',
+        date: 'April 30, 2020',
+        totalAmt: 7537.10,
+        deliveries: [{
+            barcode: 12196864,
+            description: 'Hershey\'s Chocs 65g', 
+            qty: 70, 
+            unitcost: 89.60
+        }]
+    },{
+        drNo: 100034,
+        supplier: 'Hirez Bugladins',
+        date: 'April 29, 2020',
+        totalAmt: 7537.10,
+        deliveries: [{
+            barcode: 18773694,
+            description: 'Muck n Cheez', 
+            qty: 70, 
+            unitcost: 89.60
+        }]
+    },
+        // {drNo: 567123, barcode: 15304218, description: 'Churned Milk 1kg', qty: 40, unitcost: 112.50, supplier: 'TENCENT Spy Lab', date: 'May 02, 2020'},
+        // {drNo: 115647, barcode: 51404209, description: 'Cadbury 65g', qty: 75, unitcost: 76.75, supplier: 'Wall Maria', date: 'May 02, 2020'},
+        // {drNo: 953226, barcode: 11443366, description: 'Dairy Meelk 250mL', qty: 45, unitcost: 89.60, supplier: 'Beech Lasagna Corporation', date: 'May 01, 2020'},
+        // {drNo: 665498, barcode: 12196864, description: 'Hershey\'s Chocs 65g', qty: 70, unitcost: 82.25, supplier: 'Bucks Milwaukee', date: 'April 30, 2020'},
+        // {drNo: 124121, barcode: 53170036, description: 'Oreo Cookies', qty: 50, unitcost: 54.75, supplier: 'Beech Lasagna Corporation', date: 'April 29, 2020'},
+        // {drNo: 100034, barcode: 18773694, description: 'Muck n Cheez', qty: 40, unitcost: 98.15, supplier: 'Hirez Bugladins', date: 'April 29, 2020'}
+    ],
+    inventory: [
+        {barcode: 15304218, description: 'Churned Milk 1kg', qty: 20, unitcost: 112.50},
+        {barcode: 51404209, description: 'Cadbury 65g', qty: 50, unitcost: 76.75},
+        {barcode: 11443366, description: 'Dairy Meelk 250mL', qty: 35, unitcost: 89.60},
+        {barcode: 12196864, description: 'Hershey\'s Chocs 65g', qty: 55, unitcost: 82.25},
+        {barcode: 53170036, description: 'Oreo Cookies', qty: 60, unitcost: 54.75},
+        {barcode: 18773694, description: 'Muck n Cheez', qty: 40, unitcost: 98.15}
     ],
     customers: [
         {id: 165001, name: 'Dorian Havilliard', address: '1500 S Ave Kn Sta #17, Portales, NM, 88130', contactno: '(203) 796-9824', status: 'active'},
@@ -65,6 +143,9 @@ export default {
         {code: 12345680, compName: 'Wall Maria', contactno: '+1-767-5554-872', compAddress: '6 Ducks Head, New Castle, NH, 03854', status: 'Active'},
         {code: 12345681, compName: 'TENCENT Spy Laboratory', contactno: '+1-767-5554-872', compAddress: 'Po Box 831, Sultan, WA, 98294', status: 'Active'},
         {code: 12345682, compName: 'Bucks Milwaukee', contactno: '+1-767-5554-872', compAddress: 'Po Box 141, Bettsville, OH, 44815', status: 'Inactive'},
-    ]
+    ],
+
+    selectedTransaction: null,
+    selectedDelivery: null
 }
 

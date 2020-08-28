@@ -3,7 +3,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Delivery</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Item</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -11,11 +11,7 @@
           <div class="modal-body">
             <form action="">
               <div class="form-row justify-content-center">
-
-                <div class="form-group col-md-8">
-                  <label for="edit_barcode">Barcode: </label>
-                  <input type="number" class="form-control" id="edit_barcode" value="15304218" disabled>
-                </div>
+                
 
                 <div class="form-group col-md-8">
                   <label for="edit_item_name">Item Name: </label>
@@ -23,13 +19,13 @@
                 </div>
 
                 <div class="form-group col-md-8">
-                  <label for="edit_item_name">Cost Per Unit: </label>
-                  <input type="text" class="form-control" id="edit_cost" value="₱112.50">
+                  <label for="edit_barcode">Barcode: </label>
+                  <input type="number" class="form-control" id="edit_barcode" value="15304218">
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_item_supplier">Supplier: </label>
-                  <input type="text" class="form-control" id="edit_item_supplier" value="Bucks Milwaukee" disabled>
+                  <input type="text" class="form-control" id="edit_item_supplier" value="Bucks Milwaukee">
                 </div>
 
                 <!-- <div class="form-group col-md-8">
@@ -74,7 +70,7 @@
 
 <script>
 export default {
-    name: 'modal-addDelTrans',
+    name: 'modal-inventory',
     components: {
        
     }

@@ -8,7 +8,7 @@
         <hr>
 
         <div class="input-group mb-1 mt-5">
-            <input type="text" class="form-control" placeholder="Search">
+            <input type="text" class="form-control search-filter" data-table="table-data" placeholder="Search">
             <div class="input-group-append">
             <span class="input-group-text"><img src="../static/icons/search.svg" alt=""></span>
             </div>
@@ -17,27 +17,33 @@
         <div class="sidebar-sticky pt-3 sidebarNav" >
             <ul class="nav flex-column text-left">
                 <li class="nav-item ">
-                <a class="active-link rounded-pill nav-link" href="/dashboard">
-                    <span class="mx-auto text-white"><img src="../static/icons/house.svg" width="24" height="24" alt="">
-                    Dashboard</span>
+                <a class="inactive-link nav-link" href="/dashboard">
+                    <img src="../static/icons/house.svg" width="24" height="24" alt="">
+                    <span class="mx-auto">Dashboard</span>
+                </a>
+                </li>
+                <li class="nav-item ">
+                <a class="nav-link inactive-link" href="/inventory">
+                    <img src="../static/icons/card-checklist.svg" width="24" height="24" alt="">
+                    <span class="">Inventory</span>
                 </a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/delivery">
-                    <img src="../static/icons/file-earmark.svg" width="24" height="24" alt="">
-                    <span class="inactive-link">Delivery Transaction</span>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/suppliers">
+                <a class="nav-link inactive-link" href="/suppliers">
                     <img src="../static/icons/truck.svg" width="24" height="24" alt="">
-                    <span class="inactive-link">Suppliers</span>
+                    <span class="">Suppliers</span>
                 </a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/customers">
                     <img src="../static/icons/people.svg" width="24" height="24" alt="">
                     <span class="inactive-link">Customers</span>
+                </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/delivery">
+                    <img src="../static/icons/file-earmark.svg" width="24" height="24" alt="">
+                    <span class="inactive-link">Delivery Transaction</span>
                 </a>
                 </li>
                 <li class="nav-item">
@@ -54,6 +60,14 @@
 
 <script>
 export default {
+    head(){
+        return{
+        script:[
+        { src: 'script_filterSearch.js'}
+        ],
+        }
+    },
+
     name: "sidebar"
 }
 </script>

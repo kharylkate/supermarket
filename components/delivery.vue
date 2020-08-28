@@ -2,11 +2,11 @@
     <div id="items" role="main" class="main-content col-md-9 ml-sm-auto col-lg-10 px-md-4 bg-light">
         <div>
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
-                <h4 class="text-uppercase">Items</h4>
+                <h4 class="text-uppercase">Delivery</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
                 <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addDelTrans">
                     <img src="../static/icons/file-earmark-plus.svg" alt="">
-                    Add Item
+                   Receive Item
                 </button>
                 </div>
             </div>
@@ -17,21 +17,20 @@
             <thead class="thead-sea-green">
                 <tr>
                     <th scope="col" class="sort" data-sort="name">Delivery Receipt Number</th>
-                <th scope="col" class="sort" data-sort="name">Barcode</th>
-                <th scope="col" class="sort" data-sort="name">Product Description</th>
-                <th scope="col" class="sort" data-sort="status">Quantity</th>
-                <th scope="col" class="sort" data-sort="budget">Cost per unit</th>
+                <th scope="col" class="sort" data-sort="name">Supplier</th>
+                <th scope="col" class="sort" data-sort="name">Date of Delivery</th>
+                <th scope="col" class="sort" data-sort="status">Total Amount</th>
+                <!-- <th scope="col" class="sort" data-sort="budget">Cost per unit</th> -->
                 <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody class="list" id="body-bg">
-                <tr v-for="item in items" :key="item.id">
-                    <td>{{item.drNo}}</td>
-                    <td>{{item.barcode}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.qty}}</td>
-                    <td>{{item.unitcost}}</td>
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../static/icons/pencil-square.svg" alt=""> Edit</button></td>
+                <tr v-for="deliver in delivery" :key="deliver.id">
+                    <td>{{deliver.drNo}}</td>
+                    <td>{{deliver.supplier}}</td>
+                    <td>{{deliver.date}}</td>
+                    <td>₱{{deliver.totalAmt}}</td>
+                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(deliver)"><img src="../static/icons/eye.svg" alt=""></button> <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../static/icons/pencil-square.svg" alt=""></button></td>
                 </tr>
             </tbody>
             </table>
@@ -45,11 +44,19 @@ import {mapGetters} from 'vuex';
 
 
 export default {
-    name: 'items',
+    name: 'delivery',
     computed: {
         ...mapGetters([
-            'items'
+            'delivery'
         ])
+    },
+    methods: {
+       ...mapActions(['selectDelivery']),
+      select(deliver) {
+        this.selectDelivery({
+          ...deliver
+        })
+      }
     }
 }
 </script>

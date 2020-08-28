@@ -1,12 +1,24 @@
 export default {
-    // items
-    items: state => {
-        return state.items
+    // inventory
+    inventory: state => {
+        return state.inventory
     },
-    itemCounter: state => {
+    inventoryCounter: state => {
         var count = 0;
-        state.items.map(items => {
-            count += items.qty
+        state.inventory.map(inventory => {
+            count += inventory.qty
+        })
+        return count;
+    },
+    
+    // delivery
+    delivery: state => {
+        return state.delivery
+    },
+    deliveryCounter: state => {
+        var count = 0;
+        state.delivery.map(delivery => {
+            count += delivery.qty
         })
         return count;
     },
@@ -14,14 +26,13 @@ export default {
     suppliers: state => {
         return state.suppliers
     },
-    suppliesCounter: (state, table, col) => {
-        var count = 0;
-        state.table.map(table => {
-            count += table.col
-        })
-        return count;
+    supplierCounter: (state, suppliers) => {
+        return state.suppliers.length
     },
     // customers
+    getCustomers(state){
+        return state.customers
+    },
     customers: state => {
         return state.customers
     },
@@ -36,4 +47,25 @@ export default {
     salesCounter: state => {
         return sales.length;
     },
+
+    // zero stocks
+    zeroStocks: state => {
+        var j = 0;
+        state.inventory.map(inventory => {
+            if(inventory.qty == 0){
+                j += 1;
+            }
+        })
+        console.log(j)
+        return j
+    },
+
+    getSelectedTransaction: state => {
+        //console.log(state.selectedTransaction)
+        return state.selectedTransaction;
+    },
+
+    getSelectedDelivery: state => {
+        return state.selectedDelivery;
+    }
 }

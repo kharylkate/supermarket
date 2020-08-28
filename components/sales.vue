@@ -25,16 +25,9 @@
                         <td>{{sales.transactionDate}}</td>
                         <td>{{sales.customerName}}</td>
                         <td>{{sales.totalSales}}</td>
-                        <td><button class="btn lg-btn" data-toggle="modal" data-target="#viewTransaction" @click="(sales.items)" ><img src="../static/icons/eye.svg" alt=""></button>
+                        <td><button class="btn lg-btn" data-toggle="modal" data-target="#viewTransaction" @click="(select(sales))" ><img src="../static/icons/eye.svg" alt=""></button>
                         <button class="btn lg-btn" data-toggle="modal" data-target="#view_trans" @click="(sales.items)"><img src="../static/icons/printer.svg" alt=""></button></td>
-                        <!-- <td>
-                            <div>{{sales.items}}</div>
-                        </td> -->
-                        <!--
-                        <tr v-for="sales.items"></tr> -->
-                        <!-- <td v-for="item in salesTransactions.items" :key="item.id">
-                            {{item.barcode}}</td>
-                     -->
+                        
                         <!-- <td>
                             <div v-for="(item,i) in sales.items" :key="i"> 
                                 Barcode: {{item.barcode}}
@@ -65,6 +58,12 @@ export default {
         ])
     },
     methods: {
+       ...mapActions(['selectTransaction']),
+      select(sales) {
+        this.selectTransaction({
+          ...sales
+        })
+      }
     }
         
     

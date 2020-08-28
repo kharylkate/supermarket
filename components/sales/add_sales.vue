@@ -22,6 +22,10 @@
 
               <div class="form-group col-md-8">
                 <label for="items">Items: </label>
+                <select name="" id="" class="form-control">
+                  <option value="" class="form-control" selected disabled>Select Item</option>
+                  <option value="" class="form-control" >Churned Milk 1kg</option>
+                </select>
                 <!-- <ul v-for="item in items" :key="item.id">
                   <li>{{items}}</li>
                 </ul> -->

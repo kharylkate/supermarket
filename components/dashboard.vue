@@ -17,7 +17,7 @@
                         <div class="row">
                           <h3 class="text-left">STOCKS</h3>
                         </div>
-                        <h3 class="text-right ml-auto">{{itemCounter}}</h3>
+                        <h3 class="text-right ml-auto">{{inventoryCounter}}</h3>
                       </div>
                       <div class="card-footer bg-white"><small></small></div>
                     </div>
@@ -26,9 +26,9 @@
                     <div class="card col m-3">
                       <div class="card-body d-flex">
                         <div class="row">
-                          <h3 class="text-left">SUPPLIES</h3>
+                          <h3 class="text-left">SUPPLIERS</h3>
                         </div>
-                        <h3 class="text-right ml-auto">6</h3>
+                        <h3 class="text-right ml-auto">{{supplierCounter}}</h3>
                       </div>
                       <div class="card-footer bg-white"><small></small></div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="row">
                           <h3 class="text-left">ZERO STOCKS</h3>
                         </div>
-                        <h3 class="text-right ml-auto">0</h3>
+                        <h3 class="text-right ml-auto">{{zeroStocks}}</h3>
                       </div>
                       <div class="card-footer bg-white"><small></small></div>
                     </div>
@@ -61,24 +61,25 @@
                                 <th>Product Description</th>
                                 <th>Qty</th>
                               </tr>
+                              </thead>
                               <tbody>
                                 <tr>
                                   <td>
                                     1
                                   </td>
                                   <td>Churned Milk 1kg</td>
-                                  <td>40</td>
+                                  <td>20</td>
                                 </tr>
                                 <tr>
                                   <td>
                                     2
                                   </td>
-                                  <td>Muck n Cheez</td>
-                                  <td>40</td>
+                                  <td>Dairy Meelk</td>
+                                  <td>35</td>
                                 </tr>
                               </tbody>
                               
-                            </thead>
+                            
                           </table>
                         </div>
                       </div>
@@ -111,7 +112,9 @@ export default {
     name: 'dash-board',
     computed: {
         ...mapGetters([
-            'itemCounter'
+            'inventoryCounter',
+            'supplierCounter',
+            'zeroStocks'
         ])
     }
     
