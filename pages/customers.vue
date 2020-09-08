@@ -17,7 +17,7 @@
 <script>
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
-import customers from '../components/customers';
+import customers from '../components/customer/customers';
 import addCustomer from '../components/customer/add_customer'
 import editCustomer from '../components/customer/edit_customer'
 

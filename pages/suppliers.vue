@@ -17,7 +17,7 @@
 <script>
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
-import suppliers from '../components/suppliers';
+import suppliers from '../components/supplier/suppliers';
 import addSupplier from '../components/supplier/add_supplier';
 import editSupplier from '../components/supplier/edit_supplier';
 

@@ -19,7 +19,7 @@
 <script>
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
-import items from '../components/delivery';
+import items from '../components/delivery/delivery';
 import addDelTrans from '../components/delivery/add_deliveryTrans';
 import editDelTrans from '../components/delivery/edit_deliveryTrans';
 import viewDelivery from '../components/delivery/view_delivery';

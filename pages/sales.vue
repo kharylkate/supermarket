@@ -17,7 +17,7 @@
 <script>
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
-import sales from '../components/sales';
+import sales from '../components/sales/sales';
 import viewTransaction from '../components/sales/modals';
 import addSales from '../components/sales/add_sales'
 

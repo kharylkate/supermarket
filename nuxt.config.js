@@ -47,6 +47,10 @@ export default {
         type: "text/javascript"
       },
       {
+        src: "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js",
+        type: "text/javascript"
+      },
+      {
         src:
         "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
         integrity:"sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV",
@@ -60,13 +64,15 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/lougehsm.css'
+    '@/assets/lougehsm.css',
+    '@assets/select2.min.css'
   ],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+
   ],
   /*
   ** Auto import components

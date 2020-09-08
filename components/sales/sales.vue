@@ -25,8 +25,8 @@
                         <td>{{sales.transactionDate}}</td>
                         <td>{{sales.customerName}}</td>
                         <td>{{sales.totalSales}}</td>
-                        <td><button class="btn lg-btn" data-toggle="modal" data-target="#viewTransaction" @click="(select(sales))" ><img src="../static/icons/eye.svg" alt=""></button>
-                        <button class="btn lg-btn" data-toggle="modal" data-target="#view_trans" @click="(sales.items)"><img src="../static/icons/printer.svg" alt=""></button></td>
+                        <td><button class="btn lg-btn" data-toggle="modal" data-target="#viewTransaction" @click="(select(sales))" ><img src="../../static/icons/eye.svg" alt=""></button>
+                        <button class="btn lg-btn" data-toggle="modal" data-target="#view_trans" @click="(sales.items)"><img src="../../static/icons/printer.svg" alt=""></button></td>
                         
                         <!-- <td>
                             <div v-for="(item,i) in sales.items" :key="i"> 

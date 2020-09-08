@@ -67,5 +67,8 @@ export default {
 
     getSelectedDelivery: state => {
         return state.selectedDelivery;
-    }
+    },
+
+    // delivery_transactions
+    allDelivery: (state) => state.delivery_transactions
 }

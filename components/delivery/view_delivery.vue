@@ -45,7 +45,6 @@
                         <td>{{item.description}}</td>
                         <td>{{item.qty}}</td>
                         <td>₱{{item.unitcost}}</td>
-                        <!-- <th>{{item.amt}}</th> -->
                       </tr>
                       <tr>
                           <td></td>
@@ -53,6 +52,7 @@
                           <td>Total: </td>
                           <td>₱{{selectedDelivery.totalAmt}}</td>
                       </tr>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -87,7 +87,7 @@ export default {
       ...mapGetters({
         selectedDelivery: "getSelectedDelivery",
         
-      }),
+      })
 
     },
     created() {

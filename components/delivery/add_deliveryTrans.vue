@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="addDelTrans" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Receive Item</h5>
@@ -10,74 +10,78 @@
         </div>
         <div class="modal-body">
           <form action="" id="add_item_form">
-            <div class="form-row justify-content-center">
-              <div class="container text-center rounded-circle mb-3">
-                <img src="../../static/basket-flat.png" alt="" width="110" height="110">
-              </div>
-
-              <div class="form-group col-md-8">
-                <label for="item_name">Item Name: </label>
-                <!-- <select name="item" id="item" class="form-control">
-                  <option value="">Select Item</option>
-                </select> -->
-                <input type="text" class="form-control" id="item_name" placeholder="Enter item name" autocomplete="off" required>
-              </div>
-
-              <div class="form-group col-md-8">
-                <label for="item_qty">Quantity: </label>
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number border" disabled="disabled" data-type="minus" data-field="quant[1]">
-                        <img src="../../static/icons/dash.svg" alt="">
-                    </button>
-                  </span>
-                    <input type="text" name="quant[1]" id="item_qty" class="form-control input-number" value="0" min="1" max="10" autocomplete="off" required>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number border" data-type="plus" data-field="quant[1]">
-                      <img src="../../static/icons/plus.svg" alt="">
-                    </button>
-                  </span>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label for="input_rtransaction_date">Date: </label>
+                  <input type="date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020">
                 </div>
-              </div>
-
-              <!-- <div class="form-group col-md-8">
-                <label for="barcode">Barcode: </label>
-                <input type="number" class="form-control" id="barcode" placeholder="Enter barcode" autocomplete="off" required>
-              </div> -->
-
-              <div class="form-group col-md-8">
-                <label for="item_supplier">Supplier: </label>
-                <input type="text" class="form-control" id="item_supplier" placeholder="Enter Supplier" autocomplete="off" required>
-              </div>
-
-              <!-- <div class="form-group col-md-8">
-                <label for="item_qty">Quantity: </label>
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number border" disabled="disabled" data-type="minus" data-field="quant[1]">
-                        <img src="../../static/icons/dash.svg" alt="">
-                    </button>
-                  </span>
-                    <input type="text" name="quant[1]" id="item_qty" class="form-control input-number" value="0" min="1" max="10" autocomplete="off" required>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number border" data-type="plus" data-field="quant[1]">
-                      <img src="../../static/icons/plus.svg" alt="">
-                    </button>
-                  </span>
+                <div class="form-group col-md-3">
+                  <label for="input_rtransaction_no">Delivery Receipt Number: </label>
+                  <input type="number" class="form-control form__orNo" id="input_rtransaction_no">
                 </div>
-              </div> -->
 
-              <!-- <div class="form-group col-md-8">
-                <label for="item_cost">Cost per quantity:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">₱</span>
+                <div class="form-group col-md-6 mb-4">
+                  <label for="">Suppliers: </label>
+                  <div class="">                     
+                    <button type="button border-secondary" class="form-control btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Suppliers
+                    </button>
+                    <div class="dropdown-menu col-md-12">
+                      <div class="input-group px-2">
+                        <input type="text" class="form-control" placeholder="Supplier" aria-label="Supplier" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"><img src="../../static/icons/search.svg" alt=""></span>
+                        </div>
+                      </div>
+                      <div class="dropdown-divider"></div>
+                        <div class="dropdown-item"><a href="">hakdog</a></div>
+                        <div class="dropdown-item"><a href="">cheezeballs</a></div>
                     </div>
-                    <input type="number" class="form-control" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                  </div>
                 </div>
-              </div> -->
-              
-            </div>
+              </div>
+
+              <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
+                    <label for="">Delivery Transaction Items:</label>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                    <button type="button" class="btn btn-sm lg-btn btn_rtrans text-white" data-toggle="modal" id="btn_rtransaction_add" data-target="#addItemToInventory">
+                        Add Items
+                    </button>
+                    </div>
+                </div>
+              <div class="card">
+                
+                <div class="form-row d-flex col-md-12 my-2">
+                  <div class="form-group col-md-3">
+                    <label for="form__barcode">Barcode:</label>
+                    <input type="text" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="form__description">Product Description:</label>
+                    <input type="text" class="form-control form__description" placeholder="Product Description">
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="form__qty">Quantity:</label>
+                    <input type="text" class="form-control form__qty" placeholder="Quantity">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="form__unitcost">Cost Per Unit:</label>
+                    <input type="text" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                  </div>
+                  <div class="form-group col-md-1">
+                    <label for="">Action:</label>
+                    <button class="btn btn-danger" id="Action">Remove</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group ml-auto mr-1">
+                  <label for="">Total Delivery Transaction Amount:</label>
+                  <input type="text" class="form-control form__totalAmt text-right" placeholder="Total Amount">
+                </div>
+              </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary">OK</button>
@@ -106,9 +110,26 @@ export default {
 
   
 }
+
+
 </script>
 
 <script>
+$('.btn_rtrans').click(function(e){
+  e.preventDefault();
+  console.log('1')
+  // thisElement = document.getElementById('rtransaction_barcode');
+  // console.log('2')
+  // container.appendChild(thisElement)
+  // console.log('3')
+})
+
+
+// function clickMe(id){
+//   var thisElement = document.getElementById('#rtransaction_barcode');
+//   container.appendChild(thisElement);
+// }
+
 $('.btn-number').click(function(e){
     e.preventDefault();
     

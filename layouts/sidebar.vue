@@ -15,44 +15,59 @@
         </div>  
 
         <div class="sidebar-sticky pt-3 sidebarNav" >
-            <ul class="nav flex-column text-left">
-                <li class="nav-item ">
-                <a class="inactive-link nav-link" href="/dashboard">
-                    <img src="../static/icons/house.svg" width="24" height="24" alt="">
-                    <span class="mx-auto">Dashboard</span>
-                </a>
-                </li>
-                <li class="nav-item ">
-                <a class="nav-link inactive-link" href="/inventory">
-                    <img src="../static/icons/card-checklist.svg" width="24" height="24" alt="">
-                    <span class="">Inventory</span>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link inactive-link" href="/suppliers">
-                    <img src="../static/icons/truck.svg" width="24" height="24" alt="">
-                    <span class="">Suppliers</span>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/customers">
-                    <img src="../static/icons/people.svg" width="24" height="24" alt="">
-                    <span class="inactive-link">Customers</span>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/delivery">
-                    <img src="../static/icons/file-earmark.svg" width="24" height="24" alt="">
-                    <span class="inactive-link">Delivery Transaction</span>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/sales">
-                    <img src="../static/icons/arrow-left-right.svg" width="24" height="24" alt="">
-                    <span class="inactive-link">Sales Transaction</span>
-                </a>
-                </li>
-            </ul>
+            <div class="accordion" id="accordionExample">
+                <div class="">
+                    <div class="button" id="headingOne">
+                        <span class="inactive-link nav-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Admin
+                        </span>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="mx-3 my-0">
+                            <a href="/inventory" class="">
+                            <span class="inactive-link nav-link">Inventory</span>
+                            </a>
+                        </div>
+                        <div class="mx-3 my-0">
+                            <a href="/suppliers" class="">
+                                <span class="inactive-link nav-link">Suppliers</span>
+                            </a>
+                        </div>
+                        <div class="mx-3 my-0">
+                            <a href="/users" class="">
+                                <span class="inactive-link nav-link">Users</span>
+                            </a>
+                        </div>
+                        <div class="mx-3 my-0">
+                            <a href="/roles" class="">
+                                <span class="inactive-link nav-link">Roles</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="button" id="headingTwo">
+                        <span class="inactive-link nav-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                            Transactions
+                        </span>
+                    </div>
+
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="mx-3 my-0">
+                        <a href="/delivery" class="">
+                            <span class="inactive-link nav-link">Delivery Transactions</span>
+                        </a>
+                    </div>
+                    <div class="mx-3 my-0">
+                        <a href="/sales" class="">
+                            <span class="inactive-link nav-link">Sales Transactions</span>
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
 
     </nav>

@@ -3,6 +3,19 @@
     border-radius: 100px;
 }
 
+.nav-link:hover {
+    background-color: #95c282;
+    border-radius: 100px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 .sidebar {
     height: 70%;
 }
@@ -22,11 +35,6 @@
 .inactive-page {
     display: none;
 }
-
-/* .low-stock {
-    height: 70%;
-    width: 70%;
-} */
 
 .login-btn {
     background-color: #bbe1aa;
@@ -54,6 +62,15 @@
 .thead-sea-green th {
     background-color:#bbe1aa
 }
+
+.select2-container .select2-selection--single{
+    height:34px !important;
+}
+.select2-container--default .select2-selection--single{
+         border: 1px solid #ccc !important; 
+     border-radius: 0px !important; 
+}
+
 
 
 

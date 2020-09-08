@@ -7,7 +7,7 @@
                     <h4 class="text-uppercase">Suppliers</h4>
                     <div class="btn-toolbar mb-2 mb-md-0">
                     <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addSupplier">
-                        <img src="../static/icons/file-earmark-plus.svg" alt="">
+                        <img src="../../static/icons/file-earmark-plus.svg" alt="">
                         Add Supplier
                     </button>
                     </div>
@@ -39,7 +39,7 @@
                                 </span>
                             </td>
                             <td class="text-left">
-                                <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editSupplier"><img src="../static/icons/pencil-square.svg" alt=""> Edit</button>
+                                <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
                             </td>
                         </tr>
                     

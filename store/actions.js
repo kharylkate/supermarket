@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export default {
   addCustomer: (context, customerData) => {
     context.commit("addCustomer", customerData);
@@ -22,5 +24,9 @@ export default {
   selectDelivery({ commit },  delivery ) {
     commit('addSelectedDelivery', delivery)
   return delivery;
-}
+},
+
+  async fetchDelivery_items({ commit }) {
+    const
+  }
 };
