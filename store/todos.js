@@ -102,20 +102,6 @@ const state = {
         {
 
         }
-    ]   
-};
-
-const getters = {
-    allDelivery: (state) => state.delivery_transactions
-};
-
-const actions = {};
-
-const mutations = {};
-
-export default {
-    state,
-    getters,
-    actions,
-    mutations
+    ],
+    todos: []  
 };

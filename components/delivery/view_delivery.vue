@@ -16,16 +16,16 @@
             <!-- <div v-for="item in selectedDelivery" :key="item.id">
               <div>{{item.customerName}}</div>
             </div> -->
-            <div v-if="selectedDelivery">
+            <div >
               <div class="form-row justify-content-center">
                 <div class="container text-center mb-2">
-                  <h5>{{selectedDelivery.supplier}}</h5>
+                  <h5></h5>
                   <small>Some bldg-name, st name, road name, STATE</small>
                 </div>
 
                 <div class="container row mt-3">
-                  <div class="mr-auto">DR No: {{selectedDelivery.drNo}}</div>    
-                  <h6 class="ml-auto">{{selectedDelivery.date}}</h6>    
+                  <div class="mr-auto"></div>    
+                  <h6 class="ml-auto"></h6>    
                 </div>
 
                 <div class="table-responsive">
@@ -36,36 +36,29 @@
                         <th>DESC</th>
                         <th>QTY</th>
                         <th>UNIT PRICE</th>
-                        <!-- <th>AMT</th> -->
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(item,i) in selectedDelivery.deliveries" :key="i">
+
+                      <tr v-for="item in selectedDelivery" :key="item.dt_items_code">
+                        <td>{{item.dr_no}}</td>
                         <td>{{item.barcode}}</td>
-                        <td>{{item.description}}</td>
                         <td>{{item.qty}}</td>
-                        <td>₱{{item.unitcost}}</td>
+                        <td>₱{{item.unit_cost}}</td>
                       </tr>
-                      <tr>
-                          <td></td>
-                          <td></td>
-                          <td>Total: </td>
-                          <td>₱{{selectedDelivery.totalAmt}}</td>
-                      </tr>
-                      
                     </tbody>
                   </table>
+                  <!-- <div class="text-right">
+                    Total: ₱ {{ }}
+                  </div> -->
                 </div>
             </div>
                 
               </div>
-            </div>
-            
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">OK</button>
-              </div>
-              
+            </div>              
+          </div>
+          <div class="modal-footer my-0">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
           
         </div>
@@ -86,14 +79,22 @@ export default {
     computed: {
       ...mapGetters({
         selectedDelivery: "getSelectedDelivery",
-        
-      })
-
+      }),
     },
     created() {
-      const test = this.$store.dispatch("getSelectedDelivery");
-      
+      const dt_items = this.$store.dispatch("getSelectedDelivery");
     }
+    // computed: {
+    //   ...mapGetters({
+    //     selectedDelivery: "getSelectedDelivery",
+        
+    //   })
+
+    // },
+    // created() {
+    //   const test = this.$store.dispatch("getSelectedDelivery");
+      
+    // }
     
 }
 </script>

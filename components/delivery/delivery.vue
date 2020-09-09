@@ -25,22 +25,17 @@
                 </tr>
             </thead>
             <tbody class="list" id="body-bg">
-                <!-- <tr v-for="deliver in delivery" :key="deliver.id">
-                    <td>{{deliver.drNo}}</td>
-                    <td>{{deliver.supplier}}</td>
-                    <td>{{deliver.date}}</td>
-                    <td>₱{{deliver.totalAmt}}</td> -->
-                    <tr v-for="delivery in allDelivery" :key="delivery.dtransactions_code">
-                        <td>{{delivery.dr_no}}</td>
-                        <td>{{delivery.supplier_code}}</td>
-                        <td>{{delivery.dtransaction_date}}</td>
-                        <td>{{delivery.total_cost}}</td>
-                    
-                    <!-- <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(deliver)"><img src="../../static/icons/eye.svg" alt=""></button> <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td> -->
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(deliver.dr_no)"><img src="../../static/icons/eye.svg" alt=""></button> <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td>
+
+                <tr v-for="dt in delivery_transactions" :key="dt.dtransactions_code">
+                    <td>{{dt.dr_no}}</td>
+                    <td>{{dt.supplier_code}}</td>
+                    <td>{{dt.dtransaction_date}}</td>
+                    <td>₱{{dt.total_cost}}</td>
+                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button> <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td>
                 </tr>
             </tbody>
             </table>
+
         </div>
     </div>
 </template>
@@ -52,20 +47,21 @@ import {mapGetters} from 'vuex';
 
 export default {
     name: 'delivery',
-    computed: {
-        ...mapGetters([
-            'delivery'
-        ]),
-        ...mapGetters(['allDelivery'])
-    },
     methods: {
        ...mapActions(['selectDelivery']),
-      select(deliver) {
+      select(dt) {
         this.selectDelivery({
-          ...deliver
+          ...dt
         })
       }
+    },
+    computed: {
+        ...mapGetters([
+            'delivery',
+            'delivery_transactions'
+        ])
     }
+    
 }
 </script>
 

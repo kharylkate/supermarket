@@ -104,10 +104,10 @@ export default {
     computed: {
       ...mapGetters({
         selectedTransaction: "getSelectedTransaction",
-        
       }),
 
     },
+    
     created() {
       const test = this.$store.dispatch("getSelectedTransaction");
       

@@ -17,12 +17,12 @@
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_no">Delivery Receipt Number: </label>
-                  <input type="number" class="form-control form__orNo" id="input_rtransaction_no">
+                  <input type="number" class="form-control form__orNo" placeholder="1654325" id="input_rtransaction_no">
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
                   <label for="">Suppliers: </label>
-                  <div class="">                     
+                  <div class="border rounded-sm">                     
                     <button type="button border-secondary" class="form-control btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Suppliers
                     </button>
@@ -44,35 +44,43 @@
               <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                     <label for="">Delivery Transaction Items:</label>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                    <button type="button" class="btn btn-sm lg-btn btn_rtrans text-white" data-toggle="modal" id="btn_rtransaction_add" data-target="#addItemToInventory">
+                    <button type="button" class="btn btn-sm lg-btn btn_rtrans text-white" id="btn_rtransaction_add" @click="addRow">
                         Add Items
                     </button>
                     </div>
                 </div>
               <div class="card">
                 
-                <div class="form-row d-flex col-md-12 my-2">
-                  <div class="form-group col-md-3">
-                    <label for="form__barcode">Barcode:</label>
-                    <input type="text" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode">
+                <ul>
+                  <li v-for="(row, index) in rows" :key="index.id">
+                  <div class="form-row d-flex col-md-12 mt-2">
+                    <div class="form-group col-md-3">
+                      <label for="form__barcode">Barcode:</label>
+                      <input type="text" v-model="row.barcode" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode">
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="form__description">Product Description:</label>
+                      <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="form__qty">Quantity:</label>
+                      <input type="text" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="form__unitcost">Cost Per Unit:</label>
+                      <input type="text" v-model="row.unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                    </div>
+                    <div class='form-group col-md-1'>
+                      <label for="">Action:</label>
+                      <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
+                    </div>
+                    <!-- <div class="form-group col-md-1">
+                      <label for="">Action:</label>
+                      <button class="btn btn-danger" type="button" v-on:click="remooove()" id="Action">Remove</button>
+                    </div> -->
                   </div>
-                  <div class="form-group col-md-3">
-                    <label for="form__description">Product Description:</label>
-                    <input type="text" class="form-control form__description" placeholder="Product Description">
-                  </div>
-                  <div class="form-group col-md-2">
-                    <label for="form__qty">Quantity:</label>
-                    <input type="text" class="form-control form__qty" placeholder="Quantity">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="form__unitcost">Cost Per Unit:</label>
-                    <input type="text" class="form-control form__unitcost" placeholder="Cost Per Unit">
-                  </div>
-                  <div class="form-group col-md-1">
-                    <label for="">Action:</label>
-                    <button class="btn btn-danger" id="Action">Remove</button>
-                  </div>
-                </div>
+                </li>
+                </ul>
               </div>
 
               <div class="form-row">
@@ -106,102 +114,66 @@ export default {
         'inventory'
       ])
        
+    },
+    data() {
+      // return {
+      //   samp: 0
+      // },
+      return {
+        rows: [{
+          barcode: "",
+          description: "",
+          qty: "",
+          unitcost: ""
+        }]
+      }
+    },
+    methods: {
+      addRow: function() {
+        var elem = document.createElement('li');
+        this.rows.push({
+          barcode: "",
+          description: "",
+          qty: "",
+          unitcost: ""
+        });
+      },
+      removeElement: function(index){
+        this.rows.splice(index,1)
+      },
+      // fields() {
+      //     this.samp = this.samp + 1;
+      //     console.log(this.samp);
+      //    $("ul").append(Vue.compile(`<li id='s`+ this.samp +`'>
+      //     <div class='form-row d-flex col-md-12 my-0' >
+      //     <div class='form-group col-md-3'>
+      //       <input type='text' v-model="row.barcode" class='form-control form__barcode' placeholder='barcode' id='rtransaction_barcode'>
+      //     </div>
+      //     <div class='form-group col-md-3'>
+      //       <input type='text' v-model="row.description" class='form-control form__description' placeholder='Product Description'>
+      //     </div>
+      //     <div class='form-group col-md-2'>
+      //       <input type='text' v-model="row.qty" class='form-control form__qty' placeholder='Quantity'>
+      //     </div>
+      //     <div class='form-group col-md-3'>
+      //       <input type='text' v-model="row.unitcost" class='form-control form__unitcost' placeholder='Cost Per Unit'>
+      //     </div>
+      //     <div class='form-group col-md-1'>
+      //       <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
+      //     </div>
+      //   </div>
+      //    </li>`));
+      // },
+      remooove() {
+        console.log('asasa')
+        
+        // document.getElementById("s"+val).remove();
+      }
     }
+    
 
   
 }
 
 
-</script>
-
-<script>
-$('.btn_rtrans').click(function(e){
-  e.preventDefault();
-  console.log('1')
-  // thisElement = document.getElementById('rtransaction_barcode');
-  // console.log('2')
-  // container.appendChild(thisElement)
-  // console.log('3')
-})
-
-
-// function clickMe(id){
-//   var thisElement = document.getElementById('#rtransaction_barcode');
-//   container.appendChild(thisElement);
-// }
-
-$('.btn-number').click(function(e){
-    e.preventDefault();
-    
-    fieldName = $(this).attr('data-field');
-    type      = $(this).attr('data-type');
-    var input = $("input[name='"+fieldName+"']");
-    var currentVal = parseInt(input.val());
-    if (!isNaN(currentVal)) {
-        if(type == 'minus') {
-            
-            if(currentVal > input.attr('min')) {
-                input.val(currentVal - 1).change();
-            } 
-            if(parseInt(input.val()) == input.attr('min')) {
-                $(this).attr('disabled', true);
-            }
-
-        } else if(type == 'plus') {
-
-            if(currentVal < input.attr('max')) {
-                input.val(currentVal + 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('max')) {
-                $(this).attr('disabled', true);
-            }
-
-        }
-    } else {
-        input.val(0);
-    }
-  });
-
-    $('.input-number').focusin(function(){
-      $(this).data('oldValue', $(this).val());
-    });
-
-    $('.input-number').change(function() {
-        
-      minValue =  parseInt($(this).attr('min'));
-      maxValue =  parseInt($(this).attr('max'));
-      valueCurrent = parseInt($(this).val());
-      
-      name = $(this).attr('name');
-      if(valueCurrent >= minValue) {
-          $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-      } else {
-          alert('Sorry, the minimum value was reached');
-          $(this).val($(this).data('oldValue'));
-      }
-      if(valueCurrent <= maxValue) {
-          $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-      } else {
-          alert('Sorry, the maximum value was reached');
-          $(this).val($(this).data('oldValue'));
-      }
-        
-    });
-
-  $(".input-number").keydown(function (e) {
-          // Allow: backspace, delete, tab, escape, enter and .
-          if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-              // Allow: Ctrl+A
-              (e.keyCode == 65 && e.ctrlKey === true) || 
-              // Allow: home, end, left, right
-              (e.keyCode >= 35 && e.keyCode <= 39)) {
-                  // let it happen, don't do anything
-                  return;
-          }
-          // Ensure that it is a number and stop the keypress
-          if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-              e.preventDefault();
-          }
-      });
-    
 </script>

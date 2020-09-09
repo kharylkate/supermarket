@@ -22,6 +22,7 @@ export default {
         })
         return count;
     },
+    delivery_transactions: state => state.delivery_transactions,
     // suppliers
     suppliers: state => {
         return state.suppliers
@@ -61,14 +62,15 @@ export default {
     },
 
     getSelectedTransaction: state => {
-        //console.log(state.selectedTransaction)
         return state.selectedTransaction;
     },
 
     getSelectedDelivery: state => {
-        return state.selectedDelivery;
+        const id = state.selectedDelivery;
+        //var found = state.dt_items.filter(dt_items => dt_items.dr_no === id)
+        //console.log(found)
+        return (state.dt_items.filter(dt_items => dt_items.dr_no === id));
     },
 
-    // delivery_transactions
-    allDelivery: (state) => state.delivery_transactions
+
 }

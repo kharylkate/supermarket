@@ -65,13 +65,6 @@ export default {
         })
       }
     }
-        
-    
-    // data(){
-    //     return {
-    //         salesItem:['alphabet', 'numbers']
-    //     }
-    // }
 }
 
 </script>

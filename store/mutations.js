@@ -40,9 +40,13 @@ export default {
         state.selectedTransaction = transaction;
     },
 
-    addSelectedDelivery: (state, delivery) => {
-        state.selectedDelivery = delivery;
+    addSelectedDelivery: (state, dr_no) => {
+        state.selectedDelivery = dr_no;
     }
+
+    // addSelectedDelivery: (state, delivery) => {
+    //     state.selectedDelivery = delivery;
+    // }
 
 
 

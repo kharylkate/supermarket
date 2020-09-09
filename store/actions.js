@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 
 export default {
   addCustomer: (context, customerData) => {
@@ -21,12 +21,15 @@ export default {
     return transaction;
   },
 
-  selectDelivery({ commit },  delivery ) {
-    commit('addSelectedDelivery', delivery)
-  return delivery;
-},
-
-  async fetchDelivery_items({ commit }) {
-    const
+  selectDelivery({ commit }, dt ) {
+      commit('addSelectedDelivery', dt.dr_no)
+    return dt.dr_no;
   }
+
+
+
+//   selectDelivery({ commit },  delivery ) {
+//     commit('addSelectedDelivery', delivery)
+//   return delivery;
+// }
 };
