@@ -3,7 +3,7 @@
           
         <div class="container text-center">
             <img class="avatar mt-3 mx-3 rounded-pill" src="../static/Untitled design.png" alt="" width="130" height="150">
-            <p class="mt-3 mb-3 text-center">Welcome,  <b>Maximus</b></p>
+            <p class="mt-3 mb-3 text-center">Welcome,  <b>{{username}}</b></p>
         </div>
         <hr>
 
@@ -15,7 +15,7 @@
         </div>  
 
         <div class="sidebar-sticky pt-3 sidebarNav" >
-            <div class="accordion" id="accordionExample">
+            <div v-if="role_name === 'admin'" class="accordion" id="accordionExample">
                 <div class="">
                     <div class="button" id="headingOne">
                         <span class="inactive-link nav-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -54,20 +54,36 @@
                     </div>
 
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="mx-3 my-0">
-                        <a href="/delivery" class="">
-                            <span class="inactive-link nav-link">Delivery Transactions</span>
-                        </a>
-                    </div>
-                    <div class="mx-3 my-0">
-                        <a href="/sales" class="">
-                            <span class="inactive-link nav-link">Sales Transactions</span>
-                        </a>
-                    </div>
+                        <div class="mx-3 my-0">
+                            <a href="/delivery" class="">
+                                <span class="inactive-link nav-link">Delivery Transactions</span>
+                            </a>
+                        </div>
+                        <div class="mx-3 my-0">
+                            <a href="/sales" class="">
+                                <span class="inactive-link nav-link">Sales Transactions</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                
+
             </div>
+            <div v-if="role_name === 'custodian'">
+                <div class="mx-3 my-0">
+                    <a href="/delivery" class="">
+                        <span class="inactive-link nav-link">Delivery Transactions</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div v-if="role_name === 'cashier'">
+                <div class="mx-3 my-0">
+                    <a href="/cashier_sales" class="">
+                        <span class="inactive-link nav-link">Sales Transactions</span>
+                    </a>
+                </div>
+            </div>
+            
         </div>
 
     </nav>
@@ -75,14 +91,55 @@
 
 <script>
 export default {
-    head(){
-        return{
-        script:[
-        { src: 'script_filterSearch.js'}
-        ],
+    name: "sidebar",
+    data() {
+        return {
+            role_name: "admin",
+            username: "Maximus"
         }
     },
+    computed: {
 
-    name: "sidebar"
+    },
+    methods: {
+        filterTable(){
+            'use strict';
+ 
+            var TableFilter = (function(Arr) {
+        
+                var _input;
+        
+                function _onInputEvent(e) {
+                _input = e.target;
+                var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                Arr.forEach.call(tables, function(table) {
+                Arr.forEach.call(table.tBodies, function(tbody) {
+                Arr.forEach.call(tbody.rows, _filter);
+                });
+                });
+                }
+        
+                function _filter(row) {
+                var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+                }
+        
+                return {
+                init: function() {
+                var inputs = document.getElementsByClassName('search-filter');
+                Arr.forEach.call(inputs, function(input) {
+                input.oninput = _onInputEvent;
+                });
+                }
+                };
+            })(Array.prototype);
+        
+            document.addEventListener('readystatechange', function() {
+                if (document.readyState === 'complete') {
+                TableFilter.init();
+                }
+            });
+        }
+    }
 }
 </script>
