@@ -18,7 +18,12 @@
                   <img class="" src="../../static/box.png" alt="" width="130" height="100">
                 </div>
               </div>
-              
+
+              <!-- <div class="form-group col-md-8">
+                <label for="supplier_code">Supplier Code: </label>
+                <input type="text" class="form-control" id="supplier_code" placeholder="Enter Supplier Code" autocomplete="off" required>
+              </div> -->
+
               <div class="form-group col-md-8">
                 <label for="compname">Company Name: </label>
                 <input type="text" v-model="compName" class="form-control" id="compname" placeholder="Enter Company Name" autocomplete="off" required>

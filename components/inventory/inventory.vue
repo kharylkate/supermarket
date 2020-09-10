@@ -28,9 +28,9 @@
                 <tr v-for="item in inventory" :key="item.id">
                     <!-- <td>{{item.drNo}}</td> -->
                     <td>{{item.barcode}}</td>
-                    <td>{{item.description}}</td>
+                    <td>{{item.product_description}}</td>
                     <td>{{item.qty}}</td>
-                    <td>{{item.unitcost}}</td>
+                    <td>₱{{item.unit_cost}}</td>
                     <!-- <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../static/icons/pencil-square.svg" alt=""> Edit</button></td> -->
                 </tr>
             </tbody>

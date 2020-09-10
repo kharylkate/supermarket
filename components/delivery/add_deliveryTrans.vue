@@ -140,34 +140,6 @@ export default {
       },
       removeElement: function(index){
         this.rows.splice(index,1)
-      },
-      // fields() {
-      //     this.samp = this.samp + 1;
-      //     console.log(this.samp);
-      //    $("ul").append(Vue.compile(`<li id='s`+ this.samp +`'>
-      //     <div class='form-row d-flex col-md-12 my-0' >
-      //     <div class='form-group col-md-3'>
-      //       <input type='text' v-model="row.barcode" class='form-control form__barcode' placeholder='barcode' id='rtransaction_barcode'>
-      //     </div>
-      //     <div class='form-group col-md-3'>
-      //       <input type='text' v-model="row.description" class='form-control form__description' placeholder='Product Description'>
-      //     </div>
-      //     <div class='form-group col-md-2'>
-      //       <input type='text' v-model="row.qty" class='form-control form__qty' placeholder='Quantity'>
-      //     </div>
-      //     <div class='form-group col-md-3'>
-      //       <input type='text' v-model="row.unitcost" class='form-control form__unitcost' placeholder='Cost Per Unit'>
-      //     </div>
-      //     <div class='form-group col-md-1'>
-      //       <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
-      //     </div>
-      //   </div>
-      //    </li>`));
-      // },
-      remooove() {
-        console.log('asasa')
-        
-        // document.getElementById("s"+val).remove();
       }
     }
     

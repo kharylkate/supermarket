@@ -61,15 +61,21 @@ export default {
         return j
     },
 
+    //roles
+    rolesList(state) {
+        return state.rolesList;
+    },
+
     getSelectedTransaction: state => {
         return state.selectedTransaction;
     },
 
     getSelectedDelivery: state => {
         const id = state.selectedDelivery;
-        //var found = state.dt_items.filter(dt_items => dt_items.dr_no === id)
-        //console.log(found)
-        return (state.dt_items.filter(dt_items => dt_items.dr_no === id));
+        return (state.delivery_transactions_items.filter(
+            delivery_transactions_items =>
+            delivery_transactions_items.dr_no === id
+            ));
     },
 
 

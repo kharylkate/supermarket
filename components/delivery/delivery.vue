@@ -28,7 +28,7 @@
 
                 <tr v-for="dt in delivery_transactions" :key="dt.dtransactions_code">
                     <td>{{dt.dr_no}}</td>
-                    <td>{{dt.supplier_code}}</td>
+                    <td>{{dt.supplier_id}}</td>
                     <td>{{dt.dtransaction_date}}</td>
                     <td>₱{{dt.total_cost}}</td>
                     <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button> <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td>

@@ -1,24 +1,38 @@
 <template>
     <div class="login">
         <div class="container">
-        <div class="card">
-            <h1 class="text-center">LOGIN</h1>
-            <div>
-                <label for="username">Username: </label>
-                <input type="text" class="form-control" placeholder="Username">
-            </div>
-            <div>
-                <label for="password">password: </label>
-                <input type="password" class="form-control" placeholder="Password">
+            <div class="card">
+                <form action="" @submit="login()">
+                    <h1 class="text-center">LOGIN</h1>
+                    <div>
+                        <label for="username">Username: </label>
+                        <input type="text" v-model="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div>
+                        <label for="password">password: </label>
+                        <input type="password" v-model="password" class="form-control" placeholder="Password" required>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-    
+    name: 'login-form',
+    components: {
+
+    },
+    data(){
+        return {
+
+            username: "",
+            password: ""
+        }
+    }
 }
 </script>
 

@@ -42,11 +42,23 @@ export default {
 
     addSelectedDelivery: (state, dr_no) => {
         state.selectedDelivery = dr_no;
-    }
+    },
 
     // addSelectedDelivery: (state, delivery) => {
     //     state.selectedDelivery = delivery;
     // }
+
+
+    // =======================================================
+
+    setRolesList(state, data){
+        state.rolesList = data;
+    },
+
+    addRole(state, role_name){
+        console.log('hehe',role_name)
+        state.rolesList.unshift(role_name)
+    },
 
 
 
