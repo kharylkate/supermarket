@@ -385,6 +385,8 @@ export default {
 
   deliveryList: [],
 
+  salesList: [],
+
   selectedRole: {}
 
 };
