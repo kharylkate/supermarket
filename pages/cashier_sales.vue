@@ -7,8 +7,6 @@
                 <customers />
             </div>
             <div>
-                <addCustomer />
-                <editCustomer />
             </div>
         </div>
     </div>
@@ -17,9 +15,7 @@
 <script>
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
-import customers from '../components/customer/cashier';
-import addCustomer from '../components/customer/add_customer'
-import editCustomer from '../components/customer/edit_customer'
+import customers from '../components/cashier/cashier';
 
 export default {
     name: 'customers-body',
@@ -27,8 +23,6 @@ export default {
         navbar,
         'navbarCollapse': navbarCollapse,
         'customers': customers,
-        'addCustomer': addCustomer,
-        'editCustomer': editCustomer, 
     }
 }
 </script>

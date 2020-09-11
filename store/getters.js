@@ -61,6 +61,9 @@ export default {
         return j
     },
 
+
+    // =====================================================
+
     //roles
     rolesList(state) {
         return state.rolesList;
@@ -76,6 +79,10 @@ export default {
 
     suppliersList(state) {
         return state.suppliersList;
+    },
+
+    deliveryList(state) {
+        return state.deliveryList;
     },
 
     getSelectedTransaction: state => {

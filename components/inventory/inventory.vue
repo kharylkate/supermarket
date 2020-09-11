@@ -1,5 +1,5 @@
 <template>
-    <div id="inventory" role="main" class="main-content col-md-9 ml-sm-auto col-lg-10 px-md-4 bg-light">
+    <div id="inventorypage" role="main" class="main-content col-md-9 ml-sm-auto col-lg-10 px-md-4 bg-light">
         <div>
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Inventory</h4>
@@ -53,22 +53,22 @@
                 
                 <div class="form-group col-md-8">
                   <label for="edit_barcode">Barcode: </label>
-                  <input type="number" v-model="item.barcode" class="form-control" id="edit_barcode" value="" disabled>
+                  <input type="number" v-model="inventory.barcode" class="form-control" id="edit_barcode" value="" disabled>
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_name">Product Description: </label>
-                  <input type="text" v-model="item.product_description" class="form-control" id="edit_name" value="">
+                  <input type="text" v-model="inventory.product_description" class="form-control" id="edit_name" value="">
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_qty">Quantity: </label>
-                  <input type="number" v-model="item.quantity" class="form-control" id="edit_qty" value="" disabled>
+                  <input type="number" v-model="inventory.quantity" class="form-control" id="edit_qty" value="" disabled>
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_cpu">Cost Per Unit: </label>
-                  <input type="number" v-model="item.unit_cost" class="form-control" id="edit_cpu" value="" disabled>
+                  <input type="number" v-model="inventory.unit_cost" class="form-control" id="edit_cpu" value="" disabled>
                 </div>
 
               
@@ -95,8 +95,8 @@ export default {
     name: 'inventory',
     data() {
         return {
-        item: {},
-        };
+        inventory: {},
+        }
     },
     computed: {
         ...mapGetters({
@@ -104,11 +104,22 @@ export default {
         })
     },
     methods: {
-        select(item) {
-            console.log(item);
+        select(inventory) {
+            console.log(inventory);
 
-            this.item = { ...item };
+            this.inventory = { ...inventory };
         },
+        update(){
+          console.log('clicked', this.inventory)
+          this.$store.dispatch("updateInventory", {
+              inventory: this.inventory,
+          })
+          .then((result) => {
+              console.log(result)
+              alert(result)
+              window.location.reload();
+          })
+        }
     },
     async beforeCreate() {
         await this.$store.dispatch("fetchInventoryList")

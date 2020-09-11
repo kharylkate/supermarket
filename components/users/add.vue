@@ -12,16 +12,10 @@
             <div class="modal-body">
               <form action="" id="add_User_form">
                 <div class="form-row justify-content-center">
-                  
-                  <!-- <div class="container text-center mt-3 mb-3">
-                    <div class="">
-                      <img class="" src="../../static/box.png" alt="" width="130" height="100">
-                    </div>
-                  </div> -->
 
                   <div class="form-group col-md-8">
                     <label for="compname">Employee Code: </label>
-                    <input type="number" v-model="user.empcode" class="form-control" id="compname" placeholder="Enter Employee Code" autocomplete="off" required>
+                    <input type="number" v-model="user.employee_code" class="form-control" id="compname" placeholder="Enter Employee Code" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
@@ -32,13 +26,13 @@
                   <div class="form-group col-md-8">
                     <label for="compadd">Role </label>
                     <select class="form-control" name="" id="" v-model="user.role_id">
-                      <option hidden>Select Role</option>
-                      <option v-for="role in rolesList" :key="role.id" value="">{{role.role_name}}</option>
+                      <option selected="selected" hidden>Select Role</option>
+                      <option v-for="role in rolesList" :key="role.id" v-bind:value="role.role_id">{{role.role_name}}</option>
                     </select>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="itemcancel">Cancel</button>
+                  <button type="button" class="btn btn-secondary " data-dismiss="modal" id="itemcancel">Cancel</button>
                   <button type="button" @click="addUser()" class="btn btn-primary">OK</button>
                 </div>
                 <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
@@ -78,7 +72,7 @@ export default {
         .then((result) => {
           if(result){
             $("#addUser").hide();
-            //window.location.reload();
+            window.location.reload();
           }
         })
       }

@@ -34,14 +34,16 @@
                         </div>
                       </div>
                       <div class="dropdown-divider"></div>
-                        <div class="dropdown-item"><a href="">hakdog</a></div>
-                        <div class="dropdown-item"><a href="">cheezeballs</a></div>
+                        <div class="dropdown-item" v-for="supplier in suppliersList" :key="supplier.id">
+                          {{supplier.company_name}}
+                        </div>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
+                {{suppliersList}}
                     <label for="">Delivery Transaction Items:</label>
                     <div class="btn-toolbar mb-2 mb-md-0">
                     <button type="button" class="btn btn-sm lg-btn btn_rtrans text-white" id="btn_rtransaction_add" @click="addRow">
@@ -52,26 +54,40 @@
               <div class="card">
                 
                 <ul>
+                  <li>
+                      <div class="form-row d-flex col-md-12 mt-2">
+                        <div class="form-group col-md-3">
+                          <label for="form__barcode">Barcode:</label>
+                        </div>
+                        <div class="form-group col-md-3">
+                          <label for="form__description">Product Description:</label>
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="form__qty">Quantity:</label>
+                        </div>
+                        <div class="form-group col-md-3">
+                          <label for="form__unitcost">Cost Per Unit:</label>
+                        </div>
+                        <div class='form-group col-md-1'>
+                          <label for="">Action:</label>
+                        </div>
+                      </div>
+                  </li>
                   <li v-for="(row, index) in rows" :key="index.id">
-                  <div class="form-row d-flex col-md-12 mt-2">
+                  <div class="form-row d-flex col-md-12 mt-0">
                     <div class="form-group col-md-3">
-                      <label for="form__barcode">Barcode:</label>
                       <input type="text" v-model="row.barcode" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode">
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="form__description">Product Description:</label>
                       <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description">
                     </div>
                     <div class="form-group col-md-2">
-                      <label for="form__qty">Quantity:</label>
                       <input type="text" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="form__unitcost">Cost Per Unit:</label>
                       <input type="text" v-model="row.unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
                     </div>
                     <div class='form-group col-md-1'>
-                      <label for="">Action:</label>
                       <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
                     </div>
                     <!-- <div class="form-group col-md-1">
@@ -84,6 +100,7 @@
               </div>
 
               <div class="form-row">
+                {{inventoryList}}
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
                   <input type="text" class="form-control form__totalAmt text-right" placeholder="Total Amount">
@@ -109,11 +126,11 @@ import {mapGetters} from 'vuex';
 
 export default {
     name: 'modal-addDelTrans',
-    components: {
-      ...mapGetters([
-        'inventory'
-      ])
-       
+    computed: {
+      ...mapGetters({
+        suppliersList: 'suppliersList',
+        inventoryList: 'inventoryList'
+      }),
     },
     data() {
       // return {
@@ -141,10 +158,14 @@ export default {
       removeElement: function(index){
         this.rows.splice(index,1)
       }
+    },
+    created(){
+      console.log('hilu',this.inventoryList)
+    },
+    async breforeCreate(){
+      await this.$store.dispatch("fetchSuppliersList", "fetchInventoryList")
     }
     
-
-  
 }
 
 

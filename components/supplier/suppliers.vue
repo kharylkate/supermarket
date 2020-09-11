@@ -128,19 +128,18 @@ export default {
     methods: {
         select(supplier){
             console.log(supplier)
-            this.supplier = {...supplier}
-                
+            this.supplier = {...supplier}    
         },
         update(){
-            console.log('clicked', this.supplier)
-            this.$store.dispatch("updateSupplier", {
-                supplier: this.supplier,
-            })
-            .then((result) => {
-                console.log(result)
-                alert(result)
-                window.location.reload();
-            })
+          console.log('clicked', this.supplier)
+          this.$store.dispatch("updateSupplier", {
+              supplier: this.supplier,
+          })
+          .then((result) => {
+              console.log(result)
+              alert(result)
+              window.location.reload();
+          })
         }
     },
     async beforeCreate() {

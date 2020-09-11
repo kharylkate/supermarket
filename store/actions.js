@@ -63,7 +63,6 @@ export default {
   },
 
   selectRole({ commit }, role) {
-    //console.log('ayo GG', role)
     commit('addSelectedRole', role)
     return role;
   },
@@ -104,17 +103,26 @@ export default {
   },
 
   async addUser({ commit }, { user }) {
+    var today = new Date();
+    var arr = user
+    var myObj = {
+      'created_at': today,
+      'created_by': localStorage.username
+    }
+
+    console.log('@user: ',user)
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/user/add`,
       header: {
         "Content-Type": "application/json"
       },
-      data: { user },
+      data: { ...user },
     })
     .then(result => {
-      console.log('hihi',result)
-      commit("addUser", result.data);
+      console.log('hihi',result.data)
+      console.log(user)
+      commit("addUser", user);
       return result.data;
     })
     .catch(err => err);
@@ -129,6 +137,7 @@ export default {
     })
     .then(result => {
       // console.log("eyy", result)
+      console.log(result);
       commit("setInventoryList", result.data);
       return result.data;
     })
@@ -149,6 +158,25 @@ export default {
       return result.data;
     })
     .catch( err => err);
+  },
+
+  async addSupplier({ commit }, { supplier }) {
+    console.log('@supplier data: ',supplier)
+    return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/supplier/add`,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...supplier },
+    })
+    .then(result => {
+      console.log('hihi',result.data)
+      console.log(supplier)
+      commit("addSupplier", supplier);
+      return result.data;
+    })
+    .catch(err => err);
   },
 
   async updateSupplier({ commit }, { supplier }) {
@@ -172,4 +200,41 @@ export default {
     .catch(err => err);
   },
 
+
+  async fetchDTransactionsList ({ commit }) {
+    return await axios({
+      method: "GET",
+      url: `${this.$axios.defaults.baseURL}/delivery`,
+      headers: {},
+      data: {},
+    })
+    .then(result => {
+      // console.log("eyy", result)
+      commit("setDTransactionsList", result.data);
+      return result.data;
+    })
+    .catch( err => err);
+  },
+
+
+
+
+  async updateInventory({ commit }, { inventory }) {
+    console.log('@actions: ', inventory.inventory_code)
+    return await axios({
+      method: "PUT",
+      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.inventory_code,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...inventory },
+      
+    })
+    .then(result => {
+      console.log('hihi',inventory)
+      commit("updateInventory", inventory);
+      return result.data;
+    })
+    .catch(err => err);
+  },
 };

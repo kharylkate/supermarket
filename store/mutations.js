@@ -82,7 +82,8 @@ export default {
     },
 
     addUser(state, data){
-        state.userList.unshift(data)
+        console.log('@mutation: ',data);
+        state.userList.push(data)
     },
 
     addSelectedRole(state, role) {
@@ -102,6 +103,11 @@ export default {
         state.suppliersList = data;
     },
 
+    addSupplier(state, data){
+        console.log('@mutation: ',data);
+        state.suppliersList.push(data)
+    },
+
     updateSupplier(state, data){
         console.log('@mutation: ', data)
         const index = state.suppliersList.findIndex(
@@ -110,4 +116,19 @@ export default {
             }
         )
     },
+
+    updateInventory(state, data){
+        console.log('@mutation: ', data)
+        const index = state.inventoryList.findIndex(
+            inventoryList => {
+                inventoryList.inventory_code = data.inventory_code
+            }
+        )
+    },
+
+
+
+    setDTransactionsList(state, data) {
+        state.deliveryList = data;
+    }
 }

@@ -118,8 +118,8 @@ export default {
             role: this.role,
       })
       .then((result) => {
-        console.log(result)
-        alert(result)
+        // console.log(result)
+        // alert(result)
         window.location.reload();
         })
      }

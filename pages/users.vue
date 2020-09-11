@@ -19,7 +19,6 @@
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
 import users from '../components/users/users';
-import viewUsers from '../components/users/users';
 import addUser from '../components/users/add'
 import editUser from '../components/users/edit'
 
@@ -29,7 +28,6 @@ export default {
         navbar,
         'navbarCollapse': navbarCollapse,
         'users': users,
-        'viewUsers': viewUsers,
         'addUser': addUser,
         'editUser': editUser
     }

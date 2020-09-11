@@ -40,6 +40,8 @@ export default {
   methods: {
     login(){
       localStorage.username = this.username;
+      localStorage.role_name = 'admin';
+      
       window.location.href = 'inventory'
     }
     //  async login() {

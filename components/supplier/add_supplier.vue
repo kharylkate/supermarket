@@ -21,18 +21,22 @@
               
               <div class="form-group col-md-8">
                 <label for="compname">Company Name: </label>
-                <input type="text" v-model="compName" class="form-control" id="compname" placeholder="Enter Company Name" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_name" class="form-control" id="compname" placeholder="Enter Company Name" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="contactno">Contact Number: </label>
-                <input type="number" v-model="contactno" class="form-control" id="contactno" placeholder="Enter Contact Number" autocomplete="off" required>
+                <input type="number" v-model="supplier.contact_no" class="form-control" id="contactno" placeholder="Enter Contact Number" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="compadd">Company Address: </label>
-                <input type="text" v-model="compAddress" class="form-control" id="compadd" placeholder="Enter Company Address" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_address" class="form-control" id="compadd" placeholder="Enter Company Address" autocomplete="off" required>
               </div>
+
+              <input type="hidden" v-model="supplier.created_at" value="today">
+              <input type="hidden" v-model="supplier.status" value="1">
+              <input type="hidden" v-model="supplier.created_by" value="154151757">
               
             </div>
             <div class="modal-footer">
@@ -57,28 +61,30 @@ export default {
     },
     data(){
       return {
-        code: "12345683",
-        compName: "",
-        contactno: "",
-        compAddress: "",
-        status: "active"
+        supplier: {
+          // company_name: "",
+          // contact_no: "",
+          // company_address: "",
+          // created_by: localStorage.username,
+          // created_at: "today"
+        }
       }
     },
     methods: {
       ...mapActions(['addSupplier']),
       onSubmit(e){
         e.preventDefault();
-        this.addSupplier(
-          {
-            code: this.code, 
-            compName: this.compName, 
-            contactno: this.contactno, 
-            compAddress: this.compAddress, 
-            status: this.status}
-          );
-        console.log('');
-        $('#addSupplier').modal('hide');
-        $('#add_supplier_form')[0].reset();
+        this.$store.dispatch("addSupplier", {
+          supplier: this.supplier 
+        })
+        .then((result) => {
+          if(result){
+            $("#addSupplier").hide();
+            $('#add_supplier_form')[0].reset();
+            window.location.reload();
+          }
+        })
+        
       }
 
     

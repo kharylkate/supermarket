@@ -103,6 +103,7 @@ export default {
     },
     methods: {
         filterTable(){
+
             'use strict';
  
             var TableFilter = (function(Arr) {
