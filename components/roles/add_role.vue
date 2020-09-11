@@ -43,7 +43,7 @@
               <button
                 type="button"
                 class="btn btn-secondary"
-                id="btn-cancel"
+                id="btn-cancelAdd"
                 data-dismiss="modal"
               >
                 Cancel
@@ -70,7 +70,7 @@ export default {
   data() {
     return {
       role_name: ""
-//      created_by: ""
+
     }
   },
   methods: {
@@ -78,14 +78,12 @@ export default {
       this.alert = {
         showAlert: 3,
         dismissSecs: 1,
-
         variant,
         message,
       };
     },
     addRole() {
       console.log('clicked', this.role_name);
-      
       this.$store
       .dispatch("addRole", {
         role_name: this.role_name,
@@ -96,8 +94,10 @@ export default {
           this.showAlert("Success", "success");
           $("#addRole").hide();
           console.log(result)
+          window.location.reload();
         }
       })
+      
     }
   }
 };

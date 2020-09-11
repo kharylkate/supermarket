@@ -28,7 +28,7 @@ export default {
         'navbarCollapse': navbarCollapse,
         'roles': roles,
         'viewRoles': viewRoles,
-        'addRole': addRole
+        'addRole': addRole,
     }
 }
 

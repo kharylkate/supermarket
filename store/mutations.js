@@ -56,12 +56,58 @@ export default {
     },
 
     addRole(state, role_name){
-        console.log('hehe',role_name)
+        //console.log('hehe',role_name)
         state.rolesList.unshift(role_name)
+    },
+
+    updateRole(state, data){
+        
+        console.log('@mutation: ', data)
+        arr = {};
+        arr.push(data.role_id)
+        arr.push(data.role_code)
+        arr.push(data.role_name)
+        const index = state.rolesList.findIndex(
+            rolesList => {
+                rolesList.role_code = arr.role_code
+            }
+        )
+    },
+
+
+
+
+    setUserList(state, data){
+        state.userList = data;
+    },
+
+    addUser(state, data){
+        state.userList.unshift(data)
+    },
+
+    addSelectedRole(state, role) {
+        console.log('@here: ',role)
+        state.selectedRole = role;
     },
 
 
 
 
 
+    setInventoryList(state, data){
+        state.inventoryList = data;
+    },
+
+    setSuppliersList(state, data){
+        state.suppliersList = data;
+    },
+
+    updateSupplier(state, data){
+        console.log('@mutation: ', data)
+        const index = state.suppliersList.findIndex(
+            suppliersList => {
+                suppliersList.supplier_id = data.supplier_id
+            }
+        )
+    },
 }

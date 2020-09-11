@@ -28,18 +28,14 @@
                     </tr>
                     </thead>
                     <tbody class="list">
-                        <tr v-for="supplier in suppliers" :key="supplier.id">
-                            <td>{{supplier.supplier_id}}</td>
-                            <td>{{supplier.compName}}</td>
-                            <td>{{supplier.contactno}}</td>
-                            <td>{{supplier.compAddress}}</td>
-                            <td>
-                                <span class="badge badge-success">
-                                    {{supplier.status}}
-                                </span>
-                            </td>
+                        <tr v-for="supplier in suppliersList" :key="supplier.id">
+                            <td>{{supplier.supplier_code}}</td>
+                            <td>{{supplier.company_name}}</td>
+                            <td>{{supplier.contact_no}}</td>
+                            <td>{{supplier.company_address}}</td>
+                            <td><span class="badge">{{supplier.status}}</span></td>
                             <td class="text-left">
-                                <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
+                                <button id="btn-color" class="btn lg-btn" @click="(select(supplier))" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
                             </td>
                         </tr>
                     
@@ -47,6 +43,68 @@
                 </table>
                 </div>
             </div>
+        </div>
+
+        <div class="modal fade" id="editSupplier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Supplier</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <div class="form-row justify-content-center">
+
+              <div class="form-group col-md-8">
+                <label for="edit_supplier_code">Supplier ID: </label>
+                <input type="text" v-model="supplier.supplier_id" class="form-control" id="edit_supplier_code" autocomplete="off" required>
+              </div>
+
+              <div class="form-group col-md-8">
+                <label for="edit_compname">Company Name: </label>
+                <input type="text" v-model="supplier.company_name" class="form-control" id="edit_compname" autocomplete="off" required>
+              </div>
+
+              <div class="form-group col-md-8">
+                <label for="edit_contactno">Contact Number: </label>
+                <input type="tel" v-model="supplier.contact_no" class="form-control" id="edit_contactno" autocomplete="off" required>
+              </div>
+
+              <div class="form-group col-md-8">
+                <label for="edit_compadd">Company Address: </label>
+                <input type="text" v-model="supplier.company_address" class="form-control" id="edit_compadd" autocomplete="off" required>
+              </div>
+
+              <div class="form-group col-md-8">
+                <label for="edit_compstatus">Status: </label>
+                <select class="form-control" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status">
+                  <option value="1" selected>Active</option>
+                  <option value="0">Inactive</option>
+                </select>
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" @click="update()" class="btn btn-primary">OK</button>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+    <div class="toast">
+        <div class="toast-header">
+            Success
+        </div>
+        <div class="toast-body">
+            <p>Supplier updated successfully</p>
+        </div>
         </div>
     </div>
 </template>
@@ -57,14 +115,43 @@ import {mapGetters} from 'vuex';
 
 export default {
     name: 'suppliers',
+    data() {
+        return {
+            supplier: {}
+        }
+    },
     computed: {
         ...mapGetters([
-            'suppliers'
+            'suppliersList'
         ])
+    },
+    methods: {
+        select(supplier){
+            console.log(supplier)
+            this.supplier = {...supplier}
+                
+        },
+        update(){
+            console.log('clicked', this.supplier)
+            this.$store.dispatch("updateSupplier", {
+                supplier: this.supplier,
+            })
+            .then((result) => {
+                console.log(result)
+                alert(result)
+                window.location.reload();
+            })
+        }
+    },
+    async beforeCreate() {
+        await this.$store.dispatch("fetchSuppliersList")
     }
 }
 </script>
 
 <style scoped>
-
+.toast {
+    margin-top: auto;
+    margin-left: auto
+}
 </style>

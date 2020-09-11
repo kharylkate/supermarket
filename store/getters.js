@@ -66,6 +66,18 @@ export default {
         return state.rolesList;
     },
 
+    userList(state) {
+        return state.userList;
+    },
+
+    inventoryList(state) {
+        return state.inventoryList;
+    },
+
+    suppliersList(state) {
+        return state.suppliersList;
+    },
+
     getSelectedTransaction: state => {
         return state.selectedTransaction;
     },
@@ -76,6 +88,11 @@ export default {
             delivery_transactions_items =>
             delivery_transactions_items.dr_no === id
             ));
+    },
+
+    getSelectedRole: state => {
+        console.log('@here again: ', state.selectedRole)
+        return state.selectedRole;
     },
 
 

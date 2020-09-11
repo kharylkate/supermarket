@@ -375,5 +375,14 @@ export default {
 
   selectedDelivery: null,
 
-  rolesList: []
+  rolesList: [],
+
+  userList: [],
+
+  inventoryList: [],
+
+  suppliersList: [],
+
+  selectedRole: {}
+
 };

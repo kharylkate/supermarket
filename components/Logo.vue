@@ -38,28 +38,30 @@ export default {
     };
   },
   methods: {
-     async login() {
-      console.log("hello")
-      console.log()
-      
-      await axios({
-        method: "GET",
-        url: `${this.$axios.defaults.baseURL}/role`,
-        header: {
-          "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "http://localhost:4630",
-          // "Vary": "Origin"
-        },
-        data: {
-          username: this.username,
-          password: this.password
-        }
-      })
-      .then(result => {
-        console.log(this.username)
-          localStorage.username = this.username
-        });
+    login(){
+      localStorage.username = this.username;
+      window.location.href = 'inventory'
     }
+    //  async login() {
+    //   console.log("hello")    
+    //   await axios({
+    //     method: "GET",
+    //     url: `${this.$axios.defaults.baseURL}/role`,
+    //     header: {
+    //       "Content-Type": "application/json",
+    //       // "Access-Control-Allow-Origin": "http://localhost:4630",
+    //       // "Vary": "Origin"
+    //     },
+    //     data: {
+    //       username: this.username,
+    //       password: this.password
+    //     }
+    //   })
+    //   .then(result => {
+    //     console.log(this.username)
+    //       localStorage.username = this.username
+    //     });
+    // }
   }
 };
 </script>

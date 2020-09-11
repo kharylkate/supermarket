@@ -11,7 +11,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right">
               <button class="dropdown-item" type="button"><a href="profile.html">Profile</a></button>
-              <button class="dropdown-item" type="button"><a href="login.html">Log Out</a></button>
+              <button class="dropdown-item" @click="logout()" type="button">Log Out</button>
             </div>
           </div>
         </div>
@@ -20,7 +20,13 @@
 
 <script>
 export default {
-    name: "navbar"
+    name: "navbar",
+    methods: {
+      logout() {
+        localStorage.clear();
+        window.location.href = '..'
+      }
+    }
     
 }
 </script>
