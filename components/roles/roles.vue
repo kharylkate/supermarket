@@ -22,7 +22,7 @@
           </thead>
           <tbody class="list">
             <tr v-for="role in rolesList" :key="role.id">
-              <td>{{role.role_id}}</td>
+              <td>{{role.role_code}}</td>
               <td>{{role.role_name}}</td>
               <td>
                 <button

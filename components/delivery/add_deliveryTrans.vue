@@ -21,6 +21,14 @@
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
+
+                  <input class="form-control" v-model="suppliers" list="suppliers" name="suppliers">
+                    <datalist id="browsers">
+                      <option>
+                        
+                      </option>
+                    </datalist>
+
                   <label for="">Suppliers: </label>
                   <div class="border rounded-sm">                     
                     <button type="button border-secondary" class="form-control btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -28,14 +36,16 @@
                     </button>
                     <div class="dropdown-menu col-md-12">
                       <div class="input-group px-2">
-                        <input type="text" class="form-control" placeholder="Supplier" aria-label="Supplier" aria-describedby="basic-addon2">
+                        <input type="text" data-table="table-data" @keydown="filtersearch()" class="form-control search-filter" placeholder="Supplier" aria-label="Supplier" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                           <span class="input-group-text" id="basic-addon2"><img src="../../static/icons/search.svg" alt=""></span>
                         </div>
                       </div>
                       <div class="dropdown-divider"></div>
-                        <div class="dropdown-item" v-for="supplier in suppliersList" :key="supplier.id">
-                          {{supplier.company_name}}
+                      <!-- {{suppliersList}} -->
+                        <div class="dropdown-item table-data" >
+                          <li></li>
+                      
                         </div>
                     </div>
                   </div>
@@ -43,7 +53,6 @@
               </div>
 
               <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
-                {{suppliersList}}
                     <label for="">Delivery Transaction Items:</label>
                     <div class="btn-toolbar mb-2 mb-md-0">
                     <button type="button" class="btn btn-sm lg-btn btn_rtrans text-white" id="btn_rtransaction_add" @click="addRow">
@@ -100,7 +109,6 @@
               </div>
 
               <div class="form-row">
-                {{inventoryList}}
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
                   <input type="text" class="form-control form__totalAmt text-right" placeholder="Total Amount">
@@ -133,9 +141,6 @@ export default {
       }),
     },
     data() {
-      // return {
-      //   samp: 0
-      // },
       return {
         rows: [{
           barcode: "",
@@ -157,15 +162,53 @@ export default {
       },
       removeElement: function(index){
         this.rows.splice(index,1)
+      },
+      filtersearch(){
+        'use strict';
+ 
+        var TableFilter = (function(Arr) {
+      
+          var _input;
+      
+          function _onInputEvent(e) {
+          _input = e.target;
+          var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+          Arr.forEach.call(tables, function(table) {
+          Arr.forEach.call(table.tBodies, function(tbody) {
+          Arr.forEach.call(tbody.rows, _filter);
+          });
+          });
+          }
+      
+          function _filter(row) {
+          var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+          row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+          }
+      
+          return {
+          init: function() {
+          var inputs = document.getElementsByClassName('search-filter');
+          Arr.forEach.call(inputs, function(input) {
+          input.oninput = _onInputEvent;
+          });
+          }
+          };
+        })(Array.prototype);
+      
+        document.addEventListener('readystatechange', function() {
+          if (document.readyState === 'complete') {
+          TableFilter.init();
+          }
+        });
       }
     },
     created(){
       console.log('hilu',this.inventoryList)
     },
-    async breforeCreate(){
-      await this.$store.dispatch("fetchSuppliersList", "fetchInventoryList")
+    async beforeCreate(){
+      await this.$store.dispatch("fetchSuppliersList")
+      await this.$store.dispatch("fetchInventoryList")
     }
-    
 }
 
 

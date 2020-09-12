@@ -153,7 +153,8 @@ export default {
       data: {},
     })
     .then(result => {
-      // console.log("eyy", result)
+      // console.log("eyy", result)\
+      console.log(result.data)
       commit("setSuppliersList", result.data);
       return result.data;
     })
