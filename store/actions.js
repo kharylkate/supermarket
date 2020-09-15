@@ -6,9 +6,15 @@ export default {
     return supplierData;
   },
 
-  addRole: (context, roleData) => {
-    context.commit("addRole", roleData);
-    return roleData;
+  addRole: (context, role_name) => {
+    context.commit("addRole", role_name);
+    return role_name;
+  },
+
+  updateRole({commit}, role_name) {
+    console.log('action.js: ', role_name);
+    commit("updateRole", role_name);
+    return role_name
   },
 
   addUser({commit}, { user }) {
@@ -36,12 +42,12 @@ export default {
     return dt;
   },
 
-  async updateRole({ commit }, { role }) {
-    console.log('@actions: ', role.role_name)
-      commit("updateRole", role);
-      return role
+  // async updateRole({ commit }, { role }) {
+  //   console.log('@actions: ', role.role_name)
+  //     commit("updateRole", role);
+  //     return role
     
-  },
+  // },
 
   // async fetchRolesList( {commit} ) {
   //   commit("setRolesList")

@@ -48,7 +48,7 @@
               >
                 Cancel
               </button>
-              <button type="button" @click="addRole()" class="btn btn-primary">OK</button>
+              <button type="button" @click="add()" class="btn btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -64,41 +64,39 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "modal-addRole",
-  components: {
-    
-  },
   data() {
     return {
       role_name: ""
-
     }
   },
   methods: {
-    showAlert(message, variant) {
-      this.alert = {
-        showAlert: 3,
-        dismissSecs: 1,
-        variant,
-        message,
-      };
+    ...mapActions(['addRole']),
+    add(){
+      this.addRole({
+        role_name: this.role_name
+      })
+
+      $("#addRole").modal('hide');
+      $("#add_role_form")[0].reset();
     },
-    addRole() {
-      console.log('clicked', this.role_name);
-      this.$store
-      .dispatch("addRole", {
-        role_name: this.role_name,
-      })
-      .then((result) => {
-        // if (result == error)
-        if(result){
-          this.showAlert("Success", "success");
-          $("#addRole").hide();
-          console.log(result)
-          window.location.reload();
-        }
-      })
+    
+    // addRole() {
+    //   console.log('clicked', this.role_name);
+    //   this.$store
+    //   .dispatch("addRole", {
+    //     role_name: this.role_name,
+    //   })
+    //   .then((result) => {
+    //     // if (result == error)
+    //     if(result){
+    //       this.showAlert("Success", "success");
+    //       $("#addRole").hide();
+    //       console.log(result)
+    //       window.location.reload();
+    //     }
+    //   })
       
-    }
+    // }
   }
 };
 </script>

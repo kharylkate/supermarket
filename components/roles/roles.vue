@@ -60,6 +60,7 @@
 
                 <div class="form-group col-md-8">
                   <label for="role_name">Role Name:</label>
+                  <input type="hidden" v-model="role.role_id">
                   <input
                     type="text"
                     class="form-control"
@@ -104,25 +105,19 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions({
-      // selectTransaction: "selectTransaction",
-      //selectRole: "selectRole",
-    }),
     select(role) {
       console.log(role);
       this.role = { ...role };
     },
-     update() {
-      console.log('clicked_update', this.role)
-      this.$store.dispatch("updateRole", {
-            role: this.role,
+    ...mapActions(['updateRole']),
+    update(){
+      console.log('role: ', this.role)
+      this.updateRole({
+        role: this.role
       })
-      .then((result) => {
-        console.log(result)
-        // alert(result)
-        //window.location.reload();
-        })
-     }
+      $("#editRole").modal('hide');
+    }
+
   },
   // async beforeCreate() {
   //   await this.$store.dispatch("fetchRolesList");

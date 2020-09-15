@@ -156,25 +156,25 @@ export default {
            $('#totalAmt').val(total) //working
         }
       },
-      newItem(){
-        if($('.form__barcode').val() == 'Add New Item') {
-          console.log("add new item!");
-          $('.form__description').prop("disabled", false)
+      // newItem(){
+      //   if($('.form__barcode').val() == 'Add New Item') {
+      //     console.log("add new item!");
+      //     $('.form__description').prop("disabled", false)
           
-          var newThing = prompt('Enter new item barcode:');
-          // $('.form__barcode').val(newThing);
-          document.getElementById("#rtransaction_barcode").value = newThing
-        } else { 
-          for(var i = 0; i < this.inventoryList.length; i++){
-            if($('.form__barcode').val() == this.inventoryList[i].barcode){
-              console.log(this.inventoryList[i])
-              $('.form__description').val(this.inventoryList[i].product_description);
-            }
-          }
+      //     var newThing = prompt('Enter new item barcode:');
+      //     // $('.form__barcode').val(newThing);
+      //     document.getElementById("#rtransaction_barcode").value = newThing
+      //   } else { 
+      //     for(var i = 0; i < this.inventoryList.length; i++){
+      //       if($('.form__barcode').val() == this.inventoryList[i].barcode){
+      //         console.log(this.inventoryList[i])
+      //         $('.form__description').val(this.inventoryList[i].product_description);
+      //       }
+      //     }
           
           
-        }
-      },
+      //   }
+      // },
       receiveDelivery(){
         // this.dt = {...dt}
         console.log('d-transaction: ',this.dt);

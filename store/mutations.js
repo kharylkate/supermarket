@@ -21,6 +21,22 @@ export default {
         state.roles.push(roleData)
     },
 
+    updateRole: (state, payload) => {
+        //const {role_id, role_name} = payload
+        console.log(payload.role);
+        console.log('payload.role_name: ', payload.role.role_name);
+        const role = state.roles.find(p => p.role_id === payload.role.role_id)
+        role.role_name = payload.role.role_name
+        
+        // const index = state.roles.findIndex(
+        //     roles => {
+        //         roles.role_id = roleData.role_id
+        //     }
+        // )
+    },
+
+
+
     addUser: (state, userData) => {
         console.log(userData)
         state.user.push(userData)
@@ -43,9 +59,9 @@ export default {
         state.delivery_transactions_items.push(dt_items)
     },
 
-    updateRole(state, data){
+    // updateRole(state, data){
         
-    }
+    // }
     
 
 
