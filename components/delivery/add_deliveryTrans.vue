@@ -39,7 +39,7 @@
                 </div>
               <div class="card">
                 
-                <ul>
+                <ul id="row_items">
                   <li>
                       <div class="form-row d-flex col-md-12 mt-2">
                         <div class="form-group col-md-6">
@@ -72,7 +72,7 @@
                         </datalist> -->
                       </div>
                       
-                      <div class="form-group col-md-2">
+                      <div class="form-group col-md-2 mb-2">
                         <input type="number" @keyup="getPrice()" v-model="row.qty" id="rtransaction_qty" class="form-control form__qty" placeholder="Quantity">
                       </div>
                       <div class="form-group col-md-3">
@@ -85,12 +85,12 @@
                 </li>
                 </ul>
               </div>
-              <div class="form-row mt-5">
+              <!-- <div class="form-row mt-5">
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
                   <input type="number" v-model="dt.total_cost" class="form-control form__totalAmt" id="totalAmt" placeholder="Total Amount">
                 </div>
-              </div>
+              </div> -->
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
@@ -156,25 +156,6 @@ export default {
            $('#totalAmt').val(total) //working
         }
       },
-      // newItem(){
-      //   if($('.form__barcode').val() == 'Add New Item') {
-      //     console.log("add new item!");
-      //     $('.form__description').prop("disabled", false)
-          
-      //     var newThing = prompt('Enter new item barcode:');
-      //     // $('.form__barcode').val(newThing);
-      //     document.getElementById("#rtransaction_barcode").value = newThing
-      //   } else { 
-      //     for(var i = 0; i < this.inventoryList.length; i++){
-      //       if($('.form__barcode').val() == this.inventoryList[i].barcode){
-      //         console.log(this.inventoryList[i])
-      //         $('.form__description').val(this.inventoryList[i].product_description);
-      //       }
-      //     }
-          
-          
-      //   }
-      // },
       receiveDelivery(){
         // this.dt = {...dt}
         console.log('d-transaction: ',this.dt);
@@ -184,8 +165,11 @@ export default {
         this.rows.dr_no = this.dt.dr_no;
         console.log('d-items: ', this.rows);
         
-        this.$store.dispatch("addDt", {dt: this.dt})
-        this.$store.dispatch("addDt_items", {items: this.rows})
+        // this.$store.dispatch("addDt", {dt: this.dt})
+        // this.$store.dispatch("addDt_items", {items: this.rows})
+
+        var lis = document.getElementById("#row_items").getElementsByTagName("li").length
+        console.log('there are ', li, 'lis')
 
 
 

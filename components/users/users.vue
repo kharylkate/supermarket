@@ -81,7 +81,8 @@
                     <select class="form-control" v-model="user.role_id">
                       <option disabled>Select Role</option>
                       <option >{{user.role_id}}</option>
-                      <option v-for="role in rolesList" :key="role.id" :value="role.role_code">{{role.role_name}}</option>
+                      <option v-for="role in rolesList" :key="role.id" :value="role.role_id">{{role.role_name}}
+                      </option>
                     </select>
                   </div>
                   
@@ -124,16 +125,22 @@ export default {
       console.log(user)
       this.user = {...user}
     },
+    ...mapActions(['updateUser']),
     update(){
-      console.log(this.user);
-      this.$store.dispatch("updateUser", {
+      console.log('user: ', this.user)
+      this.updateUser({
         user: this.user
       })
-      .then((result) => {
-        console.log(result)
-        alert(result)
-       window.location.reload();
-      })
+      $("#editUser").modal('hide');
+      // console.log(this.user);
+      // this.$store.dispatch("updateUser", {
+      //   user: this.user
+      // })
+      // .then((result) => {
+      //   console.log(result)
+      //   alert(result)
+      //  window.location.reload();
+      // })
     },
     
   },

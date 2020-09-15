@@ -16,35 +16,54 @@ export default {
         state.suppliers.push(supplierData)
     },
 
+    updateSupplier: (state, payload) => {
+        console.log(payload.supplier);
+        console.log('payload.company_name: ', payload.supplier.company_name);
+        const supplier = state.suppliers.find(p => p.supplier_code === payload.supplier.supplier_code)
+        supplier.company_name = payload.supplier.company_name
+        supplier.contact_no = payload.supplier.contact_no
+        supplier.company_address = payload.supplier.company_address
+        supplier.status = payload.supplier.status
+    },
+
     addRole: (state, roleData) => {
         console.log(roleData)
         state.roles.push(roleData)
     },
 
     updateRole: (state, payload) => {
-        //const {role_id, role_name} = payload
         console.log(payload.role);
         console.log('payload.role_name: ', payload.role.role_name);
         const role = state.roles.find(p => p.role_id === payload.role.role_id)
         role.role_name = payload.role.role_name
-        
-        // const index = state.roles.findIndex(
-        //     roles => {
-        //         roles.role_id = roleData.role_id
-        //     }
-        // )
     },
 
 
 
     addUser: (state, userData) => {
         console.log(userData)
-        state.user.push(userData)
+        state.users.push(userData)
+    },
+
+    updateUser: (state, payload) => {
+        console.log(payload.user);
+        console.log('payload.company_name: ', payload.user.username);
+        const users = state.users.find(p => p.users_code === payload.user.users_code)
+        users.username = payload.user.username
+        users.role_name = payload.user.role_name
+
     },
 
     addInventory: (state, inventoryData) => {
         console.log(inventoryData)
         state.inventory.push(inventoryData)
+    },
+
+    updateInventory: (state, payload) => {
+        console.log(payload.inventory);
+        console.log('payload.inventory: ', payload.inventory.product_description);
+        const inventory = state.inventory.find(p => p.barcode === payload.inventory.barcode)
+        inventory.product_description = payload.inventory.product_description
     },
 
     // setRolesList(state, data){

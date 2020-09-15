@@ -25,9 +25,9 @@
 
                   <div class="form-group col-md-8">
                     <label for="compadd">Role </label>
-                    <select class="form-control" name="" id="" v-model="user.role_id">
+                    <select class="form-control" name="" id="" v-model="user.role_name">
                       <option selected="selected" hidden>Select Role</option>
-                      <option v-for="role in rolesList" :key="role.id" v-bind:value="role.role_id">{{role.role_name}}</option>
+                      <option v-for="role in rolesList" :key="role.id" v-bind:value="role.role_name">{{role.role_name}}</option>
                     </select>
                   </div>
                 </div>
@@ -71,8 +71,7 @@ export default {
         })
         .then((result) => {
           if(result){
-            $("#addUser").hide();
-            window.location.reload();
+            $("#addUser").modal('hide');
           }
         })
       }

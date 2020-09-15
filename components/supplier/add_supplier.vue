@@ -10,7 +10,7 @@
         </div>
 
         <div class="modal-body">
-          <form action="" id="add_supplier_form" @submit='onSubmit'>
+          <form action="" id="add_supplier_form" >
             <div class="form-row justify-content-center">
               
               <div class="container text-center mt-3 mb-3">
@@ -41,7 +41,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" id="itemcancel">Cancel</button>
-              <button type="submit" class="btn btn-primary">OK</button>
+              <button type="button" @click="add()" class="btn btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -72,21 +72,29 @@ export default {
     },
     methods: {
       ...mapActions(['addSupplier']),
-      onSubmit(e){
-        e.preventDefault();
-        this.$store.dispatch("addSupplier", {
-          supplier: this.supplier 
+      add(){
+        this.addSupplier({
+          supplier: this.supplier
         })
-        .then((result) => {
-          if(result){
-            $("#addSupplier").hide();
-            $('#add_supplier_form')[0].reset();
-            alert(result)
-            window.location.reload();
-          }
-        })
+
+        $("#addSupplier").modal('hide');
+        $("#add_supplier_form")[0].reset();
+      },
+      // onSubmit(e){
+        // e.preventDefault();
+        // this.$store.dispatch("addSupplier", {
+        //   supplier: this.supplier 
+        // })
+        // .then((result) => {
+        //   if(result){
+        //     $("#addSupplier").hide();
+        //     $('#add_supplier_form')[0].reset();
+        //     alert(result)
+        //     window.location.reload();
+        //   }
+        // })
         
-      }
+      
 
     
     }

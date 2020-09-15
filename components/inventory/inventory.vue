@@ -47,7 +47,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="">
+            <form action="" id="edit_inv_form">
               <div class="form-row justify-content-center">
                 
                 <div class="form-group col-md-8">
@@ -108,16 +108,21 @@ export default {
 
             this.inventory = { ...inventory };
         },
+        ...mapActions(['updateInventory']),
         update(){
-          console.log('clicked', this.inventory)
-          this.$store.dispatch("updateInventory", {
-              inventory: this.inventory,
+          this.updateInventory({
+            inventory: this.inventory
           })
-          .then((result) => {
-              console.log(result)
-              alert(result)
-              window.location.reload();
-          })
+          $("#editTrans").modal('hide')
+          // console.log('clicked', this.inventory)
+          // this.$store.dispatch("updateInventory", {
+          //     inventory: this.inventory,
+          // })
+          // .then((result) => {
+          //     console.log(result)
+          //     alert(result)
+          //     window.location.reload();
+          // })
         }
     },
     async beforeCreate() {

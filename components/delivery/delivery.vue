@@ -83,9 +83,6 @@
                             </tr>
                         </tbody>
                         </table>
-                        <!-- <div class="text-right">
-                        Total: ₱ {{ }}
-                        </div> -->
                     </div>
                 </div>
                     

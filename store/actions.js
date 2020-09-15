@@ -6,6 +6,12 @@ export default {
     return supplierData;
   },
 
+  updateSupplier({commit}, supplier) {
+    console.log('action.js: ', supplier);
+    commit("updateSupplier", supplier);
+    return supplier
+  },
+
   addRole: (context, role_name) => {
     context.commit("addRole", role_name);
     return role_name;
@@ -22,9 +28,21 @@ export default {
     return user;
   },
 
+  updateUser({commit}, user) {
+    console.log('action.js: ', user);
+    commit("updateUser", user);
+    return user
+  },
+
   addInventory({commit}, {inventory}) {
     commit("addInventory", inventory)
     return inventory;
+  },
+
+  updateInventory({commit}, inventory) {
+    console.log('action.js: ', inventory);
+    commit("updateInventory", inventory);
+    return inventory
   },
 
   setRolesList( {commit}, {roles}) {

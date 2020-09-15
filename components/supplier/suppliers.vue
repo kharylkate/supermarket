@@ -29,15 +29,15 @@
                     </thead>
                     <tbody class="list">
                         <tr v-for="supplier in suppliersList" :key="supplier.id">
-                            <td>{{supplier.supplier_code}}</td>
+                            <td>{{supplier.supplier_id}}</td>
                             <td>{{supplier.company_name}}</td>
                             <td>{{supplier.contact_no}}</td>
                             <td>{{supplier.company_address}}</td>
-                            <td><span v-if="(supplier.status)" class="badge badge-success">Active</span>
-                            <span v-else class="badge badge-secondary">Inactive</span>
+                            <td><span v-if="(supplier.status == 1)" class="badge badge-success">Active</span>
+                            <span v-if="(supplier.status == 0)" class="badge badge-secondary">Inactive</span>
                             </td>
                             <td class="text-left">
-                                <button id="btn-color" class="btn lg-btn" @click="(select(supplier))" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
+                                <button id="btn-color" @click="(select(supplier))" class="btn lg-btn" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
                             </td>
                         </tr>
                     
@@ -62,7 +62,7 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_supplier_code">Supplier ID: </label>
-                <input type="text" v-model="supplier.supplier_id" class="form-control" id="edit_supplier_code" autocomplete="off" required>
+                <input type="text" v-model="supplier.supplier_id" class="form-control" id="edit_supplier_code" autocomplete="off" required disabled>
               </div>
 
               <div class="form-group col-md-8">
@@ -83,7 +83,7 @@
               <div class="form-group col-md-8">
                 <label for="edit_compstatus">Status: </label>
                 <select class="form-control" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status">
-                  <option value="1" selected>Active</option>
+                  <option value="1">Active</option>
                   <option value="0">Inactive</option>
                 </select>
               </div>
@@ -123,25 +123,34 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([
-            'suppliersList'
-        ])
+        ...mapGetters({
+            suppliersList: 'suppliersList'
+        })
     },
     methods: {
-        select(supplier){
-            console.log(supplier)
-            this.supplier = {...supplier}    
-        },
+      select(supplier){
+        console.log(supplier);
+        this.supplier = { ...supplier }
+      },
+        // select(supplier){
+        //     console.log(supplier)
+        //     this.supplier = {...supplier}    
+        // },
+        ...mapActions(['updateSupplier']),
         update(){
-          console.log('clicked', this.supplier)
-          this.$store.dispatch("updateSupplier", {
-              supplier: this.supplier,
+          this.updateSupplier({
+            supplier: this.supplier
           })
-          .then((result) => {
-              console.log(result)
-              alert(result)
-              window.location.reload();
-          })
+          $("#editSupplier").modal('hide')
+          // console.log('clicked', this.supplier)
+          // this.$store.dispatch("updateSupplier", {
+          //     supplier: this.supplier,
+          // })
+          // .then((result) => {
+          //     console.log(result)
+          //     alert(result)
+          //     window.location.reload();
+          // })
         }
     },
     async beforeCreate() {
