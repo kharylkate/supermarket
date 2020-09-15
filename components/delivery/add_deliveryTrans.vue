@@ -1,4 +1,4 @@
-<template>
+d<template>
     <div class="modal fade" id="addDelTrans" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
@@ -13,42 +13,22 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_date">Date: </label>
-                  <input type="date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020">
+                  <input type="date" v-model="dt.dtransaction_date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_no">Delivery Receipt Number: </label>
-                  <input type="number" class="form-control form__orNo" placeholder="1654325" id="input_rtransaction_no">
+                  <input type="number" v-model="dt.dr_no" class="form-control form__orNo" placeholder="1654325" id="input_rtransaction_no">
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
-
-                  <input class="form-control" v-model="suppliers" list="suppliers" name="suppliers">
-                    <datalist id="browsers">
-                      <option>
-                        
-                      </option>
-                    </datalist>
-
-                  <label for="">Suppliers: </label>
-                  <div class="border rounded-sm">                     
-                    <button type="button border-secondary" class="form-control btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Suppliers
-                    </button>
-                    <div class="dropdown-menu col-md-12">
-                      <div class="input-group px-2">
-                        <input type="text" data-table="table-data" @keydown="filtersearch()" class="form-control search-filter" placeholder="Supplier" aria-label="Supplier" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <span class="input-group-text" id="basic-addon2"><img src="../../static/icons/search.svg" alt=""></span>
-                        </div>
-                      </div>
-                      <div class="dropdown-divider"></div>
-                      <!-- {{suppliersList}} -->
-                        <div class="dropdown-item table-data" >
-                          <li></li>
-                      
-                        </div>
-                    </div>
-                  </div>
+                
+                  <label >Supplier: </label>
+                  
+                  <!-- <v-select v-model="dt.suppler_code" :options="suppliersList.companyt_name" ></v-select> -->
+                    <input v-model="dt.supplier_code" class="form-control" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
+                  <datalist id="suppliers">
+                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_code">{{supply.company_name}}</option>
+                  </datalist>
                 </div>
               </div>
 
@@ -85,7 +65,10 @@
                   <li v-for="(row, index) in rows" :key="index.id">
                   <div class="form-row d-flex col-md-12 mt-0">
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.barcode" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode">
+                      <input type="text" v-model="row.barcode" list="barcode-list" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                      <datalist id="barcode-list">
+                        <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
+                      </datalist>
                     </div>
                     <div class="form-group col-md-3">
                       <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description">
@@ -111,13 +94,13 @@
               <div class="form-row">
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
-                  <input type="text" class="form-control form__totalAmt text-right" placeholder="Total Amount">
+                  <input type="text" v-model="dt.total_cost" class="form-control form__totalAmt text-right" placeholder="Total Amount">
                 </div>
               </div>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">OK</button>
+              <button type="button" @click="receive()" class="btn btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -131,9 +114,14 @@
 <script>
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
 
 export default {
     name: 'modal-addDelTrans',
+    components: {
+      'v-select': vSelect
+    },
     computed: {
       ...mapGetters({
         suppliersList: 'suppliersList',
@@ -147,7 +135,9 @@ export default {
           description: "",
           qty: "",
           unitcost: ""
-        }]
+        }],
+        dt: {},
+        
       }
     },
     methods: {
@@ -163,43 +153,11 @@ export default {
       removeElement: function(index){
         this.rows.splice(index,1)
       },
-      filtersearch(){
-        'use strict';
- 
-        var TableFilter = (function(Arr) {
-      
-          var _input;
-      
-          function _onInputEvent(e) {
-          _input = e.target;
-          var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-          Arr.forEach.call(tables, function(table) {
-          Arr.forEach.call(table.tBodies, function(tbody) {
-          Arr.forEach.call(tbody.rows, _filter);
-          });
-          });
-          }
-      
-          function _filter(row) {
-          var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-          row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-          }
-      
-          return {
-          init: function() {
-          var inputs = document.getElementsByClassName('search-filter');
-          Arr.forEach.call(inputs, function(input) {
-          input.oninput = _onInputEvent;
-          });
-          }
-          };
-        })(Array.prototype);
-      
-        document.addEventListener('readystatechange', function() {
-          if (document.readyState === 'complete') {
-          TableFilter.init();
-          }
-        });
+      receive(){
+        this.rows.total = this.dt.total_cost
+        console.log('add total: ', this.rows.total);
+        console.log('rows: ', this.rows);
+        console.log('dt: ', this.dt);
       }
     },
     created(){

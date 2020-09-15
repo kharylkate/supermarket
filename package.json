@@ -18,7 +18,9 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "nuxt": "^2.14.0",
-    "vue": "^2.6.11"
+    "select2": "^4.0.13",
+    "vue": "^2.6.11",
+    "vue-select": "^3.10.8"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.3",

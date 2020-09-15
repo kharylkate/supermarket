@@ -31,7 +31,7 @@
               <tr v-for="user in userList" :key="user.employee_code">
                 <td>{{user.employee_code}}</td>
                 <td>{{user.username}}</td>
-                <td>{{user.role_id}}</td>
+                <td>{{user.role_name}}</td>
                 <td class="text-left">
                   <button
                     id="btn-color"
