@@ -107,11 +107,12 @@ export default {
       }),
 
     },
+
     
-    created() {
-      const test = this.$store.dispatch("getSelectedTransaction");
+    // created() {
+    //   const test = this.$store.dispatch("getSelectedTransaction");
       
-    }
+    // }
     
 }
 </script>

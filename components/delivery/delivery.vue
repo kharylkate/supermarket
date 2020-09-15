@@ -1,5 +1,5 @@
 <template>
-    <div id="items" role="main" class="main-content col-md-9 ml-sm-auto col-lg-10 px-md-4 bg-light">
+    <div id="inventory" role="main" class="main-content col-md-9 ml-sm-auto col-lg-10 px-md-4 bg-light">
         <div>
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Delivery</h4>
@@ -37,6 +37,67 @@
             </table>
 
         </div>
+
+        <div class="modal fade" id="viewDelivery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Deliveries</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <div class="container">
+                    
+                <div >
+                    <div class="form-row justify-content-center">
+                    <div class="container text-center mb-2">
+                        <h5>{{dt.company_name}}</h5>
+                        <small>{{dt.company_address}}</small>
+                    </div>
+
+                    <div class="d-flex justify-content-between pt-3 pb-2 mb-3 mt-3 px-2">
+                        <div class="mr-auto">{{dt.dtransaction_date}}</div>    
+                        <h6 class="ml-auto">{{dtransactions_code}}</h6>    
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                            <th>BARCODE</th>
+                            <th>DESC</th>
+                            <th>QTY</th>
+                            <th>UNIT PRICE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>{{dt.barcode}}</td>
+                            <td>{{dt.desc}}</td>
+                            <td>{{dt.qty}}</td>
+                            <td>₱{{dt.unit_cost}}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <!-- <div class="text-right">
+                        Total: ₱ {{ }}
+                        </div> -->
+                    </div>
+                </div>
+                    
+                    </div>
+                </div>              
+                </div>
+                <div class="modal-footer my-0">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                
+            </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -47,13 +108,10 @@ import {mapGetters} from 'vuex';
 
 export default {
     name: 'delivery',
-    methods: {
-       ...mapActions(['selectDelivery']),
-      select(dt) {
-        this.selectDelivery({
-          ...dt
-        })
-      }
+    data() {
+        return {
+            dt: {}
+        }
     },
     computed: {
         ...mapGetters({
@@ -63,7 +121,14 @@ export default {
         }),
     },
     methods: {
-
+       //...mapActions(['selectDelivery']),
+      select(dt) {
+          console.log('dt: ', dt)
+          this.dt = {...dt}
+        // this.selectDelivery({
+        //   ...dt
+        // })
+      },
     },
     async beforeCreate() {
         await this.$store.dispatch("fetchDTransactionsList")

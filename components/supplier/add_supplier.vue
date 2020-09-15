@@ -81,6 +81,7 @@ export default {
           if(result){
             $("#addSupplier").hide();
             $('#add_supplier_form')[0].reset();
+            alert(result)
             window.location.reload();
           }
         })

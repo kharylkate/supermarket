@@ -17,6 +17,7 @@
           type="password"
           placeholder="Password"
           required
+          @keyup.enter="login()"
         />
       </form-group>
 

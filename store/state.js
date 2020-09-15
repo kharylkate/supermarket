@@ -67,6 +67,7 @@ export default {
       updated_at: null
     }
   ],
+
   sales_transactions: [
     {
       stransactions_code: 1,
@@ -78,7 +79,23 @@ export default {
       customer_address: "Azkaban Prison",
       customer_contact_no: "+63 923 9876 890",
       created_at: "May 02, 2020",
-      created_by: "MsCashier"
+      created_by: "3",
+      items: [
+        {
+          stransaction_items_code: 1,
+          or_no: 32456789,
+          barcode: 18773694,
+          qty: 3,
+          unit_cost: 98.15
+        },
+        {
+          stransaction_items_code: 2,
+          or_no: 32456789,
+          barcode: 53170036,
+          qty: 2,
+          unit_cost: 54.75
+        },
+      ]
     },
     {
       stransactions_code: 2,
@@ -90,7 +107,16 @@ export default {
       customer_address: "Pine Trees Bldg",
       customer_contact_no: "+63 923 9876 891",
       created_at: "May 02, 2020",
-      created_by: "MsCashier"
+      created_by: "MsCashier",
+      items: [
+        {
+          stransaction_items_code: 2,
+          or_no: 32456790,
+          barcode: 51404209,
+          qty: 1,
+          unit_cost: 76.75
+        },
+      ]
     },
     {
       stransactions_code: 3,
@@ -102,7 +128,16 @@ export default {
       customer_address: "Bane & Lightwood Residence",
       customer_contact_no: "+63 923 9876 891",
       created_at: "May 02, 2020",
-      created_by: "MsCashier"
+      created_by: "MsCashier",
+      items: [
+        {
+          stransaction_items_code: 3,
+          or_no: 32456791,
+          barcode: 11443366,
+          qty: 1,
+          unit_cost: 89.6
+        },
+      ]
     },
     {
       stransactions_code: 4,
@@ -114,46 +149,19 @@ export default {
       customer_address: "Mountains Suite Pembly Bldg",
       customer_contact_no: "+63 923 9876 892",
       created_at: "May 02, 2020",
-      created_by: "MsCashier"
+      created_by: "MsCashier",
+      items: [
+        {
+          stransaction_items_code: 4,
+          or_no: 32456792,
+          barcode: 53170036,
+          qty: 2,
+          unit_cost: 54.75
+        }
+      ]
     }
   ],
-  sales_transactions_items: [
-    {
-      stransaction_items_code: 1,
-      or_no: 32456789,
-      barcode: 18773694,
-      qty: 3,
-      unit_cost: 98.15
-    },
-    {
-      stransaction_items_code: 2,
-      or_no: 32456789,
-      barcode: 53170036,
-      qty: 2,
-      unit_cost: 54.75
-    },
-    {
-      stransaction_items_code: 2,
-      or_no: 32456790,
-      barcode: 51404209,
-      qty: 1,
-      unit_cost: 76.75
-    },
-    {
-      stransaction_items_code: 3,
-      or_no: 32456791,
-      barcode: 11443366,
-      qty: 1,
-      unit_cost: 89.6
-    },
-    {
-      stransaction_items_code: 4,
-      or_no: 32456792,
-      barcode: 53170036,
-      qty: 2,
-      unit_cost: 54.75
-    }
-  ],
+  
   suppliers: [
     {
       supplier_code: 1,
@@ -216,6 +224,7 @@ export default {
       updated_at: null
     }
   ],
+
   delivery_transactions: [
     {
       dtransactions_code: 1,
@@ -226,7 +235,23 @@ export default {
       created_at: "may 02, 2020",
       created_by: 153,
       update_by: null,
-      update_at: null
+      update_at: null,
+      items: [
+        {
+          dtransaction_items_code: 1,
+          dr_no: 567123,
+          barcode: 15304218,
+          unit_cost: 112.5,
+          qty: 40
+        },
+        {
+          dtransaction_items_code: 2,
+          dr_no: 567123,
+          barcode: 51404209,
+          unit_cost: 76.75,
+          qty: 30
+        },
+      ]
     },
     {
       dtransactions_code: 2,
@@ -237,7 +262,16 @@ export default {
       created_at: "May 02, 2020",
       created_by: "Custody",
       update_by: null,
-      update_at: null
+      update_at: null,
+      items: [
+        {
+          dtransaction_items_code: 3,
+          dr_no: 115647,
+          barcode: 51404209,
+          unit_cost: 165.5,
+          qty: 45
+        },
+      ]
     },
     {
       dtransactions_code: 3,
@@ -248,7 +282,23 @@ export default {
       created_at: "May 01, 2020",
       created_by: 153,
       update_by: null,
-      update_at: null
+      update_at: null,
+      items: [
+        {
+          dtransaction_items_code: 5,
+          dr_no: 953226,
+          barcode: 11443366,
+          unit_cost: 89.6,
+          qty: 70
+        },
+        {
+          dtransaction_items_code: 6,
+          dr_no: 953226,
+          barcode: 53170036,
+          unit_cost: 89.6,
+          qty: 70
+        },
+      ]
     },
     {
       dtransactions_code: 4,
@@ -259,53 +309,19 @@ export default {
       created_at: "April 30, 2020",
       created_by: "Custody",
       update_by: null,
-      update_at: null
+      update_at: null,
+      items: [
+        {
+          dtransaction_items_code: 7,
+          dr_no: 665498,
+          barcode: 12196864,
+          unit_cost: 89.6,
+          qty: 70
+        }
+      ]
     }
   ],
-  delivery_transactions_items: [
-    {
-      dtransaction_items_code: 1,
-      dr_no: 567123,
-      barcode: 15304218,
-      unit_cost: 112.5,
-      qty: 40
-    },
-    {
-      dtransaction_items_code: 2,
-      dr_no: 567123,
-      barcode: 51404209,
-      unit_cost: 76.75,
-      qty: 30
-    },
-    {
-      dtransaction_items_code: 3,
-      dr_no: 115647,
-      barcode: 51404209,
-      unit_cost: 165.5,
-      qty: 45
-    },
-    {
-      dtransaction_items_code: 5,
-      dr_no: 953226,
-      barcode: 11443366,
-      unit_cost: 89.6,
-      qty: 70
-    },
-    {
-      dtransaction_items_code: 6,
-      dr_no: 953226,
-      barcode: 53170036,
-      unit_cost: 89.6,
-      qty: 70
-    },
-    {
-      dtransaction_items_code: 7,
-      dr_no: 665498,
-      barcode: 12196864,
-      unit_cost: 89.6,
-      qty: 70
-    }
-  ],
+  
   roles: [
     {
       roles_code: 11,
@@ -335,6 +351,7 @@ export default {
       updated_at: null
     }
   ],
+
   users: [
     {
       users_code: 1,
@@ -342,10 +359,12 @@ export default {
       username: "Maximus",
       password: "qwertyuiop",
       role_id: 1,
+      role_name: "admin",
       created_at: "May 02, 2020",
       created_by: 153,
       updated_by: null,
-      updated_at: null
+      updated_at: null,
+      
     },
     {
       users_code: 2,
@@ -353,6 +372,7 @@ export default {
       username: "MsCashier",
       password: "asdfghjkl",
       role_id: 2,
+      role_name: "cashier",
       created_at: "May 02, 2020",
       created_by: 153,
       updated_by: null,
@@ -364,6 +384,7 @@ export default {
       username: "Custody",
       password: "zxcvbnm",
       role_id: 3,
+      role_name: "custodian",
       created_at: "May 02, 2020",
       created_by: 153,
       updated_by: null,
@@ -384,6 +405,10 @@ export default {
   suppliersList: [],
 
   deliveryList: [],
+
+  salesList: [],
+
+  dtransactions_items: [],
 
   salesList: [],
 

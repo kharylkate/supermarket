@@ -33,7 +33,9 @@
                             <td>{{supplier.company_name}}</td>
                             <td>{{supplier.contact_no}}</td>
                             <td>{{supplier.company_address}}</td>
-                            <td><span class="badge">{{supplier.status}}</span></td>
+                            <td><span v-if="(supplier.status)" class="badge badge-success">Active</span>
+                            <span v-else class="badge badge-secondary">Inactive</span>
+                            </td>
                             <td class="text-left">
                                 <button id="btn-color" class="btn lg-btn" @click="(select(supplier))" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
                             </td>

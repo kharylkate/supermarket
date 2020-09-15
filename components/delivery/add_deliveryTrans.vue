@@ -13,42 +13,19 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_date">Date: </label>
-                  <input type="date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020">
+                  <input type="date" v-model="dt.dtransaction_date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_no">Delivery Receipt Number: </label>
-                  <input type="number" class="form-control form__orNo" placeholder="1654325" id="input_rtransaction_no">
+                  <input type="number" v-model="dt.dr_no" class="form-control form__orNo" placeholder="1654325" id="input_rtransaction_no">
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
-
-                  <input class="form-control" v-model="suppliers" list="suppliers" name="suppliers">
-                    <datalist id="browsers">
-                      <option>
-                        
-                      </option>
-                    </datalist>
-
                   <label for="">Suppliers: </label>
-                  <div class="border rounded-sm">                     
-                    <button type="button border-secondary" class="form-control btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Suppliers
-                    </button>
-                    <div class="dropdown-menu col-md-12">
-                      <div class="input-group px-2">
-                        <input type="text" data-table="table-data" @keydown="filtersearch()" class="form-control search-filter" placeholder="Supplier" aria-label="Supplier" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <span class="input-group-text" id="basic-addon2"><img src="../../static/icons/search.svg" alt=""></span>
-                        </div>
-                      </div>
-                      <div class="dropdown-divider"></div>
-                      <!-- {{suppliersList}} -->
-                        <div class="dropdown-item table-data" >
-                          <li></li>
-                      
-                        </div>
-                    </div>
-                  </div>
+                    <input v-model="dt.supplier_code" class="form-control" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
+                  <datalist id="suppliers">
+                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_code">{{supply.company_name}}</option>
+                  </datalist>
                 </div>
               </div>
 
@@ -82,42 +59,43 @@
                         </div>
                       </div>
                   </li>
-                  <li v-for="(row, index) in rows" :key="index.id">
-                  <div class="form-row d-flex col-md-12 mt-0">
-                    <div class="form-group col-md-3">
-                      <input type="text" v-model="row.barcode" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode">
+                  <li v-for="(row, index) in rows" :key="index.id" class="row-list">
+                    <div class="form-row d-flex col-md-12 mt-0">
+                      <div class="form-group col-md-3">
+                        <input type="text" @keyup="newItem()" v-model="row.barcode" list="barcode_list" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                          <datalist id="barcode_list">
+                          <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" @focusout="inventory(inv)">{{inv.product_description}}</option>
+                          <option>Add New Item</option>
+                          <button>button</button>
+                        </datalist>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description" disabled>
+                      </div>
+                      <div class="form-group col-md-2">
+                        <input type="number" @keyup="getPrice()" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <input type="number" @keyup="getPrice()" v-model="row.unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                      </div>
+                      <div class='form-group col-md-1'>
+                        <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
+                      </div>
                     </div>
-                    <div class="form-group col-md-3">
-                      <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description">
-                    </div>
-                    <div class="form-group col-md-2">
-                      <input type="text" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <input type="text" v-model="row.unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
-                    </div>
-                    <div class='form-group col-md-1'>
-                      <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
-                    </div>
-                    <!-- <div class="form-group col-md-1">
-                      <label for="">Action:</label>
-                      <button class="btn btn-danger" type="button" v-on:click="remooove()" id="Action">Remove</button>
-                    </div> -->
-                  </div>
                 </li>
                 </ul>
               </div>
-
-              <div class="form-row">
+              <div class="form-row mt-5">
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
-                  <input type="text" class="form-control form__totalAmt text-right" placeholder="Total Amount">
+                  <!-- <p class="rounded border border-secondary form__totalAmt text-right p-1" id="totalAmt">P</p> -->
+                  <input type="number" v-model="dt.total_cost" class="form-control form__totalAmt" id="totalAmt" placeholder="Total Amount">
                 </div>
               </div>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">OK</button>
+              <button type="button" @click="receiveDelivery()" class="btn btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -136,18 +114,26 @@ export default {
     name: 'modal-addDelTrans',
     computed: {
       ...mapGetters({
-        suppliersList: 'suppliersList',
-        inventoryList: 'inventoryList'
+        inventoryList: 'inventoryList',
+        suppliersList: 'suppliersList'
       }),
     },
     data() {
       return {
+        dt: {},
         rows: [{
           barcode: "",
           description: "",
           qty: "",
           unitcost: ""
-        }]
+        }],
+        // items: {},
+        // dt: {
+        //   dtransaction_date: "",
+        //   dr_no: "",
+        //   supplier_code: "",
+        //   total_cost: ""
+        // }
       }
     },
     methods: {
@@ -163,51 +149,70 @@ export default {
       removeElement: function(index){
         this.rows.splice(index,1)
       },
-      filtersearch(){
-        'use strict';
- 
-        var TableFilter = (function(Arr) {
-      
-          var _input;
-      
-          function _onInputEvent(e) {
-          _input = e.target;
-          var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-          Arr.forEach.call(tables, function(table) {
-          Arr.forEach.call(table.tBodies, function(tbody) {
-          Arr.forEach.call(tbody.rows, _filter);
-          });
-          });
+      inventory(inv){
+        console.log("item with this barcode: ",this.inv)
+      },
+      getPrice(){
+        if($('.form__unitcost').val() != '' && $('.form__qty').val() != ''){
+          var cost = $('.form__unitcost').val();
+          var qty = $('.form__qty').val();
+          var total = cost*qty
+          console.log('cost: ', total);
+          // var totalAmount = document.getElementById('#totalAmt')
+          // totalAmount.innerHTML = total.toString;
+          $('.form__totalAmt').value(total)
+           $('#totalAmt').val(total) //working
+        }
+      },
+      newItem(){
+        if($('.form__barcode').val() == 'Add New Item') {
+          console.log("add new item!");
+          $('.form__barcode').val('');
+          $('.form__description').prop("disabled", false)
+          
+          var newThing = prompt('Enter new item barcode:');
+          $('.form__barcode').val(newThing);
+        } else { 
+          for(var i = 0; i < this.inventoryList.length; i++){
+            if($('.form__barcode').val() == this.inventoryList[i].barcode){
+              console.log(this.inventoryList[i])
+              $('.form__description').val(this.inventoryList[i].product_description);
+            }
           }
+          
+          
+        }
+      },
+      receiveDelivery(){
+        // this.dt = {...dt}
+        console.log('d-transaction: ',this.dt);
+        console.log(object);
+        // console.log($('.form__totalAmt').val())
+        console.log('total cost', this.dt.total_cost);
+        
+        // rows: this.rows
+        // console.log("receiveDelivery clicked! items: ", this.rows);
+        // console.log("receiveDelivery clicked! dtransaction: ", this.dt);
+        // this.$store.dispatch("addDtrans", {
+        //   dt: this.dt,
+        // })
+        // .then((result) => {
+        //   if(result){
+        //     alert(result)
+        //     $("#addDelTrans").hide();
+        //   }
+        // })
+
+      },
       
-          function _filter(row) {
-          var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-          row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-          }
-      
-          return {
-          init: function() {
-          var inputs = document.getElementsByClassName('search-filter');
-          Arr.forEach.call(inputs, function(input) {
-          input.oninput = _onInputEvent;
-          });
-          }
-          };
-        })(Array.prototype);
-      
-        document.addEventListener('readystatechange', function() {
-          if (document.readyState === 'complete') {
-          TableFilter.init();
-          }
-        });
-      }
     },
     created(){
-      console.log('hilu',this.inventoryList)
+      //console.log('hilu',this.inventoryList)
     },
     async beforeCreate(){
-      await this.$store.dispatch("fetchSuppliersList")
-      await this.$store.dispatch("fetchInventoryList")
+      await this.$store.dispatch("fetchInventoryList");
+      await this.$store.dispatch("fetchSuppliersList");
+      
     }
 }
 

@@ -85,6 +85,11 @@ export default {
         return state.deliveryList;
     },
 
+    salesList(state){
+        console.log('getter: ',state.salesList);
+        return state.salesList;
+    },
+
     getSelectedTransaction: state => {
         return state.selectedTransaction;
     },
@@ -101,6 +106,8 @@ export default {
         console.log('@here again: ', state.selectedRole)
         return state.selectedRole;
     },
+
+
 
 
 }

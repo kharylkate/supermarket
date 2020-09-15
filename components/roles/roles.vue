@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      selectTransaction: "selectTransaction",
+      // selectTransaction: "selectTransaction",
       //selectRole: "selectRole",
     }),
     select(role) {
@@ -118,9 +118,9 @@ export default {
             role: this.role,
       })
       .then((result) => {
-        // console.log(result)
+        console.log(result)
         // alert(result)
-        window.location.reload();
+        //window.location.reload();
         })
      }
   },

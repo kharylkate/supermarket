@@ -31,7 +31,7 @@
               <tr v-for="user in userList" :key="user.employee_code">
                 <td>{{user.employee_code}}</td>
                 <td>{{user.username}}</td>
-                <td>{{user.role_id}}</td>
+                <td>{{user.role_name}}</td>
                 <td class="text-left">
                   <button
                     id="btn-color"
@@ -81,14 +81,14 @@
                     <select class="form-control" v-model="user.role_id">
                       <option disabled>Select Role</option>
                       <option >{{user.role_id}}</option>
-                      <option v-for="role in rolesList" :key="role.id" :value="role.role_id">{{role.role_name}}</option>
+                      <option v-for="role in rolesList" :key="role.id" :value="role.role_code">{{role.role_name}}</option>
                     </select>
                   </div>
                   
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn btn-primary">OK</button>
+                  <button type="button" @click="update()" class="btn btn-primary">OK</button>
                 </div>
               </form>
             </div>
@@ -124,10 +124,22 @@ export default {
       console.log(user)
       this.user = {...user}
     },
+    update(){
+      console.log(this.user);
+      this.$store.dispatch("updateUser", {
+        user: this.user
+      })
+      .then((result) => {
+        console.log(result)
+        alert(result)
+       window.location.reload();
+      })
+    },
     
   },
   async beforeCreate() {
-    await this.$store.dispatch("fetchUserList", "fetchRolesList")
+    await this.$store.dispatch("fetchUserList")
+    await this.$store.dispatch("fetchRolesList")
   },
 };
 </script>
