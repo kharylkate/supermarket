@@ -165,10 +165,10 @@ export default {
   suppliers: [
     {
       supplier_code: 1,
-      supplier_id: 1234567,
-      compName: "Beech Lasagna Corporation",
-      contactno: "+1-767-5554-872",
-      compAddress: "1631 Goehring Rd #334, New Brighton, PA, 15066",
+      supplier_id: 1234582,
+      company_name: "Beech Lasagna Corporation",
+      contact_no: "+1-767-5554-872",
+      company_address: "1631 Goehring Rd #334, New Brighton, PA, 15066",
       status: "Active",
       created_at: "May 02, 2020",
       created_by: 153,
@@ -177,10 +177,10 @@ export default {
     },
     {
       supplier_code: 2,
-      supplier_id: 1234568,
-      compName: "Hirez Bugladins",
-      contactno: "+1-767-5554-872",
-      compAddress: "130 Shadowbrook Dr, Hillsborough, NC, 27278",
+      supplier_id: 1234578,
+      company_name: "Hirez Bugladins",
+      contact_no: "+1-767-5554-872",
+      company_address: "130 Shadowbrook Dr, Hillsborough, NC, 27278",
       status: "Active",
       created_at: "May 02, 2020",
       created_by: 153,
@@ -190,9 +190,9 @@ export default {
     {
       supplier_code: 3,
       supplier_id: 1234569,
-      compName: "Wall Maria",
-      contactno: "+1-767-5554-872",
-      compAddress: "6 Ducks Head, New Castle, NH, 03854",
+      company_name: "Wall Maria",
+      contact_no: "+1-767-5554-872",
+      company_address: "6 Ducks Head, New Castle, NH, 03854",
       status: "Active",
       created_at: "May 02, 2020",
       created_by: 153,
@@ -201,10 +201,10 @@ export default {
     },
     {
       supplier_code: 4,
-      supplier_id: 1234570,
-      compName: "TENCENT Spy Laboratory",
-      contactno: "+1-767-5554-872",
-      compAddress: "Po Box 831, Sultan, WA, 98294",
+      supplier_id: 1234580,
+      company_name: "TENCENT Spy Laboratory",
+      contact_no: "+1-767-5554-872",
+      company_address: "Po Box 831, Sultan, WA, 98294",
       status: "Active",
       created_at: "May 02, 2020",
       created_by: 153,
@@ -213,10 +213,10 @@ export default {
     },
     {
       supplier_code: 5,
-      supplier_id: 1234571,
-      compName: "Bucks Milwaukee",
-      contactno: "+1-767-5554-872",
-      compAddress: "Po Box 141, Bettsville, OH, 44815",
+      supplier_id: 1234581,
+      company_name: "Bucks Milwaukee",
+      contact_no: "+1-767-5554-872",
+      company_address: "Po Box 141, Bettsville, OH, 44815",
       status: "Inactive",
       created_at: "May 02, 2020",
       created_by: 153,
@@ -230,6 +230,8 @@ export default {
       dtransactions_code: 1,
       dr_no: 567123,
       supplier_id: 12345681,
+      company_name: "Bucks Milwaukee",
+      company_address: "Po Box 141, Bettsville, OH, 44815",
       dtransaction_date: "May 02, 2020",
       total_cost: 7260,
       created_at: "may 02, 2020",
@@ -241,6 +243,7 @@ export default {
           dtransaction_items_code: 1,
           dr_no: 567123,
           barcode: 15304218,
+          product_description: "Churned Milk 1kg",
           unit_cost: 112.5,
           qty: 40
         },
@@ -248,6 +251,7 @@ export default {
           dtransaction_items_code: 2,
           dr_no: 567123,
           barcode: 51404209,
+          product_description: "Cadbury 65g",
           unit_cost: 76.75,
           qty: 30
         },
@@ -257,6 +261,8 @@ export default {
       dtransactions_code: 2,
       dr_no: 115647,
       supplier_id: 12345680,
+      company_name: "TENCENT Spy Laboratory",
+      company_address: "Po Box 831, Sultan, WA, 98294",
       dtransaction_date: "May 02, 2020",
       total_cost: 9742.5,
       created_at: "May 02, 2020",
@@ -268,6 +274,7 @@ export default {
           dtransaction_items_code: 3,
           dr_no: 115647,
           barcode: 51404209,
+          product_description: "Cadbury 65g",
           unit_cost: 165.5,
           qty: 45
         },
@@ -277,6 +284,8 @@ export default {
       dtransactions_code: 3,
       dr_no: 953226,
       supplier_id: 12345678,
+      company_name: "Hirez Bugladins",
+      company_address: "130 Shadowbrook Dr, Hillsborough, NC, 27278",
       dtransaction_date: "May 01, 2020",
       total_cost: 7537.1,
       created_at: "May 01, 2020",
@@ -288,6 +297,7 @@ export default {
           dtransaction_items_code: 5,
           dr_no: 953226,
           barcode: 11443366,
+          product_description: "Dairy Meelk 250mL",
           unit_cost: 89.6,
           qty: 70
         },
@@ -295,6 +305,7 @@ export default {
           dtransaction_items_code: 6,
           dr_no: 953226,
           barcode: 53170036,
+          product_description: "Oreo Cookies",
           unit_cost: 89.6,
           qty: 70
         },
@@ -304,6 +315,8 @@ export default {
       dtransactions_code: 4,
       dr_no: 665498,
       supplier_id: 12345682,
+      company_name: "Beech Lasagna Corporation",
+      company_address: "1631 Goehring Rd #334, New Brighton, PA, 15066",
       dtransaction_date: "April 30, 2020",
       total_cost: 7537.1,
       created_at: "April 30, 2020",
@@ -315,10 +328,56 @@ export default {
           dtransaction_items_code: 7,
           dr_no: 665498,
           barcode: 12196864,
+          product_description: "Hershey's Chocs 65g",
           unit_cost: 89.6,
           qty: 70
         }
       ]
+    }
+  ],
+
+  delivery_transactions_items: [
+    {
+      dtransaction_items_code: 1,
+      dr_no: 567123,
+      barcode: 15304218,
+      unit_cost: 112.5,
+      qty: 40
+    },
+    {
+      dtransaction_items_code: 2,
+      dr_no: 567123,
+      barcode: 51404209,
+      unit_cost: 76.75,
+      qty: 30
+    },
+    {
+      dtransaction_items_code: 3,
+      dr_no: 115647,
+      barcode: 51404209,
+      unit_cost: 165.5,
+      qty: 45
+    },
+    {
+      dtransaction_items_code: 5,
+      dr_no: 953226,
+      barcode: 11443366,
+      unit_cost: 89.6,
+      qty: 70
+    },
+    {
+      dtransaction_items_code: 6,
+      dr_no: 953226,
+      barcode: 53170036,
+      unit_cost: 89.6,
+      qty: 70
+    },
+    {
+      dtransaction_items_code: 7,
+      dr_no: 665498,
+      barcode: 12196864,
+      unit_cost: 89.6,
+      qty: 70
     }
   ],
   

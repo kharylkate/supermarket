@@ -19,9 +19,37 @@ export default {
   addInventory({commit}, {inventory}) {
     commit("addInventory", inventory)
     return inventory;
-  }
+  },
+
+  setRolesList( {commit}, {roles}) {
+    commit("setRolesList", roles)
+    return roles;
+  },
+
+  addDt({commit}, { dt }) {
+    commit("addDeliveryTransaction", dt)
+    return dt;
+  },
+
+  addDt_items({commit}, { dt_items }) {
+    commit("addDeliveryTransaction_items", dt_items)
+    return dt;
+  },
+
+  async updateRole({ commit }, { role }) {
+    console.log('@actions: ', role.role_name)
+      commit("updateRole", role);
+      return role
+    
+  },
+
+  // async fetchRolesList( {commit} ) {
+  //   commit("setRolesList")
+  // }
 
 }
+
+
 
 
 

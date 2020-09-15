@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_no">Delivery Receipt Number: </label>
-                  <input type="number" v-model="dt.dr_no" class="form-control form__orNo" placeholder="1654325" id="input_rtransaction_no">
+                  <input type="number" v-model="dt.dr_no" class="form-control form__orNo" placeholder="DR Number" id="input_rtransaction_no">
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
@@ -42,12 +42,10 @@
                 <ul>
                   <li>
                       <div class="form-row d-flex col-md-12 mt-2">
-                        <div class="form-group col-md-3">
-                          <label for="form__barcode">Barcode:</label>
+                        <div class="form-group col-md-6">
+                          <label for="form__barcode">Item:</label>
                         </div>
-                        <div class="form-group col-md-3">
-                          <label for="form__description">Product Description:</label>
-                        </div>
+                        
                         <div class="form-group col-md-2">
                           <label for="form__qty">Quantity:</label>
                         </div>
@@ -61,22 +59,24 @@
                   </li>
                   <li v-for="(row, index) in rows" :key="index.id" class="row-list">
                     <div class="form-row d-flex col-md-12 mt-0">
-                      <div class="form-group col-md-3">
-                        <input type="text" @keyup="newItem()" v-model="row.barcode" list="barcode_list" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                      <div class="form-group col-md-6">
+                        <select class="form-control" v-model="row.barcode" name="" id="">
+                          <option disabled>Select Item</option>
+                          <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
+                        </select>
+                        <!-- <input type="text" @keyup="newItem()" v-model="row.barcode" list="barcode_list" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
                           <datalist id="barcode_list">
                           <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" @focusout="inventory(inv)">{{inv.product_description}}</option>
                           <option>Add New Item</option>
                           <button>button</button>
-                        </datalist>
+                        </datalist> -->
                       </div>
-                      <div class="form-group col-md-3">
-                        <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description" disabled>
-                      </div>
+                      
                       <div class="form-group col-md-2">
-                        <input type="number" @keyup="getPrice()" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
+                        <input type="number" @keyup="getPrice()" v-model="row.qty" id="rtransaction_qty" class="form-control form__qty" placeholder="Quantity">
                       </div>
                       <div class="form-group col-md-3">
-                        <input type="number" @keyup="getPrice()" v-model="row.unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                        <input type="number" @keyup="getPrice()" v-model="row.unitcost" id="rtransaction_unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
                       </div>
                       <div class='form-group col-md-1'>
                         <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
@@ -88,7 +88,6 @@
               <div class="form-row mt-5">
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
-                  <!-- <p class="rounded border border-secondary form__totalAmt text-right p-1" id="totalAmt">P</p> -->
                   <input type="number" v-model="dt.total_cost" class="form-control form__totalAmt" id="totalAmt" placeholder="Total Amount">
                 </div>
               </div>
@@ -127,13 +126,6 @@ export default {
           qty: "",
           unitcost: ""
         }],
-        // items: {},
-        // dt: {
-        //   dtransaction_date: "",
-        //   dr_no: "",
-        //   supplier_code: "",
-        //   total_cost: ""
-        // }
       }
     },
     methods: {
@@ -160,18 +152,18 @@ export default {
           console.log('cost: ', total);
           // var totalAmount = document.getElementById('#totalAmt')
           // totalAmount.innerHTML = total.toString;
-          $('.form__totalAmt').value(total)
+          //$('.form__totalAmt').value(total)
            $('#totalAmt').val(total) //working
         }
       },
       newItem(){
         if($('.form__barcode').val() == 'Add New Item') {
           console.log("add new item!");
-          $('.form__barcode').val('');
           $('.form__description').prop("disabled", false)
           
           var newThing = prompt('Enter new item barcode:');
-          $('.form__barcode').val(newThing);
+          // $('.form__barcode').val(newThing);
+          document.getElementById("#rtransaction_barcode").value = newThing
         } else { 
           for(var i = 0; i < this.inventoryList.length; i++){
             if($('.form__barcode').val() == this.inventoryList[i].barcode){
@@ -186,10 +178,19 @@ export default {
       receiveDelivery(){
         // this.dt = {...dt}
         console.log('d-transaction: ',this.dt);
-        console.log(object);
+        console.log('d-items: ', this.rows);
         // console.log($('.form__totalAmt').val())
         console.log('total cost', this.dt.total_cost);
+        this.rows.dr_no = this.dt.dr_no;
+        console.log('d-items: ', this.rows);
         
+        this.$store.dispatch("addDt", {dt: this.dt})
+        this.$store.dispatch("addDt_items", {items: this.rows})
+
+
+
+
+
         // rows: this.rows
         // console.log("receiveDelivery clicked! items: ", this.rows);
         // console.log("receiveDelivery clicked! dtransaction: ", this.dt);

@@ -31,7 +31,9 @@
                     <td>{{dt.company_name}}</td>
                     <td>{{dt.dtransaction_date}}</td>
                     <td>₱{{dt.total_cost}}</td>
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button> <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td>
+                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button> 
+                    <!-- <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button> -->
+                    </td>
                 </tr>
             </tbody>
             </table>
@@ -57,9 +59,9 @@
                         <small>{{dt.company_address}}</small>
                     </div>
 
-                    <div class="d-flex justify-content-between pt-3 pb-2 mb-3 mt-3 px-2">
-                        <div class="mr-auto">{{dt.dtransaction_date}}</div>    
-                        <h6 class="ml-auto">{{dtransactions_code}}</h6>    
+                    <div class="row">
+                        <div class="ml-auto">{{dt.dtransaction_date}}</div>    
+                        <div class="mr-auto">{{dt.dr_no}}</div>    
                     </div>
 
                     <div class="table-responsive">
@@ -72,12 +74,12 @@
                             <th>UNIT PRICE</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody v-for="items in dt.items" :key="items.id">
                             <tr>
-                            <td>{{dt.barcode}}</td>
-                            <td>{{dt.desc}}</td>
-                            <td>{{dt.qty}}</td>
-                            <td>₱{{dt.unit_cost}}</td>
+                            <td>{{items.barcode}}</td>
+                            <td>{{items.product_description}}</td>
+                            <td>{{items.qty}}</td>
+                            <td>₱{{items.unit_cost}}</td>
                             </tr>
                         </tbody>
                         </table>

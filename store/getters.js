@@ -64,48 +64,53 @@ export default {
 
     // =====================================================
 
+
     //roles
     rolesList(state) {
-        return state.rolesList;
+        return state.roles;
     },
 
     userList(state) {
-        return state.userList;
+        return state.users;
     },
 
     inventoryList(state) {
-        return state.inventoryList;
+        return state.inventory;
     },
 
     suppliersList(state) {
-        return state.suppliersList;
+        return state.suppliers;
     },
 
     deliveryList(state) {
-        return state.deliveryList;
+        return state.delivery_transactions;
+    },
+
+    delivery_items(state) {
+        return state.delivery_transactions_items;
     },
 
     salesList(state){
         console.log('getter: ',state.salesList);
-        return state.salesList;
+        return state.sales_transactions;
     },
 
-    getSelectedTransaction: state => {
-        return state.selectedTransaction;
-    },
+    // getSelectedTransaction: state => {
+    //     return state.selectedTransaction;
+    // },
 
-    getSelectedDelivery: state => {
-        const id = state.selectedDelivery;
-        return (state.delivery_transactions_items.filter(
-            delivery_transactions_items =>
-            delivery_transactions_items.dr_no === id
-            ));
-    },
+    // getSelectedDelivery: state => {
+    //     const id = state.selectedDelivery;
+    //     return (state.delivery_transactions_items.filter(
+    //         delivery_transactions_items =>
+    //         delivery_transactions_items.dr_no === id
+    //         ));
+    // },
 
-    getSelectedRole: state => {
-        console.log('@here again: ', state.selectedRole)
-        return state.selectedRole;
-    },
+    // getSelectedRole: state => {
+    //     console.log('@here again: ', state.selectedRole)
+    //     return state.selectedRole;
+    // },
 
 
 

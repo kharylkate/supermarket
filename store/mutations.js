@@ -1,5 +1,6 @@
 export default {
 
+
     addSales: (state, salesData) => {
         console.log(salesData)
         state.sales.push(salesData)
@@ -27,17 +28,34 @@ export default {
 
     addInventory: (state, inventoryData) => {
         console.log(inventoryData)
-        state.push(inventoryData)
+        state.inventory.push(inventoryData)
     },
+
+    // setRolesList(state, data){
+    //     state.rolesList = data;
+    // },
+
+    addDeliveryTransaction(state, dt_data){
+        state.delivery_transactions.push(dt_data)
+    },
+    
+    addDeliveryTransaction_items(state, dt_items) {
+        state.delivery_transactions_items.push(dt_items)
+    },
+
+    updateRole(state, data){
+        
+    }
+    
 
 
 
 }
     // =======================================================
 
-//     setRolesList(state, data){
-//         state.rolesList = data;
-//     },
+    // setRolesList(state, data){
+    //     state.rolesList = data;
+    // },
 
 //     addRole(state, role_name){
 //         //console.log('hehe',role_name)

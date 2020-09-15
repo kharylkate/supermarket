@@ -22,7 +22,6 @@
                     <th scope="col" class="sort" data-sort="status">Quantity</th>
                     <th scope="col" class="sort" data-sort="budget">Cost per unit</th>
                     <th>Action</th>
-                    <!-- <th scope="col">Action</th> -->
                 </tr>
             </thead>
             <tbody class="list" id="body-bg">
@@ -30,7 +29,7 @@
                     <!-- <td>{{item.drNo}}</td> -->
                     <td>{{item.barcode}}</td>
                     <td>{{item.product_description}}</td>
-                    <td>{{item.quantity}}</td>
+                    <td>{{item.qty}}</td>
                     <td>₱{{item.unit_cost}}</td>
                     <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" @click="(select(item))" data-target="#editTrans"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button></td>
                 </tr>
@@ -63,7 +62,7 @@
 
                 <div class="form-group col-md-8">
                   <label for="edit_qty">Quantity: </label>
-                  <input type="number" v-model="inventory.quantity" class="form-control" id="edit_qty" value="" disabled>
+                  <input type="number" v-model="inventory.qty" class="form-control" id="edit_qty" value="" disabled>
                 </div>
 
                 <div class="form-group col-md-8">
