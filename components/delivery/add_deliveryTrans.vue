@@ -40,7 +40,7 @@
               <div class="card">
                 
                 <ul id="row_items">
-                  <li>
+                  <li >
                       <div class="form-row d-flex col-md-12 mt-2">
                         <div class="form-group col-md-6">
                           <label for="form__barcode">Item:</label>
@@ -168,8 +168,8 @@ export default {
         // this.$store.dispatch("addDt", {dt: this.dt})
         // this.$store.dispatch("addDt_items", {items: this.rows})
 
-        var lis = document.getElementById("#row_items").getElementsByTagName("li").length
-        console.log('there are ', li, 'lis')
+        var lis = document.getElementById("row_items").getElementsByTagName("li").length
+        console.log('there are ', lis-1, 'lis')
 
 
 
