@@ -85,6 +85,7 @@ export default {
           stransaction_items_code: 1,
           or_no: 32456789,
           barcode: 18773694,
+          product_description: "Muck n Cheez",
           qty: 3,
           unit_cost: 98.15
         },
@@ -92,6 +93,7 @@ export default {
           stransaction_items_code: 2,
           or_no: 32456789,
           barcode: 53170036,
+          product_description: "Oreo Cookies",
           qty: 2,
           unit_cost: 54.75
         },
@@ -113,6 +115,7 @@ export default {
           stransaction_items_code: 2,
           or_no: 32456790,
           barcode: 51404209,
+          product_description: "Cadbury 65g",
           qty: 1,
           unit_cost: 76.75
         },
@@ -134,6 +137,7 @@ export default {
           stransaction_items_code: 3,
           or_no: 32456791,
           barcode: 11443366,
+          product_description: "Dairy Meelk 250mL",
           qty: 1,
           unit_cost: 89.6
         },
@@ -155,6 +159,7 @@ export default {
           stransaction_items_code: 4,
           or_no: 32456792,
           barcode: 53170036,
+          product_description: "Oreo Cookies",
           qty: 2,
           unit_cost: 54.75
         }
@@ -451,7 +456,9 @@ export default {
     }
   ],
 
-  selectedTransaction: null,
+  selectedTransaction: [], //mock
+
+  // selectedTransaction: null,
 
   selectedDelivery: null,
 

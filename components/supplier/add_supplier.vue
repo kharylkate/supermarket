@@ -62,6 +62,9 @@ export default {
     data(){
       return {
         supplier: {
+          supplier_code: 81,
+          supplier_id: 1234587,
+          status: 1
           // company_name: "",
           // contact_no: "",
           // company_address: "",

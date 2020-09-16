@@ -1,13 +1,27 @@
 import axios from "axios";
 
 export default {
-  addSupplier: (context, supplierData) => {
-    context.commit("addSupplier", supplierData);
+  addSales({commit}, salesData){
+    commit("addSales", salesData);
+    return salesData;
+  },
+
+  updateInvQty({commit}, items){
+    commit("updateInvQty", items)
+    return items
+  },
+
+  receiveDelivery({commit}, delivery) {
+    commit("receiveDelivery", delivery)
+    return delivery
+  },
+
+  addSupplier({commit}, supplierData) {
+    commit("addSupplier", supplierData);
     return supplierData;
   },
 
   updateSupplier({commit}, supplier) {
-    console.log('action.js: ', supplier);
     commit("updateSupplier", supplier);
     return supplier
   },
@@ -29,7 +43,6 @@ export default {
   },
 
   updateUser({commit}, user) {
-    console.log('action.js: ', user);
     commit("updateUser", user);
     return user
   },
@@ -59,6 +72,12 @@ export default {
     commit("addDeliveryTransaction_items", dt_items)
     return dt;
   },
+
+  selectSales( {commit}, transaction) {
+    console.log('actions.js: selectSales: ', transaction);
+    commit('viewSalesTransaction', transaction)
+    return transaction
+  }
 
   // async updateRole({ commit }, { role }) {
   //   console.log('@actions: ', role.role_name)

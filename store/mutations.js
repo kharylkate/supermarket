@@ -1,19 +1,59 @@
 export default {
-
-
     addSales: (state, salesData) => {
-        console.log(salesData)
-        state.sales.push(salesData)
+        state.sales_transactions.push(salesData.sales)
     },
 
-    addDelivery: (state, deliveryData) => {
-        console.log(deliveryData)
-        state.push(deliveryData)
+    updateInvQty: (state, payload) => {
+
+        for(var j = 0; j < payload.invqty.length; j++){
+            if(payload.invqty.transaction == 'sales'){
+                for(var i = 0; i < state.inventory.length; i++){
+                    if(state.inventory[i].barcode == payload.invqty[j].barcode){
+                        state.inventory[i].qty = (state.inventory[i].qty - payload.invqty[j].qty)
+                    }
+                }
+            } else if(payload.invqty.transaction == 'delivery'){
+                for(var i = 0; i < state.inventory.length; i++){
+                    if(state.inventory[i].barcode == payload.invqty[j].barcode){
+                        state.inventory[i].qty += parseInt(payload.invqty[j].qty)
+                    }
+                }
+            }
+        }
+
+    },
+
+    receiveDelivery: (state, delivery) => {
+        var total_cost = 0;
+        //loop through items to get qty*amt and add every total to total_cost
+        for(var i = 0; i < delivery.transaction.items.length; i++){
+            //if barcode is not found in state.inventory, push to state.inventory
+            //else, skip for-loop
+            var found = false;
+            for(var j = 0; j < state.inventory.length; j++){
+                if(state.inventory[j].barcode == delivery.transaction.items[i].barcode){
+                    found = true;
+                }
+            }
+
+            if(!found){
+                state.inventory.push(delivery.transaction.items[i])
+            }
+            
+            
+            
+            //compute total cost
+            var total = (parseInt(delivery.transaction.items[i].qty) * parseInt(delivery.transaction.items[i].unit_cost))
+            total_cost += total;
+        }
+        // add to object then push to delivery_transactions
+        delivery.transaction.total_cost = total_cost
+        state.delivery_transactions.push(delivery.transaction)
     },
 
     addSupplier: (state, supplierData) => {
-        console.log(supplierData)
-        state.suppliers.push(supplierData)
+        console.log(supplierData.supplier)
+        state.suppliers.push(supplierData.supplier)
     },
 
     updateSupplier: (state, payload) => {
@@ -81,6 +121,11 @@ export default {
     // updateRole(state, data){
         
     // }
+
+    viewSalesTransaction(state, transaction){
+        console.log('mutations.js viewSalesTransaction ', transaction);
+        state.selectedTransaction = transaction;
+    }
     
 
 

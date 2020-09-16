@@ -95,6 +95,10 @@ export default {
         return state.sales_transactions;
     },
 
+    getSelectedTransaction(state){
+        return state.selectedTransaction;
+    }
+
     // getSelectedTransaction: state => {
     //     return state.selectedTransaction;
     // },

@@ -22,7 +22,7 @@
 
                 <div class="form-group col-md-6 mb-4">
                   <label for="">Suppliers: </label>
-                    <input v-model="dt.supplier_code" class="form-control" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
+                    <input v-model="dt.company_name" class="form-control" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
                   <datalist id="suppliers">
                     <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_code">{{supply.company_name}}</option>
                   </datalist>
@@ -40,7 +40,7 @@
               <div class="card">
                 
                 <ul id="row_items">
-                  <li >
+                  <li>
                       <div class="form-row d-flex col-md-12 mt-2">
                         <div class="form-group col-md-6">
                           <label for="form__barcode">Item:</label>
@@ -49,6 +49,7 @@
                         <div class="form-group col-md-2">
                           <label for="form__qty">Quantity:</label>
                         </div>
+
                         <div class="form-group col-md-3">
                           <label for="form__unitcost">Cost Per Unit:</label>
                         </div>
@@ -59,24 +60,27 @@
                   </li>
                   <li v-for="(row, index) in rows" :key="index.id" class="row-list">
                     <div class="form-row d-flex col-md-12 mt-0">
-                      <div class="form-group col-md-6">
-                        <select class="form-control" v-model="row.barcode" name="" id="">
+                      <div class="form-group col-md-2">
+                        <!-- <select class="form-control" v-model="row.barcode" name="" id="">
                           <option disabled>Select Item</option>
                           <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
-                        </select>
-                        <!-- <input type="text" @keyup="newItem()" v-model="row.barcode" list="barcode_list" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                        </select> -->
+                        <input type="text" v-model="row.barcode" list="barcode_list" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
                           <datalist id="barcode_list">
-                          <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" @focusout="inventory(inv)">{{inv.product_description}}</option>
-                          <option>Add New Item</option>
+                          <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
                           <button>button</button>
-                        </datalist> -->
+                        </datalist>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <input type="text"  v-model="row.product_description" id="rtransaction_description" class="form-control form__description" placeholder="Product Description">
                       </div>
                       
                       <div class="form-group col-md-2 mb-2">
-                        <input type="number" @keyup="getPrice()" v-model="row.qty" id="rtransaction_qty" class="form-control form__qty" placeholder="Quantity">
+                        <input type="number"  v-model="row.qty" id="rtransaction_qty" class="form-control form__qty" placeholder="Quantity">
                       </div>
                       <div class="form-group col-md-3">
-                        <input type="number" @keyup="getPrice()" v-model="row.unitcost" id="rtransaction_unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                        <input type="number"  v-model="row.unit_cost" id="rtransaction_unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
                       </div>
                       <div class='form-group col-md-1'>
                         <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
@@ -94,7 +98,7 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
-              <button type="button" @click="receiveDelivery()" class="btn btn-primary">OK</button>
+              <button type="button" @click="receive()" class="btn btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -124,7 +128,7 @@ export default {
           barcode: "",
           description: "",
           qty: "",
-          unitcost: ""
+          unit_cost: ""
         }],
       }
     },
@@ -135,70 +139,45 @@ export default {
           barcode: "",
           description: "",
           qty: "",
-          unitcost: ""
+          unit_cost: ""
         });
       },
       removeElement: function(index){
         this.rows.splice(index,1)
       },
-      inventory(inv){
-        console.log("item with this barcode: ",this.inv)
-      },
-      getPrice(){
-        if($('.form__unitcost').val() != '' && $('.form__qty').val() != ''){
-          var cost = $('.form__unitcost').val();
-          var qty = $('.form__qty').val();
-          var total = cost*qty
-          console.log('cost: ', total);
-          // var totalAmount = document.getElementById('#totalAmt')
-          // totalAmount.innerHTML = total.toString;
-          //$('.form__totalAmt').value(total)
-           $('#totalAmt').val(total) //working
-        }
-      },
-      receiveDelivery(){
-        // this.dt = {...dt}
-        console.log('d-transaction: ',this.dt);
-        console.log('d-items: ', this.rows);
-        // console.log($('.form__totalAmt').val())
-        console.log('total cost', this.dt.total_cost);
-        this.rows.dr_no = this.dt.dr_no;
-        console.log('d-items: ', this.rows);
-        
-        // this.$store.dispatch("addDt", {dt: this.dt})
-        // this.$store.dispatch("addDt_items", {items: this.rows})
 
-        var lis = document.getElementById("row_items").getElementsByTagName("li").length
-        console.log('there are ', lis-1, 'lis')
+      ...mapActions(['receiveDelivery', 'updateInvQty']),
+      receive(){
+        console.log('delivery: ', this.dt);
+        this.rows.or_no = this.dt.or_no
+
+        this.rows.transaction = 'delivery'
+        console.log('kind of trans: ', this.rows.transaction);
+
+        this.dt.items = this.rows
+        this.receiveDelivery({
+          transaction: this.dt
+        })
+
+        this.updateInvQty({
+          invqty: this.rows
+        })
 
 
 
-
-
-        // rows: this.rows
-        // console.log("receiveDelivery clicked! items: ", this.rows);
-        // console.log("receiveDelivery clicked! dtransaction: ", this.dt);
-        // this.$store.dispatch("addDtrans", {
-        //   dt: this.dt,
-        // })
-        // .then((result) => {
-        //   if(result){
-        //     alert(result)
-        //     $("#addDelTrans").hide();
-        //   }
-        // })
-
+        $("#addDelTrans").modal('hide');
+        $("#add_item_form")[0].reset();
       },
       
     },
     created(){
       //console.log('hilu',this.inventoryList)
     },
-    async beforeCreate(){
-      await this.$store.dispatch("fetchInventoryList");
-      await this.$store.dispatch("fetchSuppliersList");
+    // async beforeCreate(){
+    //   await this.$store.dispatch("fetchInventoryList");
+    //   await this.$store.dispatch("fetchSuppliersList");
       
-    }
+    // }
 }
 
 

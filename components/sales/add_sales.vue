@@ -13,7 +13,7 @@
             <div class="form-row">
               <div class="form-group col-md-3">
                 <label for="input_rtransaction_date">Date: </label>
-                <input type="date" v-model="st.stransaction_date" class="form-control form__date" id="input_rtransaction_date" value="06/06/2020" disabled>
+                <input type="date" v-model="st.stransaction_date" class="form-control form__date" id="input_rtransaction_date" value="06/06/2020" >
               </div>
               <div class="form-group col-md-3">
                 <label for="input_stransaction_no">Sales Official Receipt Number: </label>
@@ -77,13 +77,13 @@
                         </datalist>
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description">
+                      <input type="text" v-model="row.product_description" class="form-control form__description" placeholder="Product Description">
                     </div>
                     <div class="form-group col-md-2">
                       <input type="text" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                      <input type="text" v-model="row.unit_cost" class="form-control form__unitcost" placeholder="Cost Per Unit">
                     </div>
                     <div class='form-group col-md-1'>
                       <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
@@ -93,13 +93,18 @@
                 </ul>
               </div>
 
-              <div class="form-row">
-                <!-- {{inventoryList}} -->
-                <div class="form-group ml-auto mr-1">
-                  <label for="">Total Sales Transaction Amount:</label>
-                  <input type="text" v-model="st.total_cost" class="form-control form__totalAmt text-right" placeholder="Total Amount">
+              <div class="form-row mt-5">
+                <div class="form-group ml-auto col-md-3 mr-1">
+                  <label for="">Total Sales Amount:</label>
+                  <input type="text" v-model="st.total_cost" class="form-control form__totalAmt text-right" placeholder="Total Sales Amount">
+                </div>
+
+                <div class="form-group col-md-3 mr-1">
+                  <label for="">Payment Amount:</label>
+                  <input type="text" v-model="st.payment_amt" class="form-control form__totalAmt text-right" placeholder="Payment Amount">
                 </div>
               </div>
+
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="salescancel" data-dismiss="modal">Cancel</button>
@@ -129,6 +134,7 @@ export default {
     data() {
       return {
         st: {},
+        inv: {},
         rows: [{
           barcode: "",
           description: "",
@@ -150,13 +156,22 @@ export default {
       removeElement: function(index){
         this.rows.splice(index,1)
       },
+      ...mapActions(['addSales', 'updateInvQty']),
       saveSales(){
-        //st;
-        console.log('sales clicked: ', this.st);
-        console.log('rows', this.rows);
         this.rows.or_no = this.st.or_no
-        console.log('sales clicked: ', this.rows);
-        console.log('orno in rows: ', this.rows.or_no);
+        this.rows.transaction = 'sales'
+        this.st.items = this.rows 
+        this.addSales({
+          sales: this.st
+        })
+        
+        
+        this.updateInvQty({
+          invqty: this.rows
+        })
+
+        $("#addSales").modal('hide');
+        $("#add_item_form")[0].reset();
       },
     },
     created(){

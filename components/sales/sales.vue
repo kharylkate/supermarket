@@ -54,9 +54,10 @@
           </div>
           <div class="modal-body">
             <div class="container">
+              
 
             <div> 
-              <!-- <div class="form-row justify-content-center">
+              <div class="form-row justify-content-center">
                 <div class="container text-center mb-2">
                   <h5>LOU GEH SUPERMARKET</h5>
                   <small>Some bldg-name, st name, road name, STATE</small>
@@ -68,8 +69,8 @@
                 </div>
                 <div class="container row">
                   <div class="mr-auto">Customer Name: {{sales.customer_name}}</div> 
-                  <div class="mr-auto">Customer Name: {{sales.customer_contact_no}}</div> 
-                  <div class="mr-auto">Customer Name: {{sales.customer_address}}</div> 
+                  <div class="mr-auto">Contact Number: {{sales.customer_contact_no}}</div> 
+                  <div class="mr-auto">Address: {{sales.customer_address}}</div> 
                 </div>
 
                 <div class="table-responsive">
@@ -84,17 +85,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>{{sales.barcode}}</td>
-                        <td>{{sales.product_description}}</td>
-                        <td>{{sales.quantity}}</td>
-                        <td>{{sales.unit_cost}}</td>
-                        
+                      <tr v-for="items in sales.items" :key="items.id">
+                        <td>{{items.barcode}}</td>
+                        <td>{{items.product_description}}</td>
+                        <td>{{items.qty}}</td>
+                        <td>{{items.unit_cost}}</td>
+                        <td>{{(items.unit_cost * items.qty)}}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-            </div> -->
+            </div>
               
 
                 <div class="container mb-5">
@@ -102,15 +103,15 @@
                     <tbody>
                       <tr>
                         <td>Total</td>
-                        <td>PHP403.95</td>
+                        <td>PHP{{sales.total_cost}}</td>
                       </tr>
                       <tr>
                         <td>Cash</td>
-                        <td>PHP1000.00</td>
+                        <td>PHP{{sales.payment_amt}}</td>
                       </tr>
-                      <tr>
+                      <tr v-if="(sales.total_cost<sales.payment_amt)">
                         <td>Change</td>
-                        <td>PHP289.05</td>
+                        <td>PHP{{sales.payment_amt-sales.total_cost}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -140,18 +141,24 @@ import {mapGetters} from 'vuex';
 export default {
     name: 'sales',
     computed: {
-        ...mapGetters({
-            salesList: 'salesList'
-        })
+      ...mapGetters({
+        salesList: 'salesList',
+        sales: 'getSelectedTransaction'
+      })
     },
     methods: {
-      select(sales) {
-        console.log("view sales: ", this.sales)
-        this.sales = { ...sales };
+      ...mapActions(['selectSales']),
+      select(salestrans) {
+        console.log("view sales: ", salestrans)
+        this.selectSales({ ...salestrans })
       }
     },
     async beforeCreate(){
       await this.$store.dispatch("fetchSalesList")
+    },
+    created() {
+      const transaction = this.$store.dispatch("getSelectedTransaction");
+      console.log('@here: ', transaction);
     }
 }
 
