@@ -10,7 +10,7 @@
         </div>
 
         <div class="modal-body">
-          <form action="" id="add_supplier_form" @submit='onSubmit'>
+          <form action="" id="add_supplier_form">
             <div class="form-row justify-content-center">
               
               <div class="container text-center mt-3 mb-3">

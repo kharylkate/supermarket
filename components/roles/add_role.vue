@@ -74,31 +74,15 @@ export default {
     }
   },
   methods: {
-    showAlert(message, variant) {
-      this.alert = {
-        showAlert: 3,
-        dismissSecs: 1,
-        variant,
-        message,
-      };
+    ...mapActions(['addRole']),
+    addRole(){
+      this.addRole({
+        role_name: this.role_name
+      })
+
+      $("#addRole").modal('hide');
+      $("#add_role_form")[0].reset();
     },
-    addRole() {
-      console.log('clicked', this.role_name);
-      this.$store
-      .dispatch("addRole", {
-        role_name: this.role_name,
-      })
-      .then((result) => {
-        // if (result == error)
-        if(result){
-          this.showAlert("Success", "success");
-          $("#addRole").hide();
-          console.log(result)
-          window.location.reload();
-        }
-      })
-      
-    }
   }
 };
 </script>
