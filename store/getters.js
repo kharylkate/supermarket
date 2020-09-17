@@ -85,6 +85,10 @@ export default {
         return state.deliveryList;
     },
 
+    salesList(state) {
+        return state.salesList;
+    },
+
     getSelectedTransaction: state => {
         return state.selectedTransaction;
     },

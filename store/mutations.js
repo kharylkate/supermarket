@@ -1,12 +1,5 @@
 export default {
     addCustomer: (state, customerData) => {
-        // state.customers.id = customerData[0];
-        // state.customers.name = customerData[1];
-        // state.customers.address = customerData[2];
-        // state.customers.contactno = customerData[3];
-        // state.customers.status = customerData[4];
-
-        // Vue.set(state.customers, )
         console.log(customerData)
         state.customers.push(customerData)
     },
@@ -26,10 +19,6 @@ export default {
         state.push(deliveryData)
     },
 
-    // addSupplier: (state, supplierData) => {
-    //     console.log(supplierData)
-    //     state.push(supplierData)
-    // },
 
     addInventory: (state, inventoryData) => {
         console.log(inventoryData)
@@ -117,6 +106,9 @@ export default {
         )
     },
 
+
+
+
     updateInventory(state, data){
         console.log('@mutation: ', data)
         const index = state.inventoryList.findIndex(
@@ -130,5 +122,18 @@ export default {
 
     setDTransactionsList(state, data) {
         state.deliveryList = data;
+    },
+
+
+
+
+
+
+
+
+
+
+    setSTransactionsList(state, data) {
+        state.salesList = data;
     }
 }

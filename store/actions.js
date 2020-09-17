@@ -136,14 +136,14 @@ export default {
       data: {},
     })
     .then(result => {
-      // console.log("eyy", result)
-      console.log(result);
       commit("setInventoryList", result.data);
       return result.data;
     })
     .catch( err => err);
   },
 
+
+  // SUPPLIER
 
   async fetchSuppliersList ({ commit }) {
     return await axios({
@@ -202,16 +202,39 @@ export default {
   },
 
 
+  // DELIVERY
+
+
   async fetchDTransactionsList ({ commit }) {
     return await axios({
       method: "GET",
-      url: `${this.$axios.defaults.baseURL}/delivery`,
+      url: `${this.$axios.defaults.baseURL}/deliverytransactions`,
       headers: {},
       data: {},
     })
     .then(result => {
       // console.log("eyy", result)
       commit("setDTransactionsList", result.data);
+      return result.data;
+    })
+    .catch( err => err);
+  },
+
+
+
+
+  // SALES
+
+  async fetchSTransactionsList ({ commit }) {
+    return await axios({
+      method: "GET",
+      url: `${this.$axios.defaults.baseURL}/viewsales`,
+      headers: {},
+      data: {},
+    })
+    .then(result => {
+      // console.log("eyy", result)
+      commit("setSTransactionsList", result.data);
       return result.data;
     })
     .catch( err => err);

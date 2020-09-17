@@ -13,17 +13,17 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_date">Date: </label>
-                  <input type="date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020" disabled>
+                  <input type="date" v-model="st.stransaction_date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020" disabled>
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_stransaction_no">Sales Official Receipt Number: </label>
-                  <input type="number" class="form-control form__orNo" placeholder="1654325" id="input_stransaction_no" disabled>
+                  <input type="number" v-model="st.or_no" class="form-control form__orNo" placeholder="1654325" id="input_stransaction_no" disabled>
                 </div>
 
               </div>
 
               <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
-                {{salesList}}
+                <!-- {{salesList}} -->
                     <label for="">Sales Transaction Items:</label>
                     <div class="btn-toolbar mb-2 mb-md-0">
                     <button type="button" class="btn btn-sm lg-btn btn_rtrans text-white" id="btn_rtransaction_add" @click="addRow">
@@ -75,11 +75,15 @@
                 </ul>
               </div>
 
-              <div class="form-row">
-                {{inventoryList}}
-                <div class="form-group ml-auto mr-1">
-                  <label for="">Total Sales Transaction Amount:</label>
-                  <input type="text" class="form-control form__totalAmt text-right" placeholder="Total Amount">
+              <div class="form-row mt-5">
+                <div class="form-group ml-auto col-md-3 mr-1">
+                  <label for="">Total Sales Amount:</label>
+                  <input type="text" v-model="st.total_cost" class="form-control form__totalAmt text-right" placeholder="Total Sales Amount">
+                </div>
+
+                <div class="form-group col-md-3 mr-1">
+                  <label for="">Payment Amount:</label>
+                  <input type="text" v-model="st.payment_amt" class="form-control form__totalAmt text-right" placeholder="Payment Amount">
                 </div>
               </div>
 
@@ -113,6 +117,7 @@ export default {
       //   samp: 0
       // },
       return {
+        st: {},
         rows: [{
           barcode: "",
           description: "",
@@ -132,17 +137,26 @@ export default {
         });
       },
       removeElement: function(index){
-        this.rows.splice(index,1)
+        if((this.rows.length-1)!=0){
+          this.rows.splice(index,1)
+        }
       }
     },
     created(){
-      console.log('hilu',this.inventoryList)
+      // console.log('hilu',this.inventoryList)
     },
     async breforeCreate(){
-      await this.$store.dispatch("fetchSalesList", "fetchInventoryList")
+      await this.$store.dispatch("fetchSalesList")
+      await this.$store.dispatch("fetchInventoryList")
     }
     
 }
 
 
 </script>
+
+<style scoped>
+.li {
+  margin: 0px
+}
+</style>

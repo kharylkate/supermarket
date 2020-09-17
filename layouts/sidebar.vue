@@ -23,7 +23,7 @@
                         </span>
                     </div>
 
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="mx-3 my-0">
                             <a href="/inventory" class="">
                             <span class="inactive-link nav-link">Inventory</span>
@@ -53,7 +53,7 @@
                         </span>
                     </div>
 
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="mx-3 my-0">
                             <a href="/delivery" class="">
                                 <span class="inactive-link nav-link">Delivery Transactions</span>
