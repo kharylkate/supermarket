@@ -40,6 +40,11 @@ export default {
       user: {}
     };
   },
+  computed: {
+    ...mapGetters({
+      rolesList: 'roleList'
+    })
+  },
   methods: {
     ...mapActions(['login']),
     logmein(){

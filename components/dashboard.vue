@@ -110,6 +110,12 @@ import { mapGetters } from 'vuex';
 
 export default {
     name: 'dash-board',
+    data(){
+      return{
+        username: localStorage.username,
+        role_name: localStorage.role_name
+      }
+    },
     computed: {
         ...mapGetters([
             'inventoryCounter',

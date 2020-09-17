@@ -4,8 +4,14 @@ export default {
         // const user = state.users.find(p => p.username === login.user.username)
         for(var i = 0; i < state.users.length; i++){
             if(state.users[i].username == login.user.username){
-                localStorage.username = state.users[i].username
-                localStorage.role_name = state.users[i].role_name
+                // if(state.users[i].password == login.user.password){
+                    localStorage.username = state.users[i].username
+                    localStorage.role_name = state.users[i].role_name
+                // } else {
+                //     alert('Wrong Password')
+                // }
+            // } else {
+            //     alert('User does not exist')
             }
         }
 

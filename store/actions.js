@@ -7,7 +7,6 @@ export default {
     // return login;
     commit("login", login);
       return login;
-
   },
 
   addSales({commit}, salesData){
