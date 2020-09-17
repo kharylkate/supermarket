@@ -58,7 +58,7 @@
                           <label for="form__description">Product Description:</label>
                         </div>
                         <div class="form-group col-md-2">
-                          <label for="form__qty">Quantity:</label>
+                          <label for="form__quantity">Quantity:</label>
                         </div>
                         <div class="form-group col-md-3">
                           <label for="form__unitcost">Cost Per Unit:</label>
@@ -71,19 +71,19 @@
                   <li v-for="(row, index) in rows" :key="index.id">
                   <div class="form-row d-flex col-md-12 mt-0">
                     <div class="form-group col-md-3">
-                      <input type="text" list="barcode_list" v-model="row.barcode" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                      <input @keyup.enter="getbarcode()" type="text" list="barcode_list" v-model="row.barcode" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
                         <datalist id="barcode_list">
                           <option v-for="items in inventoryList" :key="items.id" :value="items.barcode">{{items.product_description}}</option>
                         </datalist>
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.product_description" class="form-control form__description" placeholder="Product Description">
+                      <input type="text" v-model="row.product_description" class="form-control form__description" placeholder="Product Description" disabled>
                     </div>
                     <div class="form-group col-md-2">
-                      <input type="text" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
+                      <input type="text" v-model="row.quantity" class="form-control form__quantity" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.unit_cost" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                      <input type="text" v-model="row.unit_cost" class="form-control form__unitcost" placeholder="Cost Per Unit" disabled>
                     </div>
                     <div class='form-group col-md-1'>
                       <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
@@ -137,8 +137,8 @@ export default {
         inv: {},
         rows: [{
           barcode: "",
-          description: "",
-          qty: "",
+          product_description: "",
+          quantity: "",
           unitcost: ""
         }]
       }
@@ -148,13 +148,30 @@ export default {
         var elem = document.createElement('li');
         this.rows.push({
           barcode: "",
-          description: "",
-          qty: "",
+          product_description: "",
+          quantity: "",
           unitcost: ""
         });
       },
       removeElement: function(index){
         this.rows.splice(index,1)
+      },
+      getbarcode(){
+        console.log('barcode?', this.rows[this.rows.length-1].barcode)
+        console.log(this.inventoryList);
+
+        for(var i = 0; i < this.inventoryList.length; i++){
+          if(this.inventoryList[i].barcode == this.rows[this.rows.length-1].barcode){
+            this.rows[this.rows.length-1].product_description = this.inventoryList[i].product_description
+            this.rows[this.rows.length-1].unit_cost = this.inventoryList[i].unit_cost
+          }
+        }
+        
+        console.log('rows: ',this.rows)
+        // this.rows[this.rows.length-1].product_description = bc.product_description
+        // console.log('product info: ', this.rows[this.rows.length-1].barcode, ', ', this.rows[this.rows.length-1].product_description);
+        
+
       },
       ...mapActions(['addSales', 'updateInvQty']),
       saveSales(){
