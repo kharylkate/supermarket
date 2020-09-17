@@ -1,4 +1,16 @@
 export default {
+
+    login: (state, login) => {
+        // const user = state.users.find(p => p.username === login.user.username)
+        for(var i = 0; i < state.users.length; i++){
+            if(state.users[i].username == login.user.username){
+                localStorage.username = state.users[i].username
+                localStorage.role_name = state.users[i].role_name
+            }
+        }
+
+    },
+
     addSales: (state, salesData) => {
         state.sales_transactions.push(salesData.sales)
     },
@@ -39,7 +51,6 @@ export default {
             if(!found){
                 state.inventory.push(delivery.transaction.items[i])
             }
-            
             
             
             //compute total cost
@@ -125,7 +136,17 @@ export default {
     viewSalesTransaction(state, transaction){
         console.log('mutations.js viewSalesTransaction ', transaction);
         state.selectedTransaction = transaction;
+    },
+
+    viewSelectedItem(state, item) {
+
+        const product = state.inventory.find(p => p.barcode == item)
+
+        console.log('mutations.js viewSelectedItem', product);
+        state.selectedItem = product
+        return product
     }
+    
     
 
 

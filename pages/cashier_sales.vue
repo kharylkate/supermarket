@@ -23,6 +23,7 @@ export default {
         navbar,
         'navbarCollapse': navbarCollapse,
         'customers': customers,
+ 
     }
 }
 </script>

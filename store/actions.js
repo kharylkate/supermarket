@@ -1,6 +1,15 @@
 import axios from "axios";
 
 export default {
+
+  login({commit}, login) {
+    // commit("login", login);
+    // return login;
+    commit("login", login);
+      return login;
+
+  },
+
   addSales({commit}, salesData){
     commit("addSales", salesData);
     return salesData;
@@ -77,6 +86,12 @@ export default {
     console.log('actions.js: selectSales: ', transaction);
     commit('viewSalesTransaction', transaction)
     return transaction
+  },
+
+  showitem( {commit}, item) {
+    console.log('actions.js: showitem: ', item);
+    commit('viewSelectedItem', item)
+    return item
   }
 
   // async updateRole({ commit }, { role }) {

@@ -97,6 +97,10 @@ export default {
 
     getSelectedTransaction(state){
         return state.selectedTransaction;
+    },
+
+    getSelectedItem(state) {
+        return state.selectedItem;
     }
 
     // getSelectedTransaction: state => {

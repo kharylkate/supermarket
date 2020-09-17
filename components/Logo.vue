@@ -6,44 +6,48 @@
       <form-group class="px-3 py-3">
         <input
           class="form-control m-1"
-          v-model="username"
+          v-model="user.username"
           type="text"
           placeholder="Username"
           required
         />
         <input
           class="form-control m-1"
-          v-model="password"
+          v-model="user.password"
           type="password"
           placeholder="Password"
           required
-          @keyup.enter="login()"
+          @keyup.enter="logmein()"
         />
       </form-group>
 
-      <button class="form-control lg-btn block m-1" @click="login()" type="button">Login</button>
+      <button class="form-control lg-btn block m-1" @click="logmein()" type="button">Login</button>
     </form>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
+
 
 export default {
   name: "login-form",
   components: {},
   data() {
     return {
-      username: "",
-      password: ""
+      user: {}
     };
   },
   methods: {
-    login(){
-      localStorage.username = this.username;
-      localStorage.role_name = 'admin';
-      
-      window.location.href = 'inventory'
+    ...mapActions(['login']),
+    logmein(){
+      console.log('user details', this.user)
+      this.login({
+        user: this.user
+      })
+      window.location.href = 'dashboard'
     }
     //  async login() {
     //   console.log("hello")    

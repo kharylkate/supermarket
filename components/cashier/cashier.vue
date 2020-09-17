@@ -3,12 +3,7 @@
         <div class="container-fluid">
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Sales Transaction</h4>
-                <!-- <div class="btn-toolbar mb-2 mb-md-0">
-                    <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addCustomer">
-                      <img src="../../static/icons/file-earmark-plus.svg" alt="">
-                      Add Transaction
-                    </button>
-                  </div> -->
+
                 </div>
 
                 <div class="card col-md-12">
@@ -54,14 +49,22 @@
                                 </div>
                                 <hr>
                                 <div>
-                                    <input type="text" id="st-area" value="" class="form-control mt-4">
+                                    <!-- <v-select multiple v-model="selected" :options="['Canada','United States']" /> -->
+                                    <select class="form-control" @change="show()" id="select_item">
+                                        <option disabled selected >Scan?</option>
+                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
+                                    </select>
+                                    <!-- <input type="text" id="st-area" value="" list="items-list" class="form-control mt-4">
+                                    <datalist id="items-list">
+                                        <option v-for="item in inventory" :key="item.id" :value="item.barcode" @click="(show(item))">{{item.product_description}}</option>
+                                    </datalist> -->
                                 </div>
                                 <div class="my-3 row col-md-12">
                                     <div class="ml-auto">
                                         <div class="row">
                                             <button class="btn btn-lg border border-primary signs" @click="numclick(' (')"> ( </button>
                                             <button  class="btn btn-lg border border-primary signs" @click="numclick(') ')"> ) </button>
-                                            <button class="btn btn-lg border border-primary zero" @click="del()"> <img src="../../static/icons/arrow-left.svg" alt=""> </button>
+                                            <button class="btn btn-lg border border-primary zero" type="button" @click="del()"> <img src="../../static/icons/arrow-left.svg" alt=""> </button>
                                             
                                         </div>
                                         <div class="row">
@@ -111,38 +114,7 @@
                 
             
 
-            <!-- <div class="table-responsive bg-white rounded-lg">
-                <table class="table table-data align-items-center table-flush responsive" id="customersTable">
-                    <thead class="thead-sea-green">
-                        <tr>
-                        <th scope="col" class="sort" data-sort="number">Customer ID</th>
-                        <th scope="col" class="sort" data-sort="name">Name</th>
-                        <th scope="col" class="sort" data-sort="address">Address</th>
-                        <th scope="col" class="sort" data-sort="number">Contact Number</th>
-                        <th scope="col" class="sort" data-sort="name">Status</th>
-                        <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="list">
-                        <tr v-for="customer in customers" :key="customer.id">
-                            <td>{{customer.id}}</td>
-                            <td>{{customer.name}}</td>
-                            <td>{{customer.address}}</td>
-                            <td>{{customer.contactno}}</td>
-                            <td>
-                                <span class="badge badge-success">
-                                    {{customer.status}}
-                                </span>
-                            </td>
-                            <td class="text-left">
-                                <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editCustomer"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
-                            </td>
-                            
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div> -->
+            
         </div>
     </div>
 </template>
@@ -154,36 +126,58 @@ import {mapGetters} from 'vuex';
 export default {
     name: 'customers',
     computed: {
-        ...mapGetters([
-            'customers'
-        ])
+        ...mapGetters({
+            inventoryList: 'inventoryList'
+        })
+    },
+    data() {
+        return{
+            location: null,
+            locations: [
+                { id: "1111", manager: 'Alice',  title: 'Water Cart 1' },
+                { id: "2222", manager: 'Bob',    title: 'Water Cart 2' },
+                { id: "3333", manager: 'Neysa',  title: 'Water Cart 3' }
+            ]
+        }
     },
     methods: {
-        
+        numclick(num){
+            console.log("clicked!");
+            //var number = $(this).data('number');
+            $("#st-area").val(function() {
+                return this.value + num//number;
+            });
+        },
+        equals(){
+            var inputs = $("#st-area").val()
             
-            // $("#st-area").append(num)
-            // var text = document.getElementById("#st-area");
-            // text.Text += num
-            // var text = document.getElementById("#st-area");
-            // text.value("9")
-            numclick(num){
-                console.log("clicked!");
-                //var number = $(this).data('number');
-                $("#st-area").val(function() {
-                    return this.value + num//number;
-                });
-            },
-            equals(){
-                var inputs = $("#st-area").val()
-                
-            },
-            del(){
-                var inputs = $("#st-area").val()
-                var edited = input.slice(0, -1)
-                
-            }
-
-        
+        },
+        del(){
+            var inputs = $("#st-area").val()
+            var edited = inputs.slice(0, -1)
+            
+        },
+        ...mapActions(['showitem']),
+        // show(product) {
+        //     console.log('clicked! ', product)
+        //     this.showitem({...product})
+        // },
+        show(){
+            console.log('yo')
+            var e = document.getElementById("select_item").value
+            // var strUser = e.val;
+            console.log('selected', e);
+            //this.showitem(e)
+            //console.log('this one', this.showitem(e));
+            this.$store.dispatch("showitem", e)
+            .then((result) =>
+                console.log(result)
+            )
+        }
+    },
+    created(){
+        const showme = this.$store.dispatch("getSelectedItem");
+        console.log('@here, getSelectedItem: ', showme)
     }
 }
 </script>

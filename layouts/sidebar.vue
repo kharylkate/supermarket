@@ -94,15 +94,15 @@ export default {
     name: "sidebar",
     data() {
         return {
-            role_name: "admin",
-            username: "Maximus"
+            role_name: localStorage.role_name,
+            username: localStorage.username
         }
     },
     computed: {
 
     },
     methods: {
-
+        
     }
 }
 </script>

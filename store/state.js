@@ -421,7 +421,7 @@ export default {
       users_code: 1,
       employee_code: 153,
       username: "Maximus",
-      password: "qwertyuiop",
+      password: "emp",
       role_id: 1,
       role_name: "admin",
       created_at: "May 02, 2020",
@@ -434,7 +434,7 @@ export default {
       users_code: 2,
       employee_code: 154,
       username: "MsCashier",
-      password: "asdfghjkl",
+      password: "emp",
       role_id: 2,
       role_name: "cashier",
       created_at: "May 02, 2020",
@@ -446,7 +446,7 @@ export default {
       users_code: 3,
       employee_code: 155,
       username: "Custody",
-      password: "zxcvbnm",
+      password: "emp",
       role_id: 3,
       role_name: "custodian",
       created_at: "May 02, 2020",
@@ -458,6 +458,10 @@ export default {
 
   selectedTransaction: [], //mock
 
+  selectedItem: [], //mock
+
+
+  selectedItem: null, //for vSelect
   // selectedTransaction: null,
 
   selectedDelivery: null,
