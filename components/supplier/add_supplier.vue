@@ -41,7 +41,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" id="itemcancel">Cancel</button>
-              <button type="submit" class="btn btn-primary">OK</button>
+              <button type="button" @click="add()" class="btn btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -62,26 +62,21 @@ export default {
     data(){
       return {
         supplier: {
-          // company_name: "",
-          // contact_no: "",
-          // company_address: "",
-          // created_by: localStorage.username,
-          // created_at: "today"
+          
         }
       }
     },
     methods: {
       ...mapActions(['addSupplier']),
-      onSubmit(e){
-        e.preventDefault();
-        this.$store.dispatch("addSupplier", {
+      add(){
+        this.addSupplier({
           supplier: this.supplier 
         })
         .then((result) => {
           if(result){
+            alert(result)
             $("#addSupplier").hide();
             $('#add_supplier_form')[0].reset();
-            window.location.reload();
           }
         })
         

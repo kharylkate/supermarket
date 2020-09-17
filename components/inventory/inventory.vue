@@ -109,15 +109,16 @@ export default {
 
             this.inventory = { ...inventory };
         },
+        ...mapActions(['updateInventory']),
         update(){
           console.log('clicked', this.inventory)
-          this.$store.dispatch("updateInventory", {
+          this.updateInventory({
               inventory: this.inventory,
           })
           .then((result) => {
               console.log(result)
               alert(result)
-              window.location.reload();
+              $("#editTrans").modal('hide')
           })
         }
     },

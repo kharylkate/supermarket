@@ -29,7 +29,7 @@
                     </thead>
                     <tbody class="list">
                         <tr v-for="supplier in suppliersList" :key="supplier.id">
-                            <td>{{supplier.supplier_code}}</td>
+                            <td>{{supplier.supplier_id}}</td>
                             <td>{{supplier.company_name}}</td>
                             <td>{{supplier.contact_no}}</td>
                             <td>{{supplier.company_address}}</td>
@@ -131,15 +131,15 @@ export default {
             console.log(supplier)
             this.supplier = {...supplier}    
         },
+        ...mapActions(["updateSupplier"]),
         update(){
           console.log('clicked', this.supplier)
-          this.$store.dispatch("updateSupplier", {
+          this.updateSupplier({
               supplier: this.supplier,
           })
           .then((result) => {
               console.log(result)
               alert(result)
-              window.location.reload();
           })
         }
     },

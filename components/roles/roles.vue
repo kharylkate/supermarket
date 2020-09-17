@@ -112,15 +112,16 @@ export default {
       console.log(role);
       this.role = { ...role };
     },
+    ...mapActions(['updateRole']),
      update() {
       console.log('clicked_update', this.role)
-      this.$store.dispatch("updateRole", {
-            role: this.role,
+      this.updateRole({
+        role: this.role,
       })
       .then((result) => {
-        // console.log(result)
-        // alert(result)
-        window.location.reload();
+        alert(result)
+        console.log(result)
+        $("#editRole").modal('hide');
         })
      }
   },

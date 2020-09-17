@@ -25,24 +25,24 @@
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="mx-3 my-0">
-                            <a href="/inventory" class="">
+                            <nuxt-link to="/inventory" class="">
                             <span class="inactive-link nav-link">Inventory</span>
-                            </a>
+                            </nuxt-link>
                         </div>
                         <div class="mx-3 my-0">
-                            <a href="/suppliers" class="">
+                            <nuxt-link to="/suppliers" class="">
                                 <span class="inactive-link nav-link">Suppliers</span>
-                            </a>
+                            </nuxt-link>
                         </div>
                         <div class="mx-3 my-0">
-                            <a href="/users" class="">
+                            <nuxt-link to="/users" class="">
                                 <span class="inactive-link nav-link">Users</span>
-                            </a>
+                            </nuxt-link>
                         </div>
                         <div class="mx-3 my-0">
-                            <a href="/roles" class="">
+                            <nuxt-link to="/roles" class="">
                                 <span class="inactive-link nav-link">Roles</span>
-                            </a>
+                            </nuxt-link>
                         </div>
                     </div>
                 </div>
@@ -55,14 +55,14 @@
 
                     <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="mx-3 my-0">
-                            <a href="/delivery" class="">
+                            <nuxt-link to="/delivery" class="">
                                 <span class="inactive-link nav-link">Delivery Transactions</span>
-                            </a>
+                            </nuxt-link>
                         </div>
                         <div class="mx-3 my-0">
-                            <a href="/sales" class="">
+                            <nuxt-link to="/sales" class="">
                                 <span class="inactive-link nav-link">Sales Transactions</span>
-                            </a>
+                            </nuxt-link>
                         </div>
                     </div>
                 </div>
@@ -70,17 +70,17 @@
             </div>
             <div v-if="role_name === 'custodian'">
                 <div class="mx-3 my-0">
-                    <a href="/delivery" class="">
+                    <nuxt-link to="/delivery" class="">
                         <span class="inactive-link nav-link">Delivery Transactions</span>
-                    </a>
+                    </nuxt-link>
                 </div>
             </div>
             
             <div v-if="role_name === 'cashier'">
                 <div class="mx-3 my-0">
-                    <a href="/cashier_sales" class="">
+                    <nuxt-link to="/cashier_sales" class="">
                         <span class="inactive-link nav-link">Sales Transactions</span>
-                    </a>
+                    </nuxt-link>
                 </div>
             </div>
             

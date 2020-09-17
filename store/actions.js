@@ -1,33 +1,36 @@
 import axios from "axios";
 
 export default {
-  addCustomer: (context, customerData) => {
-    context.commit("addCustomer", customerData);
-    // console.log(customerData)
-    return customerData;
-  },
-  editCustomer({ commit }, { customerData }) {
-    commit("editCustomer", customerData);
-    return customerData;
-  },
+  // addCustomer: (context, customerData) => {
+  //   context.commit("addCustomer", customerData);
+  //   // console.log(customerData)
+  //   return customerData;
+  // },
+  // editCustomer({ commit }, { customerData }) {
+  //   commit("editCustomer", customerData);
+  //   return customerData;
+  // },
 
-  addSupplier: (context, supplierData) => {
-    context.commit("addSupplier", supplierData);
-    return supplierData;
-  },
+  // addSupplier: (context, supplierData) => {
+  //   context.commit("addSupplier", supplierData);
+  //   return supplierData;
+  // },
 
-  selectTransaction({ commit },  transaction ) {
-      commit('addSelectedTransaction', transaction)
-    return transaction;
-  },
+  // selectTransaction({ commit },  transaction ) {
+  //     commit('addSelectedTransaction', transaction)
+  //   return transaction;
+  // },
 
-  selectDelivery({ commit }, dt ) {
-      commit('addSelectedDelivery', dt.dr_no)
-    return dt.dr_no;
-  },
+  // selectDelivery({ commit }, dt ) {
+  //     commit('addSelectedDelivery', dt.dr_no)
+  //   return dt.dr_no;
+  // },
 
 
 //======================================================================
+
+
+  // ROLES
 
   async fetchRolesList ({ commit }) {
     return await axios({
@@ -68,7 +71,7 @@ export default {
   },
 
   async updateRole({ commit }, { role }) {
-    var urole_name = role_name;
+    var urole_name = role;
     console.log('@actions: ', urole_name)
     return await axios({
       method: "PUT",
@@ -81,16 +84,22 @@ export default {
     })
     .then(result => {
       console.log('hihi',result.data)
-      commit("updateRole", result.data);
+      commit("updateRole", role);
       return result.data;
     })
     .catch(err => err);
   },
 
+
+
+
+  // USER
+
+
   async fetchUserList ({ commit }) {
     return await axios({
       method: "GET",
-      url: `${this.$axios.defaults.baseURL}/user`,
+      url: `${this.$axios.defaults.baseURL}/users`,
       headers: {},
       data: {},
     })
@@ -128,6 +137,13 @@ export default {
     .catch(err => err);
   },
 
+
+
+
+
+  // INVENTORY
+
+
   async fetchInventoryList ({ commit }) {
     return await axios({
       method: "GET",
@@ -141,6 +157,26 @@ export default {
     })
     .catch( err => err);
   },
+
+  async updateInventory({ commit }, { inventory }) {
+    console.log('@actions: ', inventory.inventory_code)
+    return await axios({
+      method: "PUT",
+      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.inventory_code,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...inventory },
+      
+    })
+    .then(result => {
+      console.log('hihi',inventory)
+      commit("updateInventory", inventory);
+      return result.data;
+    })
+    .catch(err => err);
+  },
+
 
 
   // SUPPLIER
@@ -243,22 +279,5 @@ export default {
 
 
 
-  async updateInventory({ commit }, { inventory }) {
-    console.log('@actions: ', inventory.inventory_code)
-    return await axios({
-      method: "PUT",
-      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.inventory_code,
-      header: {
-        "Content-Type": "application/json"
-      },
-      data: { ...inventory },
-      
-    })
-    .then(result => {
-      console.log('hihi',inventory)
-      commit("updateInventory", inventory);
-      return result.data;
-    })
-    .catch(err => err);
-  },
+  
 };
