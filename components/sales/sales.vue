@@ -90,7 +90,7 @@
                         <td>{{items.product_description}}</td>
                         <td>{{items.qty}}</td>
                         <td>{{items.unit_cost}}</td>
-                        <td>{{(items.unit_cost * items.qty).toFixed(2)}}</td>
+                        <td>{{(items.unit_cost * items.qty)}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -103,7 +103,7 @@
                     <tbody>
                       <tr>
                         <td>Total</td>
-                        <td>PHP{{(sales.total_cost).toFixed(2)}}</td>
+                        <td>PHP{{(sales.total_cost)}}</td>
                       </tr>
                       <tr>
                         <td>Cash</td>
