@@ -67,7 +67,7 @@
                   <div class="mr-auto">OR Number: {{sales.or_no}}</div>    
                   <h6 class="ml-auto">{{sales.stransaction_date}}</h6>    
                 </div>
-                <div class="container row">
+                <div class="container">
                   <div class="mr-auto">Customer Name: {{sales.customer_name}}</div> 
                   <div class="mr-auto">Contact Number: {{sales.customer_contact_no}}</div> 
                   <div class="mr-auto">Address: {{sales.customer_address}}</div> 
@@ -90,7 +90,7 @@
                         <td>{{items.product_description}}</td>
                         <td>{{items.qty}}</td>
                         <td>{{items.unit_cost}}</td>
-                        <td>{{(items.unit_cost * items.qty)}}</td>
+                        <td>{{(items.unit_cost * items.qty).toFixed(2)}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -103,7 +103,7 @@
                     <tbody>
                       <tr>
                         <td>Total</td>
-                        <td>PHP{{sales.total_cost}}</td>
+                        <td>PHP{{(sales.total_cost).toFixed(2)}}</td>
                       </tr>
                       <tr>
                         <td>Cash</td>
@@ -111,7 +111,7 @@
                       </tr>
                       <tr v-if="(sales.total_cost<sales.payment_amt)">
                         <td>Change</td>
-                        <td>PHP{{sales.payment_amt-sales.total_cost}}</td>
+                        <td>PHP{{(sales.payment_amt-sales.total_cost).toFixed(2)}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -123,7 +123,7 @@
             
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">OK</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary">OK</button>
               </div>
               
           </div>
