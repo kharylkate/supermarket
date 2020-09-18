@@ -127,7 +127,8 @@ export default {
     
   },
   async beforeCreate() {
-    await this.$store.dispatch("fetchUserList", "fetchRolesList")
+    await this.$store.dispatch("fetchUserList")
+    await this.$store.dispatch("fetchRolesList")
   },
 };
 </script>

@@ -11,20 +11,20 @@
         <div class="modal-body">
           <form action="" id="add_item_form">
             <div class="row col-md-12">
-              <div class="card col-md-6">
-                  <div class="form-row">
-
-                    <div class="form-group mx-3">
+              <div class="card col-md-4">
+                  <div class="form-group mt-3 mb-0 container">
+                    <div class="form-group form-group-sm">
                       <label for="input_rtransaction_date">Date: </label>
-                      <input type="date" v-model="st.stransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" value="06/06/2020" >
+                      <!-- <input type="date" v-model="st.stransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" value="06/06/2020" > -->
+                       <input type="date" v-model="st.stransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" placeholder="06/06/2020">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-sm">
                       <label for="input_stransaction_no">Sales Official Receipt Number: </label>
                       <input type="number" v-model="st.or_no" class="form-control form-control-sm form__orNo" value="1654325" id="input_stransaction_no">
                     </div>
                   </div>
                   <hr>
-                  <div class="form-group mt-3">
+                  <div class="form-group ">
                     <div><p>Customer Information: </p></div>
                     <div class="container">
                       <div class="form-group form-group-sm">
@@ -42,12 +42,12 @@
                     </div>
                   </div>
               </div>
-              <div class="card col-md-6">
-                <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 px-2" id="topName">
+              <div class="card col-md-8">
+                <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-1 px-2" id="topName">
                 
                     <label for="">Sales Transaction Items:</label>
                     <div class="btn btn-sm-toolbar mb-2 mb-md-0">
-                    <button type="button" class="btn btn-sm lg-btn btn-sm_rtrans text-white" id="btn btn-sm_rtransaction_add" @click="addRow">
+                    <button type="button" class="btn btn-sm lg-btn mt-2 btn-sm_rtrans text-white" id="btn btn-sm_rtransaction_add" @click="addRow">
                         Add Items
                     </button>
                     </div>
@@ -61,7 +61,7 @@
                             <label for="form__barcode">Barcode</label>
                           </div>
                           <div class="form-group col-md-3">
-                            <label for="form__description">Product Description</label>
+                            <label for="form__description">Description</label>
                           </div>
                           <div class="form-group col-md-2">
                             <label for="form__quantity">Quantity</label>
@@ -92,7 +92,7 @@
                         <input type="text" v-model="row.unit_cost" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit" disabled>
                       </div>
                       <div class='form-group col-md-1'>
-                        <button class="btn btn-sm btn btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" class="text-white" alt=""> </button>
+                        <button class="btn btn-sm btn btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" style="color:white" class="text-white" alt=""> </button>
                       </div>
                     </div>
                   </li>
@@ -112,8 +112,6 @@
                 </div>
               </div>
             </div>
-            <hr>
-              
 
 
             <div class="modal-footer">

@@ -4,10 +4,10 @@
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Inventory</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                <!-- <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addDelTrans">
-                    <img src="../static/icons/file-earmark-plus.svg" alt="">
+                <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addInventory">
+                    <img src="../../static/icons/file-earmark-plus.svg" alt="">
                     Add Item
-                </button> -->
+                </button>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                 
                 <div class="form-group col-md-8">
                   <label for="edit_barcode">Barcode: </label>
-                  <input type="number" v-model="inventory.barcode" class="form-control" id="edit_barcode" value="" disabled>
+                  <input type="number" v-model="inventory.barcode" class="form-control" id="edit_barcode" value="">
                 </div>
 
                 <div class="form-group col-md-8">

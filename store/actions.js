@@ -183,6 +183,45 @@ export default {
     .catch(err => err);
   },
 
+  async updateInvQty({commit}, inventory){
+    console.log("update: ",inventory)
+    return await axios({
+      method: "PUT",
+      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.inventory_code,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...inventory },
+      
+    })
+    .then(result => {
+      console.log('hihi',inventory)
+      commit("updateInvQty", inventory);
+      return result.data;
+    })
+    .catch(err => err);
+
+  },
+
+  async addInventory({ commit }, { inventory }) {
+    console.log('@supplier data: ',inventory)
+    return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/inventory/add`,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...inventory },
+    })
+    .then(result => {
+      console.log('hihi',result.data)
+      console.log(inventory)
+      commit("addInventory", inventory);
+      return result.data;
+    })
+    .catch(err => err);
+  },
+
 
 
   // SUPPLIER
@@ -237,7 +276,7 @@ export default {
     })
     .then(result => {
       console.log('hihi',result.data)
-      commit("updateSupplier", result.data);
+      commit("updateSupplier", supplier);
       return result.data;
     })
     .catch(err => err);
@@ -262,7 +301,7 @@ export default {
     .catch( err => err);
   },
 
-  receiveDelivery({commit}, delivery){
+  async receiveDelivery({commit}, delivery){
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/delivery_transactions_items/add`,
@@ -319,7 +358,7 @@ export default {
   },
 
 
-  addSales({commit}, sales){
+  async addSales({commit}, sales){
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/sales/add`,
@@ -337,7 +376,7 @@ export default {
     .catch(err => err);
   },
 
-  addSalesItems({commit}, sales){
+  async addSalesItems({commit}, sales){
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/item/add`,

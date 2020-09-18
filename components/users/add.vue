@@ -63,16 +63,16 @@ export default {
     }),
   },
     methods: {
-      ...mapActions(['addSupplier']),
+      ...mapActions(['addUser']),
       addUser() {
         console.log('user add clicked: ', this.user)
-        this.$store.dispatch("addUser", {
+        this.addUser({
           user: this.user,
         })
         .then((result) => {
           if(result){
             $("#addUser").hide();
-            window.location.reload();
+            alert(result)
           }
         })
       }

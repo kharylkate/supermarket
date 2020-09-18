@@ -140,6 +140,7 @@ export default {
           .then((result) => {
               console.log(result)
               alert(result)
+              $("#editSupplier").modal('hide')
           })
         }
     },

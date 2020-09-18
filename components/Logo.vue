@@ -42,7 +42,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      rolesList: 'roleList'
+      rolesList: 'roleList',
+      userList: "userList",
     })
   },
   methods: {
@@ -74,6 +75,9 @@ export default {
     //       localStorage.username = this.username
     //     });
     // }
+  },
+  async beforeCreate() {
+    await this.$store.dispatch("fetchUserList")
   }
 };
 </script>
