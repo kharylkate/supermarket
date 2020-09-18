@@ -86,7 +86,7 @@
                         <input type="text" v-model="row.product_description" class="form-control form-control-sm form__description" placeholder="Product Description" disabled>
                       </div>
                       <div class="form-group col-md-2">
-                        <input type="text" v-model="row.quantity" class="form-control form-control-sm form__quantity" placeholder="Quantity">
+                        <input type="text" @keypress="getTotal()" v-model="row.quantity" class="form-control form-control-sm form__quantity" placeholder="Quantity">
                       </div>
                       <div class="form-group col-md-3">
                         <input type="text" v-model="row.unit_cost" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit" disabled>
@@ -147,7 +147,7 @@ export default {
           barcode: "",
           product_description: "",
           quantity: "",
-          unitcost: ""
+          unit_cost: ""
         }]
       }
     },
@@ -158,7 +158,7 @@ export default {
           barcode: "",
           product_description: "",
           quantity: "",
-          unitcost: ""
+          unit_cost: ""
         });
       },
       removeElement: function(index){
@@ -179,6 +179,15 @@ export default {
         // this.rows[this.rows.length-1].product_description = bc.product_description
         // console.log('product info: ', this.rows[this.rows.length-1].barcode, ', ', this.rows[this.rows.length-1].product_description);
         
+
+      },
+      getTotal(){
+        for(var i = 0; i < this.rows.length-1; i++){
+          console.log(this.rows);
+          if(this.rows[i].quantity && this.rows[i].unit_cost != ""){
+            this.st.total_cost += (parseInt(this.rows[i].quantity * this.rows[i].unit_cost))
+          }
+        }
 
       },
       ...mapActions(['addSales', 'addSalesItems', 'updateInvQty']),

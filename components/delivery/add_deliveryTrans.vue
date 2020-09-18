@@ -77,7 +77,7 @@ d<template>
                       <input type="text" v-model="row.quantity" class="form-control form-control-sm form__quantity" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.unit_cost" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit">
+                      <input type="text" @keypress="getTotal()" v-model="row.cost_per_unit" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit">
                     </div>
                     <div class='form-group col-md-1'>
                       <button class="btn btn-sm btn btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" style="color:white" class="text-white" alt=""> </button>
@@ -129,9 +129,11 @@ export default {
           barcode: "",
           product_description: "",
           quantity: "",
-          unit_cost: ""
+          cost_per_unit: ""
         }],
-        dt: {},
+        dt: {
+          total_cost: 0
+        },
         
       }
     },
@@ -142,11 +144,19 @@ export default {
           barcode: "",
           description: "",
           quantity: "",
-          unit_cost: ""
+          cost_per_unit: ""
         });
       },
       removeElement: function(index){
         this.rows.splice(index,1)
+
+        for(var i = 0; i < this.rows.length-1; i++){
+          console.log(this.rows);
+          if(this.rows[i].quantity && this.rows[i].cost_per_unit != ""){
+            this.dt.total_cost += (parseInt(this.rows[i].quantity * this.rows[i].cost_per_unit))
+          }
+        }
+
       },
       getbarcode(){
         console.log('barcode?', this.rows[this.rows.length-1].barcode)
@@ -189,6 +199,15 @@ export default {
         $("#addDelTrans").modal('hide');
         $("#add_item_form")[0].reset();
 
+
+      },
+      getTotal(){
+        for(var i = 0; i < this.rows.length-1; i++){
+          console.log(this.rows);
+          if(this.rows[i].quantity && this.rows[i].cost_per_unit != ""){
+            this.dt.total_cost += (parseInt(this.rows[i].quantity * this.rows[i].cost_per_unit))
+          }
+        }
 
       }
     },

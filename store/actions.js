@@ -359,6 +359,7 @@ export default {
 
 
   async addSales({commit}, sales){
+    console.log("addSales",sales);
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/sales/add`,
@@ -377,6 +378,7 @@ export default {
   },
 
   async addSalesItems({commit}, sales){
+    console.log("addSalesItems",sales);
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/item/add`,
