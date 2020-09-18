@@ -61,28 +61,17 @@
                 <div class="container text-center mb-2">
                   <h5>LOU GEH SUPERMARKET</h5>
                   <small>Some bldg-name, st name, road name, STATE</small>
+                  <div class="mt-2"><small>{{sales.stransaction_date}}</small>  </div>
                 </div>
 
                 <div class="container row mt-3">
                   <div class="mr-auto">OR Number: {{sales.or_no}}</div>    
-                  <h6 class="ml-auto">{{sales.stransaction_date}}</h6>    
-                </div>
-                <div class="container">
-                  <div class="mr-auto">Customer Name: {{sales.customer_name}}</div> 
-                  <div class="mr-auto">Contact Number: {{sales.customer_contact_no}}</div> 
-                  <div class="mr-auto">Address: {{sales.customer_address}}</div> 
+                    
                 </div>
 
                 <div class="table-responsive">
                   <table class="table table-borderless">
                     <thead>
-                      <tr>
-                        <th>BARCODE</th>
-                        <th>DESC</th>
-                        <th>QTY</th>
-                        <th>UNIT PRICE</th>
-                        <th>AMT</th>
-                      </tr>
                     </thead>
                     <tbody>
                       <tr v-for="items in sales.items" :key="items.id">
@@ -90,40 +79,43 @@
                         <td>{{items.product_description}}</td>
                         <td>{{items.qty}}</td>
                         <td>{{items.unit_cost}}</td>
-                        <td>{{(items.unit_cost * items.qty)}}</td>
+                        <td>{{(items.unit_cost * items.qty).toFixed(2)}}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
             </div>
-              
 
-                <div class="container mb-5">
-                  <table class="table-borderless">
-                    <tbody>
-                      <tr>
-                        <td>Total</td>
-                        <td>PHP{{(sales.total_cost)}}</td>
-                      </tr>
-                      <tr>
-                        <td>Cash</td>
-                        <td>PHP{{sales.payment_amt}}</td>
-                      </tr>
-                      <tr v-if="(sales.total_cost<sales.payment_amt)">
-                        <td>Change</td>
-                        <td>PHP{{(sales.payment_amt-sales.total_cost).toFixed(2)}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="container">
+                  <div class="row">
+                  <div class="mr-auto">Total:</div>    
+                  <div class="ml-auto">PHP{{(sales.total_cost)}}</div>    
                 </div>
+                <div class="row">
+                  <div class="mr-auto">Cash:</div>    
+                  <div class="ml-auto">PHP{{sales.payment_amt}}</div>    
+                </div>
+                <div v-if="(sales.total_cost<sales.payment_amt)" class="row">
+                  <div class="mr-auto">Change: </div>    
+                  <div class="ml-auto">PHP{{(sales.payment_amt-sales.total_cost).toFixed(2)}}</div>    
+                </div>
+                </div>
+
+                <div class="">
+                  <div class="mr-auto">Customer Name: {{sales.customer_name}}</div> 
+                  <div class="mr-auto">Contact Number: {{sales.customer_contact_no}}</div> 
+                  <div class="mr-auto">Address: {{sales.customer_address}}</div> 
+                </div>
+
+                
 
                 
               </div>
             </div>
             
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn btn-primary">OK</button>
+                <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary text-white">OK</button>
               </div>
               
           </div>

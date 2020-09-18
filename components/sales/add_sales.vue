@@ -10,107 +10,117 @@
         </div>
         <div class="modal-body">
           <form action="" id="add_item_form">
-            <div class="form-row">
-              <div class="form-group col-md-3">
-                <label for="input_rtransaction_date">Date: </label>
-                <input type="date" v-model="st.stransaction_date" class="form-control form__date" id="input_rtransaction_date" value="06/06/2020" >
+            <div class="row col-md-12">
+              <div class="card col-md-6">
+                  <div class="form-row">
+
+                    <div class="form-group mx-3">
+                      <label for="input_rtransaction_date">Date: </label>
+                      <input type="date" v-model="st.stransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" value="06/06/2020" >
+                    </div>
+                    <div class="form-group">
+                      <label for="input_stransaction_no">Sales Official Receipt Number: </label>
+                      <input type="number" v-model="st.or_no" class="form-control form-control-sm form__orNo" value="1654325" id="input_stransaction_no">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-group mt-3">
+                    <div><p>Customer Information: </p></div>
+                    <div class="container">
+                      <div class="form-group form-group-sm">
+                      <label for="input_cus_name">Customer Name: </label>
+                      <input type="text" v-model="st.customer_name" class="form-control form-control-sm form__cusname" id="input_cus_name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="input_contno">Contact Number: </label>
+                      <input type="number" v-model="st.customer_contact_no" class="form-control form-control-sm cont_no" placeholder="Contact Number" id="input_contno">
+                    </div>
+                    <div class="form-group">
+                      <label for="cus_address">Address: </label>
+                      <input type="text" v-model="st.customer_address" class="form-control form-control-sm cus_address" placeholder="Address" id="cus_address">
+                    </div>
+                    </div>
+                  </div>
               </div>
-              <div class="form-group col-md-3">
-                <label for="input_stransaction_no">Sales Official Receipt Number: </label>
-                <input type="number" v-model="st.or_no" class="form-control form__orNo" value="1654325" id="input_stransaction_no">
-              </div>
-            </div>
-<hr>
-            <div class="form-row mt-4">
-              <div class="col-md-12"><p>Customer Information: </p></div>
-              <div class="form-group col-md-3">
-                <label for="input_cus_name">Customer Name: </label>
-                <input type="text" v-model="st.customer_name" class="form-control form__cusname" id="input_cus_name" placeholder="Name">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="input_contno">Contact Number: </label>
-                <input type="number" v-model="st.customer_contact_no" class="form-control cont_no" placeholder="Contact Number" id="input_contno">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="cus_address">Address: </label>
-                <input type="text" v-model="st.customer_address" class="form-control cus_address" placeholder="Address" id="cus_address">
-              </div>
-            </div>
-<hr>
-              <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
+              <div class="card col-md-6">
+                <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 px-2" id="topName">
                 
                     <label for="">Sales Transaction Items:</label>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                    <button type="button" class="btn btn-sm lg-btn btn_rtrans text-white" id="btn_rtransaction_add" @click="addRow">
+                    <div class="btn btn-sm-toolbar mb-2 mb-md-0">
+                    <button type="button" class="btn btn-sm lg-btn btn-sm_rtrans text-white" id="btn btn-sm_rtransaction_add" @click="addRow">
                         Add Items
                     </button>
                     </div>
                 </div>
-              <div class="card">
-                
-                <ul>
-                  <li>
-                      <div class="form-row d-flex col-md-12 mt-2">
-                        <div class="form-group col-md-3">
-                          <label for="form__barcode">Barcode:</label>
+                <div class="card">
+                  
+                  <ul>
+                    <li>
+                        <div class="form-row d-flex col-md-12 mt-2">
+                          <div class="form-group col-md-3">
+                            <label for="form__barcode">Barcode</label>
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="form__description">Product Description</label>
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label for="form__quantity">Quantity</label>
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="form__unitcost">Cost Per Unit</label>
+                          </div>
+                          <div class='form-group col-md-1'>
+                            <label for="">Action:</label>
+                          </div>
                         </div>
-                        <div class="form-group col-md-3">
-                          <label for="form__description">Product Description:</label>
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="form__quantity">Quantity:</label>
-                        </div>
-                        <div class="form-group col-md-3">
-                          <label for="form__unitcost">Cost Per Unit:</label>
-                        </div>
-                        <div class='form-group col-md-1'>
-                          <label for="">Action:</label>
-                        </div>
+                    </li>
+                    <li v-for="(row, index) in rows" :key="index.id">
+                    <div class="form-row d-flex col-md-12">
+                      <div class="form-group col-md-3">
+                        <input @keyup.enter="getbarcode()" type="text" list="barcode_list" v-model="row.barcode" class="form-control form-control-sm form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                          <datalist id="barcode_list">
+                            <option v-for="items in inventoryList" :key="items.id" :value="items.barcode">{{items.product_description}}</option>
+                          </datalist>
                       </div>
+                      <div class="form-group col-md-3">
+                        <input type="text" v-model="row.product_description" class="form-control form-control-sm form__description" placeholder="Product Description" disabled>
+                      </div>
+                      <div class="form-group col-md-2">
+                        <input type="text" v-model="row.quantity" class="form-control form-control-sm form__quantity" placeholder="Quantity">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <input type="text" v-model="row.unit_cost" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit" disabled>
+                      </div>
+                      <div class='form-group col-md-1'>
+                        <button class="btn btn-sm btn btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" class="text-white" alt=""> </button>
+                      </div>
+                    </div>
                   </li>
-                  <li v-for="(row, index) in rows" :key="index.id">
-                  <div class="form-row d-flex col-md-12 mt-0">
-                    <div class="form-group col-md-3">
-                      <input @keyup.enter="getbarcode()" type="text" list="barcode_list" v-model="row.barcode" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
-                        <datalist id="barcode_list">
-                          <option v-for="items in inventoryList" :key="items.id" :value="items.barcode">{{items.product_description}}</option>
-                        </datalist>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <input type="text" v-model="row.product_description" class="form-control form__description" placeholder="Product Description" disabled>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <input type="text" v-model="row.quantity" class="form-control form__quantity" placeholder="Quantity">
-                    </div>
-                    <div class="form-group col-md-3">
-                      <input type="text" v-model="row.unit_cost" class="form-control form__unitcost" placeholder="Cost Per Unit" disabled>
-                    </div>
-                    <div class='form-group col-md-1'>
-                      <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
-                    </div>
+                  </ul>
+                </div>
+
+                <div class="form-row mt-5">
+                  <div class="form-group ml-auto col-md-3 mr-1">
+                    <label for="">Total Sales Amount:</label>
+                    <input type="text" v-model="st.total_cost" class="form-control form-control-sm form__totalAmt text-right" placeholder="Total Sales Amount">
                   </div>
-                </li>
-                </ul>
-              </div>
 
-              <div class="form-row mt-5">
-                <div class="form-group ml-auto col-md-3 mr-1">
-                  <label for="">Total Sales Amount:</label>
-                  <input type="text" v-model="st.total_cost" class="form-control form__totalAmt text-right" placeholder="Total Sales Amount">
-                </div>
-
-                <div class="form-group col-md-3 mr-1">
-                  <label for="">Payment Amount:</label>
-                  <input type="text" v-model="st.payment_amt" class="form-control form__totalAmt text-right" placeholder="Payment Amount">
+                  <div class="form-group col-md-3 mr-1">
+                    <label for="">Payment Amount:</label>
+                    <input type="text" v-model="st.payment_amt" class="form-control form-control-sm form__totalAmt text-right" placeholder="Payment Amount">
+                  </div>
                 </div>
               </div>
+            </div>
+            <hr>
+              
 
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="salescancel" data-dismiss="modal">Cancel</button>
-              <button type="button" @click="saveSales()" class="btn btn-primary">OK</button>
+              <button type="button" class="btn btn-sm btn btn-secondary text-white" id="salescancel" data-dismiss="modal">Cancel</button>
+              <button type="button" @click="saveSales()" class="btn text-white btn-sm btn btn-primary">OK</button>
             </div>
-            <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
+            <!-- <button class="btn btn-sm btn btn-sm-primary" type="submit">Submit form</button> -->
           </form>
         </div>
         
@@ -203,3 +213,10 @@ export default {
 
 
 </script>
+
+<style scoped>
+.img {
+  color: white;
+}
+
+</style>
