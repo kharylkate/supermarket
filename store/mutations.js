@@ -34,6 +34,7 @@ export default {
                 for(var i = 0; i < state.inventory.length; i++){
                     if(state.inventory[i].barcode == payload.invqty[j].barcode){
                         state.inventory[i].qty += parseInt(payload.invqty[j].qty)
+                        state.inventory[i].unit_cost = parseInt(payload.invqty[j].unit_cost)
                     }
                 }
             }
@@ -108,6 +109,7 @@ export default {
         const users = state.users.find(p => p.users_code === payload.user.users_code)
         users.username = payload.user.username
         users.role_name = payload.user.role_name
+        users.role_id = payload.user.role_id
 
     },
 

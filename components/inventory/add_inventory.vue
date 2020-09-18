@@ -80,7 +80,7 @@ export default {
    data() {
       return {
         inventory: {
-          quantity: 0
+          qty: 0
         }
       }
     },
@@ -93,7 +93,7 @@ export default {
         this.addInventory({
           inventory: this.inventory
         })
-        $("#addInventory").hide();
+        $("#addInventory").modal('hide');
         $('#add_inventory_form')[0].reset();
 
       }

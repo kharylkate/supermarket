@@ -13,7 +13,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_date">Date: </label>
-                  <input type="date" v-model="dt.dtransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" default="06/06/2020">
+                  <input type="date" v-model="dt.dtransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" default="2020-09-18">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_no">Delivery Receipt Number: </label>
@@ -22,9 +22,9 @@
 
                 <div class="form-group col-md-6 mb-4">
                   <label for="">Suppliers: </label>
-                    <input v-model="dt.company_name" class="form-control" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
+                    <input v-model="dt.company_name" class="form-control form-control-sm" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
                   <datalist id="suppliers">
-                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_code">{{supply.company_name}}</option>
+                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.company_name"></option>
                   </datalist>
                 </div>
               </div>
@@ -65,7 +65,7 @@
                           <option disabled>Select Item</option>
                           <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
                         </select> -->
-                        <input type="text" v-model="row.barcode" list="barcode_list" class="form-control form-control-sm form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                        <input type="text" v-model="row.barcode" @keyup.enter="getbarcode()" list="barcode_list" class="form-control form-control-sm form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
                           <datalist id="barcode_list">
                           <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
                           <button>button</button>
@@ -73,7 +73,7 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <input type="text"  v-model="row.product_description" id="rtransaction_description" class="form-control form-control-sm form__description" placeholder="Product Description">
+                        <input type="text"  v-model="row.product_description" id="rtransaction_description" class="form-control form-control-sm form__description" placeholder="Product Description" disabled>
                       </div>
                       
                       <div class="form-group col-md-2 mb-2">
@@ -123,7 +123,9 @@ export default {
     },
     data() {
       return {
-        dt: {},
+        dt: {
+          dtransaction_date: '2020-09-18'
+        },
         rows: [{
           barcode: "",
           description: "",
@@ -145,6 +147,18 @@ export default {
       removeElement: function(index){
         this.rows.splice(index,1)
       },
+      getbarcode(){
+
+        console.log('barcode?', this.rows[this.rows.length-1].barcode)
+        console.log(this.inventoryList);
+
+        for(var i = 0; i < this.inventoryList.length; i++){
+          if(this.inventoryList[i].barcode == this.rows[this.rows.length-1].barcode){
+            this.rows[this.rows.length-1].product_description = this.inventoryList[i].product_description
+            this.rows[this.rows.length-1].unit_cost = this.inventoryList[i].unit_cost
+          }
+        }
+      },
 
       ...mapActions(['receiveDelivery', 'updateInvQty']),
       receive(){
@@ -162,8 +176,6 @@ export default {
         this.updateInvQty({
           invqty: this.rows
         })
-
-
 
         $("#addDelTrans").modal('hide');
         $("#add_item_form")[0].reset();
