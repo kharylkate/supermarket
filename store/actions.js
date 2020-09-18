@@ -143,6 +143,26 @@ export default {
     .catch(err => err);
   },
 
+  async updateUser({commit}, user) {
+    console.log('user: ', user)
+
+    return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/users/`+users.user.users_code,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...user },
+    })
+    .then(result => {
+      console.log('hihi',result.data)
+      console.log(user)
+      commit("updateUser", user);
+      return result.data;
+    })
+    .catch(err => err);
+  },
+
 
 
 
@@ -204,7 +224,7 @@ export default {
   },
 
   async addInventory({ commit }, { inventory }) {
-    console.log('@supplier data: ',inventory)
+    console.log('@inventory data: ',inventory)
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/inventory/add`,
@@ -289,7 +309,7 @@ export default {
   async fetchDTransactionsList ({ commit }) {
     return await axios({
       method: "GET",
-      url: `${this.$axios.defaults.baseURL}/deliverytransactions`,
+      url: `${this.$axios.defaults.baseURL}/delivery_item/all`,
       headers: {},
       data: {},
     })
@@ -359,7 +379,7 @@ export default {
 
 
   async addSales({commit}, sales){
-    console.log("addSales",sales);
+    console.log("addSales",sales.sales);
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/sales/add`,
@@ -370,7 +390,7 @@ export default {
     })
     .then(result => {
       console.log('hihi',result.data)
-      console.log(supplier)
+      console.log(sales)
       commit("addSales", sales);
       return result.data;
     })

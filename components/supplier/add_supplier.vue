@@ -62,7 +62,7 @@ export default {
     data(){
       return {
         supplier: {
-          
+          status: 1
         }
       }
     },
@@ -71,14 +71,13 @@ export default {
       add(){
         this.addSupplier({
           supplier: this.supplier 
+          
         })
-        .then((result) => {
-          if(result){
-            alert(result)
+        
             $("#addSupplier").hide();
             $('#add_supplier_form')[0].reset();
-          }
-        })
+      
+        console.log(supplier)
         
       }
 

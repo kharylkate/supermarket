@@ -31,7 +31,7 @@
                     <td>{{dt.company_name}}</td>
                     <td>{{ new Date(dt.dtransaction_date).toDateString()}}, {{ new Date(dt.dtransaction_date).getUTCHours()}}:{{ new Date(dt.dtransaction_date).getUTCMinutes()}}:{{ new Date(dt.dtransaction_date).getUTCSeconds()}}</td>
                     <td>₱{{dt.total_cost}}</td>
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button> <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td>
+                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button></td>
                 </tr>
             </tbody>
             </table>
@@ -60,11 +60,11 @@
                 <div class="container text-center mb-2">
                   <h5>{{dt.company_name}}</h5>
                   <small>{{dt.company_address}}</small>
+                  <div><small>Date: {{ new Date(dt.dtransaction_date).toDateString()}}, {{ new Date(dt.dtransaction_date).getUTCHours()}}:{{ new Date(dt.dtransaction_date).getUTCMinutes()}}:{{ new Date(dt.dtransaction_date).getUTCSeconds()}}</small></div>  
                 </div>
 
                 <div class="container row mt-3">
-                  <div class="mr-auto">Delivery Receipt: {{dt.dr_no}}</div>    
-                  <h6 class="ml-auto">Date: {{ new Date(dt.dtransaction_date).toDateString()}}, {{ new Date(dt.dtransaction_date).getUTCHours()}}:{{ new Date(dt.dtransaction_date).getUTCMinutes()}}:{{ new Date(dt.dtransaction_date).getUTCSeconds()}}</h6>    
+                  <div class="mr-auto">Delivery Receipt: {{dt.dr_no}}</div>      
                 </div>
 
                 <div class="table-responsive">
@@ -74,7 +74,7 @@
                     <tbody>
 
                       <tr v-for="item in dt.items" :key="item.id">
-                        <td>{{item.dr_no}}</td>
+                        <!-- <td>{{item.dr_no}}</td> -->
                         <td>{{item.barcode}}</td>
                         <td>{{item.quantity}}</td>
                         <td>₱{{item.unit_cost}}</td>
