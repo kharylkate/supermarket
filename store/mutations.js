@@ -3,10 +3,10 @@ export default {
     login: (state, login) => {
         // const user = state.users.find(p => p.username === login.user.username)
         for(var i = 0; i < state.users.length; i++){
-            if(state.users[i].username == login.user.username){
+            if(state.userList[i].username == login.user.username){
                 // if(state.users[i].password == login.user.password){
-                    localStorage.username = state.users[i].username
-                    localStorage.role_name = state.users[i].role_name
+                    localStorage.username = state.userList[i].username
+                    localStorage.role_name = state.userList[i].role_name
                 // } else {
                 //     alert('Wrong Password')
                 // }
@@ -21,19 +21,23 @@ export default {
         state.sales_transactions.push(salesData.sales)
     },
 
+    addSalesItems: (state, salesItems) => {
+        state.sales_transactions_items.push(salesItems.sales)
+    },
+
     updateInvQty: (state, payload) => {
 
         for(var j = 0; j < payload.invqty.length; j++){
             if(payload.invqty.transaction == 'sales'){
                 for(var i = 0; i < state.inventoryList.length; i++){
-                    if(state.inventory[i].barcode == payload.invqty[j].barcode){
-                        state.inventory[i].qty = (state.inventory[i].qty - payload.invqty[j].qty)
+                    if(state.inventoryList[i].barcode == payload.invqty[j].barcode){
+                        state.inventoryList[i].qty = (state.inventoryList[i].qty - payload.invqty[j].qty)
                     }
                 }
             } else if(payload.invqty.transaction == 'delivery'){
                 for(var i = 0; i < state.inventoryList.length; i++){
-                    if(state.inventory[i].barcode == payload.invqty[j].barcode){
-                        state.inventory[i].qty += parseInt(payload.invqty[j].qty)
+                    if(state.inventoryList[i].barcode == payload.invqty[j].barcode){
+                        state.inventoryList[i].qty += parseInt(payload.invqty[j].qty)
                     }
                 }
             }
@@ -49,7 +53,7 @@ export default {
             //else, skip for-loop
             var found = false;
             for(var j = 0; j < state.inventoryList.length; j++){
-                if(state.inventory[j].barcode == delivery.transaction.items[i].barcode){
+                if(state.inventoryList[j].barcode == delivery.transaction.items[i].barcode){
                     found = true;
                 }
             }
@@ -138,7 +142,6 @@ export default {
     },
 
     viewSelectedItem(state, item) {
-
         const product = state.inventoryList.find(p => p.barcode == item)
 
         console.log('mutations.js viewSelectedItem', product);

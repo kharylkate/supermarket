@@ -387,6 +387,10 @@ export default {
 
   salesList: [],
 
+  sales_transactions: [],
+
+  sales_transactions_items: [],
+
   selectedRole: {}
 
 };

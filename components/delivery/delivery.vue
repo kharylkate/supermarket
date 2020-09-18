@@ -70,12 +70,6 @@
                 <div class="table-responsive">
                   <table class="table table-borderless">
                     <thead>
-                      <tr>
-                        <th>BARCODE</th>
-                        <th>DESC</th>
-                        <th>QTY</th>
-                        <th>UNIT PRICE</th>
-                      </tr>
                     </thead>
                     <tbody>
 
@@ -128,8 +122,6 @@ export default {
     computed: {
         ...mapGetters({
             deliveryList: "deliveryList"
-            // 'delivery',
-            // 'delivery_transactions'
         }),
     },
     async beforeCreate() {

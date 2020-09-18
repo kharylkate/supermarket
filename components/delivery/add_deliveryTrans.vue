@@ -52,7 +52,7 @@ d<template>
                           <label for="form__description">Product Description:</label>
                         </div>
                         <div class="form-group col-md-2">
-                          <label for="form__qty">Quantity:</label>
+                          <label for="form__quantity">Quantity:</label>
                         </div>
                         <div class="form-group col-md-3">
                           <label for="form__unitcost">Cost Per Unit:</label>
@@ -71,10 +71,10 @@ d<template>
                       </datalist>
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.description" class="form-control form__description" placeholder="Product Description">
+                      <input type="text" v-model="row.product_description" class="form-control form__description" placeholder="Product Description">
                     </div>
                     <div class="form-group col-md-2">
-                      <input type="text" v-model="row.qty" class="form-control form__qty" placeholder="Quantity">
+                      <input type="text" v-model="row.quantity" class="form-control form__quantity" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
                       <input type="text" v-model="row.unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
@@ -114,14 +114,9 @@ d<template>
 <script>
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
-import vSelect from 'vue-select';
-import 'vue-select/dist/vue-select.css';
 
 export default {
     name: 'modal-addDelTrans',
-    components: {
-      'v-select': vSelect
-    },
     computed: {
       ...mapGetters({
         suppliersList: 'suppliersList',
@@ -132,8 +127,8 @@ export default {
       return {
         rows: [{
           barcode: "",
-          description: "",
-          qty: "",
+          product_description: "",
+          quantity: "",
           unitcost: ""
         }],
         dt: {},
@@ -146,18 +141,43 @@ export default {
         this.rows.push({
           barcode: "",
           description: "",
-          qty: "",
+          quantity: "",
           unitcost: ""
         });
       },
       removeElement: function(index){
         this.rows.splice(index,1)
       },
+      ...mapActions(['receiveDelivery', 'updateInvQty']),
       receive(){
         this.rows.total = this.dt.total_cost
         console.log('add total: ', this.rows.total);
         console.log('rows: ', this.rows);
         console.log('dt: ', this.dt);
+        this.rows.transaction = 'delivery'
+        this.dt.items = this.rows
+
+        this.receiveDelivery({
+          transaction: this.dt
+        })
+
+        this.receiveDeliveryItems({
+          transaction: this.rows
+        })
+
+        this.updateInvQty({
+          invqty: this.rows
+        })
+
+        $("#addDelTrans").modal('hide');
+        $("#add_item_form")[0].reset();
+
+
+
+
+
+
+
       }
     },
     created(){

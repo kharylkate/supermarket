@@ -1,5 +1,5 @@
 <template>
-    <nav id="navbarCollapse" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style>
+    <nav  id="navbarCollapse" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style>
           
         <div class="container text-center">
             <img class="avatar mt-3 mx-3 rounded-pill" src="../static/Untitled design.png" alt="" width="130" height="150">
@@ -7,7 +7,7 @@
         </div>
         <hr>
 
-        <div class="input-group mb-1 mt-5">
+        <div v-if="role_name === 'cashier' " class="input-group mb-1 mt-5">
             <input type="text" class="form-control search-filter" data-table="table-data" placeholder="Search">
             <div class="input-group-append">
             <span class="input-group-text"><img src="../static/icons/search.svg" alt=""></span>
@@ -94,15 +94,15 @@ export default {
     name: "sidebar",
     data() {
         return {
-            role_name: "admin",
-            username: "Maximus"
+            role_name: localStorage.role_name,
+            username: localStorage.username
         }
     },
     computed: {
 
     },
     methods: {
-
+        
     }
 }
 </script>

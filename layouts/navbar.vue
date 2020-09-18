@@ -23,7 +23,7 @@ export default {
     name: "navbar",
     data(){
       return {
-        username: "Maximus"
+        username: localStorage.username
       }
     },
     methods: {

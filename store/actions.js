@@ -1,6 +1,12 @@
 import axios from "axios";
 
 export default {
+  login({commit}, login) {
+    // commit("login", login);
+    // return login;
+    commit("login", login);
+      return login;
+  },
   // addCustomer: (context, customerData) => {
   //   context.commit("addCustomer", customerData);
   //   // console.log(customerData)
@@ -256,6 +262,42 @@ export default {
     .catch( err => err);
   },
 
+  receiveDelivery({commit}, delivery){
+    return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/delivery_transactions_items/add`,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...delivery },
+    })
+    .then(result => {
+      console.log('hihi',result.data)
+      console.log(delivery)
+      commit("receiveDelivery", delivery)
+      return result.data;
+    })
+    .catch(err => err);
+  },
+
+  // addSalesItems({commit}, sales){
+  //   return await axios({
+  //     method: "POST",
+  //     url: `${this.$axios.defaults.baseURL}/item/add`,
+  //     header: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     data: { ...sales },
+  //   })
+  //   .then(result => {
+  //     console.log('hihi',result.data)
+  //     console.log(sales)
+  //     commit("addSalesItems", sales);
+  //     return result.data;
+  //   })
+  //   .catch(err => err);
+  // },
+
 
 
 
@@ -274,6 +316,43 @@ export default {
       return result.data;
     })
     .catch( err => err);
+  },
+
+
+  addSales({commit}, sales){
+    return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/sales/add`,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...sales },
+    })
+    .then(result => {
+      console.log('hihi',result.data)
+      console.log(supplier)
+      commit("addSales", sales);
+      return result.data;
+    })
+    .catch(err => err);
+  },
+
+  addSalesItems({commit}, sales){
+    return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/item/add`,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...sales },
+    })
+    .then(result => {
+      console.log('hihi',result.data)
+      console.log(sales)
+      commit("addSalesItems", sales);
+      return result.data;
+    })
+    .catch(err => err);
   },
 
 
