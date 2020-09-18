@@ -78,10 +78,10 @@
 
                   <div class="form-group col-md-8">
                     <label for="compadd">Role </label>
-                    <select class="form-control form-control-sm" v-model="user.role_id">
+                    <select class="form-control form-control-sm" v-model="user.role_name">
                       <option disabled>Select Role</option>
-                      <option >{{user.role_id}}</option>
-                      <option v-for="role in rolesList" :key="role.id" :value="role.role_id">{{role.role_name}}
+                      <!-- <option >{{user.role_id}}</option> -->
+                      <option v-for="role in rolesList" :key="role.id" :value="role.role_name">{{role.role_name}}
                       </option>
                     </select>
                   </div>
@@ -152,4 +152,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

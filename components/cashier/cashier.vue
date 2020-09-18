@@ -61,16 +61,16 @@
                                     <tbody>
                                         <tr class="fit" v-for="(row, index) in rows" :key="index.id">
                                             <td>
-                                                <input type="text" class="" v-model="row.barcode" disabled/>
+                                                <input type="text" class="trans" v-model="row.barcode" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="" v-model="row.product_description" disabled/>
+                                                <input type="text" class="trans" v-model="row.product_description" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="" v-model="row.qty" disabled/>
+                                                <input type="text" class="trans" v-model="row.qty" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="" v-model="row.unit_cost" disabled/>
+                                                <input type="text" class="trans" v-model="row.unit_cost" disabled/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -79,11 +79,11 @@
                             </div>
                             <div class="transaction-total text-right mt-5 mr-4">
                                 <label>Total Amount: ₱</label>
-                                <input type="text" class="" v-model="st.total_cost" disabled/>
+                                <input type="text" class="trans" v-model="st.total_cost" disabled/>
                             </div>
                             <div v-if="(st.payment_amount == 0)" class="transaction-total text-right mt-5 mr-4">
                                 <label>Payment Amount: ₱</label>
-                                <input type="text" class="" v-model="st.payment_amt" disabled/>
+                                <input type="text" class="trans" v-model="st.payment_amt" disabled/>
                             </div>
 
                         </div>
@@ -106,14 +106,14 @@
                                 <hr>
                                 <div>
                                     <!-- <v-select multiple v-model="selected" :options="['Canada','United States']" /> -->
-                                    <select class="form-control" @change="show()" id="select_item">
+                                    <!-- <select class="form-control" @change="show()" id="select_item">
                                         <option disabled selected >Scan?</option>
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
-                                    </select>
-                                    <!-- <input type="text" id="st-area" value="" list="items-list" class="form-control mt-4">
+                                    </select> -->
+                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
                                     <datalist id="items-list">
-                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" @click="(show)">{{item.product_description}}</option>
-                                    </datalist> -->
+                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
+                                    </datalist>
                                 </div>
                                 
                                 <div class="my-3 row col-md-12">
@@ -446,7 +446,6 @@ export default {
 
             this.$store.dispatch("showitem", e)
 
-
             var elem = document.createElement('tr');
             this.rows.push({
                 barcode: this.getSelectedItem.barcode,
@@ -636,6 +635,13 @@ export default {
 .table-xtra-condensed > tbody > tr > td,
 .table-xtra-condensed > tfoot > tr > td {
   padding: 0px;
+}
+
+.trans {
+    border: none;
+    outline: none;
+    background-color: white;
+
 }
 
 
