@@ -15,27 +15,27 @@
 
                   <div class="form-group col-md-8">
                     <label for="compname">Employee Code: </label>
-                    <input type="number" v-model="user.employee_code" class="form-control" id="compname" placeholder="Enter Employee Code" autocomplete="off" required>
+                    <input type="number" v-model="user.employee_code" class="form-control form-control-sm" id="compname" placeholder="Enter Employee Code" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="contactno">Username: </label>
-                    <input type="text" v-model="user.username" class="form-control" id="contactno" placeholder="Enter User Name" autocomplete="off" required>
+                    <input type="text" v-model="user.username" class="form-control form-control-sm" id="contactno" placeholder="Enter User Name" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="compadd">Role </label>
-                    <select class="form-control" name="" id="" v-model="user.role_name">
+                    <select class="form-control form-control-sm" name="" id="" v-model="user.role_name">
                       <option selected="selected" hidden>Select Role</option>
                       <option v-for="role in rolesList" :key="role.id" v-bind:value="role.role_name">{{role.role_name}}</option>
                     </select>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary " data-dismiss="modal" id="itemcancel">Cancel</button>
-                  <button type="button" @click="addUser()" class="btn btn-primary">OK</button>
+                  <button type="button" class="btn btn-sm btn-secondary " data-dismiss="modal" id="itemcancel">Cancel</button>
+                  <button type="button" @click="addUser()" class="btn btn-sm btn-primary">OK</button>
                 </div>
-                <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
+                <!-- <button class="btn btn-sm btn-primary" type="submit">Submit form</button> -->
               </form>
             </div>
             

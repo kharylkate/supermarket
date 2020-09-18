@@ -7,7 +7,7 @@
           id="topName"
         >
           <h4 class="text-uppercase">Roles</h4>
-          <button class="btn btn-default lg-btn" data-toggle="modal" data-target="#addRole">New Role</button>
+          <button class="btn btn-sm btn-default lg-btn" data-toggle="modal" data-target="#addRole">New Role</button>
         </div>
       </div>
 
@@ -26,12 +26,12 @@
               <td>{{role.role_name}}</td>
               <td>
                 <button
-                  class="btn lg-btn"
+                  class="btn btn-sm lg-btn"
                   data-toggle="modal"
                   data-target="#editRole"
                   @click="(select(role))"
                 >
-                  <img src="../../static/icons/pencil-square.svg" alt /> Edit
+                  <img src="../../static/icons/pencil-square.svg" alt />
                 </button>
               </td>
             </tr>
@@ -63,7 +63,7 @@
                   <input type="hidden" v-model="role.role_id">
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="edit_role_name"
                     v-model="role.role_name"
                     autocomplete="off"
@@ -74,11 +74,11 @@
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-sm btn-secondary"
                   id="btn-cancelEdit"
                   data-dismiss="modal"
                 >Cancel</button>
-                <button type="button" @click="update()" class="btn btn-primary">OK</button>
+                <button type="button" @click="update()" class="btn btn-sm btn-primary">OK</button>
               </div>
             </form>
           </div>

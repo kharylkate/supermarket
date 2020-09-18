@@ -4,7 +4,7 @@
               <div class="">
                 <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                   <h4 class="text-uppercase">Sales Transaction</h4>
-                  <button class="btn btn-default lg-btn" data-toggle="modal" data-target="#addSales">New Transaction</button>
+                  <button class="btn btn-sm btn-default lg-btn" data-toggle="modal" data-target="#addSales">New Transaction</button>
                 </div>
               </div>
 
@@ -25,8 +25,8 @@
                     <td>{{sales.stransaction_date}}</td>
                     <!-- <td>{{sales.customerName}}</td> -->
                     <td>{{sales.total_cost}}</td>
-                    <td><button class="btn lg-btn" data-toggle="modal" data-target="#viewTransaction" @click="(select(sales))" ><img src="../../static/icons/eye.svg" alt=""></button>
-                    <button class="btn lg-btn" data-toggle="modal" data-target="#view_trans" @click="(sales.items)"><img src="../../static/icons/printer.svg" alt=""></button></td>
+                    <td><button class="btn btn-sm lg-btn" data-toggle="modal" data-target="#viewTransaction" @click="(select(sales))" ><img src="../../static/icons/eye.svg" alt=""></button>
+                    <button class="btn btn-sm lg-btn" data-toggle="modal" data-target="#view_trans" @click="(sales.items)"><img src="../../static/icons/printer.svg" alt=""></button></td>
                     
                     <!-- <td>
                         <div v-for="(item,i) in sales.items" :key="i"> 
@@ -77,9 +77,9 @@
                       <tr v-for="items in sales.items" :key="items.id">
                         <td>{{items.barcode}}</td>
                         <td>{{items.product_description}}</td>
-                        <td>{{items.qty}}</td>
+                        <td>{{items.quantity}}</td>
                         <td>{{items.unit_cost}}</td>
-                        <td>{{(items.unit_cost * items.qty).toFixed(2)}}</td>
+                        <td>{{(items.unit_cost * items.quantity).toFixed(2)}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -114,8 +114,8 @@
             </div>
             
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn btn-primary text-white">OK</button>
+                <button type="button" class="btn btn-sm btn-secondary text-white" data-dismiss="modal">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary text-white">OK</button>
               </div>
               
           </div>

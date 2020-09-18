@@ -4,10 +4,10 @@
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Inventory</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                <!-- <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addDelTrans">
-                    <img src="../static/icons/file-earmark-plus.svg" alt="">
+                <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addInventory">
+                    <img src="../../static/icons/file-earmark-plus.svg" alt="">
                     Add Item
-                </button> -->
+                </button>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                     <td>{{item.product_description}}</td>
                     <td>{{item.qty}}</td>
                     <td>₱{{item.unit_cost}}</td>
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" @click="(select(item))" data-target="#editTrans"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button></td>
+                    <td><button id="btn-color" class="btn btn-sm lg-btn" data-toggle="modal" @click="(select(item))" data-target="#editTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td>
                 </tr>
             </tbody>
             </table>
@@ -73,8 +73,8 @@
               
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="update()">OK</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-primary" @click="update()">OK</button>
               </div>
             </form>
           </div>

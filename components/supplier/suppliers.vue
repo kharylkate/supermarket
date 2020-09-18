@@ -6,7 +6,7 @@
                 <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                     <h4 class="text-uppercase">Suppliers</h4>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                    <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addSupplier">
+                    <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addSupplier">
                         <img src="../../static/icons/file-earmark-plus.svg" alt="">
                         Add Supplier
                     </button>
@@ -37,7 +37,7 @@
                             <span v-if="(supplier.status == 0)" class="badge badge-secondary">Inactive</span>
                             </td>
                             <td class="text-left">
-                                <button id="btn-color" @click="(select(supplier))" class="btn lg-btn" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button>
+                                <button id="btn-color" @click="(select(supplier))" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#editSupplier"><img src="../../static/icons/pencil-square.svg" alt=""></button>
                             </td>
                         </tr>
                     
@@ -62,27 +62,27 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_supplier_code">Supplier ID: </label>
-                <input type="text" v-model="supplier.supplier_id" class="form-control" id="edit_supplier_code" autocomplete="off" required disabled>
+                <input type="text" v-model="supplier.supplier_id" class="form-control form-control-sm" id="edit_supplier_code" autocomplete="off" required disabled>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_compname">Company Name: </label>
-                <input type="text" v-model="supplier.company_name" class="form-control" id="edit_compname" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_name" class="form-control form-control-sm" id="edit_compname" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_contactno">Contact Number: </label>
-                <input type="tel" v-model="supplier.contact_no" class="form-control" id="edit_contactno" autocomplete="off" required>
+                <input type="tel" v-model="supplier.contact_no" class="form-control form-control-sm" id="edit_contactno" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_compadd">Company Address: </label>
-                <input type="text" v-model="supplier.company_address" class="form-control" id="edit_compadd" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_address" class="form-control form-control-sm" id="edit_compadd" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_compstatus">Status: </label>
-                <select class="form-control" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status">
+                <select class="form-control form-control-sm" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status">
                   <option value="1">Active</option>
                   <option value="0">Inactive</option>
                 </select>
@@ -90,8 +90,8 @@
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" @click="update()" class="btn btn-primary">OK</button>
+              <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" @click="update()" class="btn btn-sm btn-primary">OK</button>
             </div>
           </form>
         </div>

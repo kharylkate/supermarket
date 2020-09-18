@@ -31,7 +31,7 @@
                 <input
                   type="text"
                   v-model="role_name"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="role_name"
                   placeholder="Role Name"
                   autocomplete="off"
@@ -42,15 +42,15 @@
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                class="btn btn-sm btn-secondary"
                 id="btn-cancelAdd"
                 data-dismiss="modal"
               >
                 Cancel
               </button>
-              <button type="button" @click="add()" class="btn btn-primary">OK</button>
+              <button type="button" @click="add()" class="btn btn-sm btn-primary">OK</button>
             </div>
-            <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
+            <!-- <button class="btn btn-sm btn-primary" type="submit">Submit form</button> -->
           </form>
         </div>
       </div>

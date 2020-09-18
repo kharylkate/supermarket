@@ -9,7 +9,7 @@
           >
             <h4 class="text-uppercase">Users</h4>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addUser">
+              <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addUser">
                 <img src="../../static/icons/file-earmark-plus.svg" alt />
                 Add User
               </button>
@@ -35,12 +35,12 @@
                 <td class="text-left">
                   <button
                     id="btn-color"
-                    class="btn lg-btn "
+                    class="btn btn-sm lg-btn btn-sm "
                     data-toggle="modal"
                     data-target="#editUser"
                     @click="(select(user))"
                   >
-                    <img src="../../static/icons/pencil-square.svg"  alt /> Edit
+                    <img src="../../static/icons/pencil-square.svg"  alt />
                   </button>
                 </td>
               </tr>
@@ -68,17 +68,17 @@
 
                   <div class="form-group col-md-8">
                     <label for="compname">Employee Code: </label>
-                    <input type="number" v-model="user.employee_code" class="form-control" placeholder="Enter Employee Code" autocomplete="off" required>
+                    <input type="number" v-model="user.employee_code" class="form-control form-control-sm" placeholder="Enter Employee Code" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="contactno">Username: </label>
-                    <input type="text" v-model="user.username" class="form-control" placeholder="Enter User Name" autocomplete="off" required>
+                    <input type="text" v-model="user.username" class="form-control form-control-sm" placeholder="Enter User Name" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="compadd">Role </label>
-                    <select class="form-control" v-model="user.role_id">
+                    <select class="form-control form-control-sm" v-model="user.role_id">
                       <option disabled>Select Role</option>
                       <option >{{user.role_id}}</option>
                       <option v-for="role in rolesList" :key="role.id" :value="role.role_id">{{role.role_name}}
@@ -88,8 +88,8 @@
                   
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="button" @click="update()" class="btn btn-primary">OK</button>
+                  <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" @click="update()" class="btn btn-sm btn-primary">OK</button>
                 </div>
               </form>
             </div>

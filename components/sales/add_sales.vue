@@ -11,10 +11,10 @@
         <div class="modal-body">
           <form action="" id="add_item_form">
             <div class="row col-md-12">
-              <div class="card col-md-6">
-                  <div class="form-row">
+              <div class="card col-md-4">
+                  <div class="form-group container mb-0 mt-2">
 
-                    <div class="form-group mx-3">
+                    <div class="form-group">
                       <label for="input_rtransaction_date">Date: </label>
                       <input type="date" v-model="st.stransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" value="06/06/2020" >
                     </div>
@@ -42,12 +42,12 @@
                     </div>
                   </div>
               </div>
-              <div class="card col-md-6">
-                <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 px-2" id="topName">
+              <div class="card col-md-8">
+                <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-2 px-2" id="topName">
                 
                     <label for="">Sales Transaction Items:</label>
-                    <div class="btn btn-sm-toolbar mb-2 mb-md-0">
-                    <button type="button" class="btn btn-sm lg-btn btn-sm_rtrans text-white" id="btn btn-sm_rtransaction_add" @click="addRow">
+                    <div class="btn btn-sm-toolbar  mb-md-0">
+                    <button type="button" class="btn mt-1 btn-sm lg-btn btn-sm_rtrans text-white" id="btn btn-sm_rtransaction_add" @click="addRow">
                         Add Items
                     </button>
                     </div>
@@ -112,8 +112,6 @@
                 </div>
               </div>
             </div>
-            <hr>
-              
 
 
             <div class="modal-footer">

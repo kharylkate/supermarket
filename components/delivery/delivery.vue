@@ -4,7 +4,7 @@
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Delivery</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addDelTrans">
+                <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addDelTrans">
                     <img src="../../static/icons/file-earmark-plus.svg" alt="">
                    Receive Item
                 </button>
@@ -31,8 +31,8 @@
                     <td>{{dt.company_name}}</td>
                     <td>{{dt.dtransaction_date}}</td>
                     <td>₱{{dt.total_cost}}</td>
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button> 
-                    <!-- <button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button> -->
+                    <td><button id="btn-color" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button> 
+                    <!-- <button id="btn-color" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#editDelTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button> -->
                     </td>
                 </tr>
             </tbody>
@@ -90,7 +90,7 @@
                 </div>              
                 </div>
                 <div class="modal-footer my-0">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                 </div>
                 
             </div>

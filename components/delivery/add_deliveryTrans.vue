@@ -13,11 +13,11 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_date">Date: </label>
-                  <input type="date" v-model="dt.dtransaction_date" class="form-control form__date" id="input_rtransaction_date" default="06/06/2020">
+                  <input type="date" v-model="dt.dtransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" default="06/06/2020">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_no">Delivery Receipt Number: </label>
-                  <input type="number" v-model="dt.dr_no" class="form-control form__orNo" placeholder="DR Number" id="input_rtransaction_no">
+                  <input type="number" v-model="dt.dr_no" class="form-control form-control-sm form__orNo" placeholder="DR Number" id="input_rtransaction_no">
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
@@ -65,7 +65,7 @@
                           <option disabled>Select Item</option>
                           <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
                         </select> -->
-                        <input type="text" v-model="row.barcode" list="barcode_list" class="form-control form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                        <input type="text" v-model="row.barcode" list="barcode_list" class="form-control form-control-sm form__barcode" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
                           <datalist id="barcode_list">
                           <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
                           <button>button</button>
@@ -73,17 +73,17 @@
                       </div>
 
                       <div class="form-group col-md-4">
-                        <input type="text"  v-model="row.product_description" id="rtransaction_description" class="form-control form__description" placeholder="Product Description">
+                        <input type="text"  v-model="row.product_description" id="rtransaction_description" class="form-control form-control-sm form__description" placeholder="Product Description">
                       </div>
                       
                       <div class="form-group col-md-2 mb-2">
-                        <input type="number"  v-model="row.qty" id="rtransaction_qty" class="form-control form__qty" placeholder="Quantity">
+                        <input type="number"  v-model="row.qty" id="rtransaction_qty" class="form-control form-control-sm form__qty" placeholder="Quantity">
                       </div>
                       <div class="form-group col-md-3">
-                        <input type="number"  v-model="row.unit_cost" id="rtransaction_unitcost" class="form-control form__unitcost" placeholder="Cost Per Unit">
+                        <input type="number"  v-model="row.unit_cost" id="rtransaction_unitcost" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit">
                       </div>
                       <div class='form-group col-md-1'>
-                        <button class="btn btn-danger rem_item" type="button" @click="removeElement" id="Action">Remove</button>
+                        <button class="btn btn-sm btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" class="text-white" alt=""> </button>
                       </div>
                     </div>
                 </li>
@@ -92,13 +92,13 @@
               <!-- <div class="form-row mt-5">
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
-                  <input type="number" v-model="dt.total_cost" class="form-control form__totalAmt" id="totalAmt" placeholder="Total Amount">
+                  <input type="number" v-model="dt.total_cost" class="form-control form-control-sm form__totalAmt" id="totalAmt" placeholder="Total Amount">
                 </div>
               </div> -->
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
-              <button type="button" @click="receive()" class="btn btn-primary">OK</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="itemcancel" data-dismiss="modal">Cancel</button>
+              <button type="button" @click="receive()" class="btn btn-sm btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>

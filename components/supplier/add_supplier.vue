@@ -21,17 +21,17 @@
               
               <div class="form-group col-md-8">
                 <label for="compname">Company Name: </label>
-                <input type="text" v-model="supplier.company_name" class="form-control" id="compname" placeholder="Enter Company Name" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_name" class="form-control form-control-sm" id="compname" placeholder="Enter Company Name" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="contactno">Contact Number: </label>
-                <input type="number" v-model="supplier.contact_no" class="form-control" id="contactno" placeholder="Enter Contact Number" autocomplete="off" required>
+                <input type="number" v-model="supplier.contact_no" class="form-control form-control-sm" id="contactno" placeholder="Enter Contact Number" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="compadd">Company Address: </label>
-                <input type="text" v-model="supplier.company_address" class="form-control" id="compadd" placeholder="Enter Company Address" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_address" class="form-control form-control-sm" id="compadd" placeholder="Enter Company Address" autocomplete="off" required>
               </div>
 
               <input type="hidden" v-model="supplier.created_at" value="today">
@@ -40,10 +40,10 @@
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="itemcancel">Cancel</button>
-              <button type="button" @click="add()" class="btn btn-primary">OK</button>
+              <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" id="itemcancel">Cancel</button>
+              <button type="button" @click="add()" class="btn btn-sm btn-primary">OK</button>
             </div>
-            <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
+            <!-- <button class="btn btn-sm btn-primary" type="submit">Submit form</button> -->
           </form>
         </div>
         
