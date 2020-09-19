@@ -24,25 +24,24 @@ export default {
     },
 
     addSalesItems: (state, salesItems) => {
-        state.sales_transactions_items.push(salesItems.sales)
+        state.sales_transactions_items.push(salesItems)
     },
 
-    updateInvquantity: (state, payload) => {
+    updateInvQty: (state, payload) => {
 
-        for(var j = 0; j < payload.length; j++){
+        for(var j = 0; j < payload.invqty.length; j++){
             if(payload.transaction == 'sales'){
                 for(var i = 0; i < state.inventoryList.length; i++){
-                    if(state.inventoryList[i].barcode == payload[j].barcode){
-                        state.inventoryList[i].quantity = (state.inventoryList[i].quantity - payload[j].quantity)
-                        state.inventoryList[i].unit_cost = (state.inventoryList[i].quantity - payload[j].unit_cost)
-
+                    if(state.inventoryList[i].barcode == payload.invqty[j].barcode){
+                        state.inventoryList[i].quantity = (state.inventoryList[i].quantity - payload.invqty[j].quantity)
+                        state.inventoryList[i].unit_cost = (state.inventoryList[i].quantity - payload.invqty[j].unit_cost)
                     }
                 }
             } else if(payload.transaction == 'delivery'){
                 for(var i = 0; i < state.inventoryList.length; i++){
-                    if(state.inventoryList[i].barcode == payload[j].barcode){
-                        state.inventoryList[i].quantity += parseInt(payload[j].quantity)
-                        state.inventoryList[i].unit_cost = (state.inventoryList[i].quantity - payload[j].unit_cost)
+                    if(state.inventoryList[i].barcode == payload.invqty[j].barcode){
+                        state.inventoryList[i].quantity += parseInt(payload.invqty[j].quantity)
+                        state.inventoryList[i].unit_cost = (state.inventoryList[i].quantity - payload.invqty[j].unit_cost)
                     }
                 }
             }
@@ -112,7 +111,7 @@ export default {
     },
 
     updateUser: (state, payload) => {
-        console.log(payload.user);
+        console.log(payload);
         console.log('payload.company_name: ', payload.username);
         const users = state.users.find(p => p.users_code === payload.users_code)
         users.username = payload.username

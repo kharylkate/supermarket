@@ -113,7 +113,7 @@ export default {
         }
     },
     methods: {
-       ...mapActions(['selectDelivery']),
+      //...mapActions(['selectDelivery']),
       select(dt) {
           console.log(dt)
         this.dt = { ...dt }

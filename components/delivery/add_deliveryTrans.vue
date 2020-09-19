@@ -212,7 +212,7 @@ export default {
       }
     },
     created(){
-      console.log('hilu',this.inventoryList)
+      //console.log('hilu',this.inventoryList)
     },
     async beforeCreate(){
       await this.$store.dispatch("fetchSuppliersList")

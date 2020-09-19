@@ -126,11 +126,12 @@ export default {
     },
     ...mapActions(['updateUser']),
     update(){
-      console.log('user: ', this.user)
+      console.log('userrrr: ', this.user)
       this.updateUser({
         user: this.user
       })
       $("#editUser").modal('hide');
+      
 
     },
     

@@ -76,9 +76,9 @@
                       <tr v-for="items in sales.items" :key="items.id">
                         <td>{{items.barcode}}</td>
                         <td>{{items.product_description}}</td>
-                        <td>{{items.qty}}</td>
+                        <td>{{items.quantity}}</td>
                         <td>{{items.unit_cost}}</td>
-                        <td>{{(items.unit_cost * items.qty).toFixed(2)}}</td>
+                        <td>{{(items.unit_cost * items.quantity).toFixed(2)}}</td>
                       </tr>
                     </tbody>
                   </table>

@@ -119,9 +119,9 @@ export default {
         role: this.role,
       })
       .then((result) => {
-        alert(result)
         console.log(result)
         $("#editRole").modal('hide');
+        alert(result)
         })
      }
   },

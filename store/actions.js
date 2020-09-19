@@ -144,20 +144,20 @@ export default {
   },
 
   async updateUser({commit}, user) {
-    console.log('user: ', user)
+    console.log('user code: ', user.user.users_code)
 
     return await axios({
-      method: "POST",
-      url: `${this.$axios.defaults.baseURL}/users/`+users.user.users_code,
+      method: "PUT",
+      url: `${this.$axios.defaults.baseURL}/user/`+user.user.users_code,
       header: {
         "Content-Type": "application/json"
       },
-      data: { ...user },
+      data: { ...user.user },
     })
     .then(result => {
       console.log('hihi',result.data)
       console.log(user)
-      commit("updateUser", user);
+      commit("updateUser", user.user);
       return result.data;
     })
     .catch(err => err);
@@ -204,22 +204,23 @@ export default {
   },
 
   async updateInvQty({commit}, inventory){
-    console.log("update: ",inventory)
     return await axios({
       method: "PUT",
-      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.inventory_code,
+      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.invqty.inventory_code,
       header: {
         "Content-Type": "application/json"
       },
-      data: { ...inventory },
+      data: { ...inventory.invqty },
       
     })
     .then(result => {
-      console.log('hihi',inventory)
+      console.log(result);
       commit("updateInvQty", inventory);
       return result.data;
     })
-    .catch(err => err);
+    .catch(err => {
+      console.log(err);
+    });
 
   },
 
@@ -255,7 +256,7 @@ export default {
     })
     .then(result => {
       // console.log("eyy", result)\
-      console.log(result.data)
+      //console.log(result.data)
       commit("setSuppliersList", result.data);
       return result.data;
     })
@@ -379,18 +380,15 @@ export default {
 
 
   async addSales({commit}, sales){
-    console.log("addSales",sales.sales);
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/sales/add`,
       header: {
         "Content-Type": "application/json"
       },
-      data: { ...sales },
+      data: { ...sales.sales },
     })
     .then(result => {
-      console.log('hihi',result.data)
-      console.log(sales)
       commit("addSales", sales);
       return result.data;
     })
@@ -398,22 +396,24 @@ export default {
   },
 
   async addSalesItems({commit}, sales){
-    console.log("addSalesItems",sales);
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/item/add`,
       header: {
         "Content-Type": "application/json"
       },
-      data: { ...sales },
+      data: { ...sales.sales[0] },
     })
     .then(result => {
-      console.log('hihi',result.data)
-      console.log(sales)
-      commit("addSalesItems", sales);
+      console.log(result.data);
+      commit("addSalesItems", sales.sales);
       return result.data;
     })
-    .catch(err => err);
+    .catch(err => {
+      console.log(err);
+
+      return err
+    });
   },
 
 

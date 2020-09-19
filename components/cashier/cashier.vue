@@ -61,16 +61,16 @@
                                     <tbody>
                                         <tr class="fit" v-for="(row, index) in rows" :key="index.id">
                                             <td>
-                                                <input type="text" class="" v-model="row.barcode" disabled/>
+                                                <input type="text" class="trans" v-model="row.barcode" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="" v-model="row.product_description" disabled/>
+                                                <input type="text" class="trans" v-model="row.product_description" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="" v-model="row.qty" disabled/>
+                                                <input type="text" class="trans" v-model="row.qty" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="" v-model="row.unit_cost" disabled/>
+                                                <input type="text" class="trans" v-model="row.unit_cost" disabled/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -79,11 +79,11 @@
                             </div>
                             <div class="transaction-total text-right mt-5 mr-4">
                                 <label>Total Amount: ₱</label>
-                                <input type="text" class="" v-model="st.total_cost" disabled/>
+                                <input type="text" class="trans" v-model="st.total_cost" disabled/>
                             </div>
                             <div v-if="(st.payment_amount == 0)" class="transaction-total text-right mt-5 mr-4">
                                 <label>Payment Amount: ₱</label>
-                                <input type="text" class="" v-model="st.payment_amt" disabled/>
+                                <input type="text" class="trans" v-model="st.payment_amt" disabled/>
                             </div>
 
                         </div>
@@ -636,6 +636,12 @@ export default {
 .table-xtra-condensed > tbody > tr > td,
 .table-xtra-condensed > tfoot > tr > td {
   padding: 0px;
+}
+
+.trans {
+    border: none;
+    outline: none;
+    background-color: white;
 }
 
 
