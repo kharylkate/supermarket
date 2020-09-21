@@ -57,13 +57,17 @@
                           <table class="table table-hover table-borderless">
                             <thead>
                               <tr>
-                                <th>#</th>
+                               
                                 <th>Product Description</th>
                                 <th>Qty</th>
                               </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                <tr v-for="low in lowStocks" :key="low.id">
+                                  <td>{{low.product_description}}</td>
+                                  <td>{{low.qty}}</td>
+                                </tr>
+                                <!-- <tr>
                                   <td>
                                     1
                                   </td>
@@ -76,7 +80,7 @@
                                   </td>
                                   <td>Dairy Meelk</td>
                                   <td>35</td>
-                                </tr>
+                                </tr> -->
                               </tbody>
                               
                             
@@ -120,7 +124,8 @@ export default {
         ...mapGetters([
             'inventoryCounter',
             'supplierCounter',
-            'zeroStocks'
+            'zeroStocks',
+            'lowStocks'
         ])
     }
     
