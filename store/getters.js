@@ -3,13 +3,7 @@ export default {
     inventory: state => {
         return state.inventory
     },
-    inventoryCounter: state => {
-        var count = 0;
-        state.inventory.map(inventory => {
-            count += inventory.qty
-        })
-        return count;
-    },
+    
     
     // delivery
     delivery: state => {
@@ -27,9 +21,7 @@ export default {
     suppliers: state => {
         return state.suppliers
     },
-    supplierCounter: (state, suppliers) => {
-        return state.suppliers.length
-    },
+    
     // customers
     getCustomers(state){
         return state.customers
@@ -78,8 +70,20 @@ export default {
         return state.inventory;
     },
 
+    inventoryCounter: state => {
+        var count = 0;
+        state.inventory.map(inventory => {
+            count += inventory.qty
+        })
+        return count;
+    },
+
     suppliersList(state) {
         return state.suppliers;
+    },
+
+    supplierCounter: (state, suppliers) => {
+        return state.suppliers.length
     },
 
     deliveryList(state) {

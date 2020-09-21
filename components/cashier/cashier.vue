@@ -8,8 +8,8 @@
 
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="card sales-card col-md-7">
-                            <div class="container mt-3">
+                        <div class="card sales-card col-md-8">
+                            <div class="mt-3">
                                 <div class="my-2 px-2">Sales Transaction Items</div>
                             </div>
                             <!-- <div class="container item-list">
@@ -48,7 +48,7 @@
                                     </li>
                                 </ul>
                             </div> -->
-                            <div class="table">
+                            <div class="table container">
                                 <table class="table table-borderless w-auto table-xtra-condensed">
                                     <thead class="fit w-auto">
                                         <tr class="fit">
@@ -87,7 +87,7 @@
                             </div>
 
                         </div>
-                        <div class="card col-md-5">
+                        <div class="card col-md-4">
                             <div class="container mt-3">
                                 <div class="form-group my-2 px-2">
                                     <label for="or_no">Receipt Number: </label>
@@ -110,14 +110,14 @@
                                         <option disabled selected >Scan?</option>
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
                                     </select> -->
-                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
+                                    <input placeholder="barcode" type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
                                     <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
                                     </datalist>
                                 </div>
                                 
                                 <div class="my-3 row col-md-12">
-                                    <div class="ml-auto">
+                                    <div class="ml-auto text-center">
                                         <div class="row">
                                             <button class="btn btn-lg border border-primary signs" @click="numclick(' (')"> ( </button>
                                             <button  class="btn btn-lg border border-primary signs" @click="numclick(') ')"> ) </button>
