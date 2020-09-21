@@ -340,6 +340,24 @@ export default {
     .catch(err => err);
   },
 
+  // async receiveDeliveryItems({commit}, delivery){
+  //   return await axios({
+  //     method: "POST",
+  //     url: `${this.$axios.defaults.baseURL}/delivery_item/add`,
+  //     header: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     data: { ...delivery },
+  //   })
+  //   .then(result => {
+  //     console.log('hihi',result.data)
+  //     console.log(delivery)
+  //     commit("receiveDelivery", delivery)
+  //     return result.data;
+  //   })
+  //   .catch(err => err);
+  // },
+
   // addSalesItems({commit}, sales){
   //   return await axios({
   //     method: "POST",

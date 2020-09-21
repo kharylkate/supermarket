@@ -40,7 +40,7 @@ export default {
             } else if(payload.transaction == 'delivery'){
                 for(var i = 0; i < state.inventoryList.length; i++){
                     if(state.inventoryList[i].barcode == payload.invqty[j].barcode){
-                        state.inventoryList[i].quantity += parseInt(payload.invqty[j].quantity)
+                        state.inventoryList[i].quantity = (state.inventoryList[i].quantity + payload.invqty[j].quantity)
                         state.inventoryList[i].unit_cost = (state.inventoryList[i].quantity - payload.invqty[j].unit_cost)
                     }
                 }
@@ -49,31 +49,38 @@ export default {
 
     },
 
-    receiveDelivery: (state, delivery) => {
-        var total_cost = 0;
-        //loop through items to get quantity*amt and add every total to total_cost
-        for(var i = 0; i < delivery.transaction.items.length; i++){
-            //if barcode is not found in state.inventory, push to state.inventory
-            //else, skip for-loop
-            var found = false;
-            for(var j = 0; j < state.inventoryList.length; j++){
-                if(state.inventoryList[j].barcode == delivery.transaction.items[i].barcode){
-                    found = true;
-                }
-            }
+    // receiveDelivery: (state, delivery) => {
+    //     var total_cost = 0;
+    //     //loop through items to get quantity*amt and add every total to total_cost
+    //     for(var i = 0; i < delivery.transaction.items.length; i++){
+    //         //if barcode is not found in state.inventory, push to state.inventory
+    //         //else, skip for-loop
+    //         var found = false;
+    //         for(var j = 0; j < state.inventoryList.length; j++){
+    //             if(state.inventoryList[j].barcode == delivery.transaction.items[i].barcode){
+    //                 found = true;
+    //             }
+    //         }
 
-            if(!found){
-                state.inventoryList.push(delivery.transaction.items[i])
-            }
+    //         if(!found){
+    //             state.inventoryList.push(delivery.transaction.items[i])
+    //         }
             
-            
-            //compute total cost
-            var total = (parseInt(delivery.transaction.items[i].quantity) * parseInt(delivery.transaction.items[i].unit_cost))
-            total_cost += total;
-        }
-        // add to object then push to delivery_transactions
-        delivery.transaction.total_cost = total_cost
-        state.delivery_transactions.push(delivery.transaction)
+    //         //compute total cost
+    //         var total = (parseInt(delivery.transaction.items[i].quantity) * parseInt(delivery.transaction.items[i].unit_cost))
+    //         total_cost += total;
+    //     }
+    //     // add to object then push to delivery_transactions
+    //     delivery.transaction.total_cost = total_cost
+    //     state.delivery_transactions.push(delivery.transaction)
+    // },
+
+    receiveDelivery: (state, delivery) => {
+        state.deliver_transactions.push(delivery.transaction)
+    },
+
+    receiveDeliveryItems: (state, delivery) => {
+        state.deliver_transactions_items.push(delivery.transaction)
     },
 
 

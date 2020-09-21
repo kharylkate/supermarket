@@ -166,6 +166,7 @@ export default {
           if(this.inventoryList[i].barcode == this.rows[this.rows.length-1].barcode){
             this.rows[this.rows.length-1].product_description = this.inventoryList[i].product_description
             // this.rows[this.rows.length-1].unit_cost = this.inventoryList[i].unit_cost
+            this.rows[this.rows.length - 1].inventory_code = this.inventoryList[i].inventory_code
           }
         }
         
@@ -176,25 +177,30 @@ export default {
 
       },
       ...mapActions(['receiveDelivery', 'updateInvQty']),
-      receive(){
+      async receive(){
         this.rows.total = this.dt.total_cost
         console.log('add total: ', this.rows.total);
         console.log('rows: ', this.rows);
         console.log('dt: ', this.dt);
-        this.rows.transaction = 'delivery'
+        this.rows.or_no = this.dt.or_no;
         this.dt.items = this.rows
 
-        this.receiveDelivery({
+        await this.receiveDelivery({
           transaction: this.dt
         })
 
-        // this.receiveDeliveryItems({
+        
+        // await this.receiveDeliveryItems({
         //   transaction: this.rows
         // })
 
-        this.updateInvQty({
-          invqty: this.rows
-        })
+        this.rows.transaction = 'delivery'
+
+        for (let i = 0; i < this.rows.length; i++) {
+          await this.updateInvQty({
+            invqty: this.rows[i]
+          });
+        }
 
         $("#addDelTrans").modal('hide');
         $("#add_item_form")[0].reset();

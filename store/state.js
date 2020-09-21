@@ -391,6 +391,10 @@ export default {
 
   sales_transactions_items: [],
 
+  deliver_transactions: [],
+
+  delivery_transactions_items: [],
+
   selectedRole: {}
 
 };

@@ -280,14 +280,9 @@ export default {
       console.log(this.inventoryList);
 
       for (var i = 0; i < this.inventoryList.length; i++) {
-        if (
-          this.inventoryList[i].barcode == this.rows[this.rows.length - 1].barcode
-        ) {
-          this.rows[this.rows.length - 1
-].product_description = this.inventoryList[i].product_description;
-          this.rows[this.rows.length - 1].unit_cost = this.inventoryList[
-            i
-          ].unit_cost;
+        if (this.inventoryList[i].barcode == this.rows[this.rows.length - 1].barcode) {
+          this.rows[this.rows.length - 1].product_description = this.inventoryList[i].product_description;
+          this.rows[this.rows.length - 1].unit_cost = this.inventoryList[i].unit_cost;
           this.rows[this.rows.length - 1].quantity = 1;
           this.rows[this.rows.length - 1].inventory_code = this.inventoryList[i].inventory_code
         }
@@ -334,7 +329,7 @@ export default {
 
       for (let i = 0; i < this.rows.length; i++) {
         await this.updateInvQty({
-          invqty: this.rows[i],
+          invqty: this.rows[i]
         });
       }
 

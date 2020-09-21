@@ -67,7 +67,7 @@
                                                 <input type="text" class="trans" v-model="row.product_description" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="trans" v-model="row.qty" disabled/>
+                                                <input type="text" class="trans" v-model="row.quantity" disabled/>
                                             </td>
                                             <td>
                                                 <input type="text" class="trans" v-model="row.unit_cost" disabled/>
@@ -105,11 +105,14 @@
                                 </div>
                                 <hr>
                                 <div>
-                                    <!-- <v-select multiple v-model="selected" :options="['Canada','United States']" /> -->
-                                    <select class="form-control" @change="show()" id="select_item">
+                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
+                                    <datalist id="items-list">
+                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
+                                    </datalist>
+                                    <!-- <select class="form-control" @change="show()" id="select_item">
                                         <option disabled selected >Scan?</option>
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
-                                    </select>
+                                    </select> -->
                                     <!-- <input type="text" id="st-area" value="" list="items-list" class="form-control mt-4">
                                     <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" @click="(show)">{{item.product_description}}</option>
@@ -341,9 +344,9 @@
                                 <tr v-for="item in rows" :key="item.id">
                                     <td>{{item.barcode}}</td>
                                     <td>{{item.product_description}}</td>
-                                    <td>{{item.qty}}</td>
+                                    <td>{{item.quantity}}</td>
                                     <td>{{item.unit_cost}}</td>
-                                    <td v-if="((item.unit_cost * item.qty)!= 0)">{{(item.unit_cost * item.qty)}}</td>
+                                    <td v-if="((item.unit_cost * item.quantity)!= 0)">{{(item.unit_cost * item.quantity)}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -470,15 +473,15 @@ export default {
             if((this.rows.length-1)!=0){
                 $("#qty_modal").modal('show');
                 this.input_description = this.getSelectedItem.product_description
-                this.input_quantity = this.rows[this.rows.length-1].qty
+                this.input_quantity = this.rows[this.rows.length-1].quantity
             } else {
                 alert("No item in list!")
             }
         },
         setqty() {
             var index = this.rows.length-1
-            var def_qty = this.rows[index].qty
-            this.rows[index].qty = this.input_quantity
+            var def_qty = this.rows[index].quantity
+            this.rows[index].quantity = this.input_quantity
             this.st.total_cost += (((this.input_quantity-1) * (this.getSelectedItem.unit_cost)))
             console.log('row: ', this.rows)
             $("#qty_modal").modal('hide');
@@ -499,18 +502,25 @@ export default {
                 alert('Payment not enough')
             }
         },
-        ...mapActions(['addSales', 'updateInvQty']),
-        generate_receipt(){
+        ...mapActions(['addSales', 'addSalesItems', 'updateInvQty']),
+        async generate_receipt(){
             this.rows.transaction = 'sales'
             this.st.items = this.rows
             console.log("transaction", this.st);
-            this.addSales({
+
+            await this.addSales({
                 sales: this.st
             })
 
-            this.updateInvQty({
-                invqty: this.rows
-            })
+            await this.addSalesItems({
+                sales: this.rows,
+            });
+
+            for (let i = 0; i < this.rows.length; i++) {
+                await this.updateInvQty({
+                    invqty: this.rows[i]
+                });
+            }
 
             $("#viewTransaction").modal('show');
         },
