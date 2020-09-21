@@ -93,11 +93,6 @@
                       id="btn btn-sm_rtransaction_add"
                       @click="addRow"
                     >Add Items</button>
-                    <button
-                      type="button"
-                      class="btn btn-sm lg-btn mt-2 btn-sm_rtrans text-white"
-                      @click="getTotal()"
-                    >Add Items</button>
                   </div>
                 </div>
                 <div class="card">
