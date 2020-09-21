@@ -106,11 +106,11 @@
                                 <hr>
                                 <div>
                                     <!-- <v-select multiple v-model="selected" :options="['Canada','United States']" /> -->
-                                    <!-- <select class="form-control" @change="show()" id="select_item">
+                                    <!-- <select class="form-control" @change="show()" id="st-area">
                                         <option disabled selected >Scan?</option>
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
                                     </select> -->
-                                    <input placeholder="barcode" type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
+                                    <input placeholder="barcode" type="text" id="st-area" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
                                     <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
                                     </datalist>
@@ -433,6 +433,9 @@ export default {
         del(){
             var inputs = $("#st-area").val()
             var edited = inputs.slice(0, -1)
+            $("#st-area").val(function() {
+                return edited//number;
+            });
             
         },
         ...mapActions(['showitem']),
@@ -442,7 +445,7 @@ export default {
         // },
         show(){
             console.log('yo')
-            var e = document.getElementById("select_item").value
+            var e = document.getElementById("st-area").value
 
             this.$store.dispatch("showitem", e)
 
