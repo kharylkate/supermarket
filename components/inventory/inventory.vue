@@ -67,7 +67,12 @@
 
                 <div class="form-group col-md-8">
                   <label for="edit_cpu">Cost Per Unit: </label>
-                  <input type="number" v-model="inventory.unit_cost" class="form-control" id="edit_cpu" value="" disabled>
+                  <input type="number" v-model="inventory.unit_cost" class="form-control" id="edit_cpu" value="" >
+                </div>
+
+                <div class="form-group col-md-8">
+                  <label for="edit_sc">Sales Cost: </label>
+                  <input type="number" v-model="inventory.sales_cost" class="form-control" id="edit_cpu" value="" >
                 </div>
 
               
@@ -104,9 +109,10 @@ export default {
     },
     methods: {
         select(inventory) {
-            console.log(inventory);
-
+            
             this.inventory = { ...inventory };
+            //this.inventory.inventory_code = inventory.inventory_code
+            console.log('@here: ',inventory);
         },
         ...mapActions(['updateInventory']),
         update(){
@@ -114,15 +120,6 @@ export default {
             inventory: this.inventory
           })
           $("#editTrans").modal('hide')
-          // console.log('clicked', this.inventory)
-          // this.$store.dispatch("updateInventory", {
-          //     inventory: this.inventory,
-          // })
-          // .then((result) => {
-          //     console.log(result)
-          //     alert(result)
-          //     window.location.reload();
-          // })
         }
     },
     async beforeCreate() {

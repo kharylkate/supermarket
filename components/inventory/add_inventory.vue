@@ -17,12 +17,12 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_barcode">Barcode: </label>
-                <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" value="">
+                <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" placeholder="Barcode">
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_name">Product Description: </label>
-                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" value="">
+                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description">
               </div>
 
               <!-- <div class="form-group col-md-8">
@@ -47,15 +47,25 @@
                 </div>
               </div> -->
 
-              <!-- <div class="form-group col-md-8">
+              <div class="form-group col-md-8">
                 <label for="item_cost">Cost per quantity:</label>
-                <div class="input-group">
+                <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                     </div>
-                    <input type="number" class="form-control form-control-sm" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                    <input type="number" class="form-control form-control-sm" v-model="inventory.unit_cost" id="item_cost" placeholder="Unit Cost" autocomplete="off" required>
                 </div>
-              </div> -->
+              </div>
+
+              <div class="form-group col-md-8">
+                <label for="sales_cost">Sales Cost:</label>
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">₱</span>
+                    </div>
+                    <input type="number" class="form-control form-control-sm" v-model="inventory.sales_cost" id="item_cost" placeholder="Sales Cost" autocomplete="off" required>
+                </div>
+              </div>
               
             </div>
             <div class="modal-footer">

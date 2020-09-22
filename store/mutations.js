@@ -2,14 +2,17 @@ export default {
 
     login: (state, login) => {
         // const user = state.users.find(p => p.username === login.user.username)
+        console.log('login deets',login);
         for(var i = 0; i < state.users.length; i++){
             if(state.users[i].username == login.user.username){
+                console.log('stateuser', state.users[i]);
                 // if(state.users[i].password == login.user.password){
                     localStorage.username = state.users[i].username
+                    localStorage.uid = state.users[i].users_code
                     localStorage.role_name = state.users[i].role_name
-                // } else {
-                //     alert('Wrong Password')
-                // }
+            //     } else {
+            //         alert('Wrong Password')
+            //     }
             // } else {
             //     alert('User does not exist')
             }
@@ -123,6 +126,8 @@ export default {
         console.log('payload.inventory: ', payload.inventory.product_description);
         const inventory = state.inventory.find(p => p.barcode === payload.inventory.barcode)
         inventory.product_description = payload.inventory.product_description
+        inventory.unit_cost = payload.inventory.unit_cost
+        inventory.sales_cost = payload.inventory.sales_cost
     },
 
     // setRolesList(state, data){
