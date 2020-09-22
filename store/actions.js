@@ -273,13 +273,30 @@ export default {
       },
       data: { ...supplier },
     })
-    .then(result => {
+    .then(
+    result => {
       console.log('hihi',result.data)
       console.log(supplier)
       commit("addSupplier", supplier);
       return result.data;
-    })
-    .catch(err => err);
+    },
+    status => {
+      // ADDED BY KENN
+      // This will return any status about the Server including the errors
+      if(status.response.status == null) {
+        alert({
+          title: "Failed",
+          message: "Please check your internet connection, and try again."
+        });
+      }
+      else {
+        alert({
+          title: "Status: " + status.response.status,
+          message: status.response.statusText
+        });
+      }
+    }
+    );
   },
 
   async updateSupplier({ commit }, { supplier }) {

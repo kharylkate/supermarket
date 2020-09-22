@@ -47,15 +47,25 @@
                 </div>
               </div> -->
 
-              <!-- <div class="form-group col-md-8">
+              <div class="form-group col-md-8">
                 <label for="item_cost">Cost per quantity:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                     </div>
-                    <input type="number" class="form-control" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                    <input type="number" class="form-control" v-model="unit_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
                 </div>
-              </div> -->
+              </div>
+
+              <div class="form-group col-md-8">
+                <label for="item_cost">Cost per quantity:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">₱</span>
+                    </div>
+                    <input type="number" class="form-control" v-model="sales_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                </div>
+              </div>
               
             </div>
             <div class="modal-footer">
