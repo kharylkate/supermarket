@@ -413,6 +413,12 @@ export default {
     });
   },
 
+  showitem( {commit}, item) {
+    console.log('actions.js: showitem: ', item);
+    commit('viewSelectedItem', item)
+    return item
+  }
+
 
 
 

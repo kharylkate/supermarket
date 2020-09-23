@@ -114,5 +114,9 @@ export default {
         return state.selectedRole;
     },
 
+    getSelectedItem(state) {
+        return state.selectedItem;
+    },
+
 
 }

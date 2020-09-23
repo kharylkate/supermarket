@@ -395,6 +395,8 @@ export default {
 
   delivery_transactions_items: [],
 
-  selectedRole: {}
+  selectedRole: {},
+
+  selectedItem: [],
 
 };

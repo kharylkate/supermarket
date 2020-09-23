@@ -70,8 +70,8 @@
                                 </div>
                                 <hr>
                                 <div>
-                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control form-control-sm mt-4">
-                                    <datalist id="items-list">
+                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="inventoryList" class="form-control form-control-sm mt-4">
+                                    <datalist id="inventoryList">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
                                     </datalist>
 
@@ -447,16 +447,6 @@ export default {
             await this.addSales({
                 sales: this.st
             })
-
-            // await this.addSalesItems({
-            //     sales: this.rows,
-            // });
-
-            // for (let i = 0; i < this.rows.length; i++) {
-            //     await this.updateInvQty({
-            //         invqty: this.rows[i]
-            //     });
-            // }
 
             $("#viewTransaction").modal('show');
         },

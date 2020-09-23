@@ -290,6 +290,15 @@ export default {
         state.deliveryList = data;
     },
 
+    viewSelectedItem(state, item) {
+
+        const product = state.inventory.find(p => p.barcode == item)
+
+        console.log('mutations.js viewSelectedItem', product);
+        state.selectedItem = product
+        return product
+    },
+
 
 
 
