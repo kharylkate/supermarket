@@ -448,15 +448,15 @@ export default {
                 sales: this.st
             })
 
-            await this.addSalesItems({
-                sales: this.rows,
-            });
+            // await this.addSalesItems({
+            //     sales: this.rows,
+            // });
 
-            for (let i = 0; i < this.rows.length; i++) {
-                await this.updateInvQty({
-                    invqty: this.rows[i]
-                });
-            }
+            // for (let i = 0; i < this.rows.length; i++) {
+            //     await this.updateInvQty({
+            //         invqty: this.rows[i]
+            //     });
+            // }
 
             $("#viewTransaction").modal('show');
         },
