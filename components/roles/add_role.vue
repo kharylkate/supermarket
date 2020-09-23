@@ -31,7 +31,7 @@
                 <input
                   type="text"
                   v-model="role_name"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="role_name"
                   placeholder="Role Name"
                   autocomplete="off"

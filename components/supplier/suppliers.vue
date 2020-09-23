@@ -61,27 +61,27 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_supplier_code">Supplier ID: </label>
-                <input type="text" v-model="supplier.supplier_id" class="form-control" id="edit_supplier_code" autocomplete="off" required>
+                <input type="text" v-model="supplier.supplier_id" class="form-control form-control-sm" id="edit_supplier_code" autocomplete="off" disabled>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_compname">Company Name: </label>
-                <input type="text" v-model="supplier.company_name" class="form-control" id="edit_compname" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_name" class="form-control form-control-sm" id="edit_compname" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_contactno">Contact Number: </label>
-                <input type="tel" v-model="supplier.contact_no" class="form-control" id="edit_contactno" autocomplete="off" required>
+                <input type="tel" v-model="supplier.contact_no" class="form-control form-control-sm" id="edit_contactno" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_compadd">Company Address: </label>
-                <input type="text" v-model="supplier.company_address" class="form-control" id="edit_compadd" autocomplete="off" required>
+                <input type="text" v-model="supplier.company_address" class="form-control form-control-sm" id="edit_compadd" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_compstatus">Status: </label>
-                <select class="form-control" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status">
+                <select class="form-control form-control-sm" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status">
                   <option value="1" selected>Active</option>
                   <option value="0">Inactive</option>
                 </select>

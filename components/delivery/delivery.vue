@@ -28,8 +28,8 @@
 
                 <tr v-for="dt in deliveryList" :key="dt.dtransactions_code">
                     <td>{{dt.dr_no}}</td>
-                    <td>{{dt.company_name}}</td>
-                    <td>{{ new Date(dt.dtransaction_date).toDateString()}}, {{ new Date(dt.dtransaction_date).getUTCHours()}}:{{ new Date(dt.dtransaction_date).getUTCMinutes()}}:{{ new Date(dt.dtransaction_date).getUTCSeconds()}}</td>
+                    <td>{{dt.supplier_name}}</td>
+                    <td>{{ new Date(dt.transaction_date).toDateString()}}, {{ new Date(dt.transaction_date).getUTCHours()}}:{{ new Date(dt.transaction_date).getUTCMinutes()}}:{{ new Date(dt.transaction_date).getUTCSeconds()}}</td>
                     <td>₱{{dt.total_cost}}</td>
                     <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button></td>
                 </tr>
@@ -58,9 +58,10 @@
             <div >
               <div class="form-row justify-content-center">
                 <div class="container text-center mb-2">
-                  <h5>{{dt.company_name}}</h5>
-                  <small>{{dt.company_address}}</small>
-                  <div><small>Date: {{ new Date(dt.dtransaction_date).toDateString()}}, {{ new Date(dt.dtransaction_date).getUTCHours()}}:{{ new Date(dt.dtransaction_date).getUTCMinutes()}}:{{ new Date(dt.dtransaction_date).getUTCSeconds()}}</small></div>  
+                  <h5>{{dt.supplier_name}}</h5>
+                  <small>{{dt.company_address}} <br/>
+                  {{dt.contact_no}}</small>
+                  <div><small v-if="dt.transaction_date != null">Date: {{dt.transaction_date}}</small></div>  
                 </div>
 
                 <div class="container row mt-3">
@@ -76,6 +77,7 @@
                       <tr v-for="item in dt.items" :key="item.id">
                         <!-- <td>{{item.dr_no}}</td> -->
                         <td>{{item.barcode}}</td>
+                        <td>{{item.product_description}}</td>
                         <td>{{item.quantity}}</td>
                         <td>₱{{item.unit_cost}}</td>
                       </tr>
@@ -116,12 +118,22 @@ export default {
       //...mapActions(['selectDelivery']),
       select(dt) {
           console.log(dt)
+        
+        for(var i = 0; i < this.suppliersList.length; i++){
+          if(dt.supplier_name == this.suppliersList[i].company_name){
+            dt.company_address = this.suppliersList[i].company_address
+            dt.contact_no = this.suppliersList[i].contact_no
+          }
+        }
+
         this.dt = { ...dt }
+        
       }
     },
     computed: {
         ...mapGetters({
-            deliveryList: "deliveryList"
+            deliveryList: "deliveryList",
+            suppliersList: "suppliersList"
         }),
     },
     async beforeCreate() {

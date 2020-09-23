@@ -6,11 +6,11 @@
                     <h1 class="text-center">LOGIN</h1>
                     <div>
                         <label for="username">Username: </label>
-                        <input type="text" v-model="username" class="form-control" placeholder="Username" required>
+                        <input type="text" v-model="username" class="form-control form-control-sm" placeholder="Username" required>
                     </div>
                     <div>
                         <label for="password">password: </label>
-                        <input type="password" v-model="password" class="form-control" placeholder="Password" required>
+                        <input type="password" v-model="password" class="form-control form-control-sm" placeholder="Password" required>
                     </div>
                 </form>
             </div>

@@ -68,17 +68,17 @@
 
                   <div class="form-group col-md-8">
                     <label for="compname">Employee Code: </label>
-                    <input type="number" v-model="user.employee_code" class="form-control" placeholder="Enter Employee Code" autocomplete="off" required>
+                    <input type="number" v-model="user.employee_code" class="form-control form-control-sm" placeholder="Enter Employee Code" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="contactno">Username: </label>
-                    <input type="text" v-model="user.username" class="form-control" placeholder="Enter User Name" autocomplete="off" required>
+                    <input type="text" v-model="user.username" class="form-control form-control-sm" placeholder="Enter User Name" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="compadd">Role </label>
-                    <select class="form-control" v-model="user.role_id">
+                    <select class="form-control form-control-sm" v-model="user.role_id">
                       <option disabled>Select Role</option>
                       <option >{{user.role_id}}</option>
                       <option v-for="role in rolesList" :key="role.id" :value="role.role_id">{{role.role_name}}</option>

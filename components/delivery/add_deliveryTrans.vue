@@ -13,11 +13,11 @@ d<template>
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_date">Date: </label>
-                  <input type="date" v-model="dt.dtransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" default="06/06/2020">
+                  <input type="date" v-model="dt.transaction_date" class="form-control form-control-sm form-control form-control-sm-sm form__date" id="input_rtransaction_date" default="06/06/2020">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="input_rtransaction_no">Delivery Receipt Number: </label>
-                  <input type="number" v-model="dt.dr_no" class="form-control form-control-sm form__orNo" placeholder="1654325" id="input_rtransaction_no">
+                  <input type="number" v-model="dt.dr_no" class="form-control form-control-sm form-control form-control-sm-sm form__orNo" placeholder="1654325" id="input_rtransaction_no">
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
@@ -25,7 +25,7 @@ d<template>
                   <label >Supplier: </label>
                   
                   <!-- <v-select v-model="dt.suppler_code" :options="suppliersList.companyt_name" ></v-select> -->
-                    <input v-model="dt.supplier_code" class="form-control form-control-sm" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
+                    <input v-model="dt.supplier_id" class="form-control form-control-sm form-control form-control-sm-sm" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
                   <datalist id="suppliers">
                     <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_code">{{supply.company_name}}</option>
                   </datalist>
@@ -62,22 +62,22 @@ d<template>
                         </div>
                       </div>
                   </li>
-                  <li v-for="(row, index) in rows" :key="index.id">
+                  <li v-for="(row, index) in items" :key="index.id">
                   <div class="form-row d-flex col-md-12 mt-0">
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.barcode" list="barcode-list" class="form-control form-control-sm form__barcode" @keyup.enter="getbarcode()" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
+                      <input type="text" v-model="row.barcode" list="barcode-list" class="form-control form-control-sm form-control form-control-sm-sm form__barcode" @keyup.enter="getbarcode()" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
                       <datalist id="barcode-list">
                         <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
                       </datalist>
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.product_description" class="form-control form-control-sm form__description" placeholder="Product Description">
+                      <input type="text" v-model="row.description" class="form-control form-control-sm form-control form-control-sm-sm form__description" placeholder="Product Description" disabled>
                     </div>
                     <div class="form-group col-md-2">
-                      <input type="text" v-model="row.quantity" class="form-control form-control-sm form__quantity" placeholder="Quantity">
+                      <input type="text" v-model="row.quantity" @keyup="getTotal()" class="form-control form-control-sm form-control form-control-sm-sm form__quantity" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" @keypress="getTotal()" v-model="row.cost_per_unit" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit">
+                      <input type="text" v-model="row.cost_per_unit" class="form-control form-control-sm form-control form-control-sm-sm form__unitcost" placeholder="Cost Per Unit" disabled>
                     </div>
                     <div class='form-group col-md-1'>
                       <button class="btn btn-sm btn btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" style="color:white" class="text-white" alt=""> </button>
@@ -94,7 +94,7 @@ d<template>
               <div class="form-row">
                 <div class="form-group ml-auto mr-1">
                   <label for="">Total Delivery Transaction Amount:</label>
-                  <input type="text" v-model="dt.total_cost" class="form-control form-control-sm form__totalAmt text-right" placeholder="Total Amount">
+                  <input type="text" v-model="dt.total_cost" class="form-control form-control-sm form-control form-control-sm-sm form__totalAmt text-right" placeholder="Total Amount">
                 </div>
               </div>
 
@@ -125,9 +125,9 @@ export default {
     },
     data() {
       return {
-        rows: [{
+        items: [{
           barcode: "",
-          product_description: "",
+          description: "",
           quantity: "",
           cost_per_unit: ""
         }],
@@ -140,7 +140,7 @@ export default {
     methods: {
       addRow: function() {
         var elem = document.createElement('li');
-        this.rows.push({
+        this.items.push({
           barcode: "",
           description: "",
           quantity: "",
@@ -148,59 +148,61 @@ export default {
         });
       },
       removeElement: function(index){
-        this.rows.splice(index,1)
+        this.items.splice(index,1)
 
-        for(var i = 0; i < this.rows.length-1; i++){
-          console.log(this.rows);
-          if(this.rows[i].quantity && this.rows[i].cost_per_unit != ""){
-            this.dt.total_cost += (parseInt(this.rows[i].quantity * this.rows[i].cost_per_unit))
+        for(var i = 0; i < this.items.length-1; i++){
+          console.log(this.items);
+          if(this.items[i].quantity && this.items[i].cost_per_unit != ""){
+            this.dt.total_cost += (parseInt(this.items[i].quantity * this.items[i].cost_per_unit))
           }
         }
 
       },
       getbarcode(){
-        console.log('barcode?', this.rows[this.rows.length-1].barcode)
+        console.log('barcode?', this.items[this.items.length-1].barcode)
         console.log(this.inventoryList);
 
         for(var i = 0; i < this.inventoryList.length; i++){
-          if(this.inventoryList[i].barcode == this.rows[this.rows.length-1].barcode){
-            this.rows[this.rows.length-1].product_description = this.inventoryList[i].product_description
-            // this.rows[this.rows.length-1].unit_cost = this.inventoryList[i].unit_cost
-            this.rows[this.rows.length - 1].inventory_code = this.inventoryList[i].inventory_code
+          if(this.inventoryList[i].barcode == this.items[this.items.length-1].barcode){
+            this.items[this.items.length-1].description = this.inventoryList[i].product_description
+            // this.items[this.items.length-1].unit_cost = this.inventoryList[i].unit_cost
+            this.items[this.items.length - 1].inventory_code = this.inventoryList[i].inventory_code
+            this.items[this.items.length - 1].cost_per_unit = this.inventoryList[i].unit_cost
           }
         }
         
-        console.log('rows: ',this.rows)
-        // this.rows[this.rows.length-1].product_description = bc.product_description
-        // console.log('product info: ', this.rows[this.rows.length-1].barcode, ', ', this.rows[this.rows.length-1].product_description);
+        console.log('rows: ',this.items)
+        // this.items[this.items.length-1].product_description = bc.product_description
+        // console.log('product info: ', this.items[this.items.length-1].barcode, ', ', this.items[this.items.length-1].product_description);
         
 
       },
-      ...mapActions(['receiveDelivery', 'updateInvQty']),
+      ...mapActions(['receiveDelivery']),
       async receive(){
-        this.rows.total = this.dt.total_cost
-        console.log('add total: ', this.rows.total);
-        console.log('rows: ', this.rows);
+        this.items.total = this.dt.total_cost
+        console.log('add total: ', this.items.total);
+        console.log('rows: ', this.items);
         console.log('dt: ', this.dt);
-        this.rows.or_no = this.dt.or_no;
-        this.dt.items = this.rows
+        // this.items.or_no = this.dt.or_no;
+        this.dt.items = this.items
+  console.log("uid");
+        this.dt.created_by = localStorage.uid
 
         await this.receiveDelivery({
           transaction: this.dt
         })
-
         
         // await this.receiveDeliveryItems({
-        //   transaction: this.rows
+        //   transaction: this.items
         // })
 
-        this.rows.transaction = 'delivery'
+        this.items.transaction = 'delivery'
 
-        for (let i = 0; i < this.rows.length; i++) {
-          await this.updateInvQty({
-            invqty: this.rows[i]
-          });
-        }
+        // for (let i = 0; i < this.items.length; i++) {
+        //   await this.updateInvQty({
+        //     invqty: this.items[i]
+        //   });
+        // }
 
         $("#addDelTrans").modal('hide');
         $("#add_item_form")[0].reset();
@@ -208,10 +210,10 @@ export default {
 
       },
       getTotal(){
-        for(var i = 0; i < this.rows.length-1; i++){
-          console.log(this.rows);
-          if(this.rows[i].quantity && this.rows[i].cost_per_unit != ""){
-            this.dt.total_cost += (parseInt(this.rows[i].quantity * this.rows[i].cost_per_unit))
+        for(var i = 0; i < this.items.length-1; i++){
+          console.log(this.items);
+          if(this.items[i].quantity && this.items[i].cost_per_unit != ""){
+            this.dt.total_cost += (parseInt(this.items[i].quantity * this.items[i].cost_per_unit))
           }
         }
 

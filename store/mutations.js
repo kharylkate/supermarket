@@ -23,10 +23,6 @@ export default {
         state.sales_transactions.push(salesData.sales)
     },
 
-    addSalesItems: (state, salesItems) => {
-        state.sales_transactions_items.push(salesItems)
-    },
-
     updateInvQty: (state, payload) => {
 
         for(var j = 0; j < payload.invqty.length; j++){
@@ -85,8 +81,8 @@ export default {
 
 
     addSupplier: (state, supplierData) => {
-        console.log(supplierData.supplier)
-        state.suppliersList.push(supplierData.supplier)
+        console.log(supplierData)
+        state.suppliersList.push(supplierData)
     },
 
     updateSupplier: (state, payload) => {
@@ -134,8 +130,11 @@ export default {
     updateInventory: (state, payload) => {
         console.log(payload);
         console.log('payload.inventory: ', payload.product_description);
-        const inventory = state.inventoryList.find(p => p.barcode === payload.barcode)
+        const inventory = state.inventoryList.find(p => p.inventory_code === payload.inventory_code)
+        inventory.barcode = payload.barcode
         inventory.product_description = payload.product_description
+        inventory.unit_cost = payload.unit_cost
+        inventory.sales_cost = payload.sales_cost
     },
 
     addDeliveryTransaction(state, dt_data){

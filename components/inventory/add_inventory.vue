@@ -17,17 +17,17 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_barcode">Barcode: </label>
-                <input type="number" v-model="inventory.barcode" class="form-control" id="edit_barcode" value="">
+                <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" placeholder="Barcode">
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_name">Product Description: </label>
-                <input type="text" v-model="inventory.product_description" class="form-control" id="edit_name" value="">
+                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description">
               </div>
 
               <!-- <div class="form-group col-md-8">
                 <label for="item_supplier">Supplier: </label>
-                <input type="text" class="form-control" id="item_supplier" placeholder="Enter Supplier" autocomplete="off" required>
+                <input type="text" class="form-control form-control-sm" id="item_supplier" placeholder="Enter Supplier" autocomplete="off" required>
               </div> -->
 
               <!-- <div class="form-group col-md-8">
@@ -38,7 +38,7 @@
                         <img src="../../static/icons/dash.svg" alt="">
                     </button>
                   </span>
-                    <input type="text" name="quant[1]" id="item_qty" class="form-control input-number" value="0" min="1" max="10" autocomplete="off" required>
+                    <input type="text" name="quant[1]" id="item_qty" class="form-control form-control-sm input-number" value="0" min="1" max="10" autocomplete="off" required>
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-number border" data-type="plus" data-field="quant[1]">
                       <img src="../../static/icons/plus.svg" alt="">
@@ -49,21 +49,21 @@
 
               <div class="form-group col-md-8">
                 <label for="item_cost">Cost per quantity:</label>
-                <div class="input-group">
+                <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                     </div>
-                    <input type="number" class="form-control" v-model="unit_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                    <input type="number" class="form-control form-control-sm" v-model="inventory.unit_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
                 </div>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="item_cost">Cost per quantity:</label>
-                <div class="input-group">
+                <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                     </div>
-                    <input type="number" class="form-control" v-model="sales_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                    <input type="number" class="form-control form-control-sm" v-model="inventory.sales_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
                 </div>
               </div>
               
@@ -88,7 +88,7 @@ export default {
     data() {
       return {
         inventory: {
-          quantity: 0
+
         }
       }
     },
@@ -98,16 +98,12 @@ export default {
     methods: {
       ...mapActions(['addInventory']),
       add(){
+        this.inventory.quantity = 0
         this.addInventory({
           inventory: this.inventory
         })
-        .then((result) => {
-          if(result){
-            alert(result)
-            $("#addInventory").hide();
-            $('#add_inventory_form')[0].reset();
-          }
-        })
+        $("#addInventory").modal('hide');
+        $('#add_inventory_form')[0].reset();
       }
     }
     

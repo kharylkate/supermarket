@@ -10,6 +10,14 @@ export default {
         })
         return count;
     },
+
+    salesOr(state){
+        console.log(state.salesList[state.salesList.length-1]);
+
+        if (state.salesList[state.salesList.length-1]) {
+         return state.salesList[state.salesList.length-1].or_no+1
+        }
+    },
     
     // delivery
     delivery: state => {

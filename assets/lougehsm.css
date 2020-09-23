@@ -1,7 +1,21 @@
+.container-fluid {
+    font-size: small;
+}
+
+.navbar {
+    font-size: small;
+}
+
+.dropdown-item {
+    font-size: small;
+}
+
 .sidebarNav ul li a.nav-link:hover {
     background-color: #95c282;
     border-radius: 100px;
 }
+
+
 
 .nav-link:hover {
     background-color: #95c282;

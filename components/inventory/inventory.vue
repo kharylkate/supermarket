@@ -21,6 +21,7 @@
                     <th scope="col" class="sort" data-sort="name">Product Description</th>
                     <th scope="col" class="sort" data-sort="status">Quantity</th>
                     <th scope="col" class="sort" data-sort="budget">Cost per unit</th>
+                    <th scope="col" class="sort" data-sort="budget">Sales Cost</th>
                     <th>Action</th>
                     <!-- <th scope="col">Action</th> -->
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{item.product_description}}</td>
                     <td>{{item.quantity}}</td>
                     <td>₱{{item.unit_cost}}</td>
+                    <td>₱{{item.sales_cost}}</td>
                     <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" @click="(select(item))" data-target="#editTrans"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button></td>
                 </tr>
             </tbody>
@@ -53,22 +55,27 @@
                 
                 <div class="form-group col-md-8">
                   <label for="edit_barcode">Barcode: </label>
-                  <input type="number" v-model="inventory.barcode" class="form-control" id="edit_barcode" value="">
+                  <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" value="">
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_name">Product Description: </label>
-                  <input type="text" v-model="inventory.product_description" class="form-control" id="edit_name" value="">
+                  <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" value="">
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_qty">Quantity: </label>
-                  <input type="number" v-model="inventory.quantity" class="form-control" id="edit_qty" value="" disabled>
+                  <input type="number" v-model="inventory.quantity" class="form-control form-control-sm" id="edit_qty" value="" disabled>
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_cpu">Cost Per Unit: </label>
-                  <input type="number" v-model="inventory.unit_cost" class="form-control" id="edit_cpu" value="" disabled>
+                  <input type="number" v-model="inventory.unit_cost" class="form-control form-control-sm" id="edit_cpu" value="">
+                </div>
+
+                <div class="form-group col-md-8">
+                  <label for="edit_sc">Sales Cost: </label>
+                  <input type="number" v-model="inventory.sales_cost" class="form-control form-control-sm" id="edit_sc" value="">
                 </div>
 
               
@@ -117,8 +124,9 @@ export default {
           })
           .then((result) => {
               console.log(result)
-              alert(result)
               $("#editTrans").modal('hide')
+              alert(result)
+              
           })
         }
     },

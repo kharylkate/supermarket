@@ -91,29 +91,29 @@
                             <div class="container mt-3">
                                 <div class="form-group my-2 px-2">
                                     <label for="or_no">Receipt Number: </label>
-                                    <input type="number" v-model="st.or_no" class="form-control">
+                                    <input type="number" v-model="st.or_no" class="form-control form-control-sm">
                                 </div>
                                 <div>
                                     <div class="mt-3">
                                         Customer Information
                                     </div>
                                     <div class="form-group my-2 px-2">
-                                        <input type="text" v-model="st.customer_name" class="form-control m-2" placeholder="Customer Name">
-                                        <input type="text" v-model="st.customer_contact_no" class="form-control m-2" placeholder="Contact Number">
-                                        <input type="text" v-model="st.customer_address" class="form-control m-2" placeholder="Address">
+                                        <input type="text" v-model="st.customer_name" class="form-control form-control-sm m-2" placeholder="Customer Name">
+                                        <input type="text" v-model="st.customer_contact_no" class="form-control form-control-sm m-2" placeholder="Contact Number">
+                                        <input type="text" v-model="st.customer_address" class="form-control form-control-sm m-2" placeholder="Address">
                                     </div>
                                 </div>
                                 <hr>
                                 <div>
-                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
+                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="items-list" class="form-control form-control-sm mt-4">
                                     <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
                                     </datalist>
-                                    <!-- <select class="form-control" @change="show()" id="select_item">
+                                    <!-- <select class="form-control form-control-sm" @change="show()" id="select_item">
                                         <option disabled selected >Scan?</option>
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
                                     </select> -->
-                                    <!-- <input type="text" id="st-area" value="" list="items-list" class="form-control mt-4">
+                                    <!-- <input type="text" id="st-area" value="" list="items-list" class="form-control form-control-sm mt-4">
                                     <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" @click="(show)">{{item.product_description}}</option>
                                     </datalist> -->
@@ -162,7 +162,7 @@
                                             
                                         </div> 
                                         <div class="mt-4">
-                                            <button class="form-control block btn-success" type="button" @click="generate_receipt()" >Generate Receipt</button>
+                                            <button class="form-control form-control-sm block btn-success" type="button" @click="generate_receipt()" >Generate Receipt</button>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@
                                 <!-- {{getSelectedItem.product_description}} -->
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     v-model="input_description"
                                     autocomplete="off"
                                     required
@@ -211,7 +211,7 @@
                                 <label>Quantity:</label>
                                 <input
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     v-model="input_quantity"
                                     autocomplete="off"
                                     required
@@ -226,7 +226,7 @@
                                         <img src="../../static/icons/dash.svg" alt="">
                                     </button>
                                 </span>
-                                    <input type="number" name="quant[40]" id="edit_item_qty" class="form-control input-number" @focus="qty_focus(this)" @change="qty_change(this)" @keydown="qty_keydown(this)" value="1" min="1" max="100">
+                                    <input type="number" name="quant[40]" id="edit_item_qty" class="form-control form-control-sm input-number" @focus="qty_focus(this)" @change="qty_change(this)" @keydown="qty_keydown(this)" value="1" min="1" max="100">
                                 <span class="input-group-btn">
                                     <button type="button" @click="qty_btn(this)" class="btn btn-default btn-number border" data-type="plus" data-field="quant[1]">
                                     <img src="../../static/icons/plus.svg" alt="">
@@ -277,7 +277,7 @@
                                 <!-- {{getSelectedItem.product_description}} -->
                                 <input
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     v-model="input_payment_amt"
                                     autocomplete="off"
                                     required

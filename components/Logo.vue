@@ -5,14 +5,14 @@
       <div class="title">SUPERMARKET</div>
       <form-group class="px-3 py-3">
         <input
-          class="form-control m-1"
+          class="form-control form-control-sm m-1"
           v-model="user.username"
           type="text"
           placeholder="Username"
           required
         />
         <input
-          class="form-control m-1"
+          class="form-control form-control-sm m-1"
           v-model="user.password"
           type="password"
           placeholder="Password"
@@ -21,7 +21,7 @@
         />
       </form-group>
 
-      <button class="form-control lg-btn block m-1" @click="logmein()" type="button">Login</button>
+      <button class="form-control form-control-sm lg-btn block m-1" @click="logmein()" type="button">Login</button>
     </form>
   </div>
 </template>

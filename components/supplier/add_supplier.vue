@@ -54,30 +54,35 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { mapGetters } from "vuex";
+
 export default {
     name: 'modal-addSupplier',
-    components: {
-       
+    computed: {
+      ...mapGetters({
+        suppliersList: "suppliersList"
+      })
     },
     data(){
       return {
         supplier: {
-          status: 1
+
         }
       }
     },
     methods: {
       ...mapActions(['addSupplier']),
       add(){
+        this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
+        this.supplier.status = 1
         this.addSupplier({
-          supplier: this.supplier 
-          
+          supplier: this.supplier
         })
         
-            $("#addSupplier").hide();
+            $("#addSupplier").modal('hide');
             $('#add_supplier_form')[0].reset();
       
-        console.log(supplier)
+        // console.log(supplier)
         
       }
 

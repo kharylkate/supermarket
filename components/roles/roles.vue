@@ -62,7 +62,7 @@
                   <label for="role_name">Role Name:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control form-control-sm"
                     id="edit_role_name"
                     v-model="role.role_name"
                     autocomplete="off"

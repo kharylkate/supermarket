@@ -342,7 +342,7 @@ export default {
   async receiveDelivery({commit}, delivery){
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/delivery_transactions_items/add`,
+      url: `${this.$axios.defaults.baseURL}/deliverytrans/add`,
       header: {
         "Content-Type": "application/json"
       },
@@ -356,44 +356,6 @@ export default {
     })
     .catch(err => err);
   },
-
-  // async receiveDeliveryItems({commit}, delivery){
-  //   return await axios({
-  //     method: "POST",
-  //     url: `${this.$axios.defaults.baseURL}/delivery_item/add`,
-  //     header: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     data: { ...delivery },
-  //   })
-  //   .then(result => {
-  //     console.log('hihi',result.data)
-  //     console.log(delivery)
-  //     commit("receiveDelivery", delivery)
-  //     return result.data;
-  //   })
-  //   .catch(err => err);
-  // },
-
-  // addSalesItems({commit}, sales){
-  //   return await axios({
-  //     method: "POST",
-  //     url: `${this.$axios.defaults.baseURL}/item/add`,
-  //     header: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     data: { ...sales },
-  //   })
-  //   .then(result => {
-  //     console.log('hihi',result.data)
-  //     console.log(sales)
-  //     commit("addSalesItems", sales);
-  //     return result.data;
-  //   })
-  //   .catch(err => err);
-  // },
-
-
 
 
   // SALES
@@ -417,7 +379,7 @@ export default {
   async addSales({commit}, sales){
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/sales/add`,
+      url: `${this.$axios.defaults.baseURL}/newsale/add`,
       header: {
         "Content-Type": "application/json"
       },

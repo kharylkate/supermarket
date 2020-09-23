@@ -14,22 +14,22 @@
 
                 <div class="form-group col-md-8">
                   <label for="edit_barcode">Barcode: </label>
-                  <input type="number" class="form-control" id="edit_barcode" value="15304218" disabled>
+                  <input type="number" class="form-control form-control-sm" id="edit_barcode" value="15304218" disabled>
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_item_name">Item Name: </label>
-                  <input type="text" class="form-control" id="edit_item_name" value="Churned Milk 1kg">
+                  <input type="text" class="form-control form-control-sm" id="edit_item_name" value="Churned Milk 1kg">
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_item_name">Cost Per Unit: </label>
-                  <input type="text" class="form-control" id="edit_cost" value="₱112.50">
+                  <input type="text" class="form-control form-control-sm" id="edit_cost" value="₱112.50">
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_item_supplier">Supplier: </label>
-                  <input type="text" class="form-control" id="edit_item_supplier" value="Bucks Milwaukee" disabled>
+                  <input type="text" class="form-control form-control-sm" id="edit_item_supplier" value="Bucks Milwaukee" disabled>
                 </div>
 
                 <!-- <div class="form-group col-md-8">
@@ -40,7 +40,7 @@
                           <img src="../../static/icons/dash.svg" alt="">
                       </button>
                     </span>
-                      <input type="number" name="quant[40]" id="edit_item_qty" class="form-control input-number" value="40" min="1" max="100">
+                      <input type="number" name="quant[40]" id="edit_item_qty" class="form-control form-control-sm input-number" value="40" min="1" max="100">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-default btn-number border" data-type="plus" data-field="quant[40]">
                         <img src="../../static/icons/plus.svg" alt="">
@@ -55,7 +55,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                   </div>
-                  <input type="number" class="form-control" id="edit_item_cost" value="112.50">
+                  <input type="number" class="form-control form-control-sm" id="edit_item_cost" value="112.50">
                 </div>
                 </div> -->
                 

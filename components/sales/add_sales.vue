@@ -21,13 +21,14 @@
                 <div class="form-group mt-3 mb-0 container">
                   <div class="form-group form-group-sm">
                     <label for="input_rtransaction_date">Date:</label>
-                    <!-- <input type="date" v-model="st.stransaction_date" class="form-control form-control-sm form__date" id="input_rtransaction_date" value="06/06/2020" > -->
+                    <!-- <input type="date" v-model="st.stransaction_date" class="form-control form-control-sm form-control form-control-sm-sm form__date" id="input_rtransaction_date" value="06/06/2020" > -->
                     <input
                       type="date"
                       v-model="st.stransaction_date"
-                      class="form-control form-control-sm form__date"
+                      class="form-control form-control-sm form-control form-control-sm-sm form__date"
                       id="input_rtransaction_date"
                       placeholder="06/06/2020"
+                      disabled
                     />
                   </div>
                   <div class="form-group form-group-sm">
@@ -35,9 +36,10 @@
                     <input
                       type="number"
                       v-model="st.or_no"
-                      class="form-control form-control-sm form__orNo"
+                      class="form-control form-control-sm form-control form-control-sm-sm form__orNo"
                       value="1654325"
                       id="input_stransaction_no"
+                      disabled
                     />
                   </div>
                 </div>
@@ -52,7 +54,7 @@
                       <input
                         type="text"
                         v-model="st.customer_name"
-                        class="form-control form-control-sm form__cusname"
+                        class="form-control form-control-sm form-control form-control-sm-sm form__cusname"
                         id="input_cus_name"
                         placeholder="Name"
                       />
@@ -62,7 +64,7 @@
                       <input
                         type="number"
                         v-model="st.customer_contact_no"
-                        class="form-control form-control-sm cont_no"
+                        class="form-control form-control-sm form-control form-control-sm-sm cont_no"
                         placeholder="Contact Number"
                         id="input_contno"
                       />
@@ -72,7 +74,7 @@
                       <input
                         type="text"
                         v-model="st.customer_address"
-                        class="form-control form-control-sm cus_address"
+                        class="form-control form-control-sm form-control form-control-sm-sm cus_address"
                         placeholder="Address"
                         id="cus_address"
                       />
@@ -124,7 +126,7 @@
                             type="text"
                             list="barcode_list"
                             v-model="row.barcode"
-                            class="form-control form-control-sm form__barcode"
+                            class="form-control form-control-sm form-control form-control-sm-sm form__barcode"
                             placeholder="barcode"
                             id="rtransaction_barcode"
                             autocomplete="off"
@@ -141,7 +143,7 @@
                           <input
                             type="text"
                             v-model="row.product_description"
-                            class="form-control form-control-sm form__description"
+                            class="form-control form-control-sm form-control form-control-sm-sm form__description"
                             placeholder="Product Description"
                             disabled
                           />
@@ -151,15 +153,15 @@
                             type="text"
                             @keydown="getTotal()"
                             v-model="row.quantity"
-                            class="form-control form-control-sm form__quantity"
+                            class="form-control form-control-sm form-control form-control-sm-sm form__quantity"
                             placeholder="Quantity"
                           />
                         </div>
                         <div class="form-group col-md-3">
                           <input
                             type="text"
-                            v-model="row.unit_cost"
-                            class="form-control form-control-sm form__unitcost"
+                            v-model="row.sales_cost"
+                            class="form-control form-control-sm form-control form-control-sm-sm form__unitcost"
                             placeholder="Cost Per Unit"
                             disabled
                           />
@@ -190,7 +192,7 @@
                     <input
                       type="text"
                       v-model="st.total_cost"
-                      class="form-control form-control-sm form__totalAmt text-right"
+                      class="form-control form-control-sm form-control form-control-sm-sm form__totalAmt text-right"
                       placeholder="Total Sales Amount"
                     />
                   </div>
@@ -200,7 +202,7 @@
                     <input
                       type="text"
                       v-model="st.payment_amt"
-                      class="form-control form-control-sm form__totalAmt text-right"
+                      class="form-control form-control-sm form-control form-control-sm-sm form__totalAmt text-right"
                       placeholder="Payment Amount"
                     />
                   </div>
@@ -221,7 +223,7 @@
                 class="btn text-white btn-sm btn btn-primary"
               >OK</button>
             </div>
-            <!-- <button class="btn btn-sm btn btn-sm-primary" type="submit">Submit form</button> -->
+
           </form>
         </div>
       </div>
@@ -232,6 +234,7 @@
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
+import inventoryVue from "../inventory/inventory.vue";
 
 export default {
   name: "modal-addSales",
@@ -239,12 +242,15 @@ export default {
     ...mapGetters({
       salesList: "salesList",
       inventoryList: "inventoryList",
+      //get OR NO
+      salesOr: "salesOr",
     }),
   },
   data() {
     return {
       st: {
         total_cost: 0,
+        or_no: null,
       },
       inv: {},
       rows: [
@@ -252,11 +258,12 @@ export default {
           barcode: "",
           product_description: "",
           quantity: "",
-          unit_cost: "",
+          sales_cost: "",
         },
       ],
     };
   },
+
   methods: {
     addRow: function () {
       var elem = document.createElement("li");
@@ -264,8 +271,11 @@ export default {
         barcode: "",
         product_description: "",
         quantity: "",
-        unit_cost: "",
+        sales_cost: "",
       });
+      if (!this.st.or_no) {
+        this.st.or_no = this.salesOr;
+      }
     },
     removeElement: function (index) {
       this.rows.splice(index, 1);
@@ -275,11 +285,20 @@ export default {
       console.log(this.inventoryList);
 
       for (var i = 0; i < this.inventoryList.length; i++) {
-        if (this.inventoryList[i].barcode == this.rows[this.rows.length - 1].barcode) {
-          this.rows[this.rows.length - 1].product_description = this.inventoryList[i].product_description;
-          this.rows[this.rows.length - 1].unit_cost = this.inventoryList[i].unit_cost;
+        if (
+          this.inventoryList[i].barcode ==
+          this.rows[this.rows.length - 1].barcode
+        ) {
+          this.rows[
+            this.rows.length - 1
+          ].product_description = this.inventoryList[i].product_description;
+          this.rows[this.rows.length - 1].sales_cost = this.inventoryList[
+            i
+          ].sales_cost;
           this.rows[this.rows.length - 1].quantity = 1;
-          this.rows[this.rows.length - 1].inventory_code = this.inventoryList[i].inventory_code
+          this.rows[this.rows.length - 1].inventory_code = this.inventoryList[
+            i
+          ].inventory_code;
         }
       }
 
@@ -293,9 +312,9 @@ export default {
 
       for (var i = 0; i < this.rows.length; i++) {
         console.log(this.rows);
-        if (this.rows[i].quantity && this.rows[i].unit_cost != "") {
+        if (this.rows[i].quantity && this.rows[i].sales_cost != "") {
           this.st.total_cost = parseInt(
-            this.rows[i].quantity * this.rows[i].unit_cost
+            this.rows[i].quantity * this.rows[i].sales_cost
           );
         }
       }
@@ -305,36 +324,38 @@ export default {
       //this.rows.or_no = this.st.or_no
 
       for (var i = 0; i < this.rows.length; i++) {
-        if ((this.rows[i].quantity && this.rows[i].unit_cost) != "")
+        if ((this.rows[i].quantity && this.rows[i].sales_cost) != "")
           this.st.total_cost += parseInt(
-            this.rows[i].quantity * this.rows[i].unit_cost
+            this.rows[i].quantity * this.rows[i].sales_cost
           );
-        this.rows[i].or_no = this.st.or_no;
       }
 
-      //this.st.items = this.rows
+      this.st.created_by = localStorage.uid;
+
+      this.st.items = this.rows;
+      this.st.or_no = this.salesOr;
+      console.log(this.salesOr);
+
       await this.addSales({
         sales: this.st,
       });
-      await this.addSalesItems({
-        sales: this.rows,
-      });
+      // await this.addSalesItems({
+      //   sales: this.rows,
+      // });
 
-      this.rows.transaction = "sales";
+      // this.rows.transaction = "sales";
 
-      for (let i = 0; i < this.rows.length; i++) {
-        await this.updateInvQty({
-          invqty: this.rows[i]
-        });
-      }
+      // for (let i = 0; i < this.rows.length; i++) {
+      //   await this.updateInvQty({
+      //     invqty: this.rows[i]
+      //   });
+      // }
 
       $("#addSales").modal("hide");
       $("#add_item_form")[0].reset();
     },
   },
-  created() {
-    //console.log('hilu',this.inventoryList)
-  },
+
   async beforeCreate() {
     await this.$store.dispatch("fetchSalesList");
     await this.$store.dispatch("fetchInventoryList");
