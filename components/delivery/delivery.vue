@@ -3,6 +3,7 @@
         <div>
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Delivery</h4>
+                
                 <div class="btn-toolbar mb-2 mb-md-0">
                 <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addDelTrans">
                     <img src="../../static/icons/file-earmark-plus.svg" alt="">
@@ -10,10 +11,47 @@
                 </button>
                 </div>
             </div>
+            <div>
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <select class="form-control form-control-sm" @change="filter()" v-model="filter_supplier" name="filter_supplier" id="filter_supplier">
+                    <option value="" selected disabled>Supplier</option>
+                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.id">{{supply.company_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">From</label>
+                    </div>
+                    <input type="date" v-model="date_from" class="form-control form-control-sm">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">To</label>
+                    </div>
+                    <input type="date" v-model="date_to" class="form-control form-control-sm">
+                    <div class="input-group-append">
+                      <button type="button" class="btn lg-btn text-white">Search</button>
+                    </div>
+                  </div>
+                  <!-- <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">To</label>
+                    </div>
+                    <input type="date" v-model="date_from" class="form-control form-control-sm">
+                  </div> -->
+                </div>
+              </div>
+            </div>
         </div>
+
+        
         
         <div class="table-responsive bg-white rounded-lg">
-            <table class="table table-data align-items-center table-flush">
+            <table class="table table-data align-items-center table-flush" id="delivery_table">
             <thead class="thead-sea-green">
                 <tr>
                     <th scope="col" class="sort" data-sort="name">Delivery Receipt Number</th>
@@ -128,6 +166,23 @@ export default {
 
         this.dt = { ...dt }
         
+      },
+      filter(){
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("filter_supplier");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("delivery_table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
       }
     },
     computed: {
