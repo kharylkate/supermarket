@@ -1,6 +1,6 @@
 <template>
     <div id="navbar" class="navbar navbar-expand-md navbar-dark " style="background-color: #59726d;">
-      <a class="navbar-brand" href="#">LOU GEH SUPERMARKET</a>
+      <nuxt-link class="navbar-brand" to="/dashboard">LOU GEH SUPERMARKET</nuxt-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

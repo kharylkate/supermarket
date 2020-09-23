@@ -22,7 +22,7 @@
           </thead>
           <tbody class="list">
             <tr v-for="role in rolesList" :key="role.id">
-              <td>{{role.role_code}}</td>
+              <td>{{role.role_id}}</td>
               <td>{{role.role_name}}</td>
               <td>
                 <button
@@ -118,11 +118,7 @@ export default {
       this.updateRole({
         role: this.role,
       })
-      .then((result) => {
-        console.log(result)
         $("#editRole").modal('hide');
-        alert(result)
-        })
      }
   },
   async beforeCreate() {

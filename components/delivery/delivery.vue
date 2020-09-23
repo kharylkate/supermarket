@@ -11,12 +11,12 @@
                 </button>
                 </div>
             </div>
-            <div>
+            <!-- <div>
               <div class="row">
                 <div class="form-group col-md-3">
-                  <select class="form-control form-control-sm" @change="filter()" v-model="filter_supplier" name="filter_supplier" id="filter_supplier">
-                    <option value="" selected disabled>Supplier</option>
-                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.id">{{supply.company_name}}</option>
+                  <select class="form-control form-control-sm search-filter" @change="filter()" v-model="filter_supplier" name="filter_supplier" id="filter_supplier">
+                    <option value="" selected>Supplier</option>
+                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.company_name">{{supply.company_name}}</option>
                   </select>
                 </div>
                 <div class="col-md-3">
@@ -24,7 +24,7 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text">From</label>
                     </div>
-                    <input type="date" v-model="date_from" class="form-control form-control-sm">
+                    <input type="date" v-model="date_from" class="form-control form-control-sm" id="date_from">
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -32,37 +32,32 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text">To</label>
                     </div>
-                    <input type="date" v-model="date_to" class="form-control form-control-sm">
+                    <input type="date" v-model="date_to" class="form-control form-control-sm date-picker" id="date_to">
                     <div class="input-group-append">
-                      <button type="button" class="btn lg-btn text-white">Search</button>
+                      <button type="button" @click="date_filter()" class="btn lg-btn text-white">Search</button>
                     </div>
                   </div>
-                  <!-- <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text">To</label>
-                    </div>
-                    <input type="date" v-model="date_from" class="form-control form-control-sm">
-                  </div> -->
+
                 </div>
               </div>
-            </div>
+            </div> -->
         </div>
 
         
         
         <div class="table-responsive bg-white rounded-lg">
-            <table class="table table-data align-items-center table-flush" id="delivery_table">
+            <table class="table table-data data-table align-items-center table-flush">
             <thead class="thead-sea-green">
                 <tr>
-                    <th scope="col" class="sort" data-sort="name">Delivery Receipt Number</th>
-                <th scope="col" class="sort" data-sort="name">Supplier</th>
-                <th scope="col" class="sort" data-sort="name">Date of Delivery</th>
-                <th scope="col" class="sort" data-sort="status">Total Amount</th>
-                <!-- <th scope="col" class="sort" data-sort="budget">Cost per unit</th> -->
-                <th scope="col">Action</th>
+                  <th scope="col" class="sort" data-sort="name">Delivery Receipt Number</th>
+                  <th scope="col" class="sort" data-sort="name">Supplier</th>
+                  <th scope="col" class="sort" data-sort="name">Date of Delivery</th>
+                  <th scope="col" class="sort" data-sort="status">Total Amount</th>
+                  <!-- <th scope="col" class="sort" data-sort="budget">Cost per unit</th> -->
+                  <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody class="list" id="body-bg">
+            <tbody class="list" id="delivery_table">
 
                 <tr v-for="dt in deliveryList" :key="dt.dtransactions_code">
                     <td>{{dt.dr_no}}</td>
@@ -141,15 +136,22 @@
 </template>
 
 <script>
+import moment from "moment";
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
 
 
 export default {
     name: 'delivery',
+    components: {
+
+    },
     data() {
         return {
-            dt: {}
+            dt: {},
+            date_from: "",
+            date_to: "",
+            filter_supplier: ""
         }
     },
     methods: {
@@ -168,22 +170,44 @@ export default {
         
       },
       filter(){
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("filter_supplier");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("delivery_table");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[0];
-          if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              tr[i].style.display = "";
-            } else {
-              tr[i].style.display = "none";
-            }
-          }       
+
+          var value = $("#filter_supplier").val().toLowerCase();
+          $("#delivery_table tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+      },
+      date_filter() {
+        
+        var from = new Date(this.date_from)
+        var to = new Date(this.date_to)
+
+        if (!from.toDateString() && !to.toDateString()) { // no value for from and to
+          return;
         }
-      }
+
+        // from = from.toDateString() || '1970-01-01'; // default from to a old date if it is not set
+        // to = to.toDateString() || '2999-12-31';
+
+        var dateFrom = from.toDateString();
+        var dateTo = to.toDateString();
+
+        $('#delivery_table tr').each(function(i, tr) {
+          var val = $(tr).find("td:nth-child(3)").text();
+          var dateVal = new Date(val);
+          var range = dateVal.toDateString()
+          console.log("range", range);
+          // var visible = (range.isBetween(dateFrom, dateTo, null, [])) ? "" : "none"; // [] for inclusive
+          if(dateFrom <= range && range <= dateTo){
+            $(tr).css('display', visible);
+          } else {
+            // $(tr).css('display', none);
+            console.log("not found");
+          }
+          
+        });
+
+
+      },
     },
     computed: {
         ...mapGetters({

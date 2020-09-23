@@ -81,7 +81,7 @@ export default {
     console.log('@actions: ', urole_name)
     return await axios({
       method: "PUT",
-      url: `${this.$axios.defaults.baseURL}/role/`+role.role_code,
+      url: `${this.$axios.defaults.baseURL}/role/`+role.role_id,
       header: {
         "Content-Type": "application/json"
       },
@@ -144,11 +144,11 @@ export default {
   },
 
   async updateUser({commit}, user) {
-    console.log('user code: ', user.user.users_code)
+    console.log('user code: ', user.user.user_id)
 
     return await axios({
       method: "PUT",
-      url: `${this.$axios.defaults.baseURL}/user/`+user.user.users_code,
+      url: `${this.$axios.defaults.baseURL}/user/`+user.user.user_id,
       header: {
         "Content-Type": "application/json"
       },
@@ -185,10 +185,10 @@ export default {
   },
 
   async updateInventory({ commit }, { inventory }) {
-    console.log('@actions: ', inventory.inventory_code)
+    console.log('@actions: ', inventory.inventory_id)
     return await axios({
       method: "PUT",
-      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.inventory_code,
+      url: `${this.$axios.defaults.baseURL}/inventory/`+inventory.inventory_id,
       header: {
         "Content-Type": "application/json"
       },

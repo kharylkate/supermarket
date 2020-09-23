@@ -8,6 +8,30 @@
                 </div>
               </div>
 
+              <!-- <div>
+              <div class="row mb-3">
+                <div class="col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">From</label>
+                    </div>
+                    <input type="date" v-model="date_from" class="form-control form-control-sm">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">To</label>
+                    </div>
+                    <input type="date" v-model="date_to" class="form-control form-control-sm">
+                    <div class="input-group-append">
+                      <button type="button" class="btn lg-btn text-white">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
             <div class="table-responsive bg-white rounded-lg">
               <table class="table table-data align-items-center table-flush">
                 <thead class="thead-sea-green">
@@ -377,6 +401,8 @@ export default {
             sales_cost: "",
           },
         ],
+        date_from: "",
+        date_to: "",
       }
     },
     
@@ -388,7 +414,44 @@ export default {
         var d = new Date('2020-05-02T07:00:00.000Z')
         this.sales.stransaction_date = d.toDateString()
       },
+      filter() {
+        var TableFilter = (function(Arr) {
+ 
+        var _input;
+    
+        function _onInputEvent(e) {
+        _input = e.target;
+        var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+        Arr.forEach.call(tables, function(table) {
+        Arr.forEach.call(table.tBodies, function(tbody) {
+        Arr.forEach.call(tbody.rows, _filter);
+        });
+        });
+        }
+    
+        function _filter(row) {
+        var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+        row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        }
+    
+        return {
+          init: function() {
+          var inputs = document.getElementsByClassName('search-filter');
+          Arr.forEach.call(inputs, function(input) {
+          input.oninput = _onInputEvent;
+          });
+          }
+          };
+        })(Array.prototype);
+      
+        document.addEventListener('readystatechange', function() {
+          if (document.readyState === 'complete') {
+          TableFilter.init();
+          }
+        });
+      },
       addModal(){
+
         //get last or_no+1 to load before showing modal
         let or_no = this.salesList.slice(-1).pop().or_no
         //assign new OR no to New Sales OR No
@@ -444,7 +507,7 @@ export default {
           }
         }
       },
-      ...mapActions(["addSales", "addSalesItems", "updateInvQty"]),
+      ...mapActions(["addSales"]),
       async saveSales() {
 
         //payment should be enough or more than the total cost to continue
@@ -464,6 +527,10 @@ export default {
 
           $("#addSales").modal("hide");
           $("#add_item_form")[0].reset();
+
+          await this.$store.dispatch("fetchSTransactionsList"),
+          await this.$store.dispatch("fetchSalesList");
+          await this.$store.dispatch("fetchInventoryList");
           }
 
         

@@ -27,7 +27,7 @@ d<template>
                   <!-- <v-select v-model="dt.suppler_code" :options="suppliersList.companyt_name" ></v-select> -->
                     <input v-model="dt.supplier_id" class="form-control form-control-sm form-control form-control-sm-sm" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
                   <datalist id="suppliers">
-                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_code">{{supply.company_name}}</option>
+                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_id">{{supply.company_name}}</option>
                   </datalist>
                 </div>
               </div>
@@ -74,7 +74,7 @@ d<template>
                       <input type="text" v-model="row.description" class="form-control form-control-sm form-control form-control-sm-sm form__description" placeholder="Product Description" disabled>
                     </div>
                     <div class="form-group col-md-2">
-                      <input type="text" v-model="row.quantity" @keyup="getTotal()" class="form-control form-control-sm form-control form-control-sm-sm form__quantity" placeholder="Quantity">
+                      <input type="text" v-model="row.quantity" @blur="getTotal()" class="form-control form-control-sm form-control form-control-sm-sm form__quantity" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
                       <input type="text" v-model="row.cost_per_unit" class="form-control form-control-sm form-control form-control-sm-sm form__unitcost" placeholder="Cost Per Unit" disabled>
@@ -166,7 +166,7 @@ export default {
           if(this.inventoryList[i].barcode == this.items[this.items.length-1].barcode){
             this.items[this.items.length-1].description = this.inventoryList[i].product_description
             // this.items[this.items.length-1].unit_cost = this.inventoryList[i].unit_cost
-            this.items[this.items.length - 1].inventory_code = this.inventoryList[i].inventory_code
+            this.items[this.items.length - 1].inventory_id = this.inventoryList[i].inventory_id
             this.items[this.items.length - 1].cost_per_unit = this.inventoryList[i].unit_cost
           }
         }
@@ -185,31 +185,21 @@ export default {
         console.log('dt: ', this.dt);
         // this.items.or_no = this.dt.or_no;
         this.dt.items = this.items
-  console.log("uid");
+        console.log("uid");
         this.dt.created_by = localStorage.uid
 
-        await this.receiveDelivery({
-          transaction: this.dt
-        })
-        
-        // await this.receiveDeliveryItems({
-        //   transaction: this.items
+console.log("delivery: ", this.dt);
+        // await this.receiveDelivery({
+        //   transaction: this.dt
         // })
 
-        this.items.transaction = 'delivery'
-
-        // for (let i = 0; i < this.items.length; i++) {
-        //   await this.updateInvQty({
-        //     invqty: this.items[i]
-        //   });
-        // }
-
-        $("#addDelTrans").modal('hide');
-        $("#add_item_form")[0].reset();
-
+        // $("#addDelTrans").modal('hide');
+        // $("#add_item_form")[0].reset();
 
       },
       getTotal(){
+
+        this.dt.total_cost = 0;
         for(var i = 0; i < this.items.length-1; i++){
           console.log(this.items);
           if(this.items[i].quantity && this.items[i].cost_per_unit != ""){

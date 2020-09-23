@@ -125,13 +125,19 @@ export default {
       this.user = {...user}
     },
     ...mapActions(['updateUser']),
-    update(){
+    async update(){
       console.log('userrrr: ', this.user)
-      this.updateUser({
+      await this.updateUser({
         user: this.user
       })
-      $("#editUser").modal('hide');
-      
+      .then((result) => {
+              console.log(result)
+              alert(result)
+              $("#editUser").modal('hide')
+          })
+
+      await this.$store.dispatch("fetchUserList")
+      await this.$store.dispatch("fetchRolesList")
 
     },
     

@@ -8,46 +8,11 @@
 
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="card sales-card col-md-7">
+                        <div class="card sales-card col-md-8">
                             <div class="container mt-3">
                                 <div class="my-2 px-2">Sales Transaction Items</div>
                             </div>
-                            <!-- <div class="container item-list">
-                                <ul class="border border-primary">
-                                    <li class="item-row">
-                                        <div class="form-row d-flex col-md-12">
-                                            <div class="form-group col-md-3">
-                                                <label for="form__barcode">Barcode</label>
-                                            </div>
-                                            <div class="form-group col-md-5">
-                                                <label for="form__description">Product Description</label>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="form__qty">Quantity</label>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="form__unitcost">Unit Cost</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-row" v-for="(row, index) in rows" :key="index.id">
-                                        <div class="form-row d-flex col-md-12">
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.barcode" disabled/>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.product_description" disabled/>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.sales_qty" disabled/>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.unit_cost" disabled/>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div> -->
+
                             <div class="table">
                                 <table class="table table-borderless w-auto table-xtra-condensed">
                                     <thead class="fit w-auto">
@@ -87,7 +52,7 @@
                             </div>
 
                         </div>
-                        <div class="card col-md-5">
+                        <div class="card col-md-4">
                             <div class="container mt-3">
                                 <div class="form-group my-2 px-2">
                                     <label for="or_no">Receipt Number: </label>
@@ -109,14 +74,7 @@
                                     <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
                                     </datalist>
-                                    <!-- <select class="form-control form-control-sm" @change="show()" id="select_item">
-                                        <option disabled selected >Scan?</option>
-                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
-                                    </select> -->
-                                    <!-- <input type="text" id="st-area" value="" list="items-list" class="form-control form-control-sm mt-4">
-                                    <datalist id="items-list">
-                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" @click="(show)">{{item.product_description}}</option>
-                                    </datalist> -->
+
                                 </div>
                                 
                                 <div class="my-3 row col-md-12">
@@ -217,23 +175,6 @@
                                     required
                                 
                                 />
-
-                            <!-- <div class="form-group col-md-8">
-                                <label for="edit_item_qty">Quantity: </label>
-                                <div class="input-group">
-                                <span class="input-group-btn">
-                                    <button type="button" @click="qty_btn(this)" class="btn btn-default btn-number border" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                        <img src="../../static/icons/dash.svg" alt="">
-                                    </button>
-                                </span>
-                                    <input type="number" name="quant[40]" id="edit_item_qty" class="form-control form-control-sm input-number" @focus="qty_focus(this)" @change="qty_change(this)" @keydown="qty_keydown(this)" value="1" min="1" max="100">
-                                <span class="input-group-btn">
-                                    <button type="button" @click="qty_btn(this)" class="btn btn-default btn-number border" data-type="plus" data-field="quant[1]">
-                                    <img src="../../static/icons/plus.svg" alt="">
-                                    </button>
-                                </span>
-                                </div>
-                            </div> -->
 
                             </div>
                         </div>
@@ -439,12 +380,7 @@ export default {
             
         },
         ...mapActions(['showitem']),
-        // show(product) {
-        //     console.log('clicked! ', product)
-        //     this.showitem({...product})
-        // },
         show(){
-            console.log('yo')
             var e = document.getElementById("select_item").value
 
             this.$store.dispatch("showitem", e)

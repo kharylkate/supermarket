@@ -117,9 +117,9 @@ export default {
             this.inventory = { ...inventory };
         },
         ...mapActions(['updateInventory']),
-        update(){
+        async update(){
           console.log('clicked', this.inventory)
-          this.updateInventory({
+          await this.updateInventory({
               inventory: this.inventory,
           })
           .then((result) => {
@@ -128,6 +128,8 @@ export default {
               alert(result)
               
           })
+
+          await this.$store.dispatch("fetchInventoryList")
         }
     },
     async beforeCreate() {

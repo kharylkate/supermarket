@@ -115,8 +115,10 @@ export default {
 
     updateUser: (state, payload) => {
         console.log(payload);
-        console.log('payload.company_name: ', payload.username);
-        const users = state.users.find(p => p.users_code === payload.users_code)
+        console.log('payload.username: ', payload.username);
+        console.log("state", state.userList);
+        const users = state.userList.find(p => p.user_id === payload.user_id)
+        console.log("const",users);
         users.username = payload.username
         users.role_name = payload.role_name
 

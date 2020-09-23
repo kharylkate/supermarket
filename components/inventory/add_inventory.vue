@@ -102,8 +102,13 @@ export default {
         this.addInventory({
           inventory: this.inventory
         })
+
         $("#addInventory").modal('hide');
         $('#add_inventory_form')[0].reset();
+
+        
+
+        // await this.$store.dispatch("fetchInventoryList")
       }
     }
     

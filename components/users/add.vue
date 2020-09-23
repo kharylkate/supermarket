@@ -51,7 +51,9 @@ export default {
     name: 'modal-addSupplier',
     data() {
     return {
-      user: {}
+      user: {
+
+      }
     }
   },
   components: {
@@ -65,14 +67,14 @@ export default {
     methods: {
       ...mapActions(['addUser']),
       add() {
+        this.user.password = this.user.username
         console.log('user add clicked: ', this.user)
         this.addUser({
           user: this.user,
         })
-
         $("#addUser").modal('hide');
         $("#add_user_form")[0].reset();
- 
+
       }
 
     
