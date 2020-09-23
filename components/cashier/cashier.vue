@@ -458,6 +458,8 @@ export default {
             });
 
             this.st.total_cost += this.getSelectedItem.unit_cost
+
+            document.getElementById("st-area").value = ""
             
         },
         removeitem: function(){
@@ -503,18 +505,24 @@ export default {
         },
         ...mapActions(['addSales', 'updateInvQty']),
         generate_receipt(){
-            this.rows.transaction = 'sales'
-            this.st.items = this.rows
-            console.log("transaction", this.st);
-            this.addSales({
-                sales: this.st
-            })
 
-            this.updateInvQty({
-                invqty: this.rows
-            })
+            if(this.st.payment_amt = 0){
+                alert("Payment first")
+            } else {
+                this.rows.transaction = 'sales'
+                this.st.items = this.rows
+                console.log("transaction", this.st);
+                this.addSales({
+                    sales: this.st
+                })
 
-            $("#viewTransaction").modal('show');
+                this.updateInvQty({
+                    invqty: this.rows
+                })
+
+                $("#viewTransaction").modal('show');
+            }
+            
         },
         exit(){
             window.location.reload()
