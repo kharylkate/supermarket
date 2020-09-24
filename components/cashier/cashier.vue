@@ -9,11 +9,11 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="card sales-card col-md-8">
-                            <div class="container mt-3">
-                                <div class="my-2 px-2">Sales Transaction Items</div>
+                            <div class="mt-3">
+                                <!-- <div class="my-2 px-2">Sales Transaction Items</div> -->
                             </div>
 
-                            <div class="table">
+                            <div class="table container">
                                 <table class="table table-borderless w-auto table-xtra-condensed">
                                     <thead class="fit w-auto">
                                         <tr class="fit">
@@ -32,10 +32,10 @@
                                                 <input type="text" class="trans" v-model="row.product_description" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="trans" v-model="row.quantity" disabled/>
+                                                <input type="text" class="trans" v-model="row.qty" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="trans" v-model="row.unit_cost" disabled/>
+                                                <input type="text" class="trans" v-model="row.sales_cost" disabled/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -56,29 +56,33 @@
                             <div class="container mt-3">
                                 <div class="form-group my-2 px-2">
                                     <label for="or_no">Receipt Number: </label>
-                                    <input type="number" v-model="st.or_no" class="form-control form-control-sm">
+                                    <input type="number" v-model="st.or_no" class="form-control">
                                 </div>
                                 <div>
                                     <div class="mt-3">
                                         Customer Information
                                     </div>
                                     <div class="form-group my-2 px-2">
-                                        <input type="text" v-model="st.customer_name" class="form-control form-control-sm m-2" placeholder="Customer Name">
-                                        <input type="text" v-model="st.customer_contact_no" class="form-control form-control-sm m-2" placeholder="Contact Number">
-                                        <input type="text" v-model="st.customer_address" class="form-control form-control-sm m-2" placeholder="Address">
+                                        <input type="text" v-model="st.customer_name" class="form-control m-2" placeholder="Customer Name">
+                                        <input type="text" v-model="st.customer_contact_no" class="form-control m-2" placeholder="Contact Number">
+                                        <input type="text" v-model="st.customer_address" class="form-control m-2" placeholder="Address">
                                     </div>
                                 </div>
                                 <hr>
                                 <div>
-                                    <input type="text" id="select_item" @keyup.enter="show()" value="" list="inventoryList" class="form-control form-control-sm mt-4">
-                                    <datalist id="inventoryList">
+                                    <!-- <v-select multiple v-model="selected" :options="['Canada','United States']" /> -->
+                                    <!-- <select class="form-control" @change="show()" id="st-area">
+                                        <option disabled selected >Scan?</option>
+                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
+                                    </select> -->
+                                    <input placeholder="barcode" type="text" id="st-area" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
+                                    <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
                                     </datalist>
-
                                 </div>
                                 
                                 <div class="my-3 row col-md-12">
-                                    <div class="ml-auto">
+                                    <div class="ml-auto text-center">
                                         <div class="row">
                                             <button class="btn btn-lg border border-primary signs" @click="numclick(' (')"> ( </button>
                                             <button  class="btn btn-lg border border-primary signs" @click="numclick(') ')"> ) </button>
@@ -120,7 +124,7 @@
                                             
                                         </div> 
                                         <div class="mt-4">
-                                            <button class="form-control form-control-sm block btn-success" type="button" @click="generate_receipt()" >Generate Receipt</button>
+                                            <button class="form-control block btn-success" type="button" @click="generate_receipt()" >Generate Receipt</button>
                                         </div>
                                     </div>
                                 </div>
@@ -157,7 +161,7 @@
                                 <!-- {{getSelectedItem.product_description}} -->
                                 <input
                                     type="text"
-                                    class="form-control form-control-sm"
+                                    class="form-control"
                                     v-model="input_description"
                                     autocomplete="off"
                                     required
@@ -169,12 +173,29 @@
                                 <label>Quantity:</label>
                                 <input
                                     type="number"
-                                    class="form-control form-control-sm"
+                                    class="form-control"
                                     v-model="input_quantity"
                                     autocomplete="off"
                                     required
                                 
                                 />
+
+                            <!-- <div class="form-group col-md-8">
+                                <label for="edit_item_qty">Quantity: </label>
+                                <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" @click="qty_btn(this)" class="btn btn-default btn-number border" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                        <img src="../../static/icons/dash.svg" alt="">
+                                    </button>
+                                </span>
+                                    <input type="number" name="quant[40]" id="edit_item_qty" class="form-control input-number" @focus="qty_focus(this)" @change="qty_change(this)" @keydown="qty_keydown(this)" value="1" min="1" max="100">
+                                <span class="input-group-btn">
+                                    <button type="button" @click="qty_btn(this)" class="btn btn-default btn-number border" data-type="plus" data-field="quant[1]">
+                                    <img src="../../static/icons/plus.svg" alt="">
+                                    </button>
+                                </span>
+                                </div>
+                            </div> -->
 
                             </div>
                         </div>
@@ -218,7 +239,7 @@
                                 <!-- {{getSelectedItem.product_description}} -->
                                 <input
                                     type="number"
-                                    class="form-control form-control-sm"
+                                    class="form-control"
                                     v-model="input_payment_amt"
                                     autocomplete="off"
                                     required
@@ -285,9 +306,9 @@
                                 <tr v-for="item in rows" :key="item.id">
                                     <td>{{item.barcode}}</td>
                                     <td>{{item.product_description}}</td>
-                                    <td>{{item.quantity}}</td>
-                                    <td>{{item.unit_cost}}</td>
-                                    <td v-if="((item.unit_cost * item.quantity)!= 0)">{{(item.unit_cost * item.quantity)}}</td>
+                                    <td>{{item.qty}}</td>
+                                    <td>{{item.sales_cost}}</td>
+                                    <td v-if="((item.sales_cost * item.qty)!= 0)">{{(item.sales_cost * item.qty)}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -336,15 +357,9 @@
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
 
+
 export default {
     name: 'customers',
-    computed: {
-        ...mapGetters({
-            inventoryList: 'inventoryList',
-            getSelectedItem: 'getSelectedItem',
-            sales: 'salesList'
-        })
-    },
     data() {
         return{
             st: {
@@ -355,12 +370,19 @@ export default {
                 barcode: "",
                 product_description: "",
                 qty: "",
-                unit_cost: ""
+                sales_cost: ""
             }],
             input_quantity: "",
             input_description: "",
             input_payment_amt: ""
         }
+    },
+    computed: {
+        ...mapGetters({
+            inventoryList: 'inventoryList',
+            getSelectedItem: 'getSelectedItem',
+            sales: 'salesList'
+        })
     },
     methods: {
         numclick(num){
@@ -377,29 +399,34 @@ export default {
         del(){
             var inputs = $("#st-area").val()
             var edited = inputs.slice(0, -1)
+            $("#st-area").val(function() {
+                return edited//number;
+            });
             
         },
         ...mapActions(['showitem']),
         show(){
-            var e = document.getElementById("select_item").value
+            console.log('yo')
+            var e = document.getElementById("st-area").value
 
             this.$store.dispatch("showitem", e)
-
 
             var elem = document.createElement('tr');
             this.rows.push({
                 barcode: this.getSelectedItem.barcode,
                 product_description: this.getSelectedItem.product_description,
                 qty: 1,
-                unit_cost: this.getSelectedItem.unit_cost
+                sales_cost: this.getSelectedItem.sales_cost
             });
 
-            this.st.total_cost += this.getSelectedItem.unit_cost
+            this.st.total_cost += this.getSelectedItem.sales_cost
+
+            document.getElementById("st-area").value = ""
             
         },
         removeitem: function(){
             if((this.rows.length-1)==0){
-                alert("No item to delete")
+                alert("No item in list!")
             } else {
                 this.rows.pop();
             }
@@ -409,22 +436,27 @@ export default {
             if((this.rows.length-1)!=0){
                 $("#qty_modal").modal('show');
                 this.input_description = this.getSelectedItem.product_description
-                this.input_quantity = this.rows[this.rows.length-1].quantity
+                this.input_quantity = this.rows[this.rows.length-1].qty
             } else {
                 alert("No item in list!")
             }
         },
         setqty() {
             var index = this.rows.length-1
-            var def_qty = this.rows[index].quantity
-            this.rows[index].quantity = this.input_quantity
-            this.st.total_cost += (((this.input_quantity-1) * (this.getSelectedItem.unit_cost)))
+            var def_qty = this.rows[index].qty
+            this.rows[index].qty = this.input_quantity
+            this.st.total_cost += (((this.input_quantity-1) * (this.getSelectedItem.sales_cost)))
             console.log('row: ', this.rows)
             $("#qty_modal").modal('hide');
             $("#qty_modal_form")[0].reset();
         },
         paymodal(){
-            $("#payment_modal").modal('show');
+            if((this.rows.length-1)!=0){
+                $("#payment_modal").modal('show');
+            } else {
+                alert("No item in list!")
+            }
+            
         },
         setpayment(){
             this.st.payment_amt = this.input_payment_amt
@@ -438,17 +470,25 @@ export default {
                 alert('Payment not enough')
             }
         },
-        ...mapActions(['addSales', 'addSalesItems', 'updateInvQty']),
-        async generate_receipt(){
-            this.rows.transaction = 'sales'
-            this.st.items = this.rows
-            console.log("transaction", this.st);
+        ...mapActions(['addSales', 'updateInvQty']),
+        generate_receipt(){
 
-            await this.addSales({
-                sales: this.st
-            })
+            if((this.rows.length-1)!=0){
+                if(this.st.payment_amt = 0){
+                    alert("Payment first")
+                } else {
+                    this.st.items = this.rows
+                    console.log("transaction", this.st);
+                    this.addSales({
+                        sales: this.st
+                    })
 
-            $("#viewTransaction").modal('show');
+                    $("#viewTransaction").modal('show');
+                }
+            } else {
+                alert("No item in list!")
+            }
+            
         },
         exit(){
             window.location.reload()
@@ -523,7 +563,11 @@ export default {
     },
     created(){
         const showme = this.$store.dispatch("getSelectedItem");
-    }
+    },
+    async beforeCreate() {
+        await this.$store.dispatch("fetchInventoryList")
+        await this.$store.dispatch("getSelectedItem")
+    },
 }
 </script>
 
@@ -578,6 +622,7 @@ export default {
     border: none;
     outline: none;
     background-color: white;
+
 }
 
 

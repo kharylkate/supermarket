@@ -188,13 +188,13 @@ export default {
         console.log("uid");
         this.dt.created_by = localStorage.uid
 
-console.log("delivery: ", this.dt);
-        // await this.receiveDelivery({
-        //   transaction: this.dt
-        // })
+      console.log("delivery: ", this.dt);
+        await this.receiveDelivery({
+          transaction: this.dt
+        })
 
-        // $("#addDelTrans").modal('hide');
-        // $("#add_item_form")[0].reset();
+        $("#addDelTrans").modal('hide');
+        $("#add_item_form")[0].reset();
 
       },
       getTotal(){

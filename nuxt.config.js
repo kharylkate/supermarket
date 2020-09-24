@@ -95,7 +95,9 @@ module.exports = {
   },
 
   server: {
-    port: 4630
+    port: 4630,
+    host: "172.16.4.216"
+
   },
   /*
    ** Build configuration

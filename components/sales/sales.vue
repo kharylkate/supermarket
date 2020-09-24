@@ -5,6 +5,7 @@
                 <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                   <h4 class="text-uppercase">Sales Transaction</h4>
                   <button class="btn btn-default lg-btn" @click="addModal()">New Transaction</button>
+                  <!-- <button @click="pdf()">export</button> -->
                 </div>
               </div>
 
@@ -33,7 +34,7 @@
             </div> -->
 
             <div class="table-responsive bg-white rounded-lg">
-              <table class="table table-data align-items-center table-flush">
+              <table class="table table-data align-items-center table-flush" id="sales_table">
                 <thead class="thead-sea-green">
                   <tr>
                     <th scope="col" class="sort" data-sort="name">Official Receipt Number</th>
@@ -375,6 +376,8 @@
 <script>
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default {
     name: 'sales',
@@ -413,6 +416,10 @@ export default {
         console.log(sales)
         var d = new Date('2020-05-02T07:00:00.000Z')
         this.sales.stransaction_date = d.toDateString()
+      },
+      pdf(){
+        autoTable(doc, { html: '#sales_table' })
+        doc.save('table.pdf')
       },
       filter() {
         var TableFilter = (function(Arr) {
