@@ -7,8 +7,6 @@
                 <sales />
             </div>
             <div>
-                <viewTransaction />
-                <addSales />
             </div>
         </div>
     </div>
@@ -18,8 +16,6 @@
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
 import sales from '../components/sales/sales';
-import viewTransaction from '../components/sales/modals';
-import addSales from '../components/sales/add_sales'
 
 export default {
     name: 'sales-body',
@@ -27,8 +23,6 @@ export default {
         navbar,
         'navbarCollapse': navbarCollapse,
         'sales': sales,
-        'viewTransaction': viewTransaction,
-        'addSales': addSales
     }
 }
 

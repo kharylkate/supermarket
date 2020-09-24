@@ -80,7 +80,7 @@
                         <input type="number"  v-model="row.qty" id="rtransaction_qty" class="form-control form-control-sm form__qty" placeholder="Quantity">
                       </div>
                       <div class="form-group col-md-3">
-                        <input type="number"  v-model="row.unit_cost" id="rtransaction_unitcost" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit">
+                        <input type="number"  v-model="row.sales_cost" id="rtransaction_unitcost" class="form-control form-control-sm form__unitcost" placeholder="Cost Per Unit">
                       </div>
                       <div class='form-group col-md-1'>
                         <button class="btn btn-sm btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" class="text-white" alt=""> </button>
@@ -130,7 +130,7 @@ export default {
           barcode: "",
           description: "",
           qty: "",
-          unit_cost: ""
+          sales_cost: ""
         }],
       }
     },
@@ -141,21 +141,21 @@ export default {
           barcode: "",
           description: "",
           qty: "",
-          unit_cost: ""
+          sales_cost: ""
         });
       },
       removeElement: function(index){
         this.rows.splice(index,1)
       },
-      getbarcode(){
-
+      getbarcode(e){
+        e.preventDefault()
         console.log('barcode?', this.rows[this.rows.length-1].barcode)
         console.log(this.inventoryList);
 
         for(var i = 0; i < this.inventoryList.length; i++){
           if(this.inventoryList[i].barcode == this.rows[this.rows.length-1].barcode){
             this.rows[this.rows.length-1].product_description = this.inventoryList[i].product_description
-            this.rows[this.rows.length-1].unit_cost = this.inventoryList[i].unit_cost
+            this.rows[this.rows.length-1].sales_cost = this.inventoryList[i].sales_cost
           }
         }
       },

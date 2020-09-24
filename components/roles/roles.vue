@@ -119,9 +119,9 @@ export default {
     }
 
   },
-  // async beforeCreate() {
-  //   await this.$store.dispatch("fetchRolesList");
-  // },
+  async beforeCreate() {
+    await this.$store.dispatch("fetchRolesList");
+  },
 };
 </script>
 

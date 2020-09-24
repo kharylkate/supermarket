@@ -21,6 +21,7 @@
                     <th scope="col" class="sort" data-sort="name">Product Description</th>
                     <th scope="col" class="sort" data-sort="status">Quantity</th>
                     <th scope="col" class="sort" data-sort="budget">Cost per unit</th>
+                    <th scope="col" class="sort" data-sort="budget">Sales Cost</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                     <td>{{item.product_description}}</td>
                     <td>{{item.qty}}</td>
                     <td>₱{{item.unit_cost}}</td>
+                    <td>₱{{item.sales_cost}}</td>
                     <td><button id="btn-color" class="btn btn-sm lg-btn" data-toggle="modal" @click="(select(item))" data-target="#editTrans"><img src="../../static/icons/pencil-square.svg" alt=""></button></td>
                 </tr>
             </tbody>
@@ -52,12 +54,12 @@
                 
                 <div class="form-group col-md-8">
                   <label for="edit_barcode">Barcode: </label>
-                  <input type="number" v-model="inventory.barcode" class="form-control" id="edit_barcode" value="" disabled>
+                  <input type="number" v-model="inventory.barcode" class="form-control" id="edit_barcode" value="" disabled >
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_name">Product Description: </label>
-                  <input type="text" v-model="inventory.product_description" class="form-control" id="edit_name" value="">
+                  <input type="text" v-model="inventory.product_description" class="form-control" id="edit_name" value="" required>
                 </div>
 
                 <div class="form-group col-md-8">
@@ -67,12 +69,12 @@
 
                 <div class="form-group col-md-8">
                   <label for="edit_cpu">Cost Per Unit: </label>
-                  <input type="number" v-model="inventory.unit_cost" class="form-control" id="edit_cpu" value="" >
+                  <input type="number" v-model="inventory.unit_cost" class="form-control" id="edit_cpu" value="" required>
                 </div>
 
                 <div class="form-group col-md-8">
                   <label for="edit_sc">Sales Cost: </label>
-                  <input type="number" v-model="inventory.sales_cost" class="form-control" id="edit_cpu" value="" >
+                  <input type="number" v-model="inventory.sales_cost" class="form-control" id="edit_cpu" value="" required>
                 </div>
 
               

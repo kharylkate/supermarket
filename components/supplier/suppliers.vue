@@ -82,7 +82,7 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_compstatus">Status: </label>
-                <select class="form-control form-control-sm" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status">
+                <select class="form-control form-control-sm" v-model="supplier.status" name="edit_compstatus" id="edit_cust-status" required>
                   <option value="1">Active</option>
                   <option value="0">Inactive</option>
                 </select>
@@ -99,6 +99,13 @@
       </div>
     </div>
   </div>
+
+  <div class="alert alert-success collapse" id="alert-success">
+    <h4 class="alert-heading">Well done!</h4>
+    <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+    <hr>
+    <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+</div>
 
     <div class="toast">
         <div class="toast-header">
@@ -131,6 +138,8 @@ export default {
       select(supplier){
         console.log(supplier);
         this.supplier = { ...supplier }
+
+        $("#alert-success").show()
       },
         // select(supplier){
         //     console.log(supplier)

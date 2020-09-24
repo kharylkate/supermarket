@@ -7,7 +7,6 @@
                 <roles />
             </div>
             <div>
-                <viewRoles />
                 <addRole />
             </div>
         </div>
@@ -18,7 +17,6 @@
 import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
 import roles from '../components/roles/roles';
-import viewRoles from '../components/roles/view_roles';
 import addRole from '../components/roles/add_role'
 
 export default {
@@ -27,7 +25,6 @@ export default {
         navbar,
         'navbarCollapse': navbarCollapse,
         'roles': roles,
-        'viewRoles': viewRoles,
         'addRole': addRole,
     }
 }

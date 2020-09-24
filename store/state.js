@@ -93,7 +93,7 @@ export default {
           barcode: 18773694,
           product_description: "Muck n Cheez",
           quantity: 3,
-          unit_cost: 98.15
+          sales_cost: 98.15
         },
         {
           stransaction_items_code: 2,
@@ -101,7 +101,7 @@ export default {
           barcode: 53170036,
           product_description: "Oreo Cookies",
           quantity: 2,
-          unit_cost: 54.75
+          sales_cost: 54.75
         },
       ]
     },
@@ -123,7 +123,7 @@ export default {
           barcode: 51404209,
           product_description: "Cadbury 65g",
           quantity: 1,
-          unit_cost: 76.75
+          sales_cost: 76.75
         },
       ]
     },
@@ -145,7 +145,7 @@ export default {
           barcode: 11443366,
           product_description: "Dairy Meelk 250mL",
           quantity: 1,
-          unit_cost: 89.6
+          sales_cost: 89.6
         },
       ]
     },
@@ -167,7 +167,7 @@ export default {
           barcode: 53170036,
           product_description: "Oreo Cookies",
           quantity: 2,
-          unit_cost: 54.75
+          sales_cost: 54.75
         }
       ]
     }

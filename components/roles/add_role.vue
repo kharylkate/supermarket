@@ -50,7 +50,6 @@
               </button>
               <button type="button" @click="add()" class="btn btn-sm btn-primary">OK</button>
             </div>
-            <!-- <button class="btn btn-sm btn-primary" type="submit">Submit form</button> -->
           </form>
         </div>
       </div>

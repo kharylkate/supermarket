@@ -17,35 +17,13 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_barcode">Barcode: </label>
-                <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" placeholder="Barcode">
+                <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" placeholder="Barcode" required>
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_name">Product Description: </label>
-                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description">
+                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description" required>
               </div>
-
-              <!-- <div class="form-group col-md-8">
-                <label for="item_supplier">Supplier: </label>
-                <input type="text" class="form-control form-control-sm" id="item_supplier" placeholder="Enter Supplier" autocomplete="off" required>
-              </div> -->
-
-              <!-- <div class="form-group col-md-8">
-                <label for="item_qty">Quantity: </label>
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-sm btn-default btn-number border" disabled="disabled" data-type="minus" data-field="quant[1]">
-                        <img src="../../static/icons/dash.svg" alt="">
-                    </button>
-                  </span>
-                    <input type="text" name="quant[1]" id="item_qty" class="form-control form-control-sm input-number" value="0" min="1" max="10" autocomplete="off" required>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-sm btn-default btn-number border" data-type="plus" data-field="quant[1]">
-                      <img src="../../static/icons/plus.svg" alt="">
-                    </button>
-                  </span>
-                </div>
-              </div> -->
 
               <div class="form-group col-md-8">
                 <label for="item_cost">Cost per quantity:</label>
@@ -72,7 +50,6 @@
               <button type="button" class="btn btn-sm btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
               <button type="button" @click="add()" class="btn btn-sm btn-primary">OK</button>
             </div>
-            <!-- <button class="btn btn-sm btn-primary" type="submit">Submit form</button> -->
           </form>
         </div>
         
