@@ -60,6 +60,9 @@ module.exports = {
           "sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV",
         crossorigin: "anonymous",
         type: "text/javascript"
+      },
+      {
+        src: "canvasjs/dist/canvasjs.js"
       }
     ]
   },
@@ -91,12 +94,12 @@ module.exports = {
     // bootstrap icons
   ],
   axios: {
-    baseURL: "http://172.16.4.211:6000"
+    baseURL: "http://172.16.4.211:9000"
   },
 
   server: {
     port: 4630,
-    host: "172.16.4.216"
+    //host: "172.16.4.216"
 
   },
   /*

@@ -9,7 +9,6 @@
             <div>
 
                 <addUser />
-                <editUser />
             </div>
         </div>
     </div>
@@ -20,7 +19,6 @@ import navbar from '../layouts/navbar';
 import navbarCollapse from '../layouts/sidebar';
 import users from '../components/users/users';
 import addUser from '../components/users/add'
-import editUser from '../components/users/edit'
 
 export default {
     name: 'roles-body',
@@ -29,7 +27,6 @@ export default {
         'navbarCollapse': navbarCollapse,
         'users': users,
         'addUser': addUser,
-        'editUser': editUser
     }
 }
 

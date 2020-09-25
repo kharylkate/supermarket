@@ -90,7 +90,7 @@
                       <div class="card col-md-12">
                         <div class="card-header bg-white">Quantity Per Items</div>
                         <div class="table table-responsive table-graph" id="funnel-itemchart">
-                          
+
                         </div>
                       </div>
                     </div>
@@ -101,27 +101,104 @@
             </div>
         </div>
     <!-- </main> -->
+    <div class="modal fade" id="defaultPass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <div>
+                <div class="form-group">
+                  <label for="new">New Password</label>
+                  <input type="password" v-model="user.password" class="form-control form-control-sm">
+                </div>
+                <div class="form-group">
+                  <label for="new">Confirm Password</label>
+                  <input type="password" v-model="user.password_confirm" class="form-control form-control-sm">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import {mapActions} from 'vuex';
 import { mapGetters } from 'vuex';
+import * as CanvasJS from '../node_modules/canvasjs/dist/canvasjs'
 
 export default {
     name: 'dash-board',
     data(){
       return{
         username: localStorage.username,
-        role_name: localStorage.role_name
+        role_name: localStorage.role_name,
+        points: []
       }
     },
+    mounted: function() {
+      console.log("inv",this.inventoryList);
+      console.log("storage", localStorage);
+      // var points = []
+      for(var i = 0; i < this.inventoryList.length-1; i++){
+        this.points[i].y = this.inventoryList[i].quantity
+        this.points[i].label = this.inventoryList[i].product_description
+      }
+      console.log(this.points);
+
+      var chart = new CanvasJS.Chart("funnel-itemchart", {
+        animationEnabled: true,
+        title:{
+          text: "",
+          horizontalAlign: "left"
+        },
+
+        
+        data: [{
+          type: "doughnut",
+          startAngle: 60,
+          //innerRadius: 60,
+          indexLabelFontSize: 17,
+          indexLabel: "{label} - #percent%",
+          toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+          dataPoints: 
+          // this.points
+          
+          // this.inventoryList[i].quantity
+          [
+            { y: 40, label: "Churned Milk 1kg" },
+            { y: 75, label: "Cadbury 65g" },
+            { y: 45, label: "Dairy Meelk 250 mL" },
+            { y: 70, label: "Hershey's Chocs 65g"},
+            { y: 50, label: "Oreo Cookies"},
+            { y: 40, label: "Muck n Cheez"}
+          ]
+        }]
+      });
+      chart.render();
+    },
     computed: {
-        ...mapGetters([
-            'inventoryCounter',
-            'supplierCounter',
-            'zeroStocks'
-        ])
+        ...mapGetters({
+            inventoryCounter: 'inventoryCounter',
+            supplierCounter: 'supplierCounter',
+            zeroStocks: 'zeroStocks',
+            inventoryList: 'inventoryList'
+        })
+    },
+    async beforeCreate() {
+      await this.$store.dispatch("fetchInventoryList")
     }
     
 }

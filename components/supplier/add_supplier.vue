@@ -75,6 +75,8 @@ export default {
       add(){
         this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
         this.supplier.status = 1
+        this.supplier.created_by = localStorage.uid
+        this.supplier.created_at = "today"
         this.addSupplier({
           supplier: this.supplier
         })

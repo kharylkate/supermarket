@@ -30,7 +30,7 @@
                 <label for="sales_customer">Role Name: </label>
                 <input
                   type="text"
-                  v-model="role_name"
+                  v-model="role.role_name"
                   class="form-control form-control-sm"
                   id="role_name"
                   placeholder="Role Name"
@@ -48,7 +48,7 @@
               >
                 Cancel
               </button>
-              <button type="button" @click="addRole()" class="btn btn-primary">OK</button>
+              <button type="button" @click="add()" class="btn btn-primary">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -69,19 +69,34 @@ export default {
   },
   data() {
     return {
-      role_name: ""
+      role: {} 
 
     }
   },
   methods: {
     ...mapActions(['addRole']),
-    addRole(){
-      this.addRole({
-        role_name: this.role_name
+    async add(){
+
+      this.role.created_by = localStorage.uid
+      this.role.created_at = "today"
+      console.log(this.role);
+      await this.addRole({
+        role: this.role
+      })
+      .then((result) => {
+        if(result.error){
+          alert(result.error)
+        } else {
+          $("#addRole").modal('hide');
+          $("#add_role_form")[0].reset();
+          alert(result.message)
+        }
+        
       })
 
-      $("#addRole").modal('hide');
-      $("#add_role_form")[0].reset();
+      await this.$store.dispatch("fetchRolesList")
+
+      
     },
   }
 };

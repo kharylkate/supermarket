@@ -422,47 +422,15 @@ export default {
         doc.save('table.pdf')
       },
       filter() {
-        var TableFilter = (function(Arr) {
- 
-        var _input;
-    
-        function _onInputEvent(e) {
-        _input = e.target;
-        var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-        Arr.forEach.call(tables, function(table) {
-        Arr.forEach.call(table.tBodies, function(tbody) {
-        Arr.forEach.call(tbody.rows, _filter);
-        });
-        });
-        }
-    
-        function _filter(row) {
-        var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-        row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-        }
-    
-        return {
-          init: function() {
-          var inputs = document.getElementsByClassName('search-filter');
-          Arr.forEach.call(inputs, function(input) {
-          input.oninput = _onInputEvent;
-          });
-          }
-          };
-        })(Array.prototype);
-      
-        document.addEventListener('readystatechange', function() {
-          if (document.readyState === 'complete') {
-          TableFilter.init();
-          }
-        });
+        
       },
       addModal(){
 
         //get last or_no+1 to load before showing modal
-        let or_no = this.salesList.slice(-1).pop().or_no
+        // var or_no = 
+        // console.log("SLICED",this.salesList.slice(-1).pop());
         //assign new OR no to New Sales OR No
-        this.st.or_no = or_no+1
+        //this.st.or_no = or_no+1
         $("#addSales").modal('show')
       },
       addRow: function () {
@@ -517,14 +485,16 @@ export default {
       ...mapActions(["addSales"]),
       async saveSales() {
 
+        // get uid and date for logging
+        this.st.created_by = localStorage.uid
+        this.st.created_at = "today"
+
         //payment should be enough or more than the total cost to continue
         if(this.st.total_cost > this.st.payment_amt){
           alert("Payment not enough")
         } else {
           //if payment == enough
 
-          // get uid for logging
-          this.st.created_by = localStorage.uid;
           // get items
           this.st.items = this.rows;
           //send to actions (api route))

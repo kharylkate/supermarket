@@ -133,6 +133,9 @@ export default {
         },
         ...mapActions(["updateSupplier"]),
         update(){
+
+          this.supplier.updated_by = localStorage.uid
+          this.supplier.updated_at = "today"
           console.log('clicked', this.supplier)
           this.updateSupplier({
               supplier: this.supplier,

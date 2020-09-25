@@ -187,6 +187,7 @@ export default {
         this.dt.items = this.items
         console.log("uid");
         this.dt.created_by = localStorage.uid
+        this.dt.created_at = "today"
 
       console.log("delivery: ", this.dt);
         await this.receiveDelivery({

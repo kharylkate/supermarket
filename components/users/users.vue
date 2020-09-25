@@ -126,6 +126,8 @@ export default {
     },
     ...mapActions(['updateUser']),
     async update(){
+      this.user.updated_by = localStorage.uid
+      this.user.updated_at = "today"
       console.log('userrrr: ', this.user)
       await this.updateUser({
         user: this.user

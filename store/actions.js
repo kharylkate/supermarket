@@ -2,46 +2,19 @@ import axios from "axios";
 
 export default {
   login({commit}, login) {
-    // commit("login", login);
-    // return login;
     commit("login", login);
       return login;
   },
-  // addCustomer: (context, customerData) => {
-  //   context.commit("addCustomer", customerData);
-  //   // console.log(customerData)
-  //   return customerData;
-  // },
-  // editCustomer({ commit }, { customerData }) {
-  //   commit("editCustomer", customerData);
-  //   return customerData;
-  // },
-
-  // addSupplier: (context, supplierData) => {
-  //   context.commit("addSupplier", supplierData);
-  //   return supplierData;
-  // },
-
-  // selectTransaction({ commit },  transaction ) {
-  //     commit('addSelectedTransaction', transaction)
-  //   return transaction;
-  // },
-
-  // selectDelivery({ commit }, dt ) {
-  //     commit('addSelectedDelivery', dt.dr_no)
-  //   return dt.dr_no;
-  // },
 
 
 //======================================================================
-
 
   // ROLES
 
   async fetchRolesList ({ commit }) {
     return await axios({
       method: "GET",
-      url: `${this.$axios.defaults.baseURL}/role`,
+      url: `${this.$axios.defaults.baseURL}/roles`,
       headers: {},
       data: {},
     })
@@ -53,18 +26,18 @@ export default {
     .catch( err => err);
   },
 
-  async addRole({ commit }, { role_name }) {
+  async addRole({ commit }, { role }) {
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/role/add`,
       header: {
         "Content-Type": "application/json"
       },
-      data: { role_name },
+      data: { ...role },
     })
     .then(result => {
       console.log('hihi',result)
-      commit("addRole", result.data);
+      commit("addRole", role);
 
       return result.data;
     })
@@ -128,7 +101,7 @@ export default {
     console.log('@user: ',user)
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/user/add`,
+      url: `${this.$axios.defaults.baseURL}/add_user`,
       header: {
         "Content-Type": "application/json"
       },
@@ -228,7 +201,7 @@ export default {
     console.log('@inventory data: ',inventory)
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/inventory/add`,
+      url: `${this.$axios.defaults.baseURL}/add_inventory`,
       header: {
         "Content-Type": "application/json"
       },
@@ -267,7 +240,7 @@ export default {
     console.log('@supplier data: ',supplier)
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/supplier/add`,
+      url: `${this.$axios.defaults.baseURL}/add/supplier`,
       header: {
         "Content-Type": "application/json"
       },

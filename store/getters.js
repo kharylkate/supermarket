@@ -65,7 +65,7 @@ export default {
                 j += 1;
             }
         })
-        console.log(j)
+        // console.log(j)
         return j
     },
 

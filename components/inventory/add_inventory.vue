@@ -25,28 +25,6 @@
                 <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description">
               </div>
 
-              <!-- <div class="form-group col-md-8">
-                <label for="item_supplier">Supplier: </label>
-                <input type="text" class="form-control form-control-sm" id="item_supplier" placeholder="Enter Supplier" autocomplete="off" required>
-              </div> -->
-
-              <!-- <div class="form-group col-md-8">
-                <label for="item_qty">Quantity: </label>
-                <div class="input-group">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number border" disabled="disabled" data-type="minus" data-field="quant[1]">
-                        <img src="../../static/icons/dash.svg" alt="">
-                    </button>
-                  </span>
-                    <input type="text" name="quant[1]" id="item_qty" class="form-control form-control-sm input-number" value="0" min="1" max="10" autocomplete="off" required>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-number border" data-type="plus" data-field="quant[1]">
-                      <img src="../../static/icons/plus.svg" alt="">
-                    </button>
-                  </span>
-                </div>
-              </div> -->
-
               <div class="form-group col-md-8">
                 <label for="item_cost">Cost per quantity:</label>
                 <div class="input-group input-group-sm">
@@ -58,7 +36,7 @@
               </div>
 
               <div class="form-group col-md-8">
-                <label for="item_cost">Cost per quantity:</label>
+                <label for="item_cost">Sales Cost:</label>
                 <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
@@ -72,7 +50,6 @@
               <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
               <button type="button" @click="add()" class="btn btn-primary">OK</button>
             </div>
-            <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
         </div>
         
@@ -99,12 +76,19 @@ export default {
       ...mapActions(['addInventory']),
       add(){
         this.inventory.quantity = 0
+        this.inventory.created_by = localStorage.uid
+        this.inventory.created_at = "today"
+        console.log(this.inventory);
         this.addInventory({
           inventory: this.inventory
         })
+        .then((result)=>{
+          $("#addInventory").modal('hide');
+          $('#add_inventory_form')[0].reset();
+          alert(result.message)
+        })
 
-        $("#addInventory").modal('hide');
-        $('#add_inventory_form')[0].reset();
+        
 
         
 

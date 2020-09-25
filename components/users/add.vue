@@ -68,6 +68,8 @@ export default {
       ...mapActions(['addUser']),
       add() {
         this.user.password = this.user.username
+        this.user.created_by = localStorage.uid
+        this.user.created_at = "today"
         console.log('user add clicked: ', this.user)
         this.addUser({
           user: this.user,
