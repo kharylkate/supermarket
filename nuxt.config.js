@@ -60,6 +60,9 @@ module.exports = {
           "sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV",
         crossorigin: "anonymous",
         type: "text/javascript"
+      },
+      {
+        src: "https://canvasjs.com/assets/script/canvasjs.min.js"
       }
     ]
   },

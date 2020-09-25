@@ -111,6 +111,8 @@
 <script>
 import {mapActions} from 'vuex';
 import { mapGetters } from 'vuex';
+// import CanvasJS from 'canvasjs';
+
 
 export default {
     name: 'dash-board',
@@ -119,6 +121,32 @@ export default {
         username: localStorage.username,
         role_name: localStorage.role_name
       }
+    }, 
+    mounted() {
+    //   var chart = new CanvasJS.Chart("funnel-itemchart", {
+    //     animationEnabled: true,
+    //     title:{
+    //         text: "",
+    //         horizontalAlign: "left"
+    //     },
+    //     data: [{
+    //         type: "doughnut",
+    //         startAngle: 60,
+    //         //innerRadius: 60,
+    //         indexLabelFontSize: 17,
+    //         indexLabel: "{label} - #percent%",
+    //         toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+    //         dataPoints: [
+    //             { y: 40, label: "Churned Milk 1kg" },
+    //             { y: 75, label: "Cadbury 65g" },
+    //             { y: 45, label: "Dairy Meelk 250 mL" },
+    //             { y: 70, label: "Hershey's Chocs 65g"},
+    //             { y: 50, label: "Oreo Cookies"},
+    //             { y: 40, label: "Muck n Cheez"}
+    //         ]
+    //     }]
+    // });
+    // chart.render();
     },
     computed: {
         ...mapGetters([
@@ -127,6 +155,9 @@ export default {
             'zeroStocks',
             'lowStocks'
         ])
+    },
+    methods: {
+
     }
     
 }
