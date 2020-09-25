@@ -91,7 +91,7 @@ module.exports = {
     // bootstrap icons
   ],
   axios: {
-    baseURL: "http://172.16.4.211:5000"
+    baseURL: "http://172.16.4.211:6000"
   },
 
   server: {
