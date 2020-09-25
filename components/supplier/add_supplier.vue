@@ -74,15 +74,24 @@ export default {
       ...mapActions(['addSupplier']),
       add(){
         this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
-        this.supplier.status = 1
+        this.supplier.status = true
         this.supplier.created_by = localStorage.uid
         this.supplier.created_at = "today"
         this.addSupplier({
           supplier: this.supplier
         })
-        
+        .then((result) => {
+          console.log("result: ",result);
+          if(result.error){
+            alert(result.error)
+          } else {
             $("#addSupplier").modal('hide');
             $('#add_supplier_form')[0].reset();
+            alert(result.message)
+          }
+        })
+        
+            
       
         // console.log(supplier)
         

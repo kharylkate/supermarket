@@ -143,6 +143,7 @@ export default {
     name: 'dash-board',
     data(){
       return{
+        user: {},
         username: localStorage.username,
         role_name: localStorage.role_name,
         points: []

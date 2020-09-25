@@ -25,10 +25,14 @@ d<template>
                   <label >Supplier: </label>
                   
                   <!-- <v-select v-model="dt.suppler_code" :options="suppliersList.companyt_name" ></v-select> -->
-                    <input v-model="dt.supplier_id" class="form-control form-control-sm form-control form-control-sm-sm" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
+                  <select name="suppliers" id="suppliers" v-model="dt.supplier_id" class="form-control form-control-sm">
+                    <option selected hidden>Supplier</option>
+                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_id">{{supply.company_name}}</option>
+                  </select>
+                    <!-- <input v-model="dt.supplier_id" class="form-control form-control-sm form-control form-control-sm-sm" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
                   <datalist id="suppliers">
                     <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_id">{{supply.company_name}}</option>
-                  </datalist>
+                  </datalist> -->
                 </div>
               </div>
 
@@ -46,7 +50,7 @@ d<template>
                   <li>
                       <div class="form-row d-flex col-md-12 mt-2">
                         <div class="form-group col-md-3">
-                          <label for="form__barcode">Barcode:</label>
+                          <label for="form__inventory_id">inventory_id:</label>
                         </div>
                         <div class="form-group col-md-3">
                           <label for="form__description">Product Description:</label>
@@ -65,9 +69,9 @@ d<template>
                   <li v-for="(row, index) in items" :key="index.id">
                   <div class="form-row d-flex col-md-12 mt-0">
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.barcode" list="barcode-list" class="form-control form-control-sm form-control form-control-sm-sm form__barcode" @keyup.enter="getbarcode()" placeholder="barcode" id="rtransaction_barcode" autocomplete="off">
-                      <datalist id="barcode-list">
-                        <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
+                      <input type="text" v-model="row.inventory_id" list="inventory_id-list" class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id" @keyup.enter="getinventory_id()" placeholder="inventory_id" id="rtransaction_inventory_id" autocomplete="off">
+                      <datalist id="inventory_id-list">
+                        <option v-for="inv in inventoryList" :key="inv.id" :value="inv.inventory_id" >{{inv.product_description}}</option>
                       </datalist>
                     </div>
                     <div class="form-group col-md-3">
@@ -126,7 +130,7 @@ export default {
     data() {
       return {
         items: [{
-          barcode: "",
+          inventory_id: "",
           description: "",
           quantity: "",
           cost_per_unit: ""
@@ -141,7 +145,7 @@ export default {
       addRow: function() {
         var elem = document.createElement('li');
         this.items.push({
-          barcode: "",
+          inventory_id: "",
           description: "",
           quantity: "",
           cost_per_unit: ""
@@ -158,12 +162,12 @@ export default {
         }
 
       },
-      getbarcode(){
-        console.log('barcode?', this.items[this.items.length-1].barcode)
+      getinventory_id(){
+        console.log('inventory_id?', this.items[this.items.length-1].inventory_id)
         console.log(this.inventoryList);
 
         for(var i = 0; i < this.inventoryList.length; i++){
-          if(this.inventoryList[i].barcode == this.items[this.items.length-1].barcode){
+          if(this.inventoryList[i].inventory_id == this.items[this.items.length-1].inventory_id){
             this.items[this.items.length-1].description = this.inventoryList[i].product_description
             // this.items[this.items.length-1].unit_cost = this.inventoryList[i].unit_cost
             this.items[this.items.length - 1].inventory_id = this.inventoryList[i].inventory_id
@@ -171,25 +175,15 @@ export default {
           }
         }
         
-        console.log('rows: ',this.items)
-        // this.items[this.items.length-1].product_description = bc.product_description
-        // console.log('product info: ', this.items[this.items.length-1].barcode, ', ', this.items[this.items.length-1].product_description);
-        
+        console.log('items: ',this.items)
 
       },
       ...mapActions(['receiveDelivery']),
       async receive(){
         this.items.total = this.dt.total_cost
-        console.log('add total: ', this.items.total);
-        console.log('rows: ', this.items);
-        console.log('dt: ', this.dt);
-        // this.items.or_no = this.dt.or_no;
         this.dt.items = this.items
-        console.log("uid");
         this.dt.created_by = localStorage.uid
-        this.dt.created_at = "today"
 
-      console.log("delivery: ", this.dt);
         await this.receiveDelivery({
           transaction: this.dt
         })
@@ -198,17 +192,17 @@ export default {
         $("#add_item_form")[0].reset();
 
       },
-      getTotal(){
-
-        this.dt.total_cost = 0;
-        for(var i = 0; i < this.items.length-1; i++){
-          console.log(this.items);
-          if(this.items[i].quantity && this.items[i].cost_per_unit != ""){
-            this.dt.total_cost += (parseInt(this.items[i].quantity * this.items[i].cost_per_unit))
+      getTotal: function(){
+        var total = 0;
+        console.log(this.items);
+        for(var i = 0; i < this.items.length; i++){
+          if(!isNaN(this.items[i].quantity) && !isNaN(this.items[i].cost_per_unit) && (this.items[i].quantity.length !=0) && (this.items[i].cost_per_unit.length !=0)) {
+            total += (this.items[i].quantity * this.items[i].cost_per_unit)
           }
         }
+        this.dt.total_cost = total
+      },
 
-      }
     },
     created(){
       //console.log('hilu',this.inventoryList)

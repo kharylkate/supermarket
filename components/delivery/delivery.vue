@@ -11,15 +11,21 @@
                 </button>
                 </div>
             </div>
-            <!-- <div>
+            <div>
               <div class="row">
                 <div class="form-group col-md-3">
-                  <select class="form-control form-control-sm search-filter" @change="filter()" v-model="filter_supplier" name="filter_supplier" id="filter_supplier">
-                    <option value="" selected>Supplier</option>
-                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.company_name">{{supply.company_name}}</option>
-                  </select>
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">Show</label>
+                    </div>
+                    <select class="form-control form-control-sm search-filter" @change="filter()" v-model="filter_supplier" name="filter_supplier" id="filter_supplier">
+                      <option value="" selected>Supplier</option>
+                      <option v-for="supply in suppliersList" :key="supply.id" :value="supply.company_name">{{supply.company_name}}</option>
+                    </select>
+                  </div>
+                  
                 </div>
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <label class="input-group-text">From</label>
@@ -38,9 +44,9 @@
                     </div>
                   </div>
 
-                </div>
+                </div> -->
               </div>
-            </div> -->
+            </div>
         </div>
 
         
@@ -216,7 +222,8 @@ export default {
         }),
     },
     async beforeCreate() {
-        await this.$store.dispatch("fetchDTransactionsList")
+      await this.$store.dispatch("fetchDTransactionsList")
+      
     }
     
 }

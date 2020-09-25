@@ -91,13 +91,6 @@ export default {
   },
 
   async addUser({ commit }, { user }) {
-    var today = new Date();
-    var arr = user
-    var myObj = {
-      'created_at': today,
-      'created_by': localStorage.username
-    }
-
     console.log('@user: ',user)
     return await axios({
       method: "POST",
@@ -117,11 +110,11 @@ export default {
   },
 
   async updateUser({commit}, user) {
-    console.log('user code: ', user.user.user_id)
+    console.log('user code: ', user.user.users_id)
 
     return await axios({
       method: "PUT",
-      url: `${this.$axios.defaults.baseURL}/user/`+user.user.user_id,
+      url: `${this.$axios.defaults.baseURL}/user/`+user.user.users_id,
       header: {
         "Content-Type": "application/json"
       },
@@ -135,7 +128,6 @@ export default {
     })
     .catch(err => err);
   },
-
 
 
 
@@ -240,7 +232,7 @@ export default {
     console.log('@supplier data: ',supplier)
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/add/supplier`,
+      url: `${this.$axios.defaults.baseURL}/add_supplier`,
       header: {
         "Content-Type": "application/json"
       },
@@ -292,6 +284,7 @@ export default {
     })
     .catch(err => err);
   },
+
 
 
   // DELIVERY

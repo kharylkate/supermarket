@@ -55,7 +55,7 @@
                     
                     <!-- <td>
                         <div v-for="(item,i) in sales.items" :key="i"> 
-                            Barcode: {{item.barcode}}
+                            inventory_id: {{item.inventory_id}}
                             Description: {{item.description}}
                             Unit Cost: {{item.unitcost}}
                             Amount: {{item.amt}}
@@ -241,7 +241,7 @@
                         <li>
                           <div class="form-row d-flex col-md-12 mt-2">
                             <div class="form-group col-md-3">
-                              <label for="form__barcode">Barcode</label>
+                              <label for="form__inventory_id">inventory_id</label>
                             </div>
                             <div class="form-group col-md-3">
                               <label for="form__description">Description</label>
@@ -261,20 +261,20 @@
                           <div class="form-row d-flex col-md-12">
                             <div class="form-group col-md-3">
                               <input
-                                @keyup.enter="getbarcode()"
+                                @keyup.enter="getinventory_id()"
                                 type="text"
-                                list="barcode_list"
-                                v-model="row.barcode"
-                                class="form-control form-control-sm form-control form-control-sm-sm form__barcode"
-                                placeholder="barcode"
-                                id="rtransaction_barcode"
+                                list="inventory_id_list"
+                                v-model="row.inventory_id"
+                                class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id"
+                                placeholder="inventory_id"
+                                id="rtransaction_inventory_id"
                                 autocomplete="off"
                               />
-                              <datalist id="barcode_list">
+                              <datalist id="inventory_id_list">
                                 <option
                                   v-for="items in inventoryList"
                                   :key="items.id"
-                                  :value="items.barcode"
+                                  :value="items.inventory_id"
                                 >{{items.product_description}}</option>
                               </datalist>
                             </div>
@@ -398,7 +398,7 @@ export default {
         inv: {},
         rows: [
           {
-            barcode: "",
+            inventory_id: "",
             product_description: "",
             quantity: "",
             sales_cost: "",
@@ -414,7 +414,7 @@ export default {
       select(sales) {
         this.sales = { ...sales }
         console.log(sales)
-        var d = new Date('2020-05-02T07:00:00.000Z')
+        var d = new Date()
         this.sales.stransaction_date = d.toDateString()
       },
       pdf(){
@@ -425,18 +425,21 @@ export default {
         
       },
       addModal(){
-
-        //get last or_no+1 to load before showing modal
-        // var or_no = 
-        // console.log("SLICED",this.salesList.slice(-1).pop());
-        //assign new OR no to New Sales OR No
-        //this.st.or_no = or_no+1
+        // let or_no = this.salesList[this.salesList.length-1].or_no+1
+        // document.getElementById("input_stransaction_no").value = or_no
+        // this.st.or_no = or_no
+       
+        // let sales_date = new Date();
+        // console.log(sales_date.toDateString());
+        // this.st.stransaction_date = sales_date.toDateString()
+        console.log(this.inventoryList);
         $("#addSales").modal('show')
+        
       },
       addRow: function () {
         var elem = document.createElement("li");
         this.rows.push({
-          barcode: "",
+          inventory_id: "",
           product_description: "",
           quantity: "",
           sales_cost: "",
@@ -449,12 +452,12 @@ export default {
           this.rows.splice(index, 1);
         }
       },
-      getbarcode() {
-        //get barcode and load product info in respective input fields
+      getinventory_id() {
+        //get inventory_id and load product info in respective input fields
         for (var i = 0; i < this.inventoryList.length; i++) {
           if (
-            this.inventoryList[i].barcode ==
-            this.rows[this.rows.length - 1].barcode
+            this.inventoryList[i].inventory_id ==
+            this.rows[this.rows.length - 1].inventory_id
           ) {
             this.rows[
               this.rows.length - 1
@@ -470,17 +473,14 @@ export default {
         }
       },
       getTotal() {
-        console.log("blurry");
-        
-        this.st.total_cost = 0
-        for (var i = 0; i < this.rows.length; i++) {
-          console.log(this.rows);
-          if (this.rows[i].quantity && this.rows[i].sales_cost != "") {
-            //(this.st.total_cost)
-            this.st.total_cost += (this.rows[i].quantity * this.rows[i].sales_cost).toFixed(2)
-            console.log("total: ", this.st.total_cost);
+        var total = 0;
+        console.log(this.rows);
+        for(var i = 0; i < this.rows.length; i++){
+          if(!isNaN(this.rows[i].quantity) && !isNaN(this.rows[i].cost_per_unit) && (this.rows[i].quantity.length !=0) && (this.rows[i].cost_per_unit.length !=0)) {
+            total += (this.rows[i].quantity * this.rows[i].cost_per_unit)
           }
         }
+        this.st.total_cost = total
       },
       ...mapActions(["addSales"]),
       async saveSales() {

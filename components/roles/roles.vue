@@ -120,7 +120,15 @@ export default {
       this.updateRole({
         role: this.role,
       })
-        $("#editRole").modal('hide');
+      .then((result) =>{
+        if(result.error) {
+          alert(result.error)
+        } else {
+          $("#editRole").modal('hide');
+          alert(result)
+        }
+      })
+        
      }
   },
   async beforeCreate() {

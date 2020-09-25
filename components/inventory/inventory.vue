@@ -107,7 +107,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            inventoryList: 'inventoryList'
+          inventoryList: 'inventoryList'
         })
     },
     methods: {
