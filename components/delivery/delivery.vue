@@ -25,7 +25,7 @@
                   </div>
                   
                 </div>
-                <!-- <div class="col-md-3">
+                <div class="col-md-3">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <label class="input-group-text">From</label>
@@ -44,7 +44,7 @@
                     </div>
                   </div>
 
-                </div> -->
+                </div>
               </div>
             </div>
         </div>
@@ -183,37 +183,34 @@ export default {
           });
       },
       date_filter() {
-        
         var from = new Date(this.date_from)
         var to = new Date(this.date_to)
+        var d = new Date()
+        console.log(d);
+        console.log(to);
 
-        if (!from.toDateString() && !to.toDateString()) { // no value for from and to
-          return;
-        }
-
-        // from = from.toDateString() || '1970-01-01'; // default from to a old date if it is not set
-        // to = to.toDateString() || '2999-12-31';
-
-        var dateFrom = from.toDateString();
-        var dateTo = to.toDateString();
-
-        $('#delivery_table tr').each(function(i, tr) {
-          var val = $(tr).find("td:nth-child(3)").text();
-          var dateVal = new Date(val);
-          var range = dateVal.toDateString()
-          console.log("range", range);
-          // var visible = (range.isBetween(dateFrom, dateTo, null, [])) ? "" : "none"; // [] for inclusive
-          if(dateFrom <= range && range <= dateTo){
-            $(tr).css('display', visible);
-          } else {
-            // $(tr).css('display', none);
-            console.log("not found");
-          }
+        // $("#delivery_table tr").each(function() {
+        //   var row = $(this);
+        //   var date = stringToDate(row.find("td").eq(2).text());
           
-        });
+        //   //show all rows by default
+        //   var show = true;
 
+        //   //if from date is valid and row date is less than from date, hide the row
+        //   if (from && date < from)
+        //     show = false;
+          
+        //   //if to date is valid and row date is greater than to date, hide the row
+        //   if (to && date > to)
+        //     show = false;
 
+        //   if (show)
+        //     row.show();
+        //   else
+        //     row.hide();
+        // });
       },
+
     },
     computed: {
         ...mapGetters({
