@@ -10,46 +10,11 @@
                     <div class="row">
                         <div class="card sales-card col-md-8">
                             <div class="mt-3">
-                                <div class="my-2 px-2">Sales Transaction Items</div>
+                                <div class="my-2 px-2"></div>
                             </div>
-                            <!-- <div class="container item-list">
-                                <ul class="border border-primary">
-                                    <li class="item-row">
-                                        <div class="form-row d-flex col-md-12">
-                                            <div class="form-group col-md-3">
-                                                <label for="form__barcode">Barcode</label>
-                                            </div>
-                                            <div class="form-group col-md-5">
-                                                <label for="form__description">Product Description</label>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="form__qty">Quantity</label>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="form__unitcost">Unit Cost</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item-row" v-for="(row, index) in rows" :key="index.id">
-                                        <div class="form-row d-flex col-md-12">
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.barcode" disabled/>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.product_description" disabled/>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.sales_qty" disabled/>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <input type="text" class="" v-model="row.unit_cost" disabled/>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div> -->
+                          
                             <div class="table container">
-                                <table class="table table-borderless w-auto table-xtra-condensed">
+                                <table class="table table-borderless table-xtra-condensed">
                                     <thead class="fit w-auto">
                                         <tr class="fit">
                                             <th class="fit">Barcode</th>
@@ -77,7 +42,7 @@
                                 </table>
                                 
                             </div>
-                            <div class="transaction-total text-right mt-5 mr-4">
+                            <div class="transaction-total text-right mt-3 mr-4">
                                 <label>Total Amount: ₱</label>
                                 <input type="text" class="trans" v-model="st.total_cost" disabled/>
                             </div>
@@ -89,9 +54,13 @@
                         </div>
                         <div class="card col-md-4">
                             <div class="container mt-3">
-                                <div class="form-group my-2 px-2">
-                                    <label for="or_no">Receipt Number: </label>
-                                    <input type="number" v-model="st.or_no" class="form-control">
+                                <div>
+                                    <div class="mt-3">
+                                        Receipt Number
+                                    </div>
+                                    <div class="form-group my-2 px-2">
+                                        <input type="number" v-model="st.or_no" class="form-control m-2">
+                                    </div>
                                 </div>
                                 <div>
                                     <div class="mt-3">
@@ -105,11 +74,6 @@
                                 </div>
                                 <hr>
                                 <div>
-                                    <!-- <v-select multiple v-model="selected" :options="['Canada','United States']" /> -->
-                                    <!-- <select class="form-control" @change="show()" id="st-area">
-                                        <option disabled selected >Scan?</option>
-                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
-                                    </select> -->
                                     <input placeholder="barcode" type="text" id="st-area" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
                                     <datalist id="items-list">
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
@@ -497,7 +461,8 @@ export default {
                 alert('Exact Amount')
                 $("#payment_modal").modal('hide');
             } else if(this.input_payment_amt > this.st.total_cost){
-                alert('Change: ', (this.st.payment_amt - this.st.total_cost))
+                var change = (this.input_payment_amt - this.st.total_cost)
+                alert('Change: ', change)
                 $("#payment_modal").modal('hide');
             } else if(this.input_payment_amt < this.st.total_cost){
                 alert('Payment not enough')
