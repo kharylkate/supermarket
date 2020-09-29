@@ -291,10 +291,9 @@
                               <input
                                 type="number"
                                 @blur="getTotal()"
-                                
                                 v-model="row.quantity"
-                                class="form-control form-control-sm form-control form-control-sm-sm form__quantity"
-                                placeholder="Quantity"
+                                class="form-control form-control-sm form-control form__quantity"
+                                placeholder="Quantity" required
                               />
                             </div>
                             <div class="form-group col-md-3">
@@ -342,7 +341,7 @@
                         <label for>Payment Amount:</label>
                         <input
                           type="text"
-                          v-model="st.payment_amt" @click="getTotal()"
+                          v-model="st.payment_amt"
                           class="form-control form-control-sm form-control form-control-sm-sm form__totalAmt text-right"
                           placeholder="Payment Amount"
                         />
@@ -392,8 +391,9 @@ export default {
       return {
         sales: {},
         st: {
-          // total_cost: 0,
+          total_cost: 0,
           or_no: null,
+
         },
         inv: {},
         rows: [
@@ -425,13 +425,11 @@ export default {
         
       },
       addModal(){
-        // let or_no = this.salesList[this.salesList.length-1].or_no+1
-        // document.getElementById("input_stransaction_no").value = or_no
-        // this.st.or_no = or_no
-       
-        // let sales_date = new Date();
-        // console.log(sales_date.toDateString());
-        // this.st.stransaction_date = sales_date.toDateString()
+        let or_no = this.salesList[this.salesList.length-1].or_no+1
+        this.st.or_no = or_no
+        // var d = new Date()
+        // this.st.stransaction_date = d
+
         console.log(this.inventoryList);
         $("#addSales").modal('show')
         
@@ -452,32 +450,26 @@ export default {
           this.rows.splice(index, 1);
         }
       },
-      getinventory_id() {
+      async getinventory_id() {
         //get inventory_id and load product info in respective input fields
         for (var i = 0; i < this.inventoryList.length; i++) {
           if (
             this.inventoryList[i].inventory_id ==
             this.rows[this.rows.length - 1].inventory_id
           ) {
-            this.rows[
-              this.rows.length - 1
-            ].product_description = this.inventoryList[i].product_description;
-            this.rows[this.rows.length - 1].sales_cost = this.inventoryList[
-              i
-            ].sales_cost;
+            this.rows[this.rows.length - 1].product_description = this.inventoryList[i].product_description;
+            this.rows[this.rows.length - 1].sales_cost = this.inventoryList[i].sales_cost;
             this.rows[this.rows.length - 1].quantity = 1;
-            this.rows[this.rows.length - 1].inventory_code = this.inventoryList[
-              i
-            ].inventory_code;
           }
         }
       },
-      getTotal() {
+      getTotal: function(){
+        console.log(this.rows);
         var total = 0;
         console.log(this.rows);
         for(var i = 0; i < this.rows.length; i++){
-          if(!isNaN(this.rows[i].quantity) && !isNaN(this.rows[i].cost_per_unit) && (this.rows[i].quantity.length !=0) && (this.rows[i].cost_per_unit.length !=0)) {
-            total += (this.rows[i].quantity * this.rows[i].cost_per_unit)
+          if(!isNaN(this.rows[i].quantity) && !isNaN(this.rows[i].sales_cost) && (this.rows[i].quantity.length !=0) && (this.rows[i].sales_cost.length !=0)) {
+            total += (this.rows[i].quantity * this.rows[i].sales_cost)
           }
         }
         this.st.total_cost = total
@@ -500,17 +492,23 @@ export default {
           //send to actions (api route))
           await this.addSales({
             sales: this.st,
-          });
-
-          $("#addSales").modal("hide");
-          $("#add_item_form")[0].reset();
+          })
+          .then((result) => {
+            console.log("result", result);
+            if(result.error){
+              alert(result.error)
+            } else {
+              alert(result.message)
+              $("#addSales").modal("hide");
+              $("#add_item_form")[0].reset();
+            }
+          })
 
           await this.$store.dispatch("fetchSTransactionsList"),
           await this.$store.dispatch("fetchSalesList");
           await this.$store.dispatch("fetchInventoryList");
           }
 
-        
       },
     
     },

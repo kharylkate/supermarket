@@ -306,13 +306,14 @@ export default {
   },
 
   async receiveDelivery({commit}, delivery){
+    console.log(delivery.transaction);
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/deliverytrans/add`,
+      url: `${this.$axios.defaults.baseURL}/add_delivery`,
       header: {
         "Content-Type": "application/json"
       },
-      data: { ...delivery },
+      data: { ...delivery.transaction },
     })
     .then(result => {
       console.log('hihi',result.data)
@@ -320,7 +321,6 @@ export default {
       commit("receiveDelivery", delivery)
       return result.data;
     })
-    .catch(err => err);
   },
 
 
@@ -345,7 +345,7 @@ export default {
   async addSales({commit}, sales){
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/newsale/add`,
+      url: `${this.$axios.defaults.baseURL}/addsale`,
       header: {
         "Content-Type": "application/json"
       },

@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Sales Transaction</h4>
-
+                <button class="btn btn-default lg-btn" @click="newSales()">New Transaction</button>
                 </div>
 
                 <div class="col-md-12">
@@ -32,7 +32,7 @@
                                                 <input type="text" class="trans" v-model="row.product_description" disabled/>
                                             </td>
                                             <td>
-                                                <input type="text" class="trans" v-model="row.qty" disabled/>
+                                                <input type="text" class="trans" v-model="row.quantity" disabled/>
                                             </td>
                                             <td>
                                                 <input type="text" class="trans" v-model="row.sales_cost" disabled/>
@@ -77,7 +77,7 @@
                                     </select> -->
                                     <input placeholder="barcode" type="text" id="st-area" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
                                     <datalist id="items-list">
-                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
+                                        <option v-for="item in inventoryList" :key="item.id" :value="item.inventory_id" >{{item.product_description}}</option>
                                     </datalist>
                                 </div>
                                 
@@ -124,7 +124,7 @@
                                             
                                         </div> 
                                         <div class="mt-4">
-                                            <button class="form-control block btn-success" type="button" @click="generate_receipt()" >Generate Receipt</button>
+                                            <button class="form-control block btn-success" @click="receipt()" type="button">View Receipt</button>
                                         </div>
                                     </div>
                                 </div>
@@ -306,9 +306,9 @@
                                 <tr v-for="item in rows" :key="item.id">
                                     <td>{{item.barcode}}</td>
                                     <td>{{item.product_description}}</td>
-                                    <td>{{item.qty}}</td>
+                                    <td>{{item.quantity}}</td>
                                     <td>{{item.sales_cost}}</td>
-                                    <td v-if="((item.sales_cost * item.qty)!= 0)">{{(item.sales_cost * item.qty)}}</td>
+                                    <td v-if="((item.sales_cost * item.quantity)!= 0)">{{(item.sales_cost * item.quantity)}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -363,13 +363,13 @@ export default {
     data() {
         return{
             st: {
-                total_cost: 0,
+                total_cost: null,
                 payment_amt: 0
             },
             rows: [{
                 barcode: "",
                 product_description: "",
-                qty: "",
+                quantity: "",
                 sales_cost: ""
             }],
             input_quantity: "",
@@ -408,20 +408,26 @@ export default {
         show(){
             console.log('yo')
             var e = document.getElementById("st-area").value
+            var total = 0;
+            if(e != ""){
+                this.$store.dispatch("showitem", e)
+                var elem = document.createElement('tr');
+                this.rows.push({
+                    barcode: this.getSelectedItem.barcode,
+                    product_description: this.getSelectedItem.product_description,
+                    quantity: 1,
+                    sales_cost: this.getSelectedItem.sales_cost,
+                    inventory_id: this.getSelectedItem.inventory_id
+                });
+                
 
-            this.$store.dispatch("showitem", e)
+                total = parseFloat(this.getSelectedItem.sales_cost)
+                this.st.total_cost += parseFloat(total)
 
-            var elem = document.createElement('tr');
-            this.rows.push({
-                barcode: this.getSelectedItem.barcode,
-                product_description: this.getSelectedItem.product_description,
-                qty: 1,
-                sales_cost: this.getSelectedItem.sales_cost
-            });
-
-            this.st.total_cost += this.getSelectedItem.sales_cost
-
-            document.getElementById("st-area").value = ""
+                document.getElementById("st-area").value = ""
+            } else {
+                alert("There is no barcode")
+            }
             
         },
         removeitem: function(){
@@ -436,15 +442,15 @@ export default {
             if((this.rows.length-1)!=0){
                 $("#qty_modal").modal('show');
                 this.input_description = this.getSelectedItem.product_description
-                this.input_quantity = this.rows[this.rows.length-1].qty
+                this.input_quantity = this.rows[this.rows.length-1].quantity
             } else {
                 alert("No item in list!")
             }
         },
         setqty() {
             var index = this.rows.length-1
-            var def_qty = this.rows[index].qty
-            this.rows[index].qty = this.input_quantity
+            var def_qty = this.rows[index].quantity
+            this.rows[index].quantity = this.input_quantity
             this.st.total_cost += (((this.input_quantity-1) * (this.getSelectedItem.sales_cost)))
             console.log('row: ', this.rows)
             $("#qty_modal").modal('hide');
@@ -458,109 +464,46 @@ export default {
             }
             
         },
+        ...mapActions(['addSales']),
         setpayment(){
             this.st.payment_amt = this.input_payment_amt
-            if(this.input_payment_amt == this.st.total_cost){
+            if(this.input_payment_amt >= this.st.total_cost){
+                this.st.items = this.rows
+                this.st.created_by = localStorage.uid
+
+                console.log("cashier sales, ", this.st);
+                this.addSales({
+                    sales: this.st
+                })
                 alert('Exact Amount')
                 $("#payment_modal").modal('hide');
-            } else if(this.input_payment_amt > this.st.total_cost){
-                alert('Change: ', (this.st.payment_amt - this.st.total_cost))
-                $("#payment_modal").modal('hide');
+                $("#viewTransaction").modal('show');
             } else if(this.input_payment_amt < this.st.total_cost){
                 alert('Payment not enough')
             }
         },
-        ...mapActions(['addSales', 'updateInvQty']),
-        generate_receipt(){
-
-            if((this.rows.length-1)!=0){
-                if(this.st.payment_amt = 0){
-                    alert("Payment first")
-                } else {
-                    this.st.items = this.rows
-                    console.log("transaction", this.st);
-                    this.addSales({
-                        sales: this.st
-                    })
-
-                    $("#viewTransaction").modal('show');
-                }
-            } else {
-                alert("No item in list!")
+        receipt(){
+            if((this.total_cost <= this.payment_amt)) {
+                $("#viewTransaction").modal('show');
             }
-            
         },
         exit(){
-            window.location.reload()
+            $("#viewTransaction").modal('hide');
         },
-        qty_btn() {
-            console.log('quantity button', document.getElementById(".btn-number"));
-            fieldName =  //$(this).attr('data-field');
-            type      = $(this).attr('data-type');
-            var input = $("input[name='"+fieldName+"']");
-            var currentVal = parseInt(input.val());
-            if (!isNaN(currentVal)) {
-                if(type == 'minus') {
-                    
-                    if(currentVal > input.attr('min')) {
-                        input.val(currentVal - 1).change();
-                    } 
-                    if(parseInt(input.val()) == input.attr('min')) {
-                        $(this).attr('disabled', true);
-                    }
-
-                } else if(type == 'plus') {
-
-                    if(currentVal < input.attr('max')) {
-                        input.val(currentVal + 1).change();
-                    }
-                    if(parseInt(input.val()) == input.attr('max')) {
-                        $(this).attr('disabled', true);
-                    }
-
-                }
-            } else {
-                input.val(0);
-            }
-        },
-        qty_focus(){
-            $(this).data('oldValue', $(this).val());
-        },
-        qty_change(){
-            minValue =  parseInt($(this).attr('min'));
-            maxValue =  parseInt($(this).attr('max'));
-            valueCurrent = parseInt($(this).val());
-            
-            name = $(this).attr('name');
-            if(valueCurrent >= minValue) {
-                $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-            } else {
-                alert('Sorry, the minimum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-            if(valueCurrent <= maxValue) {
-                $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-            } else {
-                alert('Sorry, the maximum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-        },
-        qty_keydown(){
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) || 
-                // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                    // let it happen, don't do anything
-                    return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
+        newSales(){
+            this.st = {},
+            this.input_payment_amt = 0,
+            this.total_cost = 0,
+            this.st.payment_amt = 0
+            this.rows = [{
+                barcode: "",
+                product_description: "",
+                quantity: null,
+                sales_cost: null
+            }],
+            this.input_quantity = 0
         }
-    },
+       },
     created(){
         const showme = this.$store.dispatch("getSelectedItem");
     },

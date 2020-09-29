@@ -23,7 +23,7 @@ d<template>
                 <div class="form-group col-md-6 mb-4">
                 
                   <label >Supplier: </label>
-                  
+                  {{activeSupplier}}
                   <!-- <v-select v-model="dt.suppler_code" :options="suppliersList.companyt_name" ></v-select> -->
                   <select name="suppliers" id="suppliers" v-model="dt.supplier_id" class="form-control form-control-sm">
                     <option selected hidden>Supplier</option>
@@ -78,7 +78,7 @@ d<template>
                       <input type="text" v-model="row.description" class="form-control form-control-sm form-control form-control-sm-sm form__description" placeholder="Product Description" disabled>
                     </div>
                     <div class="form-group col-md-2">
-                      <input type="text" v-model="row.quantity" @blur="getTotal()" class="form-control form-control-sm form-control form-control-sm-sm form__quantity" placeholder="Quantity">
+                      <input type="number" v-model="row.quantity" @blur="getTotal()" class="form-control form-control-sm form-control form-control-sm-sm form__quantity" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
                       <input type="text" v-model="row.cost_per_unit" class="form-control form-control-sm form-control form-control-sm-sm form__unitcost" placeholder="Cost Per Unit" disabled>
@@ -124,8 +124,12 @@ export default {
     computed: {
       ...mapGetters({
         suppliersList: 'suppliersList',
-        inventoryList: 'inventoryList'
+        inventoryList: 'inventoryList',
+        deliveryList: 'deliveryList'
       }),
+      activeSupplier: function() {
+        
+      }
     },
     data() {
       return {
@@ -180,16 +184,23 @@ export default {
       },
       ...mapActions(['receiveDelivery']),
       async receive(){
-        this.items.total = this.dt.total_cost
         this.dt.items = this.items
         this.dt.created_by = localStorage.uid
-
         await this.receiveDelivery({
           transaction: this.dt
         })
+        .then((result) => {
+          if(result.error){
+            alert(result.error)
+          } else {
+            $("#addDelTrans").modal('hide');
+            $("#add_item_form")[0].reset();
+            alert(result.message)
+          }
+        })
 
-        $("#addDelTrans").modal('hide');
-        $("#add_item_form")[0].reset();
+        await this.$store.dispatch("fetchDTransactionsList")
+        
 
       },
       getTotal: function(){

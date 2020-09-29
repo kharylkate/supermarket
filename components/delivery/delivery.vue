@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div>
-              <div class="row">
-                <div class="form-group col-md-3">
+              <div class="form-group row container">
+                <div class="form-group mx-2">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <label class="input-group-text">Show</label>
@@ -25,7 +25,7 @@
                   </div>
                   
                 </div>
-                <div class="col-md-3">
+                <div class="form-group mx-2">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <label class="input-group-text">From</label>
@@ -33,7 +33,7 @@
                     <input type="date" v-model="date_from" class="form-control form-control-sm" id="date_from">
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="form-group mx-2">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <label class="input-group-text">To</label>
@@ -45,21 +45,95 @@
                   </div>
 
                 </div>
+                <div class="form-group mx-2">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">Item</label>
+                    </div>
+                    <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
         </div>
 
+         <!-- <b-table
+         id="btable"
+            class="table"
+            :items="delivery"
+            thead-class="thead-sea-green"
+            :per-page="perPage"
+            :current-page="currentPage"
+            > -->
+            <b-col lg="6" class="my-1">
+              <b-form-group
+                label="Sort"
+                label-cols-sm="3"
+                label-align-sm="right"
+                label-size="sm"
+                label-for="sortBySelect"
+                class="mb-0"
+              >
+                <b-input-group size="sm">
+                  <b-form-select v-model="sortBy" id="sortBySelect" :options="filter_options" class="w-75">
+                    <template v-slot:first>
+                      <option value="">-- none --</option>
+                    </template>
+                  </b-form-select>
+                 
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+
+            <b-table
+              show-empty
+              class="bg-white"
+              id="btable"
+              stacked="md"
+              thead-class="thead-sea-green"
+              :items="deliveryList"
+              :fields="fields"
+              :current-page="currentPage"
+              :per-page="perPage"
+              
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
+              :sort-direction="sortDirection"
+              @filtered="onFiltered"
+            >
+
+            <template v-slot:cell(actions)="row">
+              <b-button size="sm" @click="select(row.item)" class="mr-1 lg-btn">
+                <img src="../../static/icons/eye.svg" alt="">
+              </b-button>
+            </template>
+          
+            </b-table>
+
+            <div class="overflow-auto">
+               <b-pagination
+                v-model="currentPage"
+                :total-rows="tablerows"
+                :per-page="perPage"
+                align="center"
+                aria-controls="deliverytable">
+            </b-pagination>
+          </div>
         
-        
-        <div class="table-responsive bg-white rounded-lg">
-            <table class="table table-data data-table align-items-center table-flush">
+        <!-- <div class="table-responsive bg-white rounded-lg">
+            <table :per-page="perPage" :current-page="currentPage" class="table table-data data-table align-items-center table-flush" id="deliverytable">
             <thead class="thead-sea-green">
                 <tr>
                   <th scope="col" class="sort" data-sort="name">Delivery Receipt Number</th>
                   <th scope="col" class="sort" data-sort="name">Supplier</th>
                   <th scope="col" class="sort" data-sort="name">Date of Delivery</th>
                   <th scope="col" class="sort" data-sort="status">Total Amount</th>
-                  <!-- <th scope="col" class="sort" data-sort="budget">Cost per unit</th> -->
+
                   <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -75,7 +149,9 @@
             </tbody>
             </table>
 
-        </div>
+           
+
+        </div> -->
 
          <div class="modal fade" id="viewDelivery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -122,9 +198,6 @@
                       </tr>
                     </tbody>
                   </table>
-                  <!-- <div class="text-right">
-                    Total: ₱ {{ }}
-                  </div> -->
                 </div>
             </div>
                 
@@ -146,22 +219,49 @@ import moment from "moment";
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
 
-
 export default {
     name: 'delivery',
     components: {
 
     },
     data() {
-        return {
-            dt: {},
-            date_from: "",
-            date_to: "",
-            filter_supplier: ""
-        }
+      return {
+        dt: {},
+        date_from: "",
+        date_to: "",
+        filter_supplier: "",
+        filter_items: 5,
+        totalRows: 1,
+        currentPage: 1,
+        perPage: 5,
+        pageOptions: [5, 10, 15],
+        sortBy: '',
+        sortDesc: false,
+        sortDirection: 'asc',
+        // filter: null,
+        // filterOn: [],
+        infoModal: {
+          id: 'info-modal',
+          title: '',
+          content: ''
+        },
+        // items: []
+        fields: [
+          { key: 'dr_no', label: 'Delivery Receipt Number', sortable: true, sortDirection: 'desc' },
+          { key: 'supplier_name', label: 'Supplier', sortable: true },
+          { key: 'transaction_date', label: 'Date of Delivery', sortable: true, sortDirection: 'desc' },
+          { key: 'total_cost', label: 'Total Amount', sortable: true},
+          { key: 'actions', label: 'Actions' }
+        ],
+        // filterOptions: [
+        //   { value: 'supplier_id', text: 'company_name' },
+        //   { value: 'supplier_id', text: 'company_name' }
+        // ]
+
+      
+      }
     },
     methods: {
-      //...mapActions(['selectDelivery']),
       select(dt) {
           console.log(dt)
         
@@ -174,11 +274,12 @@ export default {
 
         this.dt = { ...dt }
         
+        $("#viewDelivery").modal('show')
+        
       },
       filter(){
-
           var value = $("#filter_supplier").val().toLowerCase();
-          $("#delivery_table tr").filter(function() {
+          $("#btable tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
           });
       },
@@ -189,27 +290,15 @@ export default {
         console.log(d);
         console.log(to);
 
-        // $("#delivery_table tr").each(function() {
-        //   var row = $(this);
-        //   var date = stringToDate(row.find("td").eq(2).text());
-          
-        //   //show all rows by default
-        //   var show = true;
-
-        //   //if from date is valid and row date is less than from date, hide the row
-        //   if (from && date < from)
-        //     show = false;
-          
-        //   //if to date is valid and row date is greater than to date, hide the row
-        //   if (to && date > to)
-        //     show = false;
-
-        //   if (show)
-        //     row.show();
-        //   else
-        //     row.hide();
-        // });
       },
+      items() {
+        this.perPage = this.filter_items
+      },
+      onFiltered(filteredItems) {
+        // Trigger pagination to update the number of buttons/pages due to filtering
+        this.totalRows = filteredItems.length
+        this.currentPage = 1
+      }
 
     },
     computed: {
@@ -217,6 +306,13 @@ export default {
             deliveryList: "deliveryList",
             suppliersList: "suppliersList"
         }),
+        tablerows() {
+          return this.deliveryList.length
+        },
+        filterOptions() {
+          return { text: this.suppliersList.company_name, value: this.suppliersList.supplier_id}
+        }
+   
     },
     async beforeCreate() {
       await this.$store.dispatch("fetchDTransactionsList")
@@ -227,5 +323,7 @@ export default {
 </script>
 
 <style scoped>
-
+.lg-btn {
+  border: none;
+}
 </style>

@@ -9,6 +9,7 @@ export default {
                 // if(state.users[i].password == login.user.password){
                     localStorage.username = state.userList[i].username
                     localStorage.role_name = state.userList[i].role_name
+                    localStorage.uid = state.userList[i].users_id
                 // } else {
                 //     alert('Wrong Password')
                 // }
@@ -153,9 +154,7 @@ export default {
     },
 
     viewSelectedItem(state, item) {
-        const product = state.inventoryList.find(p => p.barcode == item)
-
-        console.log('mutations.js viewSelectedItem', product);
+        const product = state.inventoryList.find(p => p.inventory_id == item)
         state.selectedItem = product
         return product
     },
@@ -290,14 +289,14 @@ export default {
         state.deliveryList = data;
     },
 
-    viewSelectedItem(state, item) {
+    // viewSelectedItem(state, item) {
 
-        const product = state.inventory.find(p => p.barcode == item)
+    //     const product = state.inventory.find(p => p.inventory_id == item)
 
-        console.log('mutations.js viewSelectedItem', product);
-        state.selectedItem = product
-        return product
-    },
+    //     console.log('mutations.js viewSelectedItem', product);
+    //     state.selectedItem = product
+    //     return product
+    // },
 
 
 
