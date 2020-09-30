@@ -111,7 +111,7 @@ export default {
 
     addUser: (state, userData) => {
         console.log(userData)
-        state.users.push(userData)
+        state.userList.push(userData)
     },
 
     updateUser: (state, payload) => {

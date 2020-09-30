@@ -15,6 +15,24 @@
     border-radius: 100px;
 }
 
+.paginations .active .page-link {  
+    background-color: #95c282 !important;  
+    border-color: #95c282 !important;  
+}
+
+.paginations .page-link {
+  color: gray ;
+}
+
+.paginations :hover {
+  color: black;
+  background-color: #bbe1aa!important;
+}
+
+.lg-btn {
+    border: none;
+}
+
 
 
 .nav-link:hover {

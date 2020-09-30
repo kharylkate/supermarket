@@ -17,7 +17,71 @@
           </div>
         </div>
 
-        <div class="table-responsive bg-white rounded-lg">
+        <div class="form-group row container">
+          <div class="form-group mx-2">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Item</label>
+              </div>
+              <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group mx-2">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Show</label>
+              </div>
+              <select class="form-control form-control-sm search-filter" @change="filter()" v-model="filter_role" name="filter_role" id="filter_role">
+                <option value="" selected>Role</option>
+                <option v-for="role in rolesList" :key="role.id" :value="role.role_name">{{role.role_name}}</option>
+              </select>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="m-2 p-3">
+          <b-table
+          show-empty
+          class="bg-white"
+          id="btable"
+          stacked="md"
+          thead-class="thead-sea-green"
+          :items="userList"
+          :fields="fields"
+          :current-page="currentPage"
+          :per-page="perPage"
+          :sort-by.sync="sortBy"
+          :sort-desc.sync="sortDesc"
+          :sort-direction="sortDirection"
+          >
+
+          <template v-slot:cell(actions)="row">
+            <b-button size="sm" @click="select(row.item)" class="mr-1 lg-btn">
+              <img src="../../static/icons/pencil-square.svg" alt="">
+            </b-button>
+          </template>
+        
+          </b-table>
+
+          <div class="overflow-auto">
+            <b-pagination
+              v-model="currentPage"
+              class="paginations"
+              size="sm"
+              :total-rows="tablerows"
+              :per-page="perPage"
+              align="center">
+            </b-pagination>
+          </div>
+        </div>
+
+        <!-- <div class="table-responsive bg-white rounded-lg">
           <table class="table table-data align-items-center table-flush table-hover">
             <thead class="thead-sea-green">
               <tr>
@@ -46,7 +110,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -80,7 +144,6 @@
                     <label for="compadd">Role </label>
                     <select class="form-control form-control-sm" v-model="user.role_id">
                       <option disabled>Select Role</option>
-                      <option >{{user.role_id}}</option>
                       <option v-for="role in rolesList" :key="role.id" :value="role.role_id">{{role.role_name}}</option>
                     </select>
                   </div>
@@ -110,7 +173,23 @@ export default {
   name: "users",
   data() {
     return {
-      user: {}
+      user: {},
+      filter_role: "Role",
+      filter_items: 5,
+      totalRows: 1,
+      currentPage: 1,
+      perPage: 5,
+      pageOptions: [5, 10, 15],
+      sortBy: '',
+      sortDesc: false,
+      sortDirection: 'asc',
+      fields: [
+      { key: 'employee_code', label: 'Employee ID', sortable: true, sortDirection: 'desc' },
+      { key: 'username', label: 'Username', sortable: true },
+      { key: 'role_name', label: 'Role', sortable: true, sortDirection: 'desc' },
+      
+      { key: 'actions', label: 'Actions' }
+    ],
     }
   },
   computed: {
@@ -118,11 +197,16 @@ export default {
       userList: "userList",
       rolesList: "rolesList"
       }),
+      tablerows() {
+        return this.userList.length
+      },
   },
   methods: {
     select(user){
       console.log(user)
       this.user = {...user}
+
+      $("#editUser").modal('show')
     },
     ...mapActions(['updateUser']),
     async update(){
@@ -133,14 +217,30 @@ export default {
         user: this.user
       })
       .then((result) => {
-              console.log(result)
-              alert(result)
-              $("#editUser").modal('hide')
-          })
+        if(result.error){
+          alert(result.error)
+        } else {
+          
+          alert(result)
+          $("#editUser").modal('hide')
+        }
+        })
 
       await this.$store.dispatch("fetchUserList")
       await this.$store.dispatch("fetchRolesList")
-
+    },
+    items() {
+      this.perPage = this.filter_items
+    },
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
+    },
+    filter(){
+      var value = $("#filter_role").val().toLowerCase();
+      $("#btable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     },
     
   },
@@ -152,4 +252,8 @@ export default {
 </script>
 
 <style scoped>
+
+.lg-btn{
+  border: none;
+}
 </style>

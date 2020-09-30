@@ -9,31 +9,63 @@
                 </div>
               </div>
 
-              <!-- <div>
-              <div class="row mb-3">
-                <div class="col-md-3">
+              <div class="form-group row container">
+                <div class="form-group mx-2">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                      <label class="input-group-text">From</label>
+                      <label class="input-group-text">Item</label>
                     </div>
-                    <input type="date" v-model="date_from" class="form-control form-control-sm">
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text">To</label>
-                    </div>
-                    <input type="date" v-model="date_to" class="form-control form-control-sm">
-                    <div class="input-group-append">
-                      <button type="button" class="btn lg-btn text-white">Search</button>
-                    </div>
+                    <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                    </select>
                   </div>
                 </div>
               </div>
-            </div> -->
 
-            <div class="table-responsive bg-white rounded-lg">
+            <div class="m-2 p-3">
+              <b-table
+              show-empty
+              class="bg-white"
+              id="btable"
+              stacked="md"
+              thead-class="thead-sea-green"
+              :items="salesList"
+              :fields="fields"
+              :current-page="currentPage"
+              :per-page="perPage"
+              
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
+              :sort-direction="sortDirection"
+              @filtered="onFiltered"
+            >
+
+            <template v-slot:cell(actions)="row">
+              <b-button size="sm" @click="select(row.item)" class="mr-1 lg-btn">
+                <img src="../../static/icons/eye.svg" alt="">
+              </b-button>
+            </template>
+          
+              </b-table>
+
+              <div class="overflow-auto">
+                <b-pagination
+                v-model="currentPage"
+                class="paginations"
+                size="sm"
+                :total-rows="tablerows"
+                :per-page="perPage"
+                align="center"
+                aria-controls="deliverytable">
+                </b-pagination>
+              </div>
+            </div>
+              
+
+            <!-- <div class="table-responsive bg-white rounded-lg">
               <table class="table table-data align-items-center table-flush" id="sales_table">
                 <thead class="thead-sea-green">
                   <tr>
@@ -52,20 +84,13 @@
                     <td>₱{{(sales.total_cost)}}</td>
                     <td><button class="btn lg-btn" data-toggle="modal" data-target="#viewTransaction" @click="(select(sales))" ><img src="../../static/icons/eye.svg" alt=""></button>
                     <button class="btn lg-btn" data-toggle="modal" data-target="#view_trans" @click="(sales.items)"><img src="../../static/icons/printer.svg" alt=""></button></td>
-                    
-                    <!-- <td>
-                        <div v-for="(item,i) in sales.items" :key="i"> 
-                            inventory_id: {{item.inventory_id}}
-                            Description: {{item.description}}
-                            Unit Cost: {{item.unitcost}}
-                            Amount: {{item.amt}}
-                        </div>
-                    </td> -->
-                    
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> -->
+
+
+
            </div>
 
       <div class="modal fade" id="viewTransaction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -125,7 +150,7 @@
                 </div>
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-3 mb-3">
                   <div class="mr-auto">Customer Name: {{sales.customer_name}}</div> 
                   <div class="mr-auto">Contact Number: {{sales.customer_contact_no}}</div> 
                   <div class="mr-auto">Address: {{sales.customer_address}}</div> 
@@ -385,11 +410,32 @@ export default {
         salesTransactions: 'salesTransactions',
         salesList: 'salesList',
         inventoryList: 'inventoryList'
-      })
+      }),
+      tablerows() {
+        return this.salesList.length
+      },
     },
     data() {
       return {
         sales: {},
+        filter_items: 5,
+        totalRows: 1,
+        currentPage: 1,
+        perPage: 5,
+        pageOptions: [5, 10, 15],
+        sortBy: '',
+        sortDesc: false,
+        sortDirection: 'asc',
+        fields: [
+          { key: 'or_no', label: 'Official Receipt Number', sortable: true, sortDirection: 'asc' },
+          { key: 'customer_name', label: 'Customer', sortable: true, sortDirection: 'asc' },
+          { key: 'stransaction_date', label: 'Date of Transaction', sortable: true, sortDirection: 'asc' },
+          { key: 'total_cost', label: 'Total Amount', sortable: true, sortDirection: 'asc'},
+          { key: 'actions', label: 'Actions' }
+        ],
+
+
+
         st: {
           total_cost: 0,
           or_no: null,
@@ -416,6 +462,8 @@ export default {
         console.log(sales)
         var d = new Date()
         this.sales.stransaction_date = d.toDateString()
+
+        $("#viewTransaction").modal('show')
       },
       pdf(){
         autoTable(doc, { html: '#sales_table' })
@@ -508,7 +556,13 @@ export default {
           await this.$store.dispatch("fetchSalesList");
           await this.$store.dispatch("fetchInventoryList");
           }
-
+      },
+      items() {
+      this.perPage = this.filter_items
+      },
+      onFiltered(filteredItems) {
+        this.totalRows = filteredItems.length
+        this.currentPage = 1
       },
     
     },

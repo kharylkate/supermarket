@@ -11,24 +11,80 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group row container">
+            <div class="form-group mx-2">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Item</label>
+                </div>
+                <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+            </div>
+            
+        </div>
+
         
-        <div class="table-responsive bg-white rounded-lg">
+
+        <div class=" m-2 p-3">
+
+          
+          <b-table
+          show-empty
+          id="btable"
+          stacked="md"
+          class="bg-white"
+          thead-class="thead-sea-green table-thead"
+          :items="inventoryList"
+          :fields="fields"
+          :current-page="currentPage"
+          :per-page="perPage"
+          :sort-by.sync="sortBy"
+          :sort-desc.sync="sortDesc"
+          :sort-direction="sortDirection"
+          @filtered="onFiltered"
+          >
+
+          <template v-slot:cell(actions)="row">
+            <b-button size="sm" @click="select(row.item)" class="mr-1 lg-btn">
+              <img src="../../static/icons/pencil-square.svg" alt="">
+            </b-button>
+          </template>
+        
+          </b-table>
+
+          <div class="overflow-auto">
+               <b-pagination
+                v-model="currentPage"
+                :total-rows="tablerows"
+                :per-page="perPage"
+                align="center"
+                class="mb-3 paginations"
+                size="sm"
+                aria-controls="btable">
+            </b-pagination>
+          </div>
+        </div>
+        
+        <!-- <div class="table-responsive bg-white rounded-lg">
             <table class="table table-data align-items-center table-flush">
             <thead class="thead-sea-green">
                 <tr>
-                    <!-- <th scope="col" class="sort" data-sort="name">Delivery Receipt Number</th> -->
-                    <th scope="col" class="sort" data-sort="name">Barcode</th>
-                    <th scope="col" class="sort" data-sort="name">Product Description</th>
-                    <th scope="col" class="sort" data-sort="status">Quantity</th>
-                    <th scope="col" class="sort" data-sort="budget">Cost per unit</th>
-                    <th scope="col" class="sort" data-sort="budget">Sales Cost</th>
-                    <th>Action</th>
-                    <!-- <th scope="col">Action</th> -->
+                  <th scope="col" class="sort" data-sort="name">Barcode</th>
+                  <th scope="col" class="sort" data-sort="name">Product Description</th>
+                  <th scope="col" class="sort" data-sort="status">Quantity</th>
+                  <th scope="col" class="sort" data-sort="budget">Cost per unit</th>
+                  <th scope="col" class="sort" data-sort="budget">Sales Cost</th>
+                  <th>Action</th>
                 </tr>
             </thead>
             <tbody class="list" id="body-bg">
                 <tr v-for="item in inventoryList" :key="item.id">
-                    <!-- <td>{{item.drNo}}</td> -->
                     <td>{{item.barcode}}</td>
                     <td>{{item.product_description}}</td>
                     <td>{{item.quantity}}</td>
@@ -38,7 +94,7 @@
                 </tr>
             </tbody>
             </table>
-        </div>
+        </div> -->
 
         <div class="modal fade" id="editTrans" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -55,7 +111,7 @@
                 
                 <div class="form-group col-md-8">
                   <label for="edit_barcode">Barcode: </label>
-                  <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" value="">
+                  <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" value="" disabled>
                 </div>
 
                 <div class="form-group col-md-8">
@@ -103,18 +159,46 @@ export default {
     data() {
         return {
         inventory: {},
-        }
+        filter_items: 5,
+        totalRows: 1,
+        currentPage: 1,
+        perPage: 5,
+        pageOptions: [5, 10, 15],
+        sortBy: '',
+        sortDesc: false,
+        sortDirection: 'asc',
+        fields: [
+        { key: 'barcode', label: 'Barcode', sortable: true, sortDirection: 'desc' },
+        { key: 'product_description', label: 'Product Description', sortable: true },
+        { key: 'quantity', label: 'Quantity', sortable: true, sortDirection: 'desc' },
+        { key: 'unit_cost', label: 'Unit Cost', sortable: true,
+        formatter: (value, key, item) => {
+            return '₱ '+value
+          }
+        },
+        { key: 'sales_cost', label: 'Sales Cost', sortable: true,
+          formatter: (value, key, item) => {
+            return '₱ '+value
+          }
+        },
+        { key: 'actions', label: 'Actions' }
+      ],
+      }
     },
     computed: {
         ...mapGetters({
           inventoryList: 'inventoryList'
-        })
+        }),
+        tablerows() {
+          return this.inventoryList.length
+        },
     },
     methods: {
         select(inventory) {
             console.log(inventory);
 
             this.inventory = { ...inventory };
+            $("#editTrans").modal('show')
         },
         ...mapActions(['updateInventory']),
         async update(){
@@ -126,13 +210,23 @@ export default {
               inventory: this.inventory,
           })
           .then((result) => {
-              console.log(result)
+            if(result.error){
+              alert(result.error)
+            } else {
               $("#editTrans").modal('hide')
               alert(result)
-              
+            }
           })
-
           await this.$store.dispatch("fetchInventoryList")
+
+          
+        },
+        items() {
+          this.perPage = this.filter_items
+        },
+        onFiltered(filteredItems) {
+          this.totalRows = filteredItems.length
+          this.currentPage = 1
         }
     },
     async beforeCreate() {
@@ -140,3 +234,23 @@ export default {
   },
 }
 </script>
+
+<style>
+.paginations .active .page-link {  
+    background-color: #95c282 !important;  
+    border-color: #95c282 !important;  
+}
+
+.paginations .page-link {
+  color: gray ;
+}
+
+.paginations :hover {
+  color: black;
+  background-color: #bbe1aa!important;
+}
+
+.lg-btn {
+  border: none;
+}
+</style>

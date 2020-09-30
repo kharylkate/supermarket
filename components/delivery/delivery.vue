@@ -9,6 +9,10 @@
                     <img src="../../static/icons/file-earmark-plus.svg" alt="">
                    Receive Item
                 </button>
+                <button type="button" class="btn lg-btn" @click="toPdf()">
+                    <img src="../../static/icons/file-earmark-plus.svg" alt="">
+                   JSPDF
+                </button>
                 </div>
             </div>
             <div>
@@ -25,7 +29,7 @@
                   </div>
                   
                 </div>
-                <div class="form-group mx-2">
+                <!-- <div class="form-group mx-2">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <label class="input-group-text">From</label>
@@ -44,7 +48,7 @@
                     </div>
                   </div>
 
-                </div>
+                </div> -->
                 <div class="form-group mx-2">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
@@ -57,6 +61,17 @@
                       <option value="20">20</option>
                     </select>
                   </div>
+                </div>
+                
+                <div class="form-group mx-2">
+                  <b-dropdown id="dropdown-1" size="sm" text="Dropdown Button" class="lg-btn">
+                    <b-dropdown-item>First Action</b-dropdown-item>
+                    <b-dropdown-item>Second Action</b-dropdown-item>
+                    <b-dropdown-item>Third Action</b-dropdown-item>
+                    <b-dropdown-divider></b-dropdown-divider>
+                    <b-dropdown-item active>Active action</b-dropdown-item>
+                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+                  </b-dropdown>
                 </div>
               </div>
             </div>
@@ -80,7 +95,7 @@
                 class="mb-0"
               >
                 <b-input-group size="sm">
-                  <b-form-select v-model="sortBy" id="sortBySelect" :options="filter_options" class="w-75">
+                  <b-form-select v-model="sortBy" id="sortBySelect" :options="filterOptions" class="w-75">
                     <template v-slot:first>
                       <option value="">-- none --</option>
                     </template>
@@ -90,7 +105,8 @@
               </b-form-group>
             </b-col>
 
-            <b-table
+            <div id="table-table">
+              <b-table
               show-empty
               class="bg-white"
               id="btable"
@@ -114,16 +130,19 @@
             </template>
           
             </b-table>
+            </div>
 
             <div class="overflow-auto">
-               <b-pagination
-                v-model="currentPage"
-                :total-rows="tablerows"
-                :per-page="perPage"
-                align="center"
-                aria-controls="deliverytable">
-            </b-pagination>
-          </div>
+              <b-pagination
+              v-model="currentPage"
+              class="paginations"
+              size="sm"
+              :total-rows="tablerows"
+              :per-page="perPage"
+              align="center"
+              aria-controls="deliverytable">
+              </b-pagination>
+            </div>
         
         <!-- <div class="table-responsive bg-white rounded-lg">
             <table :per-page="perPage" :current-page="currentPage" class="table table-data data-table align-items-center table-flush" id="deliverytable">
@@ -218,6 +237,10 @@
 import moment from "moment";
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import Papa from "papaparse";
+
 
 export default {
     name: 'delivery',
@@ -238,26 +261,18 @@ export default {
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
-        // filter: null,
-        // filterOn: [],
-        infoModal: {
-          id: 'info-modal',
-          title: '',
-          content: ''
-        },
-        // items: []
         fields: [
           { key: 'dr_no', label: 'Delivery Receipt Number', sortable: true, sortDirection: 'desc' },
           { key: 'supplier_name', label: 'Supplier', sortable: true },
-          { key: 'transaction_date', label: 'Date of Delivery', sortable: true, sortDirection: 'desc' },
-          { key: 'total_cost', label: 'Total Amount', sortable: true},
+          { key: 'transaction_date', label: 'Date of Delivery', sortable: true, sortDirection: 'desc', formatter:  (value, key, item) => {
+            return new Date(value).toISOString().substring(0, 10)
+          }
+          },
+          { key: 'total_cost', label: 'Total Amount', sortable: true, formatter: (value, key, item) => {
+            return '₱ '+value
+          }},
           { key: 'actions', label: 'Actions' }
         ],
-        // filterOptions: [
-        //   { value: 'supplier_id', text: 'company_name' },
-        //   { value: 'supplier_id', text: 'company_name' }
-        // ]
-
       
       }
     },
@@ -286,37 +301,66 @@ export default {
       date_filter() {
         var from = new Date(this.date_from)
         var to = new Date(this.date_to)
-        var d = new Date()
-        console.log(d);
-        console.log(to);
-
+        console.log(from.toISOString().substring(0, 10));
+        console.log(to.toISOString().substring(0, 10));
       },
       items() {
         this.perPage = this.filter_items
       },
       onFiltered(filteredItems) {
-        // Trigger pagination to update the number of buttons/pages due to filtering
         this.totalRows = filteredItems.length
         this.currentPage = 1
+      },
+      getData(){
+        let docs = []
+      },
+      toPdf() {
+        var sTable = document.getElementById('table-table').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+        var d = new Date()
+
+        win.document.write('<html><head>');
+        win.document.write(`<title>Delivery Transaction (`+ d.toISOString().substring(0, 10) +`) </title>`);   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+     
       }
 
     },
     computed: {
-        ...mapGetters({
-            deliveryList: "deliveryList",
-            suppliersList: "suppliersList"
-        }),
-        tablerows() {
-          return this.deliveryList.length
-        },
-        filterOptions() {
-          return { text: this.suppliersList.company_name, value: this.suppliersList.supplier_id}
-        }
-   
+      ...mapGetters({
+        deliveryList: "deliveryList",
+        suppliersList: "suppliersList"
+      }),
+      tablerows() {
+        return this.deliveryList.length
+      },
+      filterOptions() {
+        return this.fields
+        .filter(f => f.sortable)
+        .map(f => {
+          return { text: f.value }
+        })
+      }
+  
     },
     async beforeCreate() {
       await this.$store.dispatch("fetchDTransactionsList")
-      
     }
     
 }
@@ -325,5 +369,19 @@ export default {
 <style scoped>
 .lg-btn {
   border: none;
+}
+
+.paginations .active .page-link {  
+    background-color: #95c282 !important;  
+    border-color: #95c282 !important;  
+}
+
+.paginations .page-link {
+  color: gray ;
+}
+
+.paginations :hover {
+  color: black;
+  background-color: #bbe1aa!important;
 }
 </style>

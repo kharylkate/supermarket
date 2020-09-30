@@ -66,16 +66,25 @@ export default {
   },
     methods: {
       ...mapActions(['addUser']),
-      add() {
+      async add() {
         this.user.password = this.user.username
         this.user.created_by = localStorage.uid
         this.user.created_at = "today"
         console.log('user add clicked: ', this.user)
-        this.addUser({
+        await this.addUser({
           user: this.user,
         })
-        $("#addUser").modal('hide');
-        $("#add_user_form")[0].reset();
+        .then((result) => {
+          console.log(result)
+          if(result.error){
+            alert(result.error)
+          } else {
+            $("#addUser").modal('hide');
+            $("#add_user_form")[0].reset();
+            alert(result.message)
+          }
+        })
+        await this.$store.dispatch("fetchRolesList")
 
       }
 

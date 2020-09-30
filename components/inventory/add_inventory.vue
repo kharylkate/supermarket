@@ -74,7 +74,7 @@ export default {
     },
     methods: {
       ...mapActions(['addInventory']),
-      add(){
+      async add(){
         this.inventory.quantity = 0
         this.inventory.created_by = localStorage.uid
         this.inventory.created_at = "today"
@@ -83,16 +83,17 @@ export default {
           inventory: this.inventory
         })
         .then((result)=>{
-          $("#addInventory").modal('hide');
-          $('#add_inventory_form')[0].reset();
-          alert(result.message)
+          if(result.error){
+            alert(result.error)
+          } else {
+            $("#addInventory").modal('hide');
+            $('#add_inventory_form')[0].reset();
+            alert(result.message)
+          }
         })
-
         
 
-        
-
-        // await this.$store.dispatch("fetchInventoryList")
+        await this.$store.dispatch("fetchInventoryList")
       }
     }
     

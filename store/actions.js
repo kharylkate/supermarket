@@ -6,6 +6,20 @@ export default {
       return login;
   },
 
+  // async login({commit}, login) {
+  //   return await axios({
+  //     method: "POST",
+  //     url: `${this.$axios.defaults.baseURL}/new/login`,
+  //     headers: {},
+  //     data: {},
+  //   })
+  //   .then(result => {
+  //     console.log("result", result)
+  //     return result.data;
+  //   })
+  //   .catch( err => err);
+  // },
+
 
 //======================================================================
 
@@ -110,6 +124,26 @@ export default {
   },
 
   async updateUser({commit}, user) {
+    console.log('user code: ', user.user.users_id)
+
+    return await axios({
+      method: "PUT",
+      url: `${this.$axios.defaults.baseURL}/user/`+user.user.users_id,
+      header: {
+        "Content-Type": "application/json"
+      },
+      data: { ...user.user },
+    })
+    .then(result => {
+      console.log('hihi',result.data)
+      console.log(user)
+      commit("updateUser", user.user);
+      return result.data;
+    })
+    .catch(err => err);
+  },
+
+  async passwordUpdate({commit}, user) {
     console.log('user code: ', user.user.users_id)
 
     return await axios({
