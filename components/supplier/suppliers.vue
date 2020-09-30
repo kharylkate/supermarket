@@ -201,7 +201,7 @@ export default {
             $("#editSupplier").modal('show')
         },
         ...mapActions(["updateSupplier"]),
-        update(){
+        async update(){
           this.supplier.updated_by = localStorage.uid
           this.supplier.updated_at = "today"
           console.log('clicked', this.supplier)
@@ -213,6 +213,7 @@ export default {
               alert(result)
               $("#editSupplier").modal('hide')
           })
+          await this.$store.dispatch("fetchSuppliersList")
         },
         items() {
           this.perPage = this.filter_items
@@ -223,7 +224,7 @@ export default {
         }
     },
     async beforeCreate() {
-        await this.$store.dispatch("fetchSuppliersList")
+      await this.$store.dispatch("fetchSuppliersList")
     }
 }
 </script>

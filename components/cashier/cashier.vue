@@ -40,7 +40,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
                             </div>
                             <div class="transaction-total text-right mt-5 mr-4">
                                 <label>Total Amount: ₱</label>
@@ -50,8 +49,8 @@
                                 <label>Payment Amount: ₱</label>
                                 <input type="text" class="trans" v-model="st.payment_amt" disabled/>
                             </div>
-
                         </div>
+
                         <div class="card col-md-4">
                             <div class="container mt-3">
                                 <div class="form-group my-2 px-2">
@@ -112,11 +111,9 @@
                                             <button data-number="3" class="btn btn-lg border border-primary" @click="numclick(3)"> 3 </button>
                                             <button class="btn btn-lg border border-primary sign"  @click="numclick('+')"> + </button>
                                             <button class="btn btn-lg border border-primary ml-1 cs">Enter</button>
-                                            
                                         </div> 
                                         <div class="row text-center">
                                             
-                                            <!-- <button class="btn btn-lg border border-primary"> </button> -->
                                             <button class="btn btn-lg border border-primary zero" @click="numclick(0)"> 0 </button>
                                             <button class="btn btn-lg border border-primary" style="width: 45px" @click="numclick('.')"> . </button>
                                             <button class="btn btn-lg border border-primary sign" @click="equals()"> = </button>
@@ -132,7 +129,6 @@
                         </div>
                     </div>
                 </div>
-
         </div>
 
         <div
@@ -475,7 +471,7 @@ export default {
                 this.addSales({
                     sales: this.st
                 })
-                alert('Exact Amount')
+                alert('Thank You')
                 $("#payment_modal").modal('hide');
                 $("#viewTransaction").modal('show');
             } else if(this.input_payment_amt < this.st.total_cost){
@@ -538,15 +534,6 @@ export default {
     padding-bottom: 0px !important;
     
 }
-
-/* .transaction-table {
-    margin: 0px
-}
-
-.fit {
-    white-space: nowrap !important;
-    width: 1% !important
-} */
 
 .sales-card {
     border: none

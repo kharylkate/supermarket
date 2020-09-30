@@ -31,7 +31,6 @@ import axios from "axios";
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 
-
 export default {
   name: "login-form",
   components: {},

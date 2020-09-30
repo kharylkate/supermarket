@@ -84,7 +84,7 @@ export default {
             alert(result.message)
           }
         })
-        await this.$store.dispatch("fetchRolesList")
+        await this.$store.dispatch("fetchUserList")
 
       }
 

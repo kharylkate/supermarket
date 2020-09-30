@@ -220,7 +220,6 @@ export default {
         if(result.error){
           alert(result.error)
         } else {
-          
           alert(result)
           $("#editUser").modal('hide')
         }

@@ -26,7 +26,7 @@
 
               <div class="form-group col-md-8">
                 <label for="contactno">Contact Number: </label>
-                <input type="number" v-model="supplier.contact_no" class="form-control" id="contactno" placeholder="Enter Contact Number" autocomplete="off" required>
+                <input type="text" v-model="supplier.contact_no" class="form-control" id="contactno" placeholder="Enter Contact Number" autocomplete="off" required>
               </div>
 
               <div class="form-group col-md-8">

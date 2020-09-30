@@ -97,7 +97,6 @@ export default {
       data: {},
     })
     .then(result => {
-      // console.log("eyy", result)
       commit("setUserList", result.data);
       return result.data;
     })

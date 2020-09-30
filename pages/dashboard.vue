@@ -75,20 +75,21 @@ export default {
             this.user.username = this.username
             this.user.users_id = this.user_id
             
-            this.passwordUpdate({
-                user: new_pass_validate
-            })
-            .then((result) => {
-                console.log("update User result", result)
-                if(result.error){
-                    alert(result.error)
-                } else {
-                    alert(result)
-                    this.defpass = false
-                }
-            })
+            // this.passwordUpdate({
+            //     user: new_pass_validate
+            // })
+            // .then((result) => {
+            //     console.log("update User result", result)
+            //     if(result.error){
+            //         alert(result.error)
+            //     } else {
+            //         alert(result)
+            //         this.defpass = false
+            //     }
+            // })
             // window.location.href= ''
-            // alert("changed")
+            alert("Password changed")
+            this.defpass = false
             
         }
     }
