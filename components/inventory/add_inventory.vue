@@ -47,7 +47,7 @@
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="itemcancel" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-secondary" @click="cancel()">Cancel</button>
               <button type="button" @click="add()" class="btn btn-primary">OK</button>
             </div>
           </form>
@@ -94,6 +94,10 @@ export default {
         
 
         await this.$store.dispatch("fetchInventoryList")
+      },
+      cancel() {
+        $("#addInventory").modal('hide');
+        $('#add_inventory_form')[0].reset();
       }
     }
     

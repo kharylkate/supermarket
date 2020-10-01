@@ -4,28 +4,79 @@
               <div class="">
                 <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                   <h4 class="text-uppercase">Sales Transaction</h4>
-                  <button class="btn btn-default lg-btn" @click="addModal()">New Transaction</button>
-                  <!-- <button @click="pdf()">export</button> -->
                 </div>
               </div>
 
-              <div class="form-group row container">
-                <div class="form-group mx-2">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text">Item</label>
-                    </div>
-                    <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
-                      <option value="5">5</option>
-                      <option value="10">10</option>
-                      <option value="15">15</option>
-                      <option value="20">20</option>
-                    </select>
+              <div>
+                <div class="form-group row">
+                  <b-col cols="3">
+                    <b-form-group>
+                      <b-input-group size="sm">
+                        <b-form-input
+                          v-model="filter"
+                          type="search"
+                          id="filterInput"
+                          placeholder="Type to Search"
+                          autocomplete="off"
+                        ></b-form-input>
+                        <b-input-group-append>
+                          <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                        </b-input-group-append>
+                      </b-input-group>
+                    </b-form-group>
+                  </b-col>
+
+                  <div>
+                    <b-input-group prepend="Date" size="sm" >
+                      <date-range-picker
+                          id="date_pending"
+                          ref="picker"
+                          :opens="opens"
+                          :locale-data="localeData"
+                          :autoApply="true"
+                          :singleDatePicker="false"
+                          :showWeekNumbers="true"
+                          v-model="datePicker"
+                          @update="updateValues"
+                        >
+                          <div slot="input" id="date_pending">
+                            {{ datePicker.startDate }} - {{ datePicker.endDate }}
+                          </div>
+                        </date-range-picker>
+                    </b-input-group>
                   </div>
+
+
+                  <div class="form-group mx-2 col-md-2">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text">Item</label>
+                      </div>
+                      <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group mx-2">
+                    <button type="button" class="btn btn-sm lg-btn" @click="toPdf()">
+                      <img src="../../static/icons/file-earmark-arrow-down.svg" alt="">
+                      Export to PDF
+                    </button>
+                    
+                  </div>
+
+                  <div class="form-group ml-auto mr-3">
+                    <button class="btn btn-sm btn-default lg-btn" @click="addModal()">New Transaction</button>
+                  </div>
+
                 </div>
               </div>
 
-            <div class="m-2 p-3">
+            <div id="table-table">
               <b-table
               show-empty
               class="bg-white"
@@ -36,7 +87,7 @@
               :fields="fields"
               :current-page="currentPage"
               :per-page="perPage"
-              
+              :filter="filter"
               :sort-by.sync="sortBy"
               :sort-desc.sync="sortDesc"
               :sort-direction="sortDirection"
@@ -394,10 +445,44 @@
           </div>
         </div>
       </div>
+
+      <div id="divtableData">
+        <table class="table" id="tableData">
+          <thead>
+            <tr>
+              <th>OR Number</th>
+              <th>Customer Details</th>
+              <th>Date of Transaction</th>
+              <th>Total Amount</th>
+              <th>Payment Amount</th>
+              <th>Items</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="d in salesList" :key="d.id">
+              <td>{{d.or_no}}</td>
+              <td>{{d.customer_name}} <br> {{d.customer_address}} <br> {{d.customer_contact_no}}</td>
+              <td>{{new Date(d.stransaction_date).toDateString()}}</td>
+              <td>₱{{d.total_cost}}</td>
+              <td>₱{{d.payment_amt}}</td>
+              <td>
+                <div v-for="i in d.items" :key="i.id">
+                  <div>{{i.barcode}} {{i.product_description}} ({{i.quantity}}) @₱{{i.sales_cost}}</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
     </div>
 </template>
 
 <script>
+import DateRangePicker from "vue2-daterange-picker";
+import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
+import moment from "moment";
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
 import jsPDF from 'jspdf';
@@ -405,6 +490,9 @@ import 'jspdf-autotable';
 
 export default {
     name: 'sales',
+    components: {
+      DateRangePicker
+    },
     computed: {
       ...mapGetters({
         salesTransactions: 'salesTransactions',
@@ -418,6 +506,7 @@ export default {
     data() {
       return {
         sales: {},
+        filter_supplier: "",
         filter_items: 5,
         totalRows: 1,
         currentPage: 1,
@@ -425,16 +514,33 @@ export default {
         pageOptions: [5, 10, 15],
         sortBy: '',
         sortDesc: false,
+        filter: null,
         sortDirection: 'asc',
         fields: [
           { key: 'or_no', label: 'Official Receipt Number', sortable: true, sortDirection: 'asc' },
           { key: 'customer_name', label: 'Customer', sortable: true, sortDirection: 'asc' },
-          { key: 'stransaction_date', label: 'Date of Transaction', sortable: true, sortDirection: 'asc' },
+          { key: 'stransaction_date', label: 'Date of Transaction', sortable: true, sortDirection: 'asc', formatter:  (value, key, item) => {
+            return new Date(value).toDateString()
+          }
+          },
           { key: 'total_cost', label: 'Total Amount', sortable: true, sortDirection: 'asc'},
           { key: 'actions', label: 'Actions' }
         ],
-
-
+        // Datepicker
+        opens: "center",
+        datePicker: {
+          startDate: moment().format("MMM DD, YYYY"),
+          endDate: moment().format("MMM DD, YYYY"),
+        },
+        dateRange: {
+          date_from: moment().format("YYYY-MM-DD"),
+          date_to: moment().format("YYYY-MM-DD"),
+        },
+        localeData: {
+          direction: "ltr",
+          format: moment().format("mmm dd, yyyy"),
+          separator: " - ",
+        },
 
         st: {
           total_cost: 0,
@@ -468,9 +574,6 @@ export default {
       pdf(){
         autoTable(doc, { html: '#sales_table' })
         doc.save('table.pdf')
-      },
-      filter() {
-        
       },
       addModal(){
         let or_no = this.salesList[this.salesList.length-1].or_no+1
@@ -564,6 +667,60 @@ export default {
         this.totalRows = filteredItems.length
         this.currentPage = 1
       },
+      toPdf() {
+
+        // WINDOW print()
+        var sTable = document.getElementById('divtableData').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 12px Calibri;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: left;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+        var d = new Date()
+
+        win.document.write('<html><head>');
+        win.document.write(`<title>Delivery Transaction (`+ d.toISOString().substring(0, 10) +`) </title>`);   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+      },
+      async resetDate() {
+        this.isBusy = true;
+
+        this.datePicker.startDate = moment().format("MMM DD, YYYY");
+        this.datePicker.endDate = moment().format("MMM DD, YYYY");
+
+        this.updateValues();
+      },
+      async updateValues() {
+
+        this.datePicker.startDate = moment(this.datePicker.startDate).format(
+          "MMM DD, YYYY"
+        );
+        this.datePicker.endDate = moment(this.datePicker.endDate).format(
+          "MMM DD, YYYY"
+        );
+        (this.dateRange.date_from = moment(this.datePicker.startDate).format(
+          "YYYY-MM-DD"
+        )),
+          (this.dateRange.date_to = moment(this.datePicker.endDate).format(
+            "YYYY-MM-DD"
+          ));
+
+        console.log("daterange", this.dateRange);
+
+      
+      },
     
     },
     async beforeCreate(){
@@ -575,6 +732,6 @@ export default {
 
 </script>
 
-<style scoped>
+<style >
 
 </style>

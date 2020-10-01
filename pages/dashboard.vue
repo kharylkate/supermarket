@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="username != null">
-            <div v-if="defpass === true">
+            <div v-if="isdefault == true">
                 <div class="container">
                     <div class="container-fluid">
                         <div class="card col-md-3">
@@ -15,8 +15,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div v-if="defpass === false">
+            </div> 
+            <div v-if="isdefault == false">
                 <navbar />
                 <div class="container-fluid">
                     <div class="row">
@@ -45,9 +45,9 @@ export default {
         return {
             user: {},
             username: localStorage.username,
-            role_name: localStorage.role_name,
-            user_id: localStorage.uid,
-            defpass: true,
+            // role_name: localStorage.role_name,
+            // user_id: localStorage.uid,
+            isdefault: 0
         }
     },
     components: {
@@ -69,11 +69,12 @@ export default {
                 document.getElementById("pass_validation").innerHTML = ""
             }
         },
-        ...mapActions(['updateUser']),
+        ...mapActions(['passwordUpdate']),
         update() {
 
             this.user.username = this.username
             this.user.users_id = this.user_id
+            this.isdefault = 1
             
             // this.passwordUpdate({
             //     user: new_pass_validate
@@ -83,13 +84,9 @@ export default {
             //     if(result.error){
             //         alert(result.error)
             //     } else {
-            //         alert(result)
-            //         this.defpass = false
+            //         alert("Password Changed")
             //     }
             // })
-            // window.location.href= ''
-            alert("Password changed")
-            this.defpass = false
             
         }
     }

@@ -9,43 +9,54 @@
           >
             <h4 class="text-uppercase">Users</h4>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addUser">
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <b-col cols="3">
+            <b-form-group>
+              <b-input-group size="sm">
+                <b-form-input
+                  v-model="filter"
+                  type="search"
+                  id="filterInput"
+                  placeholder="Type to Search"
+                  autocomplete="off"
+                ></b-form-input>
+                <b-input-group-append>
+                  <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+
+            <div class="form-group mx-2 col-md-2">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Item</label>
+                </div>
+                <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group ml-auto mr-3">
+              <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addUser">
                 <img src="../../static/icons/file-earmark-plus.svg" alt />
                 Add User
               </button>
             </div>
-          </div>
         </div>
 
-        <div class="form-group row container">
-          <div class="form-group mx-2">
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <label class="input-group-text">Item</label>
-              </div>
-              <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group mx-2">
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <label class="input-group-text">Show</label>
-              </div>
-              <select class="form-control form-control-sm search-filter" @change="filter()" v-model="filter_role" name="filter_role" id="filter_role">
-                <option value="" selected>Role</option>
-                <option v-for="role in rolesList" :key="role.id" :value="role.role_name">{{role.role_name}}</option>
-              </select>
-            </div>
-          </div>
-          
-        </div>
+      
 
-        <div class="m-2 p-3">
+        <div>
           <b-table
           show-empty
           class="bg-white"
@@ -54,6 +65,7 @@
           thead-class="thead-sea-green"
           :items="userList"
           :fields="fields"
+          :filter="filter"
           :current-page="currentPage"
           :per-page="perPage"
           :sort-by.sync="sortBy"
@@ -182,6 +194,7 @@ export default {
       pageOptions: [5, 10, 15],
       sortBy: '',
       sortDesc: false,
+      filter: null,
       sortDirection: 'asc',
       fields: [
       { key: 'employee_code', label: 'Employee ID', sortable: true, sortDirection: 'desc' },
@@ -235,12 +248,7 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-    filter(){
-      var value = $("#filter_role").val().toLowerCase();
-      $("#btable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    },
+    
     
   },
   async beforeCreate() {

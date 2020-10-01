@@ -5,51 +5,51 @@
                 <h4 class="text-uppercase">Delivery</h4>
                 
                 <div class="btn-toolbar mb-2 mb-md-0">
-                <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addDelTrans">
-                    <img src="../../static/icons/file-earmark-plus.svg" alt="">
-                   Receive Item
-                </button>
-                <button type="button" class="btn lg-btn" @click="toPdf()">
-                    <img src="../../static/icons/file-earmark-plus.svg" alt="">
-                   JSPDF
-                </button>
+                
+                
                 </div>
             </div>
             <div>
-              <div class="form-group row container">
-                <div class="form-group mx-2">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text">Show</label>
-                    </div>
-                    <select class="form-control form-control-sm search-filter" @change="filter()" v-model="filter_supplier" name="filter_supplier" id="filter_supplier">
-                      <option value="" selected>Supplier</option>
-                      <option v-for="supply in suppliersList" :key="supply.id" :value="supply.company_name">{{supply.company_name}}</option>
-                    </select>
-                  </div>
-                  
+              <div class="form-group row">
+                <b-col cols="3">
+                  <b-form-group>
+                    <b-input-group size="sm">
+                      <b-form-input
+                        v-model="filter"
+                        type="search"
+                        id="filterInput"
+                        placeholder="Type to Search"
+                        autocomplete="off"
+                      ></b-form-input>
+                      <b-input-group-append>
+                        <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                      </b-input-group-append>
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+                
+                <div>
+                  <b-input-group prepend="Date" size="sm" >
+                    <date-range-picker
+                        id="date_pending"
+                        ref="picker"
+                        :opens="opens"
+                        :locale-data="localeData"
+                        :autoApply="true"
+                        :singleDatePicker="false"
+                        :showWeekNumbers="true"
+                        v-model="datePicker"
+                        @update="updateValues"
+                      >
+                        <div slot="input" id="date_pending">
+                          {{ datePicker.startDate }} - {{ datePicker.endDate }}
+                        </div>
+                      </date-range-picker>
+                  </b-input-group>
                 </div>
-                <!-- <div class="form-group mx-2">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text">From</label>
-                    </div>
-                    <input type="date" v-model="date_from" class="form-control form-control-sm" id="date_from">
-                  </div>
-                </div>
-                <div class="form-group mx-2">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text">To</label>
-                    </div>
-                    <input type="date" v-model="date_to" class="form-control form-control-sm date-picker" id="date_to">
-                    <div class="input-group-append">
-                      <button type="button" @click="date_filter()" class="btn lg-btn text-white">Search</button>
-                    </div>
-                  </div>
 
-                </div> -->
-                <div class="form-group mx-2">
+
+                <div class="form-group mx-2 col-md-2">
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <label class="input-group-text">Item</label>
@@ -62,48 +62,25 @@
                     </select>
                   </div>
                 </div>
-                
+
                 <div class="form-group mx-2">
-                  <b-dropdown id="dropdown-1" size="sm" text="Dropdown Button" class="lg-btn">
-                    <b-dropdown-item>First Action</b-dropdown-item>
-                    <b-dropdown-item>Second Action</b-dropdown-item>
-                    <b-dropdown-item>Third Action</b-dropdown-item>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item active>Active action</b-dropdown-item>
-                    <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-                  </b-dropdown>
+                  <button type="button" class="btn btn-sm lg-btn" @click="toPdf()">
+                    <img src="../../static/icons/file-earmark-arrow-down.svg" alt="">
+                    Export to PDF
+                  </button>
+                  
                 </div>
+
+                <div class="form-group ml-auto mr-3">
+                  <button type="button" class="btn lg-btn btn-sm" data-toggle="modal" data-target="#addDelTrans">
+                      <img src="../../static/icons/file-earmark-plus.svg" alt="">
+                    Receive Item
+                  </button>
+                </div>
+
               </div>
             </div>
         </div>
-
-         <!-- <b-table
-         id="btable"
-            class="table"
-            :items="delivery"
-            thead-class="thead-sea-green"
-            :per-page="perPage"
-            :current-page="currentPage"
-            > -->
-            <b-col lg="6" class="my-1">
-              <b-form-group
-                label="Sort"
-                label-cols-sm="3"
-                label-align-sm="right"
-                label-size="sm"
-                label-for="sortBySelect"
-                class="mb-0"
-              >
-                <b-input-group size="sm">
-                  <b-form-select v-model="sortBy" id="sortBySelect" :options="filterOptions" class="w-75">
-                    <template v-slot:first>
-                      <option value="">-- none --</option>
-                    </template>
-                  </b-form-select>
-                 
-                </b-input-group>
-              </b-form-group>
-            </b-col>
 
             <div id="table-table">
               <b-table
@@ -116,7 +93,7 @@
               :fields="fields"
               :current-page="currentPage"
               :per-page="perPage"
-              
+              :filter="filter"
               :sort-by.sync="sortBy"
               :sort-desc.sync="sortDesc"
               :sort-direction="sortDirection"
@@ -184,11 +161,6 @@
           <div class="modal-body">
             <div class="container">
                 
-            
-            <!-- <li v-if="!selectedDelivery">No item found</li> -->
-            <!-- <div v-for="item in selectedDelivery" :key="item.id">
-              <div>{{item.customerName}}</div>
-            </div> -->
             <div >
               <div class="form-row justify-content-center">
                 <div class="container text-center mb-2">
@@ -230,10 +202,39 @@
         </div>
       </div>
     </div>
+
+      <div id="divtableData">
+        <table class="table" id="tableData">
+          <thead>
+            <tr>
+              <th>Delivery Receipt Number</th>
+              <th>Supplier</th>
+              <th>Date of Delivery</th>
+              <th>Total Amount</th>
+              <th>Items</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="d in deliveryList" :key="d.id">
+              <td>{{d.dr_no}}</td>
+              <td>{{d.supplier_name}}</td>
+              <td>{{new Date(d.transaction_date).toDateString()}}</td>
+              <td>₱{{d.total_cost}}</td>
+              <td>
+                <div v-for="i in d.items" :key="i.id">
+                  <div>{{i.barcode}} {{i.product_description}} ({{i.quantity}}) @₱{{i.unit_cost}}</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 </template>
 
 <script>
+import DateRangePicker from "vue2-daterange-picker";
+import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
 import moment from "moment";
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
@@ -245,13 +246,11 @@ import Papa from "papaparse";
 export default {
     name: 'delivery',
     components: {
-
+      DateRangePicker
     },
     data() {
       return {
         dt: {},
-        date_from: "",
-        date_to: "",
         filter_supplier: "",
         filter_items: 5,
         totalRows: 1,
@@ -260,12 +259,13 @@ export default {
         pageOptions: [5, 10, 15],
         sortBy: '',
         sortDesc: false,
+        filter: null,
         sortDirection: 'asc',
         fields: [
           { key: 'dr_no', label: 'Delivery Receipt Number', sortable: true, sortDirection: 'desc' },
           { key: 'supplier_name', label: 'Supplier', sortable: true },
           { key: 'transaction_date', label: 'Date of Delivery', sortable: true, sortDirection: 'desc', formatter:  (value, key, item) => {
-            return new Date(value).toISOString().substring(0, 10)
+            return new Date(value).toDateString()
           }
           },
           { key: 'total_cost', label: 'Total Amount', sortable: true, formatter: (value, key, item) => {
@@ -273,7 +273,29 @@ export default {
           }},
           { key: 'actions', label: 'Actions' }
         ],
-      
+        selected: [], // Must be an array reference!
+        options: [
+          { text: 'Delivery Receipt Number', value: 'dr_no' },
+          { text: 'Supplier', value: 'supplier_name' },
+          { text: 'Date of Delivery', value: 'transaction_date' },
+          { text: 'Total Amount', value: 'total_cost' },
+          { text: 'Actions', value: 'actions' }
+        ],
+        // Datepicker
+        opens: "center",
+        datePicker: {
+          startDate: moment().format("MMM DD, YYYY"),
+          endDate: moment().format("MMM DD, YYYY"),
+        },
+        dateRange: {
+          date_from: moment().format("YYYY-MM-DD"),
+          date_to: moment().format("YYYY-MM-DD"),
+        },
+        localeData: {
+          direction: "ltr",
+          format: moment().format("mmm dd, yyyy"),
+          separator: " - ",
+        }
       }
     },
     methods: {
@@ -292,12 +314,12 @@ export default {
         $("#viewDelivery").modal('show')
         
       },
-      filter(){
-          var value = $("#filter_supplier").val().toLowerCase();
-          $("#btable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
-      },
+      // filter(){
+      //     var value = $("#filter_supplier").val().toLowerCase();
+      //     $("#btable tr").filter(function() {
+      //       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      //     });
+      // },
       date_filter() {
         var from = new Date(this.date_from)
         var to = new Date(this.date_to)
@@ -315,12 +337,14 @@ export default {
         let docs = []
       },
       toPdf() {
-        var sTable = document.getElementById('table-table').innerHTML;
+
+        // WINDOW print()
+        var sTable = document.getElementById('divtableData').innerHTML;
 
         var style = "<style>";
-        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + "table {width: 100%;font: 12px Calibri;}";
         style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
-        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "padding: 2px 3px;text-align: left;}";
         style = style + "</style>";
 
         // CREATE A WINDOW OBJECT.
@@ -338,8 +362,55 @@ export default {
         win.document.close(); 	// CLOSE THE CURRENT WINDOW.
 
         win.print();    // PRINT THE CONTENTS.
-     
-      }
+
+
+        //JSPDF
+
+        // var doc = new jsPDF("landscape");
+        // var elem = document.getElementById("tableData");
+        // var res = doc.autoTableHtmlToJson(elem);
+
+        // doc.autoTable(res.columns, res.data, {
+        //     startY: 15,
+        //     margin: { horizontal: 0 },
+        //     bodyStyles: { valign: 'top' },
+        //     styles: { overflow: 'linebreak', columnWidth: 'wrap' },
+        //     columnStyles: { 
+        //       items: { cellWidth: 'auto' } }
+        // });
+
+        // doc.save('test.pdf');
+      },
+      checkme(){
+        console.log(this.selected);
+      },
+      async resetDate() {
+        this.isBusy = true;
+
+        this.datePicker.startDate = moment().format("MMM DD, YYYY");
+        this.datePicker.endDate = moment().format("MMM DD, YYYY");
+
+        this.updateValues();
+      },
+      async updateValues() {
+
+        this.datePicker.startDate = moment(this.datePicker.startDate).format(
+          "MMM DD, YYYY"
+        );
+        this.datePicker.endDate = moment(this.datePicker.endDate).format(
+          "MMM DD, YYYY"
+        );
+        (this.dateRange.date_from = moment(this.datePicker.startDate).format(
+          "YYYY-MM-DD"
+        )),
+          (this.dateRange.date_to = moment(this.datePicker.endDate).format(
+            "YYYY-MM-DD"
+          ));
+
+        console.log("daterange", this.dateRange);
+
+      
+      },
 
     },
     computed: {
@@ -356,7 +427,8 @@ export default {
         .map(f => {
           return { text: f.value }
         })
-      }
+      },
+      
   
     },
     async beforeCreate() {
@@ -366,7 +438,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+#divtableData {
+  display: none;
+}
+
 .lg-btn {
   border: none;
 }
@@ -383,5 +459,38 @@ export default {
 .paginations :hover {
   color: black;
   background-color: #bbe1aa!important;
+}
+
+.reportrange-text[data-v-267f4ee2] {
+  border: 1px solid #ccc;
+  height: 2rem;
+  width: 14rem;
+  font-size: 14px;
+}
+
+.daterangepicker.show-ranges .drp-calendar.left {
+  position: relative;
+  right: 8px;
+}
+
+.daterangepicker.show-ranges .drp-calendar.left {
+  border-left: 0px solid #ddd;
+}
+
+.daterangepicker .ranges li.active {
+  background-color: #59726d;
+  color: #fff;
+}
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+  background-color: #59726d;
+  border-color: transparent;
+  color: #fff;
+}
+
+.daterangepicker .ranges li.active {
+  background-color: #59726d;
+  color: #fff;
 }
 </style>

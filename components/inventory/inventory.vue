@@ -4,16 +4,30 @@
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
                 <h4 class="text-uppercase">Inventory</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                <button type="button" class="btn lg-btn" data-toggle="modal" data-target="#addInventory">
-                    <img src="../../static/icons/file-earmark-plus.svg" alt="">
-                    Add Item
-                </button>
+                
                 </div>
             </div>
         </div>
 
-        <div class="form-group row container">
-            <div class="form-group mx-2">
+        <div class="form-group row">
+          <b-col cols="3">
+            <b-form-group>
+              <b-input-group size="sm">
+                <b-form-input
+                  v-model="filter"
+                  type="search"
+                  id="filterInput"
+                  placeholder="Type to Search"
+                  autocomplete="off"
+                ></b-form-input>
+                <b-input-group-append>
+                  <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+
+            <div class="form-group mx-2 col-md-2">
               <div class="input-group input-group-sm">
                 <div class="input-group-prepend">
                   <label class="input-group-text">Item</label>
@@ -26,12 +40,19 @@
                 </select>
               </div>
             </div>
+
+            <div class="form-group ml-auto mr-3">
+              <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addInventory">
+                <img src="../../static/icons/file-earmark-plus.svg" alt="">
+                Add Item
+              </button>
+            </div>
             
         </div>
 
         
 
-        <div class=" m-2 p-3">
+        <div class="">
 
           
           <b-table
@@ -42,6 +63,7 @@
           thead-class="thead-sea-green table-thead"
           :items="inventoryList"
           :fields="fields"
+          :filter="filter"
           :current-page="currentPage"
           :per-page="perPage"
           :sort-by.sync="sortBy"
@@ -166,6 +188,7 @@ export default {
         pageOptions: [5, 10, 15],
         sortBy: '',
         sortDesc: false,
+        filter: null,
         sortDirection: 'asc',
         fields: [
         { key: 'barcode', label: 'Barcode', sortable: true, sortDirection: 'desc' },

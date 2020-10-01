@@ -2,22 +2,18 @@ export default {
 
     login: (state, login) => {
         console.log(login)
-        // const user = state.users.find(p => p.username === login.user.username)
-        console.log(state.userList);
-        for(var i = 0; i < state.userList.length; i++){
-            if(state.userList[i].username == login.user.username){
-                // if(state.users[i].password == login.user.password){
-                    localStorage.username = state.userList[i].username
-                    localStorage.role_name = state.userList[i].role_name
-                    localStorage.uid = state.userList[i].users_id
-                // } else {
-                //     alert('Wrong Password')
-                // }
-            // } else {
-            //     alert('User does not exist')
-            }
-        }
 
+        localStorage.username = result.username
+        localStorage.role_name = result.role_name
+        localStorage.uid = result.users_id
+        localStorage.isdefault = result.isDefault
+                
+    },
+
+    passwordUpdate(state, payload) {
+        var user = state.userList.findIndex(p => p.users_id === payload.users_id)
+        state.userList.splice(user, 1)
+        state.userList.unshift(payload)
     },
 
     addSales: (state, salesData) => {
@@ -46,31 +42,7 @@ export default {
 
     },
 
-    // receiveDelivery: (state, delivery) => {
-    //     var total_cost = 0;
-    //     //loop through items to get quantity*amt and add every total to total_cost
-    //     for(var i = 0; i < delivery.transaction.items.length; i++){
-    //         //if barcode is not found in state.inventory, push to state.inventory
-    //         //else, skip for-loop
-    //         var found = false;
-    //         for(var j = 0; j < state.inventoryList.length; j++){
-    //             if(state.inventoryList[j].barcode == delivery.transaction.items[i].barcode){
-    //                 found = true;
-    //             }
-    //         }
-
-    //         if(!found){
-    //             state.inventoryList.push(delivery.transaction.items[i])
-    //         }
-            
-    //         //compute total cost
-    //         var total = (parseInt(delivery.transaction.items[i].quantity) * parseInt(delivery.transaction.items[i].unit_cost))
-    //         total_cost += total;
-    //     }
-    //     // add to object then push to delivery_transactions
-    //     delivery.transaction.total_cost = total_cost
-    //     state.delivery_transactions.push(delivery.transaction)
-    // },
+   
 
     receiveDelivery: (state, delivery) => {
         state.deliver_transactions.push(delivery.transaction)
@@ -88,13 +60,10 @@ export default {
 
     updateSupplier: (state, payload) => {
         console.log(payload);
-        //console.log('payload.company_name: ', payload.supplier.company_name);
-        var supplier = state.suppliersList.find(p => p.supplier_id === payload.supplier_id)
-        console.log(supplier);
-        supplier.company_name = payload.company_name
-        supplier.contact_no = payload.contact_no
-        supplier.company_address = payload.company_address
-        supplier.status = payload.status
+        var supplier = state.suppliersList.findIndex(p => p.supplier_id === payload.supplier_id)
+        state.suppliersList.splice(supplier, 1)
+        state.suppliersList.unshift(payload)
+
     },
 
     addRole: (state, roleData) => {
@@ -105,8 +74,10 @@ export default {
     updateRole: (state, payload) => {
         console.log(payload);
         console.log('payload.role_name: ', payload.role_name);
-        const role = state.rolesList.find(p => p.role_id === payload.role_id)
-        role.role_name = payload.role_name
+        const role = state.rolesList.findIndex(p => p.role_id === payload.role_id)
+        // role.role_name = payload.role_name
+        state.rolesList.splice(role, 1);
+        state.rolesList.unshift(payload);
     },
 
     addUser: (state, userData) => {
@@ -115,13 +86,11 @@ export default {
     },
 
     updateUser: (state, payload) => {
-        console.log(payload);
-        console.log('payload.username: ', payload.username);
-        console.log("state", state.userList);
-        const users = state.userList.find(p => p.user_id === payload.user_id)
-        console.log("const",users);
-        users.username = payload.username
-        users.role_name = payload.role_name
+        const users = state.userList.findIndex(p => p.user_id === payload.user_id)
+        state.userList.splice(users, 1)
+        state.userList.unshift(payload)
+        // users.username = payload.username
+        // users.role_name = payload.role_name
 
     },
 
@@ -131,13 +100,15 @@ export default {
     },
 
     updateInventory: (state, payload) => {
-        console.log(payload);
-        console.log('payload.inventory: ', payload.product_description);
-        const inventory = state.inventoryList.find(p => p.inventory_code === payload.inventory_code)
-        inventory.barcode = payload.barcode
-        inventory.product_description = payload.product_description
-        inventory.unit_cost = payload.unit_cost
-        inventory.sales_cost = payload.sales_cost
+        const inventory = state.inventoryList.findIndex(
+            x => x.inventory_code === payload.inventory_code)
+        state.inventoryList.splice(inventory, 1)
+        state.inventoryList.unshift(payload)
+
+        // inventory.barcode = payload.barcode
+        // inventory.product_description = payload.product_description
+        // inventory.unit_cost = payload.unit_cost
+        // inventory.sales_cost = payload.sales_cost
     },
 
     addDeliveryTransaction(state, dt_data){

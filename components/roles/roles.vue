@@ -7,25 +7,45 @@
           id="topName"
         >
           <h4 class="text-uppercase">Roles</h4>
-          <button class="btn btn-default btn-sm lg-btn" data-toggle="modal" data-target="#addRole">New Role</button>
         </div>
       </div>
 
-      <div class="form-group row container">
-        <div class="form-group mx-2">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <label class="input-group-text">Item</label>
+      <div class="form-group row">
+          <b-col cols="3">
+            <b-form-group>
+              <b-input-group size="sm">
+                <b-form-input
+                  v-model="filter"
+                  type="search"
+                  id="filterInput"
+                  placeholder="Type to Search"
+                  autocomplete="off"
+                ></b-form-input>
+                <b-input-group-append>
+                  <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+
+            <div class="form-group mx-2 col-md-2">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Item</label>
+                </div>
+                <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
             </div>
-            <select class="form-control form-control-sm search-filter" @change="items()" v-model="filter_items" name="filter_supplier" id="filter_supplier">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-            </select>
-          </div>
+
+            <div class="form-group ml-auto mr-3">
+              <button class="btn btn-default btn-sm lg-btn" data-toggle="modal" data-target="#addRole">New Role</button>
+            </div>
         </div>
-      </div>
 
     <div class=" m-2 p-3">
       <b-table
@@ -36,6 +56,7 @@
         thead-class="thead-sea-green"
         :items="rolesList"
         :fields="fields"
+        :filter="filter"
         :current-page="currentPage"
         :per-page="perPage"
         :sort-by.sync="sortBy"
@@ -155,6 +176,7 @@ export default {
       pageOptions: [5, 10, 15],
       sortBy: '',
       sortDesc: false,
+      filter: null,
       sortDirection: 'asc',
       fields: [
       { key: 'role_id', label: 'Role ID', sortable: true, sortDirection: 'asc' },
@@ -197,7 +219,6 @@ export default {
           alert(result)
         }
       })
-        
      },
      items() {
           this.perPage = this.filter_items

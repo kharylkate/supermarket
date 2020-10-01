@@ -75,12 +75,12 @@ export default {
   },
   methods: {
     ...mapActions(['addRole']),
-    async add(){
+    add(){
 
       this.role.created_by = localStorage.uid
       this.role.created_at = "today"
       console.log(this.role);
-      await this.addRole({
+      this.addRole({
         role: this.role
       })
       .then((result) => {
@@ -91,10 +91,9 @@ export default {
           $("#add_role_form")[0].reset();
           alert(result.message)
         }
-        
       })
 
-      await this.$store.dispatch("fetchRolesList")
+      this.$store.dispatch("fetchRolesList")
 
       
     },

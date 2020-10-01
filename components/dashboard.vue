@@ -168,7 +168,6 @@ export default {
           horizontalAlign: "left"
         },
 
-        
         data: [{
           type: "doughnut",
           startAngle: 60,

@@ -48,11 +48,28 @@ export default {
   methods: {
     ...mapActions(['login']),
     logmein(){
-      console.log('user details', this.user)
+      // console.log('user details', this.user)
       this.login({
         user: this.user
       })
-      window.location.href = 'dashboard'
+      .then((result) => {
+        console.log(result)
+        if(result.error){
+          alert(result.error)
+        } else {
+          window.location.href = 'dashboard'
+          // console.log("local storageeee", localStorage);
+        }
+      //   console.log("localStorage.isDefault", localStorage.isDefault);
+      })
+            // localStorage.username = "Maximus",
+            // localStorage.role_name = "admin",
+            // localStorage.uid = 38,
+            // localStorage.isDefault = true
+            // console.log(localStorage);
+            // window.location.href = 'dashboard'
+
+    
     }
     //  async login() {
     //   console.log("hello")    

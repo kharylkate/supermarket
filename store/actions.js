@@ -1,24 +1,41 @@
 import axios from "axios";
 
 export default {
-  login({commit}, login) {
-    commit("login", login);
-      return login;
+  // login({commit}, login) {
+  //   commit("login", login);
+  //     return login;
+  // },
+
+  async login({commit}, login) {
+    console.log("login: ",login)
+    return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/new/login`,
+      headers: {},
+      data: { ...login.user },
+    })
+    .then(result => {
+      console.log("result", result)
+      commit("login", result);
+      return result.data;
+    })
+    .catch( err => err);
   },
 
-  // async login({commit}, login) {
-  //   return await axios({
-  //     method: "POST",
-  //     url: `${this.$axios.defaults.baseURL}/new/login`,
-  //     headers: {},
-  //     data: {},
-  //   })
-  //   .then(result => {
-  //     console.log("result", result)
-  //     return result.data;
-  //   })
-  //   .catch( err => err);
-  // },
+  async passwordUpdate ({ commit }, login) {
+    return await axios({
+      method: "GET",
+      url: `${this.$axios.defaults.baseURL}/roles`,
+      headers: {},
+      data: {},
+    })
+    .then(result => {
+      // console.log("eyy", result)
+      commit("passwordUpdate", login);
+      return result.data;
+    })
+    .catch( err => err);
+  },
 
 
 //======================================================================
