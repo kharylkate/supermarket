@@ -2,8 +2,8 @@
     <nav  id="navbarCollapse" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style>
           
         <div class="container text-center">
-            <img class="avatar mt-3 mx-3 rounded-pill" src="../static/Untitled design.png" alt="" width="130" height="150">
-            <p class="mt-3 mb-3 text-center">Welcome,  <b>{{username}}</b></p>
+            <img class="img-thumbnail mt-3" src="../static/lgs.png" alt="" width="210" height="60">
+            <p class="mt-4 mb-3 text-center">Welcome,  <b>{{username}}</b></p>
         </div>
         <hr>
 
