@@ -50,6 +50,18 @@ export default {
         return j
     },
 
+    lowStocks: state => {
+        var low = [];
+
+        for(var i = 0; i < state.inventoryList.length; i++){
+            if(state.inventoryList[i].quantity <= 35){
+                low.push(state.inventoryList[i])
+            }
+        }
+        console.log(low)
+        return low
+    },
+
 
     // =====================================================
 

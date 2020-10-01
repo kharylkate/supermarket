@@ -81,7 +81,7 @@ export default {
           } else {
             $("#addUser").modal('hide');
             $("#add_user_form")[0].reset();
-            alert(result.message)
+            alert("New user added successfully")
           }
         })
         await this.$store.dispatch("fetchUserList")

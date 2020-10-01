@@ -1,12 +1,25 @@
 export default {
 
-    login: (state, login) => {
-        console.log(login)
+    login: (state, result) => {
+        console.log(result)
 
-        localStorage.username = result.username
-        localStorage.role_name = result.role_name
-        localStorage.uid = result.users_id
-        localStorage.isdefault = result.isDefault
+        // const user = state.userlogin.find(x => x.username === login.username)
+
+        // if(user.password == '1234'){
+        //     localStorage.isDefault = 1;
+        // } else {
+        //     localStorage.isDefault = 0
+        // }
+        
+        // localStorage.username = user.username
+        // localStorage.role_name = user.role_name
+        // localStorage.uid = user.users_id
+
+
+        localStorage.username = result.data.username
+        localStorage.role_name = result.data.role_name
+        localStorage.uid = result.data.users_id
+        localStorage.isDefault = result.data.isDefault
                 
     },
 
@@ -14,6 +27,8 @@ export default {
         var user = state.userList.findIndex(p => p.users_id === payload.users_id)
         state.userList.splice(user, 1)
         state.userList.unshift(payload)
+        // localStorage.isDefault = 0;
+        
     },
 
     addSales: (state, salesData) => {

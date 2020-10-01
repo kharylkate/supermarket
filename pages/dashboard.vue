@@ -1,22 +1,22 @@
 <template>
     <div>
         <div v-if="username != null">
-            <div v-if="isdefault == true">
+            <div v-if="isDefault == 1">
                 <div class="container">
                     <div class="container-fluid">
                         <div class="card col-md-3">
                             <div></div>
                             <div class="form-group">
-                                <input type="password" v-model="user.new_pass" class="form-control form-control-sm mt-2 mb-2" placeholder="Enter Password" id="new_pass">
+                                <input type="password" v-model="new_pass" class="form-control form-control-sm mt-2 mb-2" placeholder="Enter Password" id="new_pass">
                                 <div id="pass_validation"></div>
-                                <input type="password" v-model="user.new_pass_validate" @keyup="validate()" @keyup.enter="update()" class="form-control form-control-sm mt-2 mb-2" placeholder="Retype Password" id="new_pass_validate">
+                                <input type="password" v-model="new_pass_validate" @keyup="validate()" @keyup.enter="update()" class="form-control form-control-sm mt-2 mb-2" placeholder="Retype Password" id="new_pass_validate">
                                 <button class="btn btn-sm lg-btn btn-block text-white" type="button" @click="update()">Update</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div> 
-            <div v-if="isdefault == false">
+            <div v-if="isDefault == 0">
                 <navbar />
                 <div class="container-fluid">
                     <div class="row">
@@ -44,10 +44,12 @@ export default {
     data(){
         return {
             user: {},
+            new_pass: "",
+            new_pass_validate: "",
             username: localStorage.username,
-            // role_name: localStorage.role_name,
-            // user_id: localStorage.uid,
-            isdefault: 0
+            role_name: localStorage.role_name,
+            user_id: localStorage.uid,
+            isDefault: localStorage.isDefault
         }
     },
     components: {
@@ -69,23 +71,45 @@ export default {
                 document.getElementById("pass_validation").innerHTML = ""
             }
         },
-        ...mapActions(['passwordUpdate']),
-        update() {
-
+        ...mapActions(['updateUser','login']),
+        async update() {
+            var d = new Date()
             this.user.username = this.username
-            this.user.users_id = this.user_id
-            this.isdefault = 1
+            this.user.password = this.new_pass_validate
+            this.user.users_id = localStorage.uid,
+            this.user.employee_code = 1265,
+            this.user.role_id = 2,
+            this.user.updated_by = localStorage.uid,
+            this.user.updated_at = "today"
+            console.log("user details", this.user);
             
-            // this.passwordUpdate({
-            //     user: new_pass_validate
+            await this.updateUser({
+                user: this.user
+            })
+            .then((result) => {
+                if(result.error){
+                    alert(result.error)
+                } else {
+                    alert("You have successfully changed your password")
+                    localStorage.isDefault = 0;
+                    window.location.href = 'dashboard'
+                // $("#editUser").modal('hide')
+                }
+            })
+
+            // await this.login({
+            //     user: this.user
             // })
             // .then((result) => {
-            //     console.log("update User result", result)
+            //     console.log(result)
             //     if(result.error){
-            //         alert(result.error)
+            //     alert(result.error)
             //     } else {
-            //         alert("Password Changed")
+            //         window.location.href = 'dashboard'
+            //     // this.$router.push('dashboard')
             //     }
+
+
             // })
             
         }

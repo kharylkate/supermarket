@@ -2,7 +2,8 @@ import axios from "axios";
 
 export default {
   // login({commit}, login) {
-  //   commit("login", login);
+  //   console.log(login)
+  //   commit("login", login.user);
   //     return login;
   // },
 
@@ -22,19 +23,22 @@ export default {
     .catch( err => err);
   },
 
-  async passwordUpdate ({ commit }, login) {
-    return await axios({
-      method: "GET",
-      url: `${this.$axios.defaults.baseURL}/roles`,
-      headers: {},
-      data: {},
-    })
-    .then(result => {
-      // console.log("eyy", result)
-      commit("passwordUpdate", login);
-      return result.data;
-    })
-    .catch( err => err);
+  async passwordUpdate ({ commit }, user) {
+    commit("passwordUpdate", user.user);
+      return user;
+
+    // return await axios({
+    //   method: "GET",
+    //   url: `${this.$axios.defaults.baseURL}/roles`,
+    //   headers: {},
+    //   data: {},
+    // })
+    // .then(result => {
+    //   // console.log("eyy", result)
+    //   commit("passwordUpdate", login);
+    //   return result.data;
+    // })
+    // .catch( err => err);
   },
 
 
@@ -124,7 +128,7 @@ export default {
     console.log('@user: ',user)
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/add_user`,
+      url: `${this.$axios.defaults.baseURL}/new/register`,
       header: {
         "Content-Type": "application/json"
       },
@@ -134,7 +138,7 @@ export default {
       console.log('hihi',result.data)
       console.log(user)
       commit("addUser", user);
-      return result.data;
+      return result;
     })
     .catch(err => err);
   },
@@ -161,7 +165,7 @@ export default {
 
   async passwordUpdate({commit}, user) {
     console.log('user code: ', user.user.users_id)
-
+    console.log("update user:", user.user);
     return await axios({
       method: "PUT",
       url: `${this.$axios.defaults.baseURL}/user/`+user.user.users_id,
@@ -171,9 +175,9 @@ export default {
       data: { ...user.user },
     })
     .then(result => {
-      console.log('hihi',result.data)
+      console.log('hihi',result)
       console.log(user)
-      commit("updateUser", user.user);
+      commit("passwordUpdate", user.user);
       return result.data;
     })
     .catch(err => err);

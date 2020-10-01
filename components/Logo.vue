@@ -48,7 +48,7 @@ export default {
   methods: {
     ...mapActions(['login']),
     logmein(){
-      // console.log('user details', this.user)
+      console.log("user login", this.user)
       this.login({
         user: this.user
       })
@@ -57,6 +57,7 @@ export default {
         if(result.error){
           alert(result.error)
         } else {
+          // this.$router.push('dashboard')
           window.location.href = 'dashboard'
           // console.log("local storageeee", localStorage);
         }
@@ -71,26 +72,7 @@ export default {
 
     
     }
-    //  async login() {
-    //   console.log("hello")    
-    //   await axios({
-    //     method: "GET",
-    //     url: `${this.$axios.defaults.baseURL}/role`,
-    //     header: {
-    //       "Content-Type": "application/json",
-    //       // "Access-Control-Allow-Origin": "http://localhost:4630",
-    //       // "Vary": "Origin"
-    //     },
-    //     data: {
-    //       username: this.username,
-    //       password: this.password
-    //     }
-    //   })
-    //   .then(result => {
-    //     console.log(this.username)
-    //       localStorage.username = this.username
-    //     });
-    // }
+
   },
   async beforeCreate() {
     await this.$store.dispatch("fetchUserList")

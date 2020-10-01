@@ -59,29 +59,16 @@
                           <table class="table table-hover table-borderless">
                             <thead>
                               <tr>
-                                <th>#</th>
                                 <th>Product Description</th>
                                 <th>Qty</th>
                               </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>
-                                    1
-                                  </td>
-                                  <td>Churned Milk 1kg</td>
-                                  <td>20</td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    2
-                                  </td>
-                                  <td>Dairy Meelk</td>
-                                  <td>35</td>
+                                <tr v-for="low in lowStocks" :key="low.id">
+                                  <td>{{low.product_description}}</td>
+                                  <td>{{low.quantity}}</td>
                                 </tr>
                               </tbody>
-                              
-                            
                           </table>
                         </div>
                       </div>
@@ -155,11 +142,11 @@ export default {
       console.log("inv",this.inventoryList);
       console.log("storage", localStorage);
       // var points = []
-      for(var i = 0; i < this.inventoryList.length-1; i++){
-        this.points[i].y = this.inventoryList[i].quantity
-        this.points[i].label = this.inventoryList[i].product_description
-      }
-      console.log(this.points);
+      // for(var i = 0; i < this.inventoryList.length-1; i++){
+      //   this.points[i].y = this.inventoryList[i].quantity
+      //   this.points[i].label = this.inventoryList[i].product_description
+      // }
+      // console.log(this.points);
 
       var chart = new CanvasJS.Chart("funnel-itemchart", {
         animationEnabled: true,
@@ -176,9 +163,6 @@ export default {
           indexLabel: "{label} - #percent%",
           toolTipContent: "<b>{label}:</b> {y} (#percent%)",
           dataPoints: 
-          // this.points
-          
-          // this.inventoryList[i].quantity
           [
             { y: 40, label: "Churned Milk 1kg" },
             { y: 75, label: "Cadbury 65g" },
@@ -196,7 +180,8 @@ export default {
             inventoryCounter: 'inventoryCounter',
             supplierCounter: 'supplierCounter',
             zeroStocks: 'zeroStocks',
-            inventoryList: 'inventoryList'
+            inventoryList: 'inventoryList',
+            lowStocks: 'lowStocks'
         })
     },
     async beforeCreate() {

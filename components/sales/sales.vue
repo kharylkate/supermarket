@@ -161,8 +161,8 @@
               <div class="form-row justify-content-center">
                 <div class="container text-center mb-2">
                   <h5>LOU GEH SUPERMARKET</h5>
-                  <small>Some bldg-name, st name, road name, STATE</small>
-                  <div class="mt-2"><small>{{sales.stransaction_date}}</small>  </div>
+                  <small>Jose Catolico Sr. Ave, Brgy, General Santos City, 9500 South Cotabato</small>
+                  <div><small>{{sales.stransaction_date}}</small>  </div>
                 </div>
 
                 <div class="container row mt-3">
@@ -179,7 +179,7 @@
                         <td>{{items.product_description}}</td>
                         <td>{{items.quantity}}</td>
                         <td>₱ {{items.sales_cost}}</td>
-                        <td>₱ {{(items.sales_cost * items.quantity).toFixed(2)}}</td>
+                        <!-- <td>₱ {{(items.sales_cost * items.quantity).toFixed(2)}}</td> -->
                       </tr>
                     </tbody>
                   </table>
@@ -195,7 +195,7 @@
                   <div class="mr-auto">Cash:</div>    
                   <div class="ml-auto">₱ {{sales.payment_amt}}</div>    
                 </div>
-                <div v-if="(sales.total_cost<sales.payment_amt)" class="row">
+                <div v-if="(sales.total_cost<=sales.payment_amt)" class="row">
                   <div class="mr-auto">Change: </div>    
                   <div class="ml-auto">₱ {{(sales.payment_amt-sales.total_cost).toFixed(2)}}</div>    
                 </div>

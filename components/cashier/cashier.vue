@@ -53,10 +53,10 @@
 
                         <div class="card col-md-4">
                             <div class="container mt-3">
-                                <div class="form-group my-2 px-2">
+                                <!-- <div class="form-group my-2 px-2">
                                     <label for="or_no">Receipt Number: </label>
                                     <input type="number" v-model="st.or_no" class="form-control">
-                                </div>
+                                </div> -->
                                 <div>
                                     <div class="mt-3">
                                         Customer Information
@@ -302,7 +302,7 @@
                                 <tr v-for="item in rows" :key="item.id">
                                     <td>{{item.barcode}}</td>
                                     <td>{{item.product_description}}</td>
-                                    <td>{{item.quantity}}</td>
+                                    <td>{{(item.quantity)}}</td>
                                     <td>{{item.sales_cost}}</td>
                                     <td v-if="((item.sales_cost * item.quantity)!= 0)">{{(item.sales_cost * item.quantity)}}</td>
                                 </tr>
@@ -494,8 +494,8 @@ export default {
             this.rows = [{
                 barcode: "",
                 product_description: "",
-                quantity: null,
-                sales_cost: null
+                quantity: "",
+                sales_cost: ""
             }],
             this.input_quantity = 0
         }

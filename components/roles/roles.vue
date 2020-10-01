@@ -47,7 +47,7 @@
             </div>
         </div>
 
-    <div class=" m-2 p-3">
+    <div>
       <b-table
         show-empty
         class="bg-white"

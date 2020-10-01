@@ -236,7 +236,7 @@ export default {
           alert(result)
           $("#editUser").modal('hide')
         }
-        })
+      })
 
       await this.$store.dispatch("fetchUserList")
       await this.$store.dispatch("fetchRolesList")
