@@ -41,6 +41,22 @@ export default {
     // .catch( err => err);
   },
 
+  async dateFilter({ commit }, range){
+    console.log("from actions: ", range.daterange);
+      return await axios({
+      method: "POST",
+      url: `${this.$axios.defaults.baseURL}/dtransaction_date`,
+      headers: {},
+      data: { ...range.daterange },
+    })
+    .then(result => {
+      console.log("eyy", result)
+      commit("dateFilter", result);
+      return result;
+    })
+    .catch( err => err);
+  },
+
 
 //======================================================================
 

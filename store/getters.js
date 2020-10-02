@@ -52,13 +52,11 @@ export default {
 
     lowStocks: state => {
         var low = [];
-
         for(var i = 0; i < state.inventoryList.length; i++){
             if(state.inventoryList[i].quantity <= 35){
                 low.push(state.inventoryList[i])
             }
         }
-        console.log(low)
         return low
     },
 
@@ -100,6 +98,10 @@ export default {
             delivery_transactions_items =>
             delivery_transactions_items.dr_no === id
             ));
+    },
+
+    getDateFilteredDelivery(state) {
+        return state.delivery_datefilter;
     },
 
     getSelectedRole: state => {

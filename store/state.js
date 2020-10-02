@@ -51,6 +51,8 @@ export default {
 
   delivery_transactions_items: [],
 
+  delivery_datefilter: [],
+
   selectedRole: {},
 
   selectedItem: [],

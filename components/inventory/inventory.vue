@@ -43,7 +43,6 @@
 
             <div class="form-group ml-auto mr-3">
               <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addInventory">
-                <img src="../../static/icons/file-earmark-plus.svg" alt="">
                 Add Item
               </button>
             </div>

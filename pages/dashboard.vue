@@ -39,6 +39,7 @@ import navbarCollapse from '../layouts/sidebar';
 import dashboard from '../components/dashboard';
 import { mapActions } from "vuex";
 
+
 export default {
     name: 'dashboard',
     data(){

@@ -17,6 +17,7 @@
 
 <script>
 import navbar from '../layouts/navbar';
+
 import navbarCollapse from '../layouts/sidebar';
 import inventory from '../components/inventory/inventory';
 import addInventory from '../components/inventory/add_inventory'

@@ -78,8 +78,12 @@
                     <div class="big-box ml-3">
                       <div class="card col-md-12">
                         <div class="card-header bg-white">Quantity Per Items</div>
-                        <div class="table table-responsive table-graph" id="funnel-itemchart">
+                        <!-- <div class="table table-responsive table-graph" id="myChart">
 
+                        </div> -->
+                        <div class="small">
+                          <line-chart :chart-data="datacollection"></line-chart>
+                          <button @click="fillData()">Randomize</button>
                         </div>
                       </div>
                     </div>
@@ -126,64 +130,111 @@
 <script>
 import {mapActions} from 'vuex';
 import { mapGetters } from 'vuex';
+import { LineChart } from '../node_modules/vue-chartjs/dist/vue-chartjs' //'../node_modules/vue-chartjs/dist/vue-chartjs'
 import * as CanvasJS from '../node_modules/canvasjs/dist/canvasjs'
 
 export default {
     name: 'dash-board',
+    components: { LineChart },
     data(){
       return{
         user: {},
         username: localStorage.username,
         role_name: localStorage.role_name,
-        points: []
+        points: [],
+        // arrr: this.inventoryList
+        datacollection: null
       }
     },
-    mounted: function() {
-      console.log("inv",this.inventoryList);
-      console.log("storage", localStorage);
-      // var points = []
-      // for(var i = 0; i < this.inventoryList.length-1; i++){
-      //   this.points[i].y = this.inventoryList[i].quantity
-      //   this.points[i].label = this.inventoryList[i].product_description
-      // }
-      // console.log(this.points);
-
-      var chart = new CanvasJS.Chart("funnel-itemchart", {
-        animationEnabled: true,
-        title:{
-          text: "",
-          horizontalAlign: "left"
-        },
-
-        data: [{
-          type: "doughnut",
-          startAngle: 60,
-          //innerRadius: 60,
-          indexLabelFontSize: 17,
-          indexLabel: "{label} - #percent%",
-          toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-          dataPoints: 
-          [
-            { y: 40, label: "Churned Milk 1kg" },
-            { y: 75, label: "Cadbury 65g" },
-            { y: 45, label: "Dairy Meelk 250 mL" },
-            { y: 70, label: "Hershey's Chocs 65g"},
-            { y: 50, label: "Oreo Cookies"},
-            { y: 40, label: "Muck n Cheez"}
-          ]
-        }]
-      });
-      chart.render();
-    },
     computed: {
-        ...mapGetters({
-            inventoryCounter: 'inventoryCounter',
-            supplierCounter: 'supplierCounter',
-            zeroStocks: 'zeroStocks',
-            inventoryList: 'inventoryList',
-            lowStocks: 'lowStocks'
-        })
+      ...mapGetters({
+        inventoryCounter: 'inventoryCounter',
+        supplierCounter: 'supplierCounter',
+        zeroStocks: 'zeroStocks',
+        inventoryList: 'inventoryList',
+        lowStocks: 'lowStocks'
+      })
     },
+    mounted() {
+      this.fillData()
+      
+
+     
+    },
+
+    methods: {
+      fillData() {
+        this.datacollection = {
+          labels: [this.getRandomInt(), this.getRandomInt()],
+          datasets: [
+            {
+              label: 'Data One',
+              backgroundColor: '#f87979',
+              data: [this.getRandomInt(), this.getRandomInt()]
+            }, {
+              label: 'Data One',
+              backgroundColor: '#f87979',
+              data: [this.getRandomInt(), this.getRandomInt()]
+            }
+          ]
+        }
+      },
+      getRandomInt () {
+        return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+      },
+      onLoad() {
+        console.log("inv",this.inventoryList);
+        console.log("storage", localStorage);
+        // console.log(this.arrr);
+        var dataPointers = []
+
+        for(var i = 0; i < this.inventoryList.length; i++){
+          dataPointers.push({
+            y: this.inventoryList[i].quantity,
+            label: this.inventoryList[i].product_description
+          })
+          // dataPointers.push({
+          //   'y': this.inventoryList[i].quantity, 'label': this.inventoryList[i].product_description
+          // })
+        }
+
+        console.log("datapoints", dataPointers);
+
+
+        var chart = new CanvasJS.Chart("funnel-itemchart", {
+          animationEnabled: true,
+          title:{
+            text: "",
+            horizontalAlign: "left"
+          },
+
+          data: [{
+            type: "doughnut",
+            startAngle: 60,
+            //innerRadius: 60,
+            indexLabelFontSize: 17,
+            indexLabel: "{label} - #percent%",
+            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+            dataPoints: dataPointers
+            // [
+            //   { y: 40, label: "Churned Milk 1kg" },
+            //   { y: 75, label: "Cadbury 65g" },
+            //   { y: 45, label: "Dairy Meelk 250 mL" },
+            //   { y: 70, label: "Hershey's Chocs 65g"},
+            //   { y: 50, label: "Oreo Cookies"},
+            //   { y: 40, label: "Muck n Cheez"}
+            // ]
+          }]
+        });
+        
+        
+        chart.render();
+      },
+
+
+
+    },
+
     async beforeCreate() {
       await this.$store.dispatch("fetchInventoryList")
     }

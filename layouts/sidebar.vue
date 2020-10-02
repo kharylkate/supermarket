@@ -2,7 +2,9 @@
     <nav  id="navbarCollapse" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style>
           
         <div class="container text-center">
-            <img class="img-thumbnail mt-3" src="../static/lgs.png" alt="" width="210" height="60">
+            <nuxt-link to="/dashboard">
+                <img class="img-thumbnail mt-3" src="../static/lgs.png" alt="" width="210" height="60">
+            </nuxt-link>
             <p class="mt-4 mb-3 text-center">Welcome,  <b>{{username}}</b></p>
         </div>
         <hr>

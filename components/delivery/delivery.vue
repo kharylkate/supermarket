@@ -29,7 +29,7 @@
                 </b-col>
                 
                 <div>
-                  <b-input-group prepend="Date" size="sm" >
+                  <b-input-group size="sm" >
                     <date-range-picker
                         id="date_pending"
                         ref="picker"
@@ -45,6 +45,14 @@
                           {{ datePicker.startDate }} - {{ datePicker.endDate }}
                         </div>
                       </date-range-picker>
+                      <b-input-group-append>
+                        <b-button
+                          @click="resetDate"
+                          id="date_reset_pending"
+                          style="font-size:12px"
+                          >Reset</b-button
+                        >
+                      </b-input-group-append>
                   </b-input-group>
                 </div>
 
@@ -392,6 +400,7 @@ export default {
 
         this.updateValues();
       },
+      ...mapActions(['dateFilter']),
       async updateValues() {
 
         this.datePicker.startDate = moment(this.datePicker.startDate).format(
@@ -408,15 +417,31 @@ export default {
           ));
 
         console.log("daterange", this.dateRange);
+        // await this.dateFilter({
+        //   daterange: this.dateRange
+        // })
 
+        // this.deliveryList = this.getDateFilteredDelivery
+        // console.log("fields", this.deliveryList);
+
+        // this.filterdelivery(row, dateRange)
       
       },
+      filterdelivery(row, range){
+        table_date = moment(row.transaction_date).format("YYY-MM-DD")
+        if(range.date_from <= table_date <= range.date_to){
+          return true;
+        } else {
+          return false;
+        }
+      }
 
     },
     computed: {
       ...mapGetters({
         deliveryList: "deliveryList",
-        suppliersList: "suppliersList"
+        suppliersList: "suppliersList",
+        getDateFilteredDelivery: "getDateFilteredDelivery"
       }),
       tablerows() {
         return this.deliveryList.length
@@ -431,8 +456,12 @@ export default {
       
   
     },
+    created(){
+      this.$store.dispatch("getDateFilteredDelivery");
+    },
     async beforeCreate() {
       await this.$store.dispatch("fetchDTransactionsList")
+      await this.$store.dispatch("getDateFilteredDelivery");
     }
     
 }

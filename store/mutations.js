@@ -31,6 +31,11 @@ export default {
         
     },
 
+    dateFilter(state, datefilter) {
+        console.log(datefilter);
+        state.delivery_datefilter.push(datefilter)
+    },
+
     addSales: (state, salesData) => {
         state.sales_transactions.push(salesData.sales)
     },
