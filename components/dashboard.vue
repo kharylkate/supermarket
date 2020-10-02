@@ -93,9 +93,10 @@
                     <div class="big-box ml-3">
                       <div class="card col-md-12">
                         <div class="card-header bg-white">Quantity Per Items</div>
-                        <div class="table table-responsive table-graph" id="funnel-itemchart">
+                        <LineChart />
+                        <!-- <div class="table table-responsive table-graph" id="funnel-itemchart">
                           
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -112,6 +113,7 @@
 import {mapActions} from 'vuex';
 import { mapGetters } from 'vuex';
 // import CanvasJS from 'canvasjs';
+import LineChart from '../components/LineChart'
 
 
 export default {

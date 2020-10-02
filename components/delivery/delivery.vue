@@ -129,9 +129,9 @@ export default {
         // })
       },
     },
-    async beforeCreate() {
-        await this.$store.dispatch("fetchDTransactionsList")
-    }
+    // async beforeCreate() {
+    //     await this.$store.dispatch("fetchDTransactionsList")
+    // }
     
 }
 </script>

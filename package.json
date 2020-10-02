@@ -16,10 +16,12 @@
     "bootstrap-icons": "^1.0.0-alpha5",
     "bootstrap-vue": "^2.15.0",
     "canvasjs": "^1.8.3",
+    "chart.js": "^2.9.3",
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "nuxt": "^2.14.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.1"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",

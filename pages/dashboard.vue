@@ -26,13 +26,13 @@ export default {
     data(){
         return {
             username: localStorage.username,
-            role_name: localStorage.role_name
+            role_name: localStorage.role_name,
         }
     },
     components: {
         navbar,
         'navbarCollapse': navbarCollapse,
-        'dash-board': dashboard
+        'dash-board': dashboard,
     }
 }
 </script>
