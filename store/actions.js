@@ -12,7 +12,7 @@ export default {
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/new/login`,
-      headers: {},
+      headers: {"Content-Type": "application/json"},
       data: { ...login.user },
     })
     .then(result => {
@@ -46,7 +46,7 @@ export default {
       return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/dtransaction_date`,
-      headers: {},
+      headers: {"Content-Type": "application/json"},
       data: { ...range.daterange },
     })
     .then(result => {

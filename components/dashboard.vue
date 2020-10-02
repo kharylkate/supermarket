@@ -12,9 +12,9 @@
                 <!-- </div> -->
 
               <div class="d-flex bg-white"> 
-                <div class="row col-md-12 d-flex">
-                  <div class="small-box col-md-4 m-0">
-                    <div class="card col m-3">
+                <div class="row col-md-12 mt-3 mx-auto">
+                  <div class="small-box col-md-4">
+                    <div class="card col">
                       <div class="card-body d-flex">
                         <div class="row">
                           <h3 class="text-left">STOCKS</h3>
@@ -25,7 +25,7 @@
                     </div>
                   </div>
                   <div class="small-box col-md-4 m-0">
-                    <div class="card col m-3">
+                    <div class="card col">
                       <div class="card-body d-flex">
                         <div class="row">
                           <h3 class="text-left">SUPPLIERS</h3>
@@ -35,8 +35,8 @@
                       <div class="card-footer bg-white"><small></small></div>
                     </div>
                   </div>
-                  <div class="small-box col-md-4 m-0">
-                    <div class="card col m-3">
+                  <div class="small-box col-md-4">
+                    <div class="card col">
                       <div class="card-body d-flex">
                         <div class="row">
                           <h3 class="text-left">ZERO STOCKS</h3>
@@ -50,9 +50,9 @@
               </div>
 
               <div class="d-flex bg-white"> 
-                <div class="row col-md-12">
-                  <div class="col-md-4 mb-3 mt-3 ml-3">
-                    <div class="big-box m-0">
+                <div class="row col-md-12 mt-3 mx-auto">
+                  <div class="col-md-4 mb-3">
+                    <div class="big-box">
                       <div class="card col-md-12">
                         <div class="card-header bg-white">Low Stock Products</div>
                         <div class="table-responsive low-stock">
@@ -74,17 +74,11 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-8 row mb-3 mt-3">
-                    <div class="big-box ml-3">
+                  <div class="col-md-8 mb-3">
+                    <div class="big-box">
                       <div class="card col-md-12">
                         <div class="card-header bg-white">Quantity Per Items</div>
-                        <!-- <div class="table table-responsive table-graph" id="myChart">
-
-                        </div> -->
-                        <div class="small">
-                          <line-chart :chart-data="datacollection"></line-chart>
-                          <button @click="fillData()">Randomize</button>
-                        </div>
+                        <Doughnut />
                       </div>
                     </div>
                   </div>
@@ -130,19 +124,18 @@
 <script>
 import {mapActions} from 'vuex';
 import { mapGetters } from 'vuex';
-import { LineChart } from '../node_modules/vue-chartjs/dist/vue-chartjs' //'../node_modules/vue-chartjs/dist/vue-chartjs'
 import * as CanvasJS from '../node_modules/canvasjs/dist/canvasjs'
+import Doughnut from '../components/Doughnut'
 
 export default {
     name: 'dash-board',
-    components: { LineChart },
+    components: { Doughnut },
     data(){
       return{
         user: {},
         username: localStorage.username,
         role_name: localStorage.role_name,
         points: [],
-        // arrr: this.inventoryList
         datacollection: null
       }
     },
@@ -154,85 +147,6 @@ export default {
         inventoryList: 'inventoryList',
         lowStocks: 'lowStocks'
       })
-    },
-    mounted() {
-      this.fillData()
-      
-
-     
-    },
-
-    methods: {
-      fillData() {
-        this.datacollection = {
-          labels: [this.getRandomInt(), this.getRandomInt()],
-          datasets: [
-            {
-              label: 'Data One',
-              backgroundColor: '#f87979',
-              data: [this.getRandomInt(), this.getRandomInt()]
-            }, {
-              label: 'Data One',
-              backgroundColor: '#f87979',
-              data: [this.getRandomInt(), this.getRandomInt()]
-            }
-          ]
-        }
-      },
-      getRandomInt () {
-        return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-      },
-      onLoad() {
-        console.log("inv",this.inventoryList);
-        console.log("storage", localStorage);
-        // console.log(this.arrr);
-        var dataPointers = []
-
-        for(var i = 0; i < this.inventoryList.length; i++){
-          dataPointers.push({
-            y: this.inventoryList[i].quantity,
-            label: this.inventoryList[i].product_description
-          })
-          // dataPointers.push({
-          //   'y': this.inventoryList[i].quantity, 'label': this.inventoryList[i].product_description
-          // })
-        }
-
-        console.log("datapoints", dataPointers);
-
-
-        var chart = new CanvasJS.Chart("funnel-itemchart", {
-          animationEnabled: true,
-          title:{
-            text: "",
-            horizontalAlign: "left"
-          },
-
-          data: [{
-            type: "doughnut",
-            startAngle: 60,
-            //innerRadius: 60,
-            indexLabelFontSize: 17,
-            indexLabel: "{label} - #percent%",
-            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-            dataPoints: dataPointers
-            // [
-            //   { y: 40, label: "Churned Milk 1kg" },
-            //   { y: 75, label: "Cadbury 65g" },
-            //   { y: 45, label: "Dairy Meelk 250 mL" },
-            //   { y: 70, label: "Hershey's Chocs 65g"},
-            //   { y: 50, label: "Oreo Cookies"},
-            //   { y: 40, label: "Muck n Cheez"}
-            // ]
-          }]
-        });
-        
-        
-        chart.render();
-      },
-
-
-
     },
 
     async beforeCreate() {
