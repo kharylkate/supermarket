@@ -74,9 +74,9 @@
                                         <option disabled selected >Scan?</option>
                                         <option v-for="item in inventoryList" :key="item.id" :value="item.barcode">{{item.barcode}} - {{item.product_description}}</option>
                                     </select> -->
-                                    <input placeholder="barcode" type="text" id="st-area" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
+                                    <input placeholder="Barcode" type="text" id="st-area" @keyup.enter="show()" value="" list="items-list" class="form-control mt-4">
                                     <datalist id="items-list">
-                                        <option v-for="item in inventoryList" :key="item.id" :value="item.inventory_id" >{{item.product_description}}</option>
+                                        <option v-for="item in inventoryList" :key="item.id" :value="item.barcode" >{{item.product_description}}</option>
                                     </datalist>
                                 </div>
                                 
@@ -417,7 +417,7 @@ export default {
                 });
                 
 
-                total = parseFloat(this.getSelectedItem.sales_cost)
+                total = parseInt(this.getSelectedItem.sales_cost)
                 this.st.total_cost += parseFloat(total)
 
                 document.getElementById("st-area").value = ""
@@ -479,9 +479,9 @@ export default {
             }
         },
         receipt(){
-            if((this.total_cost <= this.payment_amt)) {
+            // if((this.payment_amt > 0)) {
                 $("#viewTransaction").modal('show');
-            }
+            // }
         },
         exit(){
             $("#viewTransaction").modal('hide');
@@ -489,7 +489,7 @@ export default {
         newSales(){
             this.st = {},
             this.input_payment_amt = 0,
-            this.total_cost = 0,
+            this.st.total_cost = 0,
             this.st.payment_amt = 0
             this.rows = [{
                 barcode: "",

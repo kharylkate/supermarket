@@ -26,7 +26,7 @@
                     </b-form-group>
                   </b-col>
 
-                  <div>
+                  <!-- <div>
                     <b-input-group prepend="Date" size="sm" >
                       <date-range-picker
                           id="date_pending"
@@ -44,7 +44,7 @@
                           </div>
                         </date-range-picker>
                     </b-input-group>
-                  </div>
+                  </div> -->
 
 
                   <div class="form-group mx-2 col-md-2">
@@ -61,9 +61,9 @@
                     </div>
                   </div>
 
-                  <div class="form-group mx-2">
+                  <div v-if="salesList.length > 0" class="form-group mx-2">
                     <button type="button" class="btn btn-sm lg-btn" @click="toPdf()">
-                      <img src="../../static/icons/file-earmark-arrow-down.svg" alt="">
+                      <!-- <img src="../../static/icons/file-earmark-arrow-down.svg" alt=""> -->
                       Export to PDF
                     </button>
                     
@@ -197,7 +197,7 @@
                 </div>
                 <div v-if="(sales.total_cost<=sales.payment_amt)" class="row">
                   <div class="mr-auto">Change: </div>    
-                  <div class="ml-auto">₱ {{(sales.payment_amt-sales.total_cost).toFixed(2)}}</div>    
+                  <div class="ml-auto">₱ {{(sales.payment_amt - sales.total_cost).toFixed(2)}}</div>    
                 </div>
                 </div>
 
@@ -317,7 +317,7 @@
                         <li>
                           <div class="form-row d-flex col-md-12 mt-2">
                             <div class="form-group col-md-3">
-                              <label for="form__inventory_id">inventory_id</label>
+                              <label for="form__inventory_id">Barcode</label>
                             </div>
                             <div class="form-group col-md-3">
                               <label for="form__description">Description</label>
@@ -337,12 +337,12 @@
                           <div class="form-row d-flex col-md-12">
                             <div class="form-group col-md-3">
                               <input
-                                @keyup.enter="getinventory_id()"
+                                @keyup.enter="getbarcode()"
                                 type="text"
                                 list="inventory_id_list"
-                                v-model="row.inventory_id"
+                                v-model="row.barcode"
                                 class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id"
-                                placeholder="inventory_id"
+                                placeholder="Barcode"
                                 id="rtransaction_inventory_id"
                                 autocomplete="off"
                               />
@@ -350,7 +350,7 @@
                                 <option
                                   v-for="items in inventoryList"
                                   :key="items.id"
-                                  :value="items.inventory_id"
+                                  :value="items.barcode"
                                 >{{items.product_description}}</option>
                               </datalist>
                             </div>
@@ -545,12 +545,13 @@ export default {
         st: {
           total_cost: 0,
           or_no: null,
+          stransaction_date: new Date().toISOString().slice(0,10)
 
         },
         inv: {},
         rows: [
           {
-            inventory_id: "",
+            barcode: "",
             product_description: "",
             quantity: "",
             sales_cost: "",
@@ -558,6 +559,7 @@ export default {
         ],
         date_from: "",
         date_to: "",
+
       }
     },
     
@@ -578,8 +580,6 @@ export default {
       addModal(){
         let or_no = this.salesList[this.salesList.length-1].or_no+1
         this.st.or_no = or_no
-        // var d = new Date()
-        // this.st.stransaction_date = d
 
         console.log(this.inventoryList);
         $("#addSales").modal('show')
@@ -588,7 +588,7 @@ export default {
       addRow: function () {
         var elem = document.createElement("li");
         this.rows.push({
-          inventory_id: "",
+          barcode: "",
           product_description: "",
           quantity: "",
           sales_cost: "",
@@ -601,13 +601,14 @@ export default {
           this.rows.splice(index, 1);
         }
       },
-      async getinventory_id() {
+      async getbarcode() {
         //get inventory_id and load product info in respective input fields
         for (var i = 0; i < this.inventoryList.length; i++) {
           if (
-            this.inventoryList[i].inventory_id ==
-            this.rows[this.rows.length - 1].inventory_id
+            this.inventoryList[i].barcode ==
+            this.rows[this.rows.length - 1].barcode
           ) {
+            this.rows[this.rows.length - 1].inventory_id = this.inventoryList[i].inventory_id;
             this.rows[this.rows.length - 1].product_description = this.inventoryList[i].product_description;
             this.rows[this.rows.length - 1].sales_cost = this.inventoryList[i].sales_cost;
             this.rows[this.rows.length - 1].quantity = 1;

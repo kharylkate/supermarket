@@ -9,12 +9,12 @@
         </div>
         <hr>
 
-        <div v-if="role_name === 'cashier' " class="input-group mb-1 mt-5">
+        <!-- <div v-if="role_name === 'cashier' " class="input-group mb-1 mt-5">
             <input type="text" class="form-control form-control-sm search-filter" data-table="table-data" placeholder="Search">
             <div class="input-group-append">
             <span class="input-group-text"><img src="../static/icons/search.svg" alt=""></span>
             </div>
-        </div>  
+        </div>   -->
 
         <div class="sidebar-sticky pt-3 sidebarNav" >
             <div v-if="role_name === 'admin'" class="accordion" id="accordionExample">

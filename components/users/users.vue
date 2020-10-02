@@ -48,7 +48,7 @@
 
             <div class="form-group ml-auto mr-3">
               <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addUser">
-                <img src="../../static/icons/file-earmark-plus.svg" alt />
+                <!-- <img src="../../static/icons/file-earmark-plus.svg" alt /> -->
                 Add User
               </button>
             </div>

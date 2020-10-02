@@ -28,7 +28,7 @@
                   </b-form-group>
                 </b-col>
                 
-                <div>
+                <!-- <div>
                   <b-input-group size="sm" >
                     <date-range-picker
                         id="date_pending"
@@ -54,7 +54,7 @@
                         >
                       </b-input-group-append>
                   </b-input-group>
-                </div>
+                </div> -->
 
 
                 <div class="form-group mx-2 col-md-2">
@@ -71,9 +71,9 @@
                   </div>
                 </div>
 
-                <div class="form-group mx-2">
+                <div v-if="deliveryList.length > 0" class="form-group mx-2">
                   <button type="button" class="btn btn-sm lg-btn" @click="toPdf()">
-                    <img src="../../static/icons/file-earmark-arrow-down.svg" alt="">
+                    <!-- <img src="../../static/icons/file-earmark-arrow-down.svg" alt=""> -->
                     Export to PDF
                   </button>
                   
@@ -128,34 +128,6 @@
               aria-controls="deliverytable">
               </b-pagination>
             </div>
-        
-        <!-- <div class="table-responsive bg-white rounded-lg">
-            <table :per-page="perPage" :current-page="currentPage" class="table table-data data-table align-items-center table-flush" id="deliverytable">
-            <thead class="thead-sea-green">
-                <tr>
-                  <th scope="col" class="sort" data-sort="name">Delivery Receipt Number</th>
-                  <th scope="col" class="sort" data-sort="name">Supplier</th>
-                  <th scope="col" class="sort" data-sort="name">Date of Delivery</th>
-                  <th scope="col" class="sort" data-sort="status">Total Amount</th>
-
-                  <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody class="list" id="delivery_table">
-
-                <tr v-for="dt in deliveryList" :key="dt.dtransactions_code">
-                    <td>{{dt.dr_no}}</td>
-                    <td>{{dt.supplier_name}}</td>
-                    <td>{{ new Date(dt.transaction_date).toDateString()}}, {{ new Date(dt.transaction_date).getUTCHours()}}:{{ new Date(dt.transaction_date).getUTCMinutes()}}:{{ new Date(dt.transaction_date).getUTCSeconds()}}</td>
-                    <td>₱{{dt.total_cost}}</td>
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" data-target="#viewDelivery" @click="select(dt)"><img src="../../static/icons/eye.svg" alt=""></button></td>
-                </tr>
-            </tbody>
-            </table>
-
-           
-
-        </div> -->
 
          <div class="modal fade" id="viewDelivery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -258,7 +230,9 @@ export default {
     },
     data() {
       return {
-        dt: {},
+        dt: {
+
+        },
         filter_supplier: "",
         filter_items: 5,
         totalRows: 1,
@@ -417,15 +391,7 @@ export default {
           ));
 
         console.log("daterange", this.dateRange);
-        // await this.dateFilter({
-        //   daterange: this.dateRange
-        // })
 
-        // this.deliveryList = this.getDateFilteredDelivery
-        // console.log("fields", this.deliveryList);
-
-        // this.filterdelivery(row, dateRange)
-      
       },
       filterdelivery(row, range){
         table_date = moment(row.transaction_date).format("YYY-MM-DD")

@@ -63,7 +63,7 @@
                                 <th>Qty</th>
                               </tr>
                               </thead>
-                              <tbody>
+                              <tbody v-if="lowStocks != null">
                                 <tr v-for="low in lowStocks" :key="low.id">
                                   <td>{{low.product_description}}</td>
                                   <td>{{low.quantity}}</td>

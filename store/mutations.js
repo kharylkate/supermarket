@@ -145,7 +145,7 @@ export default {
     },
 
     viewSelectedItem(state, item) {
-        const product = state.inventoryList.find(p => p.inventory_id == item)
+        const product = state.inventoryList.find(p => p.barcode == item)
         state.selectedItem = product
         return product
     },

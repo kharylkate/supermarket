@@ -23,16 +23,10 @@ d<template>
                 <div class="form-group col-md-6 mb-4">
                 
                   <label >Supplier: </label>
-                  {{activeSupplier}}
-                  <!-- <v-select v-model="dt.suppler_code" :options="suppliersList.companyt_name" ></v-select> -->
                   <select name="suppliers" id="suppliers" v-model="dt.supplier_id" class="form-control form-control-sm">
                     <option selected hidden>Supplier</option>
                     <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_id">{{supply.company_name}}</option>
                   </select>
-                    <!-- <input v-model="dt.supplier_id" class="form-control form-control-sm form-control form-control-sm-sm" list="suppliers" name="suppliers" autocomplete="off" placeholder="Supplier">      
-                  <datalist id="suppliers">
-                    <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_id">{{supply.company_name}}</option>
-                  </datalist> -->
                 </div>
               </div>
 
@@ -50,7 +44,7 @@ d<template>
                   <li>
                       <div class="form-row d-flex col-md-12 mt-2">
                         <div class="form-group col-md-3">
-                          <label for="form__inventory_id">inventory_id:</label>
+                          <label for="form__inventory_id">Barcode:</label>
                         </div>
                         <div class="form-group col-md-3">
                           <label for="form__description">Product Description:</label>
@@ -69,9 +63,9 @@ d<template>
                   <li v-for="(row, index) in items" :key="index.id">
                   <div class="form-row d-flex col-md-12 mt-0">
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.inventory_id" list="inventory_id-list" class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id" @keyup.enter="getinventory_id()" placeholder="inventory_id" id="rtransaction_inventory_id" autocomplete="off">
+                      <input type="text" v-model="row.barcode" list="inventory_id-list" class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id" @keyup.enter="getinventory_id()" placeholder="Barcode" id="rtransaction_inventory_id" autocomplete="off">
                       <datalist id="inventory_id-list">
-                        <option v-for="inv in inventoryList" :key="inv.id" :value="inv.inventory_id" >{{inv.product_description}}</option>
+                        <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
                       </datalist>
                     </div>
                     <div class="form-group col-md-3">
@@ -118,6 +112,7 @@ d<template>
 <script>
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
+import moment from "moment";
 
 export default {
     name: 'modal-addDelTrans',
@@ -127,20 +122,19 @@ export default {
         inventoryList: 'inventoryList',
         deliveryList: 'deliveryList'
       }),
-      activeSupplier: function() {
-        
-      }
+
     },
     data() {
       return {
         items: [{
-          inventory_id: "",
+          barcide: "",
           description: "",
           quantity: "",
           cost_per_unit: ""
         }],
         dt: {
-          total_cost: 0
+          total_cost: 0,
+          transaction_date: new Date().toISOString().slice(0,10)
         },
         
       }
@@ -154,6 +148,10 @@ export default {
           quantity: "",
           cost_per_unit: ""
         });
+        // var d =  new Date()
+        // var e = new Date().toLocaleDateString()
+        // console.log(e);
+        // console.log(moment(d).format("MM/DD/YYYY"));
       },
       removeElement: function(index){
         this.items.splice(index,1)
@@ -171,9 +169,8 @@ export default {
         console.log(this.inventoryList);
 
         for(var i = 0; i < this.inventoryList.length; i++){
-          if(this.inventoryList[i].inventory_id == this.items[this.items.length-1].inventory_id){
+          if(this.inventoryList[i].barcode == this.items[this.items.length-1].barcode){
             this.items[this.items.length-1].description = this.inventoryList[i].product_description
-            // this.items[this.items.length-1].unit_cost = this.inventoryList[i].unit_cost
             this.items[this.items.length - 1].inventory_id = this.inventoryList[i].inventory_id
             this.items[this.items.length - 1].cost_per_unit = this.inventoryList[i].unit_cost
           }

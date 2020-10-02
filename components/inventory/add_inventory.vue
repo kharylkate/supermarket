@@ -22,7 +22,7 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_name">Product Description: </label>
-                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description">
+                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description" autocomplete="off">
               </div>
 
               <div class="form-group col-md-8">
