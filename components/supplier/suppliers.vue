@@ -248,11 +248,35 @@ export default {
               supplier: this.supplier,
           })
           .then((result) => {
-              console.log(result)
-              alert(result)
+            if(result.error){
+              this.toast(false, result.error, 'danger')
+            } else {
+              // console.log(result)
+              // alert(result)
               $("#editSupplier").modal('hide')
+              this.toast(false, result, 'success')
+            }
           })
           await this.$store.dispatch("fetchSuppliersList")
+        },
+        toast(success = false, msg, variant) {
+          if(success){
+            this.$bvToast.toast(msg, {
+              title: 'Success',
+              toaster: 'b-toaster-bottom-right',
+              solid: true,
+              variant: variant,
+              autoHideDelay: 3000,
+            })
+          } else {
+            this.$bvToast.toast(msg, {
+              title: 'Error',
+              toaster: 'b-toaster-bottom-right',
+              solid: true,
+              variant: variant,
+              autoHideDelay: 3000,
+            })
+          }
         },
         items() {
           this.perPage = this.filter_items

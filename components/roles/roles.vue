@@ -213,20 +213,41 @@ export default {
       })
       .then((result) =>{
         if(result.error) {
-          alert(result.error)
+          // alert(result.error)
+          this.toast(false, result.error, 'danger')
         } else {
           $("#editRole").modal('hide');
-          alert(result)
+          // alert(result)
+          this.toast(false, result, 'success')
         }
       })
      },
-     items() {
-          this.perPage = this.filter_items
-        },
-        onFiltered(filteredItems) {
-          this.totalRows = filteredItems.length
-          this.currentPage = 1
+    toast(success = false, msg, variant) {
+      if(success){
+          this.$bvToast.toast(msg, {
+            title: 'Success',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        } else {
+          this.$bvToast.toast(msg, {
+            title: 'Error',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
         }
+      },
+    items() {
+      this.perPage = this.filter_items
+    },
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
+    }
   },
   async beforeCreate() {
     await this.$store.dispatch("fetchRolesList");

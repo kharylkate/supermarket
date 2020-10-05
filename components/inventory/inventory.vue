@@ -227,21 +227,41 @@ export default {
           this.inventory.updated_by =  localStorage.uid
           this.inventory.updateby_at = "today"
 
-          console.log('clicked', this.inventory)
           await this.updateInventory({
               inventory: this.inventory,
           })
           .then((result) => {
             if(result.error){
-              alert(result.error)
+              // alert(result.error)
+              this.toast(false, result.error, 'danger')
             } else {
               $("#editTrans").modal('hide')
-              alert(result)
+              // alert(result)
+              var msg = "You have successfully updated an item"
+              this.toast(true, msg, 'success')
             }
           })
           await this.$store.dispatch("fetchInventoryList")
 
-          
+        },
+        toast(success = false, msg, variant) {
+          if(success){
+            this.$bvToast.toast(msg, {
+              title: 'Success',
+              toaster: 'b-toaster-bottom-right',
+              solid: true,
+              variant: variant,
+              autoHideDelay: 3000,
+            })
+          } else {
+            this.$bvToast.toast(msg, {
+              title: 'Error',
+              toaster: 'b-toaster-bottom-right',
+              solid: true,
+              variant: variant,
+              autoHideDelay: 3000,
+            })
+          }
         },
         
         items() {

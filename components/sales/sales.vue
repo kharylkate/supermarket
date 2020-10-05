@@ -585,7 +585,7 @@ export default {
         let or_no = this.salesList[this.salesList.length-1].or_no+1
         this.st.or_no = or_no
 
-        console.log(this.inventoryList);
+
         $("#addSales").modal('show')
         
       },
@@ -600,7 +600,9 @@ export default {
       },
       removeElement: function (index) {
         if((this.rows.length-1)==0){
-          alert("Item is required")
+          // alert("Item is required")
+          var msg = "Item is required"
+          this.toast(false, msg, 'danger')
         }else {
           this.rows.splice(index, 1);
         }
@@ -643,12 +645,18 @@ export default {
         var transcost = $("#stransaction_cost").val()
         var payment = $("#stransaction_payment").val()
 
-        if((barcode == null) || (prod_description == null) || (qty == null) || (transcost == null) || (payment == null)){
-          alert("Please fill in form")
+        if((barcode == "") || (prod_description == "") || (qty == "") || (transcost == "") || (payment == "")){
+          // alert("Please fill in form")
+          var msg = "Please check for missing field"
+          this.toast(false, msg, 'danger')
+
         } else {
           //payment should be enough or more than the total cost to continue
           if(this.st.total_cost > this.st.payment_amt){
-            alert("Payment not enough")
+            // alert("Payment not enough")
+          var msg = "Payment not enough"
+            this.toast(false, msg, 'danger')
+
           } else {
             //if payment == enough
 
@@ -659,11 +667,13 @@ export default {
               sales: this.st,
             })
             .then((result) => {
-              console.log("result", result);
               if(result.error){
-                alert(result.error)
+                // alert(result.error)
+                this.toast(false, result.error, 'danger')
+
               } else {
-                alert(result.message)
+                // alert(result.message)
+                this.toast(false, result.message, 'success')
                 $("#addSales").modal("hide");
                 $("#add_item_form")[0].reset();
               }
@@ -674,6 +684,25 @@ export default {
           await this.$store.dispatch("fetchSalesList");
           await this.$store.dispatch("fetchInventoryList");
           }
+      },
+      toast(success = false, msg, variant) {
+      if(success){
+          this.$bvToast.toast(msg, {
+            title: 'Success',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        } else {
+          this.$bvToast.toast(msg, {
+            title: 'Error',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        }
       },
       items() {
       this.perPage = this.filter_items

@@ -154,13 +154,12 @@ export default {
         // console.log(moment(d).format("MM/DD/YYYY"));
       },
       removeElement: function(index){
-        this.items.splice(index,1)
-
-        for(var i = 0; i < this.items.length-1; i++){
-          console.log(this.items);
-          if(this.items[i].quantity && this.items[i].cost_per_unit != ""){
-            this.dt.total_cost += (parseInt(this.items[i].quantity * this.items[i].cost_per_unit))
-          }
+        if((this.items.length-1)==0){
+          // alert("Item is required")
+          var msg = "Item is required"
+          this.toast(false, msg, 'danger')
+        }else {
+          this.items.splice(index, 1);
         }
 
       },
@@ -191,7 +190,9 @@ export default {
         var transcost = $("#rtransaction_cost").val()
 
         if((transdate == null) || (dr_no == null) || (barcode == null) || (suppliers == null) || (prod_description == null) || (qty == null) || (transcost == null)){
-          alert("Please fill up form")
+          // alert("Please fill up form")
+          var msg = "Please check for missing fields"
+          this.toast(false, msg, 'danger')
         } else {
           this.dt.items = this.items
           this.dt.created_by = localStorage.uid
@@ -200,11 +201,13 @@ export default {
           })
           .then((result) => {
             if(result.error){
-              alert(result.error)
+              // alert(result.error)
+              this.toast(false, result.error, 'danger')
             } else {
               $("#addDelTrans").modal('hide');
               $("#add_item_form")[0].reset();
-              alert(result.message)
+              // alert(result.message)
+              this.toast(false, result.message, 'success')
             }
           })
         }
@@ -212,6 +215,25 @@ export default {
         await this.$store.dispatch("fetchDTransactionsList")
         
 
+      },
+      toast(success, msg, variant) {
+        if(success){
+          this.$bvToast.toast(msg, {
+            title: 'Success',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        } else {
+          this.$bvToast.toast(msg, {
+            title: 'Error',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        }
       },
       getTotal: function(){
         var total = 0;
