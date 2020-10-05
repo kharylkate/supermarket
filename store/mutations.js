@@ -18,6 +18,7 @@ export default {
 
         localStorage.username = result.data.username
         localStorage.role_name = result.data.role_name
+        localStorage.employee_code = result.data.employee_code
         localStorage.uid = result.data.users_id
         localStorage.isDefault = result.data.isDefault
                 

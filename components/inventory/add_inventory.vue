@@ -91,9 +91,8 @@ export default {
             alert(result.message)
           }
         })
-        
-
         await this.$store.dispatch("fetchInventoryList")
+        
       },
       cancel() {
         $("#addInventory").modal('hide');

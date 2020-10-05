@@ -78,7 +78,7 @@ export default {
             this.user.username = this.username
             this.user.password = this.new_pass_validate
             this.user.users_id = localStorage.uid,
-            this.user.employee_code = 1265,
+            this.user.employee_code = localStorage.employee_code,
             this.user.role_id = 2,
             this.user.updated_by = localStorage.uid,
             this.user.updated_at = "today"

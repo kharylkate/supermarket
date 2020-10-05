@@ -51,7 +51,7 @@
 
               <div class="d-flex bg-white"> 
                 <div class="row col-md-12 mt-3 mx-auto">
-                  <div class="col-md-4 mb-3">
+                  <div class="col-md-12 mb-3">
                     <div class="big-box">
                       <div class="card col-md-12">
                         <div class="card-header bg-white">Low Stock Products</div>
@@ -59,13 +59,19 @@
                           <table class="table table-hover table-borderless">
                             <thead>
                               <tr>
+                                <th>Barcode</th>
                                 <th>Product Description</th>
-                                <th>Qty</th>
+                                <th>Unit Cost</th>
+                                <th>Sales Cost</th>
+                                <th>Quantity</th>
                               </tr>
                               </thead>
                               <tbody v-if="lowStocks != null">
                                 <tr v-for="low in lowStocks" :key="low.id">
+                                  <td>{{ low.barcode }}</td>
                                   <td>{{low.product_description}}</td>
+                                  <td>{{low.unit_cost}}</td>
+                                  <td>{{low.sales_cost}}</td>
                                   <td>{{low.quantity}}</td>
                                 </tr>
                               </tbody>
@@ -74,14 +80,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-8 mb-3">
+                  <!-- <div class="col-md-8 mb-3">
                     <div class="big-box">
                       <div class="card col-md-12">
                         <div class="card-header bg-white">Quantity Per Items</div>
                         <Doughnut />
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
                 

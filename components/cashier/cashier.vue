@@ -269,7 +269,6 @@
                 <div class="modal-body">
                     <div class="container">
                     
-
                     <div> 
                         <div class="form-row justify-content-center">
                             <div class="container text-center mb-2">
