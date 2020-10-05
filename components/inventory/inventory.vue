@@ -243,6 +243,7 @@ export default {
 
           
         },
+        
         items() {
           this.perPage = this.filter_items
         },

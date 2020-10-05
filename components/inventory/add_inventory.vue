@@ -81,8 +81,10 @@ export default {
         var itemcost = $("#add_itemcost").val()
         var salescost = $("#add_salescost").val()
 
-        if((barcode == null) || (description == null) || (itemcost == null) || (salescost == null)){
-          alert("Please fill in the form")
+        if((barcode == "") || (description == "") || (itemcost == "") || (salescost == "")){
+          var msg = "Please check for missing field"
+          this.toast(false, msg, 'danger')
+          // alert("Please fill in the form")
         } else {
           this.inventory.quantity = 0
           this.inventory.created_by = localStorage.uid
@@ -93,19 +95,37 @@ export default {
           })
           .then((result)=>{
             if(result.error){
-              alert(result.error)
+              // alert(result.error)
+              this.toast(false, result.error, 'danger')
             } else {
               $("#addInventory").modal('hide');
               $('#add_inventory_form')[0].reset();
-              alert(result.message)
+              // alert(result.message)
+              var msg = "You have successfully added an item"
+              this.toast(true, msg, 'success')
             }
           })
           await this.$store.dispatch("fetchInventoryList")
-        } 
-          
-
-        
-        
+        }  
+      },
+      toast(success = false, msg, variant) {
+        if(success){
+          this.$bvToast.toast(msg, {
+            title: 'Success',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        } else {
+          this.$bvToast.toast(msg, {
+            title: 'Error',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        }
       },
       cancel() {
         $("#addInventory").modal('hide');

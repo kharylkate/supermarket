@@ -72,8 +72,10 @@ export default {
         var username = $("#username").val()
         var select_role = $("#select_role").val()
 
-        if((employee_code == null) || (username == null) || (select_role == null)){
-          alert("Please fill the form")
+        if((employee_code == "") || (username == "") || (select_role == "")){
+          // alert("Please fill the form")
+          var msg = "Please check for missing field"
+          this.toast(false, msg, 'danger')
         } else {
            this.user.password = '1234'
           this.user.created_by = localStorage.uid
@@ -83,18 +85,39 @@ export default {
           })
           .then((result) => {
             if(result.error){
-              alert(result.error)
+              // alert(result.error)
+              this.toast(false, result.error, 'danger')
             } else {
               $("#addUser").modal('hide');
               $("#add_user_form")[0].reset();
-              alert("New user added successfully")
+              // alert("New user added successfully")
+              var msg = "You have successfully added a user"
+              this.toast(true, msg, 'success')
             }
           })
           await this.$store.dispatch("fetchUserList")
         }
-      }
+      },
+      toast(success = false, msg, variant) {
+        if(success){
+          this.$bvToast.toast(msg, {
+            title: 'Success',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        } else {
+          this.$bvToast.toast(msg, {
+            title: 'Error',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        }
+      },
 
-    
   },
   async beforeCreate() {
     await this.$store.dispatch("fetchRolesList")

@@ -55,6 +55,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -80,7 +81,9 @@ export default {
       var role_name = $("#role_name").val()
 
       if(role_name == "") {
-        alert("Please fill in the form")
+        // alert("Please fill in the form")
+        var msg = "Please check for missing field"
+        this.toast(false, msg, 'danger')
       } else {
         this.role.created_by = localStorage.uid
         this.role.created_at = "today"
@@ -90,18 +93,36 @@ export default {
         })
         .then((result) => {
           if(result.error){
-            alert(result.error)
+            // alert(result.error)
+            this.toast(false, result.error, 'danger')
           } else {
             $("#addRole").modal('hide');
             $("#add_role_form")[0].reset();
-            alert(result.message)
+            var msg = "You have successfully added a role"
+            this.toast(true, msg, 'success')
           }
         })
       }
-
-      this.$store.dispatch("fetchRolesList")
-
       
+    },
+    toast(success = false, msg, variant) {
+      if(success){
+        this.$bvToast.toast(msg, {
+          title: 'Success',
+          toaster: 'b-toaster-bottom-right',
+          solid: true,
+          variant: variant,
+          autoHideDelay: 3000,
+        })
+      } else {
+        this.$bvToast.toast(msg, {
+          title: 'Error',
+          toaster: 'b-toaster-bottom-right',
+          solid: true,
+          variant: variant,
+          autoHideDelay: 3000,
+        })
+      }
     },
   }
 };

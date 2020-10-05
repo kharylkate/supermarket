@@ -78,8 +78,9 @@ export default {
         var contactno = $("#contactno").val()
         var compadd = $("#compadd").val()
 
-        if((compname == null) || (contactno == null) || (compadd == null)){
-          alert("Please fill in the form")
+        if((compname == "") || (contactno == "") || (compadd == "")){
+          var msg = "Please check for missing field"
+          this.toast(false, msg, 'danger')
         } else {
           this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
           this.supplier.status = true
@@ -89,22 +90,38 @@ export default {
             supplier: this.supplier
           })
           .then((result) => {
-            console.log("result: ",result);
             if(result.error){
-              alert(result.error)
+              // alert(result.error)
+              this.toast(false, result.error, 'danger')
             } else {
               $("#addSupplier").modal('hide');
               $('#add_supplier_form')[0].reset();
-              alert(result.message)
+              // alert(result.message)
+              var msg = "You have successfully added a supplier"
+              this.toast(true, msg, 'success')
             }
           })
+        }   
+      },
+      toast(success = false, msg, variant) {
+        if(success){
+          this.$bvToast.toast(msg, {
+            title: 'Success',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
+        } else {
+          this.$bvToast.toast(msg, {
+            title: 'Error',
+            toaster: 'b-toaster-bottom-right',
+            solid: true,
+            variant: variant,
+            autoHideDelay: 3000,
+          })
         }
-        
-            
-      
-        // console.log(supplier)
-        
-      }
+      },
 
     
     }
