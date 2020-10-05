@@ -63,19 +63,19 @@ d<template>
                   <li v-for="(row, index) in items" :key="index.id">
                   <div class="form-row d-flex col-md-12 mt-0">
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.barcode" list="inventory_id-list" class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id" @keyup.enter="getinventory_id()" placeholder="Barcode" id="rtransaction_inventory_id" autocomplete="off">
+                      <input type="text" v-model="row.barcode" list="inventory_id-list" class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id" @keyup.enter="getinventory_id()" placeholder="Barcode" id="rtransaction_barcode" autocomplete="off">
                       <datalist id="inventory_id-list">
                         <option v-for="inv in inventoryList" :key="inv.id" :value="inv.barcode" >{{inv.product_description}}</option>
                       </datalist>
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.description" class="form-control form-control-sm form-control form-control-sm-sm form__description" placeholder="Product Description" disabled>
+                      <input type="text" v-model="row.description" class="form-control form-control-sm form-control form-control-sm-sm form__description" id="rtransaction_prod_description" placeholder="Product Description" disabled>
                     </div>
                     <div class="form-group col-md-2">
-                      <input type="number" v-model="row.quantity" @blur="getTotal()" class="form-control form-control-sm form-control form-control-sm-sm form__quantity" placeholder="Quantity">
+                      <input type="number" v-model="row.quantity" @blur="getTotal()" class="form-control form-control-sm form-control form-control-sm-sm form__quantity" id="rtransaction_qty" placeholder="Quantity">
                     </div>
                     <div class="form-group col-md-3">
-                      <input type="text" v-model="row.cost_per_unit" class="form-control form-control-sm form-control form-control-sm-sm form__unitcost" placeholder="Cost Per Unit" disabled>
+                      <input type="text" v-model="row.cost_per_unit" class="form-control form-control-sm form-control form-control-sm-sm form__unitcost" id="rtransaction_cost" placeholder="Cost Per Unit" disabled>
                     </div>
                     <div class='form-group col-md-1'>
                       <button class="btn btn-sm btn btn-danger rem_item text-white" type="button" @click="removeElement" id="Action"> <img src="../../static/icons/dash.svg" style="color:white" class="text-white" alt=""> </button>
@@ -127,7 +127,7 @@ export default {
     data() {
       return {
         items: [{
-          barcide: "",
+          barcode: "",
           description: "",
           quantity: "",
           cost_per_unit: ""
@@ -181,20 +181,33 @@ export default {
       },
       ...mapActions(['receiveDelivery']),
       async receive(){
-        this.dt.items = this.items
-        this.dt.created_by = localStorage.uid
-        await this.receiveDelivery({
-          transaction: this.dt
-        })
-        .then((result) => {
-          if(result.error){
-            alert(result.error)
-          } else {
-            $("#addDelTrans").modal('hide');
-            $("#add_item_form")[0].reset();
-            alert(result.message)
-          }
-        })
+
+        var transdate = $("#input_rtransaction_date").val()
+        var dr_no = $("#input_rtransaction_no").val()
+        var suppliers = $("#suppliers").val()
+        var barcode = $("#rtransaction_barcode").val()
+        var prod_description = $("#rtransaction_prod_description").val()
+        var qty = $("#rtransaction_qty").val()
+        var transcost = $("#rtransaction_cost").val()
+
+        if((transdate == null) || (dr_no == null) || (barcode == null) || (suppliers == null) || (prod_description == null) || (qty == null) || (transcost == null)){
+          alert("Please fill up form")
+        } else {
+          this.dt.items = this.items
+          this.dt.created_by = localStorage.uid
+          await this.receiveDelivery({
+            transaction: this.dt
+          })
+          .then((result) => {
+            if(result.error){
+              alert(result.error)
+            } else {
+              $("#addDelTrans").modal('hide');
+              $("#add_item_form")[0].reset();
+              alert(result.message)
+            }
+          })
+        }
 
         await this.$store.dispatch("fetchDTransactionsList")
         

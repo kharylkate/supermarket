@@ -241,7 +241,7 @@
                           type="date"
                           v-model="st.stransaction_date"
                           class="form-control form-control-sm form-control form-control-sm-sm form__date"
-                          id="input_rtransaction_date"
+                          id="input_stransaction_date"
                           placeholder="06/06/2020"
                           disabled
                         />
@@ -343,7 +343,7 @@
                                 v-model="row.barcode"
                                 class="form-control form-control-sm form-control form-control-sm-sm form__inventory_id"
                                 placeholder="Barcode"
-                                id="rtransaction_inventory_id"
+                                id="stransaction_barcode"
                                 autocomplete="off"
                               />
                               <datalist id="inventory_id_list">
@@ -360,6 +360,7 @@
                                 v-model="row.product_description"
                                 class="form-control form-control-sm form-control form-control-sm-sm form__description"
                                 placeholder="Product Description"
+                                id="stransaction_prod_description"
                                 disabled
                               />
                             </div>
@@ -368,6 +369,7 @@
                                 type="number"
                                 @blur="getTotal()"
                                 v-model="row.quantity"
+                                id="stransaction_qty"
                                 class="form-control form-control-sm form-control form__quantity"
                                 placeholder="Quantity" required
                               />
@@ -378,6 +380,7 @@
                                 v-model="row.sales_cost"
                                 class="form-control form-control-sm form-control form-control-sm-sm form__unitcost"
                                 placeholder="Cost Per Unit"
+                                id="stransaction_cost"
                                 disabled
                               />
                             </div>
@@ -419,6 +422,7 @@
                           type="text"
                           v-model="st.payment_amt"
                           class="form-control form-control-sm form-control form-control-sm-sm form__totalAmt text-right"
+                          id="stransaction_payment"
                           placeholder="Payment Amount"
                         />
                       </div>
@@ -633,28 +637,38 @@ export default {
         this.st.created_by = localStorage.uid
         this.st.created_at = "today"
 
-        //payment should be enough or more than the total cost to continue
-        if(this.st.total_cost > this.st.payment_amt){
-          alert("Payment not enough")
-        } else {
-          //if payment == enough
+        var barcode = $("#stransaction_barcode").val()
+        var prod_description = $("#stransaction_prod_description").val()
+        var qty = $("#stransaction_qty").val()
+        var transcost = $("#stransaction_cost").val()
+        var payment = $("#stransaction_payment").val()
 
-          // get items
-          this.st.items = this.rows;
-          //send to actions (api route))
-          await this.addSales({
-            sales: this.st,
-          })
-          .then((result) => {
-            console.log("result", result);
-            if(result.error){
-              alert(result.error)
-            } else {
-              alert(result.message)
-              $("#addSales").modal("hide");
-              $("#add_item_form")[0].reset();
-            }
-          })
+        if((barcode == null) || (prod_description == null) || (qty == null) || (transcost == null) || (payment == null)){
+          alert("Please fill in form")
+        } else {
+          //payment should be enough or more than the total cost to continue
+          if(this.st.total_cost > this.st.payment_amt){
+            alert("Payment not enough")
+          } else {
+            //if payment == enough
+
+            // get items
+            this.st.items = this.rows;
+            //send to actions (api route))
+            await this.addSales({
+              sales: this.st,
+            })
+            .then((result) => {
+              console.log("result", result);
+              if(result.error){
+                alert(result.error)
+              } else {
+                alert(result.message)
+                $("#addSales").modal("hide");
+                $("#add_item_form")[0].reset();
+              }
+            })
+          }
 
           await this.$store.dispatch("fetchSTransactionsList"),
           await this.$store.dispatch("fetchSalesList");

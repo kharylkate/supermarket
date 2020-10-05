@@ -15,17 +15,17 @@
 
                   <div class="form-group col-md-8">
                     <label for="compname">Employee Code: </label>
-                    <input type="number" v-model="user.employee_code" class="form-control form-control-sm" id="compname" placeholder="Enter Employee Code" autocomplete="off" required>
+                    <input type="number" v-model="user.employee_code" class="form-control form-control-sm" id="empcode" placeholder="Enter Employee Code" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="contactno">Username: </label>
-                    <input type="text" v-model="user.username" class="form-control form-control-sm" id="contactno" placeholder="Enter User Name" autocomplete="off" required>
+                    <input type="text" v-model="user.username" class="form-control form-control-sm" id="username" placeholder="Enter User Name" autocomplete="off" required>
                   </div>
 
                   <div class="form-group col-md-8">
                     <label for="compadd">Role </label>
-                    <select class="form-control form-control-sm" name="" id="" v-model="user.role_id">
+                    <select class="form-control form-control-sm" name="select_role" id="select_role" v-model="user.role_id">
                       <option selected="selected" hidden>Select Role</option>
                       <option v-for="role in rolesList" :key="role.id" v-bind:value="role.role_id">{{role.role_name}}</option>
                     </select>
@@ -67,24 +67,31 @@ export default {
     methods: {
       ...mapActions(['addUser']),
       async add() {
-        this.user.password = '1234'
-        this.user.created_by = localStorage.uid
-        this.user.created_at = "today"
-        console.log('user add clicked: ', this.user)
-        await this.addUser({
-          user: this.user,
-        })
-        .then((result) => {
-          console.log(result)
-          if(result.error){
-            alert(result.error)
-          } else {
-            $("#addUser").modal('hide');
-            $("#add_user_form")[0].reset();
-            alert("New user added successfully")
-          }
-        })
-        await this.$store.dispatch("fetchUserList")
+
+        var employee_code = $("#empcode").val()
+        var username = $("#username").val()
+        var select_role = $("#select_role").val()
+
+        if((employee_code == null) || (username == null) || (select_role == null)){
+          alert("Please fill the form")
+        } else {
+           this.user.password = '1234'
+          this.user.created_by = localStorage.uid
+          this.user.created_at = "today"
+          await this.addUser({
+            user: this.user,
+          })
+          .then((result) => {
+            if(result.error){
+              alert(result.error)
+            } else {
+              $("#addUser").modal('hide');
+              $("#add_user_form")[0].reset();
+              alert("New user added successfully")
+            }
+          })
+          await this.$store.dispatch("fetchUserList")
+        }
       }
 
     

@@ -34,9 +34,9 @@
                 <input type="text" v-model="supplier.company_address" class="form-control" id="compadd" placeholder="Enter Company Address" autocomplete="off" required>
               </div>
 
-              <input type="hidden" v-model="supplier.created_at" value="today">
+              <!-- <input type="hidden" v-model="supplier.created_at" value="today">
               <input type="hidden" v-model="supplier.status" value="1">
-              <input type="hidden" v-model="supplier.created_by" value="154151757">
+              <input type="hidden" v-model="supplier.created_by" value="154151757"> -->
               
             </div>
             <div class="modal-footer">
@@ -73,23 +73,32 @@ export default {
     methods: {
       ...mapActions(['addSupplier']),
       add(){
-        this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
-        this.supplier.status = true
-        this.supplier.created_by = localStorage.uid
-        this.supplier.created_at = "today"
-        this.addSupplier({
-          supplier: this.supplier
-        })
-        .then((result) => {
-          console.log("result: ",result);
-          if(result.error){
-            alert(result.error)
-          } else {
-            $("#addSupplier").modal('hide');
-            $('#add_supplier_form')[0].reset();
-            alert(result.message)
-          }
-        })
+        
+        var compname = $("#compname").val()
+        var contactno = $("#contactno").val()
+        var compadd = $("#compadd").val()
+
+        if((compname == null) || (contactno == null) || (compadd == null)){
+          alert("Please fill in the form")
+        } else {
+          this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
+          this.supplier.status = true
+          this.supplier.created_by = localStorage.uid
+          this.supplier.created_at = "today"
+          this.addSupplier({
+            supplier: this.supplier
+          })
+          .then((result) => {
+            console.log("result: ",result);
+            if(result.error){
+              alert(result.error)
+            } else {
+              $("#addSupplier").modal('hide');
+              $('#add_supplier_form')[0].reset();
+              alert(result.message)
+            }
+          })
+        }
         
             
       

@@ -17,12 +17,12 @@
 
               <div class="form-group col-md-8">
                 <label for="edit_barcode">Barcode: </label>
-                <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="edit_barcode" placeholder="Barcode">
+                <input type="number" v-model="inventory.barcode" class="form-control form-control-sm" id="add_barcode" placeholder="Barcode">
               </div>
 
               <div class="form-group col-md-8">
                 <label for="edit_name">Product Description: </label>
-                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="edit_name" placeholder="Product Description" autocomplete="off">
+                <input type="text" v-model="inventory.product_description" class="form-control form-control-sm" id="add_description" placeholder="Product Description" autocomplete="off">
               </div>
 
               <div class="form-group col-md-8">
@@ -31,7 +31,7 @@
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                     </div>
-                    <input type="number" class="form-control form-control-sm" v-model="inventory.unit_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                    <input type="number" class="form-control form-control-sm" v-model="inventory.unit_cost" id="add_itemcost" placeholder="Enter Cost per quantity" autocomplete="off" required>
                 </div>
               </div>
 
@@ -41,7 +41,7 @@
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                     </div>
-                    <input type="number" class="form-control form-control-sm" v-model="inventory.sales_cost" id="item_cost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                    <input type="number" class="form-control form-control-sm" v-model="inventory.sales_cost" id="add_salescost" placeholder="Enter Cost per quantity" autocomplete="off" required>
                 </div>
               </div>
               
@@ -75,23 +75,36 @@ export default {
     methods: {
       ...mapActions(['addInventory']),
       async add(){
-        this.inventory.quantity = 0
-        this.inventory.created_by = localStorage.uid
-        this.inventory.created_at = "today"
-        console.log(this.inventory);
-        this.addInventory({
-          inventory: this.inventory
-        })
-        .then((result)=>{
-          if(result.error){
-            alert(result.error)
-          } else {
-            $("#addInventory").modal('hide');
-            $('#add_inventory_form')[0].reset();
-            alert(result.message)
-          }
-        })
-        await this.$store.dispatch("fetchInventoryList")
+
+        var barcode = $("#add_barcode").val()
+        var description = $("#add_description").val()
+        var itemcost = $("#add_itemcost").val()
+        var salescost = $("#add_salescost").val()
+
+        if((barcode == null) || (description == null) || (itemcost == null) || (salescost == null)){
+          alert("Please fill in the form")
+        } else {
+          this.inventory.quantity = 0
+          this.inventory.created_by = localStorage.uid
+          this.inventory.created_at = "today"
+          console.log(this.inventory);
+          this.addInventory({
+            inventory: this.inventory
+          })
+          .then((result)=>{
+            if(result.error){
+              alert(result.error)
+            } else {
+              $("#addInventory").modal('hide');
+              $('#add_inventory_form')[0].reset();
+              alert(result.message)
+            }
+          })
+          await this.$store.dispatch("fetchInventoryList")
+        } 
+          
+
+        
         
       },
       cancel() {

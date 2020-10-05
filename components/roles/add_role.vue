@@ -77,21 +77,27 @@ export default {
     ...mapActions(['addRole']),
     add(){
 
-      this.role.created_by = localStorage.uid
-      this.role.created_at = "today"
-      console.log(this.role);
-      this.addRole({
-        role: this.role
-      })
-      .then((result) => {
-        if(result.error){
-          alert(result.error)
-        } else {
-          $("#addRole").modal('hide');
-          $("#add_role_form")[0].reset();
-          alert(result.message)
-        }
-      })
+      var role_name = $("#role_name").val()
+
+      if(role_name == "") {
+        alert("Please fill in the form")
+      } else {
+        this.role.created_by = localStorage.uid
+        this.role.created_at = "today"
+        console.log(this.role);
+        this.addRole({
+          role: this.role
+        })
+        .then((result) => {
+          if(result.error){
+            alert(result.error)
+          } else {
+            $("#addRole").modal('hide');
+            $("#add_role_form")[0].reset();
+            alert(result.message)
+          }
+        })
+      }
 
       this.$store.dispatch("fetchRolesList")
 
