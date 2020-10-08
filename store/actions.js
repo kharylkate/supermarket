@@ -20,25 +20,13 @@ export default {
       commit("login", result);
       return result.data;
     })
-    .catch( err => err);
+     
   },
 
   async passwordUpdate ({ commit }, user) {
     commit("passwordUpdate", user.user);
       return user;
 
-    // return await axios({
-    //   method: "GET",
-    //   url: `${this.$axios.defaults.baseURL}/roles`,
-    //   headers: {},
-    //   data: {},
-    // })
-    // .then(result => {
-    //   // console.log("eyy", result)
-    //   commit("passwordUpdate", login);
-    //   return result.data;
-    // })
-    // .catch( err => err);
   },
 
   async dateFilter({ commit }, range){
@@ -54,7 +42,7 @@ export default {
       commit("dateFilter", result);
       return result;
     })
-    .catch( err => err);
+     
   },
 
 
@@ -74,7 +62,7 @@ export default {
       commit("setRolesList", result.data);
       return result.data;
     })
-    .catch( err => err);
+     
   },
 
   async addRole({ commit }, { role }) {
@@ -92,7 +80,7 @@ export default {
 
       return result.data;
     })
-    .catch(err => err);
+     
   },
 
   selectRole({ commit }, role) {
@@ -117,7 +105,7 @@ export default {
       commit("updateRole", role);
       return result.data;
     })
-    .catch(err => err);
+     
   },
 
 
@@ -137,7 +125,7 @@ export default {
       commit("setUserList", result.data);
       return result.data;
     })
-    .catch( err => err);
+     
   },
 
   async addUser({ commit }, { user }) {
@@ -156,7 +144,7 @@ export default {
       commit("addUser", user);
       return result;
     })
-    .catch(err => err);
+     
   },
 
   async updateUser({commit}, user) {
@@ -176,7 +164,7 @@ export default {
       commit("updateUser", user.user);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
   async passwordUpdate({commit}, user) {
@@ -196,7 +184,7 @@ export default {
       commit("passwordUpdate", user.user);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
 
@@ -216,7 +204,7 @@ export default {
       commit("setInventoryList", result.data);
       return result.data;
     })
-    .catch( err => err);
+
   },
 
   async updateInventory({ commit }, { inventory }) {
@@ -235,7 +223,6 @@ export default {
       commit("updateInventory", inventory);
       return result.data;
     })
-    .catch(err => err);
   },
 
   async updateInvQty({commit}, inventory){
@@ -253,29 +240,26 @@ export default {
       commit("updateInvQty", inventory);
       return result.data;
     })
-    .catch(err => {
-      console.log(err);
-    });
 
   },
 
   async addInventory({ commit }, { inventory }) {
-    console.log('@inventory data: ',inventory)
+    // console.log('@inventory data: ',inventory)
     return await axios({
       method: "POST",
-      url: `${this.$axios.defaults.baseURL}/add_inventory`,
+      url: //`${this.$axios.defaults.baseURL}/add_inventory`,
+      '172.16.4.211:9000/add_inventory', 
       header: {
         "Content-Type": "application/json"
       },
       data: { ...inventory },
     })
     .then(result => {
-      console.log('hihi',result.data)
-      console.log(inventory)
+      // console.log('hihi',result)
+      // console.log(inventory)
       commit("addInventory", inventory);
       return result.data;
     })
-    .catch(err => err);
   },
 
 
@@ -295,7 +279,7 @@ export default {
       commit("setSuppliersList", result.data);
       return result.data;
     })
-    .catch( err => err);
+     
   },
 
   async addSupplier({ commit }, { supplier }) {
@@ -352,7 +336,7 @@ export default {
       commit("updateSupplier", supplier);
       return result.data;
     })
-    .catch(err => err);
+     
   },
 
 
@@ -372,7 +356,7 @@ export default {
       commit("setDTransactionsList", result.data);
       return result.data;
     })
-    .catch( err => err);
+     
   },
 
   async receiveDelivery({commit}, delivery){
@@ -408,7 +392,7 @@ export default {
       commit("setSTransactionsList", result.data);
       return result.data;
     })
-    .catch( err => err);
+     
   },
 
 
@@ -425,7 +409,7 @@ export default {
       commit("addSales", sales);
       return result.data;
     })
-    .catch(err => err);
+     
   },
 
   async addSalesItems({commit}, sales){

@@ -3,25 +3,30 @@
     <form action="">
       <div class="subtitle">LOU GEH</div>
       <div class="title">SUPERMARKET</div>
-      <form-group class="px-3 py-3">
+      <div class="py-3">
         <input
-          class="form-control form-control-sm m-1"
+          class="form-control form_username form-control-sm m-1"
           v-model="user.username"
           type="text"
           placeholder="Username"
+          id="data-username"
           required
+          data-username
         />
         <input
-          class="form-control form-control-sm m-1"
+          class="form-control form_password form-control-sm m-1"
           v-model="user.password"
           type="password"
           placeholder="Password"
+          id="data-password"
           required
+          
           @keyup.enter="logmein()"
+          data-password
         />
-      </form-group>
+      </div>
 
-      <button class="form-control form-control-sm lg-btn block m-1" @click="logmein()" type="button">Login</button>
+      <button class="form-control form-control-sm lg-btn block m-1" @click="logmein()" id="btn_login" type="button" data-button>Login</button>
     </form>
   </div>
 </template>
@@ -46,36 +51,56 @@ export default {
     })
   },
   methods: {
+    clickable(){
+      // var password = $("#data-password").val()
+      // var username = $("#data-username").val()
+      // if((username == "") || (password == "")){
+      //   document.getElementById("btn_login").disabled = true
+      // } else {
+      //   document.getElementById("btn_login").disabled = false
+      // }
+    },
     ...mapActions(['login']),
     logmein(){
-      console.log("user login", this.user)
+      // console.log("user login", this.user)
       this.login({
         user: this.user
       })
       .then((result) => {
-        console.log(result)
+        // console.log(result)
         if(result.error){
-          alert(result.error)
+          this.toast(false, result.error, 'danger')
         } else {
-          // this.$router.push('dashboard')
           window.location.href = 'dashboard'
-          // console.log("local storageeee", localStorage);
         }
-      //   console.log("localStorage.isDefault", localStorage.isDefault);
       })
-            // localStorage.username = "Maximus",
-            // localStorage.role_name = "admin",
-            // localStorage.uid = 38,
-            // localStorage.isDefault = true
-            // console.log(localStorage);
-            // window.location.href = 'dashboard'
+      .catch(err => err)
 
-    
-    }
+    },
+    toast(success = false, msg, variant) {
+      if(success){
+        this.$bvToast.toast(msg, {
+          title: 'Success',
+          toaster: 'b-toaster-bottom-right',
+          solid: true,
+          variant: variant,
+          autoHideDelay: 3000,
+        })
+      } else {
+        this.$bvToast.toast(msg, {
+          title: 'Error',
+          toaster: 'b-toaster-bottom-right',
+          solid: true,
+          variant: variant,
+          autoHideDelay: 3000,
+        })
+      }
+    },
+
 
   },
-  async beforeCreate() {
-    await this.$store.dispatch("fetchUserList")
-  }
+  // async beforeCreate() {
+  //   await this.$store.dispatch("fetchUserList")
+  // }
 };
 </script>

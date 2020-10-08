@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="addInventory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal" id="addInventory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -41,14 +41,14 @@
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">₱</span>
                     </div>
-                    <input type="number" class="form-control form-control-sm" v-model="inventory.sales_cost" id="add_salescost" placeholder="Enter Cost per quantity" autocomplete="off" required>
+                    <input type="number" class="form-control form-control-sm" v-model="inventory.sales_cost" id="add_salescost" @keyup.enter="add()" placeholder="Enter Cost per quantity" autocomplete="off" required>
                 </div>
               </div>
               
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click="cancel()">Cancel</button>
-              <button type="button" @click="add()" class="btn btn-primary">OK</button>
+              <button type="button" name="item_add" id="item_add" @click="add()" class="btn btn-primary item_add" data-itemadd>OK</button>
             </div>
           </form>
         </div>
@@ -60,6 +60,9 @@
 
 <script>
 import { mapActions } from 'vuex';
+// import { BootstrapVue } from 'bootstrap-vue'
+// import $ from 'jQuery'
+
 export default {
     name: 'modal-addInventory',
     data() {
@@ -89,11 +92,12 @@ export default {
           this.inventory.quantity = 0
           this.inventory.created_by = localStorage.uid
           this.inventory.created_at = "today"
-          console.log(this.inventory);
+          // console.log(this.inventory);
           this.addInventory({
             inventory: this.inventory
           })
           .then((result)=>{
+            console.log("see result", result.error);
             if(result.error){
               // alert(result.error)
               this.toast(false, result.error, 'danger')
@@ -105,7 +109,9 @@ export default {
               this.toast(true, msg, 'success')
             }
           })
-          await this.$store.dispatch("fetchInventoryList")
+          .catch(err => {
+          this.toast(false, err.response.data.msg, 'danger')
+        });
         }  
       },
       toast(success = false, msg, variant) {
@@ -131,6 +137,9 @@ export default {
         $("#addInventory").modal('hide');
         $('#add_inventory_form')[0].reset();
       }
+    },
+    async beforeCreate() {
+      // await this.$store.dispatch("fetchInventoryList")
     }
     
 }

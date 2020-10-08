@@ -97,22 +97,6 @@ export default {
                 // $("#editUser").modal('hide')
                 }
             })
-
-            // await this.login({
-            //     user: this.user
-            // })
-            // .then((result) => {
-            //     console.log(result)
-            //     if(result.error){
-            //     alert(result.error)
-            //     } else {
-            //         window.location.href = 'dashboard'
-            //     // this.$router.push('dashboard')
-            //     }
-
-
-            // })
-            
         }
     }
 }

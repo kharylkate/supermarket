@@ -681,7 +681,6 @@ export default {
           }
 
           await this.$store.dispatch("fetchSTransactionsList"),
-          await this.$store.dispatch("fetchSalesList");
           await this.$store.dispatch("fetchInventoryList");
           }
       },
@@ -769,7 +768,6 @@ export default {
     },
     async beforeCreate(){
       await this.$store.dispatch("fetchSTransactionsList"),
-      await this.$store.dispatch("fetchSalesList");
       await this.$store.dispatch("fetchInventoryList");
     }
 }

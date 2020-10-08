@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import Login from '../components/Logo';
+import Logo from '../components/Logo';
 export default {
   name: 'login',
   components: {
-    
+    'Logo': Logo 
   }
 }
 </script>

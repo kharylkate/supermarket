@@ -86,6 +86,8 @@ export default {
           this.supplier.status = true
           this.supplier.created_by = localStorage.uid
           this.supplier.created_at = "today"
+
+          console.log("supplier", this.supplier);
           this.addSupplier({
             supplier: this.supplier
           })
@@ -101,6 +103,10 @@ export default {
               this.toast(true, msg, 'success')
             }
           })
+          .catch(err => {
+          this.toast(false, err.response.data.msg, 'danger')
+        });
+      
         }   
       },
       toast(success = false, msg, variant) {

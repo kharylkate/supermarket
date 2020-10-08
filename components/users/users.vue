@@ -223,22 +223,28 @@ export default {
     },
     ...mapActions(['updateUser']),
     async update(){
-      this.user.updated_by = localStorage.uid
-      this.user.updated_at = "today"
-      console.log('userrrr: ', this.user)
-      await this.updateUser({
-        user: this.user
-      })
-      .then((result) => {
-        if(result.error){
-          // alert(result.error)
-          this.toast(false, result.error, 'danger')
-        } else {
-          alert(result)
-          $("#editUser").modal('hide')
-          this.toast(false, result, 'success')
-        }
-      })
+      
+      if((this.user.employee_code == '') || (this.user.username == '') || (this.user.role_id == '') ){
+        var msg = "Please check for missing field"
+        this.toast(false, msg, 'danger')
+      } else {
+        this.user.updated_by = localStorage.uid
+        this.user.updated_at = "today"
+        console.log('userrrr: ', this.user)
+        await this.updateUser({
+          user: this.user
+        })
+        .then((result) => {
+          if(result.error){
+            // alert(result.error)
+            this.toast(false, result.error, 'danger')
+          } else {
+            // alert(result)
+            $("#editUser").modal('hide')
+            this.toast(false, result, 'success')
+          }
+        })
+      }
 
       await this.$store.dispatch("fetchUserList")
       await this.$store.dispatch("fetchRolesList")

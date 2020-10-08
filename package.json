@@ -18,6 +18,7 @@
     "canvasjs": "^1.8.3",
     "chart.js": "^2.9.3",
     "express": "^4.17.1",
+    "jquery": "^3.5.1",
     "jspdf": "^2.1.1",
     "jspdf-autotable": "^3.5.13",
     "moment": "^2.29.0",
@@ -32,10 +33,12 @@
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",
+    "@testing-library/jest-dom": "^5.11.4",
     "@vue/test-utils": "^1.1.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^26.1.0",
     "cross-env": "^7.0.2",
+    "flush-promises": "^1.0.2",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
     "vue-jest": "^3.0.7"

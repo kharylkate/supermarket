@@ -48,7 +48,7 @@
               >
                 Cancel
               </button>
-              <button type="button" @click="add()" class="btn btn-primary">OK</button>
+              <button type="button" @click="add()" class="btn btn-primary role_add">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -92,16 +92,21 @@ export default {
           role: this.role
         })
         .then((result) => {
+          console.log("error??",result);
           if(result.error){
+            console.log(result.error);
             // alert(result.error)
             this.toast(false, result.error, 'danger')
           } else {
-            $("#addRole").modal('hide');
-            $("#add_role_form")[0].reset();
+            // $("#addRole").modal('hide');
+            // $("#add_role_form")[0].reset();
             var msg = "You have successfully added a role"
             this.toast(true, msg, 'success')
           }
         })
+        .catch(err => {
+          this.toast(false, err.response.data.msg, 'danger')
+        });
       }
       
     },

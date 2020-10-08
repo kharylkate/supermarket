@@ -91,31 +91,6 @@
             </b-pagination>
           </div>
         </div>
-        
-        <!-- <div class="table-responsive bg-white rounded-lg">
-            <table class="table table-data align-items-center table-flush">
-            <thead class="thead-sea-green">
-                <tr>
-                  <th scope="col" class="sort" data-sort="name">Barcode</th>
-                  <th scope="col" class="sort" data-sort="name">Product Description</th>
-                  <th scope="col" class="sort" data-sort="status">Quantity</th>
-                  <th scope="col" class="sort" data-sort="budget">Cost per unit</th>
-                  <th scope="col" class="sort" data-sort="budget">Sales Cost</th>
-                  <th>Action</th>
-                </tr>
-            </thead>
-            <tbody class="list" id="body-bg">
-                <tr v-for="item in inventoryList" :key="item.id">
-                    <td>{{item.barcode}}</td>
-                    <td>{{item.product_description}}</td>
-                    <td>{{item.quantity}}</td>
-                    <td>₱{{item.unit_cost}}</td>
-                    <td>₱{{item.sales_cost}}</td>
-                    <td><button id="btn-color" class="btn lg-btn" data-toggle="modal" @click="(select(item))" data-target="#editTrans"><img src="../../static/icons/pencil-square.svg" alt=""> Edit</button></td>
-                </tr>
-            </tbody>
-            </table>
-        </div> -->
 
         <div class="modal fade" id="editTrans" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -159,7 +134,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="update()">OK</button>
+                <button type="button" class="btn btn-primary item_update" id="item_update" @click="update()">OK</button>
               </div>
             </form>
           </div>
@@ -272,8 +247,8 @@ export default {
           this.currentPage = 1
         }
     },
-    async beforeCreate() {
-        await this.$store.dispatch("fetchInventoryList")
+    async created() {
+      await this.$store.dispatch("fetchInventoryList")
   },
 }
 </script>

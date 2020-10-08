@@ -194,10 +194,7 @@ export default {
         },
   },
   methods: {
-    ...mapActions({
-      selectTransaction: "selectTransaction",
-      //selectRole: "selectRole",
-    }),
+
     select(role) {
       console.log(role);
       this.role = { ...role };

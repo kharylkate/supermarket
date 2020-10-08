@@ -423,7 +423,7 @@ export default {
   
     },
     created(){
-      this.$store.dispatch("getDateFilteredDelivery");
+      // this.$store.dispatch("getDateFilteredDelivery");
     },
     async beforeCreate() {
       await this.$store.dispatch("fetchDTransactionsList")
