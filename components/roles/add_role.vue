@@ -98,8 +98,8 @@ export default {
             // alert(result.error)
             this.toast(false, result.error, 'danger')
           } else {
-            // $("#addRole").modal('hide');
-            // $("#add_role_form")[0].reset();
+            $("#addRole").modal('hide');
+            $("#add_role_form")[0].reset();
             var msg = "You have successfully added a role"
             this.toast(true, msg, 'success')
           }

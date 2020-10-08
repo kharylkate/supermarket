@@ -21,7 +21,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <navbarCollapse />
-                        <dash-board />
+                        <dash />
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@ export default {
     components: {
         navbar,
         'navbarCollapse': navbarCollapse,
-        'dash-board': dashboard
+        'dash': dashboard
     },
     methods: {
         validate() {

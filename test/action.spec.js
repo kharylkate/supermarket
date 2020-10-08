@@ -20,15 +20,19 @@ import addRole from '@/components/roles/add_role.vue'
 // })
 
 
-describe("Parent role", () => {
-    it('mounts child', () => {
-        const wrapper = shallowMount(parent)
-        console.log(wrapper.html());
+
+
+describe("Parent role (page)", () => {
+    const wrapper = shallowMount(parent)
+
+    it('mounts child role (component)', () => {
+        expect(wrapper.findComponent(addRole).exists()).toBe(true)
+    })
+
+    it('mounts child addRole (component)', () => {
         expect(wrapper.findComponent(addRole).exists()).toBe(true)
     })
 })
-
-
 
 describe("roles.vue", () => {
     const commit = jest.fn()
@@ -58,15 +62,14 @@ describe("roles.vue", () => {
 
         // console.log("state", result[0]);
     })
-
-
-    // it("will fetch roles", () => {
-    //     const role = { role_id: "1", role_name: "minister"}
-    //     const state = {
-    //         rolesList: []
-    //     }
-    //     actions.fetchRolesList()
-
-    //     console.log("state", state);
-    // })
 })
+
+// describe("Roles", async () => {
+//     const wrapper = shallowMount(addRole)
+//     console.log(wrapper.html())
+//     const role_name = wrapper.find('#role_name')
+//     role_name.setValue('admin11')
+
+//     wrapper.find('.role_add').trigger('click')
+
+// })
