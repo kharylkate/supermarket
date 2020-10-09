@@ -200,18 +200,19 @@ export default {
             transaction: this.dt
           })
           .then((result) => {
-            if(result.error){
-              // alert(result.error)
-              this.toast(false, result.error, 'danger')
-            } else {
+            if(result){
+            //   // alert(result.error)
+            //   this.toast(false, result.error, 'danger')
+            // } else {
               $("#addDelTrans").modal('hide');
               $("#add_item_form")[0].reset();
               // alert(result.message)
-              this.toast(false, result.message, 'success')
+              this.toast(true, result.message, 'success')
             }
           })
           .catch(err => {
-            alert(err.response.data.msg);
+            this.toast(false, err.response.data.msg, 'danger')
+            
           });
 
         }

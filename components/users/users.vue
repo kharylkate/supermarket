@@ -230,17 +230,17 @@ export default {
         user: this.user
       })
       .then((result) => {
-        if(result.error){
-          // alert(result.error)
-          this.toast(false, result.error, 'danger')
-        } else {
-          alert(result)
+        if(result){
+        //   // alert(result.error)
+        //   this.toast(false, result.error, 'danger')
+        // } else {
+        //   alert(result)
           $("#editUser").modal('hide')
-          this.toast(false, result, 'success')
+          this.toast(true, result.message, 'success')
         }
       })
       .catch(err => {
-        alert(err.response.data.msg);
+        this.toast(false, err.response.data.msg, 'danger')
       });
 
       await this.$store.dispatch("fetchUserList")

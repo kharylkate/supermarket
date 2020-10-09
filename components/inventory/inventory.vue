@@ -231,16 +231,19 @@ export default {
               inventory: this.inventory,
           })
           .then((result) => {
-            if(result.error){
+            if(result){
               // alert(result.error)
-              this.toast(false, result.error, 'danger')
-            } else {
+              // this.toast(tru, result, 'success')
+            // } else {
               $("#editTrans").modal('hide')
               // alert(result)
-              var msg = "You have successfully updated an item"
-              this.toast(true, msg, 'success')
+              this.toast(true, result.message, 'success')
             }
           })
+          .catch(err => {
+          this.toast(false, err.response.data.msg, 'danger')
+          // alert(err.response.data.msg);
+        });
           await this.$store.dispatch("fetchInventoryList")
 
         },

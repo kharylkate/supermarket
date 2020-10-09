@@ -84,19 +84,17 @@ export default {
             user: this.user,
           })
           .then((result) => {
-            if(result.error){
-              // alert(result.error)
-              this.toast(false, result.error, 'danger')
-            } else {
+            if(result){
+            //   // alert(result.error)
+            //   this.toast(false, result.error, 'danger')
+            // } else {
               $("#addUser").modal('hide');
               $("#add_user_form")[0].reset();
-              // alert("New user added successfully")
-              var msg = "You have successfully added a user"
-              this.toast(true, msg, 'success')
+              this.toast(true, result.message, 'success')
             }
           })
           .catch(err => {
-            alert(err.response.data.msg);
+            this.toast(false, err.response.data.msg, 'danger')
           });
           await this.$store.dispatch("fetchUserList")
         }

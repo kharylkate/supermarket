@@ -248,17 +248,17 @@ export default {
               supplier: this.supplier,
           })
           .then((result) => {
-            if(result.error){
-              this.toast(false, result.error, 'danger')
-            } else {
+            if(result){
+            //   this.toast(false, result.error, 'danger')
+            // } else {
               // console.log(result)
               // alert(result)
               $("#editSupplier").modal('hide')
-              this.toast(false, result, 'success')
+              this.toast(true, result.message, 'success')
             }
           })
           .catch(err => {
-            alert(err.response.data.msg);
+            this.toast(false, err.response.data.msg, 'danger')
           });
           await this.$store.dispatch("fetchSuppliersList")
         },

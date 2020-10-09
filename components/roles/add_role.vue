@@ -92,18 +92,16 @@ export default {
           role: this.role
         })
         .then((result) => {
-          if(result.error){
-            // alert(result.error)
-            this.toast(false, result.error, 'danger')
-          } else {
+          if(result){
+
             $("#addRole").modal('hide');
             $("#add_role_form")[0].reset();
-            var msg = "You have successfully added a role"
-            this.toast(true, msg, 'success')
+            this.toast(true, result.message, 'success')
           }
         })
         .catch(err => {
-          alert(err.response.data.msg);
+          this.toast(false, err.response.data.msg, 'danger')
+          // alert(err.response.data.msg);
         });
       }
       

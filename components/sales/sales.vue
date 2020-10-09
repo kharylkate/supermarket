@@ -667,19 +667,14 @@ export default {
               sales: this.st,
             })
             .then((result) => {
-              if(result.error){
-                // alert(result.error)
-                this.toast(false, result.error, 'danger')
-
-              } else {
-                // alert(result.message)
-                this.toast(false, result.message, 'success')
+              if(result){
+                this.toast(true, result.message, 'success')
                 $("#addSales").modal("hide");
                 $("#add_item_form")[0].reset();
               }
             })
             .catch(err => {
-              alert(err.response.data.msg);
+              this.toast(false, err.response.data.msg, 'danger')
             });
           }
 

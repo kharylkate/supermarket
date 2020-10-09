@@ -20,7 +20,7 @@ export default {
       commit("login", result);
       return result.data;
     })
-    .catch( err => err);
+
   },
 
   async passwordUpdate ({ commit }, user) {
@@ -54,7 +54,7 @@ export default {
       commit("dateFilter", result);
       return result;
     })
-    .catch( err => err);
+
   },
 
 
@@ -74,7 +74,6 @@ export default {
       commit("setRolesList", result.data);
       return result.data;
     })
-    .catch( err => err);
   },
 
   async addRole({ commit }, { role }) {
@@ -92,7 +91,7 @@ export default {
 
       return result.data;
     })
-    .catch(err => err);
+
   },
 
   selectRole({ commit }, role) {
@@ -117,7 +116,7 @@ export default {
       commit("updateRole", role);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
 
@@ -137,7 +136,7 @@ export default {
       commit("setUserList", result.data);
       return result.data;
     })
-    .catch( err => err);
+
   },
 
   async addUser({ commit }, { user }) {
@@ -156,7 +155,7 @@ export default {
       commit("addUser", user);
       return result;
     })
-    .catch(err => err);
+
   },
 
   async updateUser({commit}, user) {
@@ -176,7 +175,7 @@ export default {
       commit("updateUser", user.user);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
   async passwordUpdate({commit}, user) {
@@ -196,7 +195,7 @@ export default {
       commit("passwordUpdate", user.user);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
 
@@ -216,7 +215,7 @@ export default {
       commit("setInventoryList", result.data);
       return result.data;
     })
-    .catch( err => err);
+
   },
 
   async updateInventory({ commit }, { inventory }) {
@@ -235,7 +234,7 @@ export default {
       commit("updateInventory", inventory);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
   async updateInvQty({commit}, inventory){
@@ -253,9 +252,7 @@ export default {
       commit("updateInvQty", inventory);
       return result.data;
     })
-    .catch(err => {
-      console.log(err);
-    });
+
 
   },
 
@@ -275,7 +272,7 @@ export default {
       commit("addInventory", inventory);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
 
@@ -295,7 +292,7 @@ export default {
       commit("setSuppliersList", result.data);
       return result.data;
     })
-    .catch( err => err);
+
   },
 
   async addSupplier({ commit }, { supplier }) {
@@ -314,24 +311,7 @@ export default {
       console.log(supplier)
       commit("addSupplier", supplier);
       return result.data;
-    },
-    status => {
-      // ADDED BY KENN
-      // This will return any status about the Server including the errors
-      if(status.response.status == null) {
-        alert({
-          title: "Failed",
-          message: "Please check your internet connection, and try again."
-        });
-      }
-      else {
-        alert({
-          title: "Status: " + status.response.status,
-          message: status.response.statusText
-        });
-      }
-    }
-    );
+    });
   },
 
   async updateSupplier({ commit }, { supplier }) {
@@ -352,7 +332,7 @@ export default {
       commit("updateSupplier", supplier);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
 
@@ -372,7 +352,6 @@ export default {
       commit("setDTransactionsList", result.data);
       return result.data;
     })
-    .catch( err => err);
   },
 
   async receiveDelivery({commit}, delivery){
@@ -408,7 +387,7 @@ export default {
       commit("setSTransactionsList", result.data);
       return result.data;
     })
-    .catch( err => err);
+
   },
 
 
@@ -425,7 +404,7 @@ export default {
       commit("addSales", sales);
       return result.data;
     })
-    .catch(err => err);
+
   },
 
   async addSalesItems({commit}, sales){
@@ -442,11 +421,7 @@ export default {
       commit("addSalesItems", sales.sales);
       return result.data;
     })
-    .catch(err => {
-      console.log(err);
 
-      return err
-    });
   },
 
   showitem( {commit}, item) {

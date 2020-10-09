@@ -212,17 +212,14 @@ export default {
         role: this.role,
       })
       .then((result) =>{
-        if(result.error) {
-          // alert(result.error)
-          this.toast(false, result.error, 'danger')
-        } else {
+        if(result) {
           $("#editRole").modal('hide');
           // alert(result)
-          this.toast(false, result, 'success')
+          this.toast(true, result, 'success')
         }
       })
       .catch(err => {
-          alert(err.response.data.msg);
+         this.toast(false, err.response.data.msg, 'danger')
         });
      },
     toast(success = false, msg, variant) {

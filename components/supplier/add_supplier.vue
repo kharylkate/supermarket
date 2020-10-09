@@ -90,19 +90,20 @@ export default {
             supplier: this.supplier
           })
           .then((result) => {
-            if(result.error){
-              // alert(result.error)
-              this.toast(false, result.error, 'danger')
-            } else {
+            if(result){
+            //   // alert(result.error)
+            //   this.toast(false, result.error, 'danger')
+            // } else {
               $("#addSupplier").modal('hide');
               $('#add_supplier_form')[0].reset();
               // alert(result.message)
-              var msg = "You have successfully added a supplier"
-              this.toast(true, msg, 'success')
+              // var msg = "You have successfully added a supplier"
+              this.toast(true, result.message, 'success')
             }
           })
           .catch(err => {
-            alert(err.response.data.msg);
+            this.toast(false, err.response.data.msg, 'danger')
+            
           });
         }   
       },
