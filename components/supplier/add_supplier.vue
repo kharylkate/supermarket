@@ -41,7 +41,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" id="itemcancel">Cancel</button>
-              <button type="button" @click="add()" class="btn btn-primary">OK</button>
+              <button type="button" @click="add()" class="btn btn-primary supplier_add">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -55,6 +55,7 @@
 <script>
 import { mapActions } from 'vuex';
 import { mapGetters } from "vuex";
+import $ from 'jQuery'
 
 export default {
     name: 'modal-addSupplier',
@@ -82,7 +83,7 @@ export default {
           var msg = "Please check for missing field"
           this.toast(false, msg, 'danger')
         } else {
-          this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
+          // this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
           this.supplier.status = true
           this.supplier.created_by = localStorage.uid
           this.supplier.created_at = "today"

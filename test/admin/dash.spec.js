@@ -10,7 +10,7 @@ localVue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        inventoryCounter: 300,
+        inventoryCounter: 75,
         zeroStocks: 1,
         inventoryList: [
             {

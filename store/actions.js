@@ -51,17 +51,24 @@ export default {
   // ROLES
 
   async fetchRolesList ({ commit }) {
-    return await axios({
-      method: "GET",
-      url: `${this.$axios.defaults.baseURL}/roles`,
-      headers: {},
-      data: {},
+    axios.get('172.16.4.211:9000/role', { headers: { "Content-Type": "application/json" }})
+    .then(response => {
+      commit("setRolesList", response.data);
+      return response;
     })
-    .then(result => {
-      // console.log("eyy", result)
-      commit("setRolesList", result.data);
-      return result.data;
-    })
+
+    // return await axios({
+    //   method: "GET",
+    //   url: `172.16.4.211/roles`, 
+    //   //`${this.$axios.defaults.baseURL}/roles`,
+    //   headers: {},
+    //   data: {},
+    // })
+    // .then(result => {
+    //   // console.log("eyy", result)
+    //   commit("setRolesList", result.data);
+    //   return result.data;
+    // })
      
   },
 

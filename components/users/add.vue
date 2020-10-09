@@ -33,7 +33,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary " data-dismiss="modal" id="itemcancel">Cancel</button>
-                  <button type="button" @click="add()" class="btn btn-primary">OK</button>
+                  <button type="button" @click="add()" class="btn btn-primary user_add">OK</button>
                 </div>
                 <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
               </form>
@@ -46,6 +46,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import $ from 'jQuery'
 
 export default {
     name: 'modal-addSupplier',
@@ -83,18 +84,22 @@ export default {
           await this.addUser({
             user: this.user,
           })
-          .then((result) => {
-            if(result.error){
-              // alert(result.error)
-              this.toast(false, result.error, 'danger')
-            } else {
-              $("#addUser").modal('hide');
-              $("#add_user_form")[0].reset();
-              // alert("New user added successfully")
-              var msg = "You have successfully added a user"
-              this.toast(true, msg, 'success')
-            }
-          })
+          // .then((result) => {
+          //   if(result.error){
+          //     // alert(result.error)
+          //     this.toast(false, result.error, 'danger')
+          //   } else {
+          //     $("#addUser").modal('hide');
+          //     $("#add_user_form")[0].reset();
+          //     // alert("New user added successfully")
+          //     var msg = "You have successfully added a user"
+          //     this.toast(true, msg, 'success')
+          //   }
+          // })
+          .catch(err => {
+          this.toast(false, err.response.data.msg, 'danger')
+        });
+        
           await this.$store.dispatch("fetchUserList")
         }
       },

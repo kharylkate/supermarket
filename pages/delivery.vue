@@ -8,8 +8,6 @@
             </div>
             <div>
                 <addDelTrans />
-                <editDelTrans />
-                <viewDelivery />
             </div>
         </div>
         

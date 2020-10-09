@@ -5,22 +5,7 @@ import getters from '@/store/getters.js'
 import parent from '@/pages/roles.vue'
 import addRole from '@/components/roles/add_role.vue'
 
-// describe("addRole", () => {
-//     it("adds a new role", () => {
-//         const role = { role_id: "1", role_name: "minister"}
-//         const state = {
-//             rolesList: []
-//         }
-//         mutations.addRole(state, { ...role })
-
-//         expect(state).toEqual({
-//             rolesList: [{ "role_id": "1", "role_name": "minister"}]
-//         })
-//     })
-// })
-
-
-
+// describe.only to run only that describe case
 
 describe("Parent role (page)", () => {
     const wrapper = shallowMount(parent)
@@ -41,15 +26,17 @@ describe("roles.vue", () => {
         rolesList: []
     }
 
-    it('will add a new role', async () => {
+    it('will dispatch action addRole', async () => {
         actions.addRole({ commit }, { ...role})
         expect(mutations.addRole(state, role)).toHaveBeenCalled
+        console.log(state);
     })
 
     it("commit mutation with a new role", () => {
         
         mutations.addRole(state, { ...role })
 
+        // rolesList[0] since double ang mutation, double pud ang na-commit sa state
         expect(state.rolesList[0]).toEqual(
             { "role_id": "1", "role_name": "minister"}
         )
@@ -63,13 +50,3 @@ describe("roles.vue", () => {
         // console.log("state", result[0]);
     })
 })
-
-// describe("Roles", async () => {
-//     const wrapper = shallowMount(addRole)
-//     console.log(wrapper.html())
-//     const role_name = wrapper.find('#role_name')
-//     role_name.setValue('admin11')
-
-//     wrapper.find('.role_add').trigger('click')
-
-// })

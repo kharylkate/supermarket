@@ -61,7 +61,7 @@
 <script>
 import { mapActions } from 'vuex';
 // import { BootstrapVue } from 'bootstrap-vue'
-// import $ from 'jQuery'
+import $ from 'jQuery'
 
 export default {
     name: 'modal-addInventory',
@@ -78,13 +78,14 @@ export default {
     methods: {
       ...mapActions(['addInventory']),
       async add(){
-
+console.log("yes");
         var barcode = $("#add_barcode").val()
         var description = $("#add_description").val()
         var itemcost = $("#add_itemcost").val()
         var salescost = $("#add_salescost").val()
-
+console.log("yes1");
         if((barcode == "") || (description == "") || (itemcost == "") || (salescost == "")){
+          console.log("yes2");
           var msg = "Please check for missing field"
           this.toast(false, msg, 'danger')
           // alert("Please fill in the form")
@@ -93,6 +94,7 @@ export default {
           this.inventory.created_by = localStorage.uid
           this.inventory.created_at = "today"
           // console.log(this.inventory);
+          console.log("yes2");
           this.addInventory({
             inventory: this.inventory
           })
