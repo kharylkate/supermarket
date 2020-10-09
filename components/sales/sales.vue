@@ -678,6 +678,9 @@ export default {
                 $("#add_item_form")[0].reset();
               }
             })
+            .catch(err => {
+              alert(err.response.data.msg);
+            });
           }
 
           await this.$store.dispatch("fetchSTransactionsList"),

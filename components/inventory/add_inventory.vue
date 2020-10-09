@@ -105,6 +105,10 @@ export default {
               this.toast(true, msg, 'success')
             }
           })
+          .catch(err => {
+            alert(err.response.data.msg);
+          });
+          
           await this.$store.dispatch("fetchInventoryList")
         }  
       },

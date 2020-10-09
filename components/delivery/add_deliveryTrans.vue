@@ -210,6 +210,10 @@ export default {
               this.toast(false, result.message, 'success')
             }
           })
+          .catch(err => {
+            alert(err.response.data.msg);
+          });
+
         }
 
         await this.$store.dispatch("fetchDTransactionsList")

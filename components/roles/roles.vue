@@ -221,6 +221,9 @@ export default {
           this.toast(false, result, 'success')
         }
       })
+      .catch(err => {
+          alert(err.response.data.msg);
+        });
      },
     toast(success = false, msg, variant) {
       if(success){

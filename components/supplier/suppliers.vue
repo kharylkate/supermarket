@@ -257,6 +257,9 @@ export default {
               this.toast(false, result, 'success')
             }
           })
+          .catch(err => {
+            alert(err.response.data.msg);
+          });
           await this.$store.dispatch("fetchSuppliersList")
         },
         toast(success = false, msg, variant) {
