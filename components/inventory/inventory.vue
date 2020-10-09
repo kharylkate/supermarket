@@ -2,7 +2,7 @@
     <div id="inventorypage" role="main" class="main-content col-md-9 ml-sm-auto col-lg-10 px-md-4 bg-light">
         <div>
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
-                <h4 class="text-uppercase">Inventory</h4>
+                <h4 class="text-uppercase inventory_page">Inventory</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
                 
                 </div>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="form-group ml-auto mr-3">
-              <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addInventory">
+              <button type="button" class="btn btn-sm lg-btn btn_add" data-toggle="modal" data-target="#addInventory">
                 Add Item
               </button>
             </div>
@@ -184,10 +184,10 @@ export default {
     },
     computed: {
         ...mapGetters({
-          inventoryList: 'inventoryList'
+          // inventoryList: 'inventoryList'
         }),
         tablerows() {
-          return this.inventoryList.length
+          // return this.inventoryList.length
         },
     },
     methods: {
@@ -248,7 +248,7 @@ export default {
         }
     },
     async created() {
-      await this.$store.dispatch("fetchInventoryList")
+      // await this.$store.dispatch("fetchInventoryList")
   },
 }
 </script>

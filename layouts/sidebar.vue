@@ -5,7 +5,7 @@
             <nuxt-link to="/dashboard">
                 <img class="img-thumbnail mt-3" src="../static/lgs.png" alt="" width="210" height="60">
             </nuxt-link>
-            <p class="mt-4 mb-3 text-center">Welcome,  <b>{{username}}</b></p>
+            <p class="mt-4 mb-3 text-center welcome_name">Welcome,  <b>{{username}}</b></p>
         </div>
         <hr>
 
@@ -18,7 +18,7 @@
 
         <div class="sidebar-sticky pt-3 sidebarNav" >
             <div v-if="role_name === 'admin'" class="accordion" id="accordionExample">
-                <div class="">
+                <div class="admin_module">
                     <div class="button" id="headingOne">
                         <span class="inactive-link nav-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Admin
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="">
+                <div class="transaction_module">
                     <div class="button" id="headingTwo">
                         <span class="inactive-link nav-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
                             Transactions
@@ -72,7 +72,7 @@
             </div>
             <div v-if="role_name === 'custodian'">
                 <div class="mx-3 my-0">
-                    <nuxt-link to="/delivery" class="">
+                    <nuxt-link to="/delivery" class="delivery_transaction">
                         <span class="inactive-link nav-link">Delivery Transactions</span>
                     </nuxt-link>
                 </div>
@@ -80,7 +80,7 @@
             
             <div v-if="role_name === 'cashier'">
                 <div class="mx-3 my-0">
-                    <nuxt-link to="/cashier_sales" class="">
+                    <nuxt-link to="/cashier_sales" class="sales_transaction">
                         <span class="inactive-link nav-link">Sales Transactions</span>
                     </nuxt-link>
                 </div>

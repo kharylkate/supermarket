@@ -30,6 +30,35 @@ describe('Parent inventory (page)', () => {
     it('renders the child addInventory component', () => {
         expect(wrapper.findComponent(add_inventory).exists()).toBe(true)
     })
+    // console.log(wrapper.html());
+
+})
+
+describe('Child inventory (component)', () => {
+    const wrapper = mount(child, {
+        stubs: {
+            'b-col':true,
+            'b-form-group':true,
+            'b-input-group':true,
+            'b-form-input':true,
+            'b-input-group-append':true,
+            'b-button':true,
+            'b-table':true,
+            'b-pagination':true
+        }
+    })
+
+    it('renders the INVENTORY name', () => {
+        expect(wrapper.find('.inventory_page').text()).toBe("Inventory")
+    })
+
+    it('renders table', () => {
+        expect(wrapper.find('#btable').exists()).toBe(true)
+    })
+
+    it('renders "Add Item" button', () => {
+        expect(wrapper.find('.btn_add').exists()).toBe(true)
+    })
 })
 
 describe('inventory.vue', () => {
