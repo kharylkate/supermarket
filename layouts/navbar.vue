@@ -6,7 +6,7 @@
         </button>
         <div class="ml-auto">
           <div class="btn-group">
-            <button type="button" class="btn dropdown-toggle text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn dropdown-toggle text-white logout_button_name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{username}}
             </button>
             <div class="dropdown-menu dropdown-menu-right">
