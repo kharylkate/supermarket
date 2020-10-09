@@ -6,7 +6,6 @@ import getters from '@/store/getters.js'
 import actions from '@/store/actions.js'
 import mutations from '@/store/mutations.js'
 import Vuex from 'vuex'
-
 import * as axios from 'axios';
 import flushPromises from 'flush-promises'
 
