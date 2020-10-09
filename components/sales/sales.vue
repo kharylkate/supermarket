@@ -484,8 +484,8 @@
 </template>
 
 <script>
-import DateRangePicker from "vue2-daterange-picker";
-import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
+// import DateRangePicker from "vue2-daterange-picker";
+// import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
 import moment from "moment";
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
@@ -495,7 +495,7 @@ import 'jspdf-autotable';
 export default {
     name: 'sales',
     components: {
-      DateRangePicker
+      // DateRangePicker
     },
     computed: {
       ...mapGetters({

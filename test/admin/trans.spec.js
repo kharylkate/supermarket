@@ -17,7 +17,7 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 describe('Parent delivery (page)', () => {
-    const wrapper = shallowMount(parent, {
+    const wrapper = shallowMount(parentTrans, {
         stubs: {
             navbar: true,
             navbarcollapse: true
@@ -25,7 +25,7 @@ describe('Parent delivery (page)', () => {
     })
 
     it('renders the child delivery component', () => {
-        expect(wrapper.findComponent(child).exists()).toBe(true)
+        expect(wrapper.findComponent(childTrans).exists()).toBe(true)
     })
 
     it('renders the child adddelivery component', () => {
@@ -72,7 +72,7 @@ describe('deliverys.vue', () => {
         })
     })
 
-    it('will dispatch action adddelivery if OK button is clicked', async () => {
+    it('will dispatch action add_delivery if OK button is clicked', async () => {
         const wrapper = mount(add_delivery, {
             store,
             localVue,
@@ -94,7 +94,7 @@ describe('deliverys.vue', () => {
     })
 
     it('will commit mutation', () => {
-        mutations.adddelivery(state, { ...delivery })
+        mutations.add_delivery(state, { ...delivery })
         // console.log("mutations",state.deliveryList);
         expect(state.deliveryList).toEqual([{
             "delivery_id":1,
