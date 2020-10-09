@@ -24,7 +24,15 @@ export default {
         })
         return count;
     },
-    delivery_transactions: state => state.delivery_transactions,
+    delivery_transactions: state => { return state.delivery_transactions},
+
+    deliver_transactions(state){
+        return state.deliver_transactions
+    },
+
+    sales_transactions(state) {
+        return state.sales_transactions;
+    },
     // suppliers
     suppliers: state => {
         return state.suppliers

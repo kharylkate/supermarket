@@ -218,8 +218,8 @@
 import moment from "moment";
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
-import jsPDF from "jspdf";
-import "jspdf-autotable";
+// import jsPDF from "jspdf";
+// import "jspdf-autotable";
 import Papa from "papaparse";
 
 

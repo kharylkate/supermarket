@@ -98,7 +98,7 @@ d<template>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary btn-sm" id="itemcancel" data-dismiss="modal">Cancel</button>
-              <button type="button" @click="receive()" class="btn btn-sm btn-primary">OK</button>
+              <button type="button" @click="receive()" class="btn btn-sm btn-primary delivery_add">OK</button>
             </div>
             <!-- <button class="btn btn-primary" type="submit">Submit form</button> -->
           </form>
@@ -113,14 +113,18 @@ d<template>
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
 import moment from "moment";
+import $ from 'jQuery'
 
 export default {
     name: 'modal-addDelTrans',
+    components: {
+
+    },
     computed: {
       ...mapGetters({
-        suppliersList: 'suppliersList',
-        inventoryList: 'inventoryList',
-        deliveryList: 'deliveryList'
+        // suppliersList: 'suppliersList',
+        // inventoryList: 'inventoryList',
+        // deliveryList: 'deliveryList'
       }),
 
     },
@@ -250,10 +254,10 @@ export default {
     created(){
       //console.log('hilu',this.inventoryList)
     },
-    async beforeCreate(){
-      await this.$store.dispatch("fetchSuppliersList")
-      await this.$store.dispatch("fetchInventoryList")
-    }
+    // async beforeCreate(){
+    //   await this.$store.dispatch("fetchSuppliersList")
+    //   await this.$store.dispatch("fetchInventoryList")
+    // }
 }
 
 

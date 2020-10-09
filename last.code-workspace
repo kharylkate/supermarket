@@ -8,6 +8,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "lougeh"
+		"liveServer.settings.multiRootWorkspaceName": "lougeh",
+		"synthwave84.brightness": 1
 	}
 }

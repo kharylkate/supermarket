@@ -38,7 +38,7 @@ export default {
     },
 
     addSales: (state, salesData) => {
-        state.sales_transactions.push(salesData.sales)
+        state.sales_transactions.push(salesData)
     },
 
     updateInvQty: (state, payload) => {
@@ -66,7 +66,8 @@ export default {
    
 
     receiveDelivery: (state, delivery) => {
-        state.deliver_transactions.push(delivery.transaction)
+        console.log('here');
+        state.deliver_transactions.push(delivery)
     },
 
     receiveDeliveryItems: (state, delivery) => {

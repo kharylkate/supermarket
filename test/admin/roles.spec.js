@@ -47,6 +47,6 @@ describe("roles.vue", () => {
 
         expect(role).toEqual(state.rolesList[0])
 
-        // console.log("state", result[0]);
+        console.log("state", result[0]);
     })
 })

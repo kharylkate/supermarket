@@ -440,7 +440,7 @@
                   <button
                     type="button"
                     @click="saveSales()"
-                    class="btn text-white btn-sm btn btn-primary"
+                    class="btn text-white btn-sm btn btn-primary sales_add"
                   >OK</button>
                 </div>
 
@@ -499,9 +499,9 @@ export default {
     },
     computed: {
       ...mapGetters({
-        salesTransactions: 'salesTransactions',
-        salesList: 'salesList',
-        inventoryList: 'inventoryList'
+        // salesTransactions: 'salesTransactions',
+        // salesList: 'salesList',
+        // inventoryList: 'inventoryList'
       }),
       tablerows() {
         return this.salesList.length

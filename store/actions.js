@@ -379,7 +379,7 @@ export default {
     .then(result => {
       console.log('hihi',result.data)
       console.log(delivery)
-      commit("receiveDelivery", delivery)
+      commit("receiveDelivery", delivery.transaction)
       return result.data;
     })
   },
@@ -413,7 +413,7 @@ export default {
       data: { ...sales.sales },
     })
     .then(result => {
-      commit("addSales", sales);
+      commit("addSales", sales.sales);
       return result.data;
     })
      
