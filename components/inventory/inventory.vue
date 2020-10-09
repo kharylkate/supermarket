@@ -225,12 +225,13 @@ export default {
         ...mapActions(['updateInventory']),
         async update(){
           this.inventory.updated_by =  localStorage.uid
-          this.inventory.updateby_at = "today"
-
+          this.inventory.updated_at = "today"
+console.log("1");
           await this.updateInventory({
               inventory: this.inventory,
           })
           .then((result) => {
+            console.log("2");
             if(result){
               // alert(result.error)
               // this.toast(tru, result, 'success')
@@ -241,6 +242,7 @@ export default {
             }
           })
           .catch(err => {
+            console.log("3");
           this.toast(false, err.response.data.msg, 'danger')
           // alert(err.response.data.msg);
         });
