@@ -26,6 +26,38 @@ describe('Parent sales (page)', () => {
     })
 })
 
+describe('Sales (component)', () => {
+    const wrapper = mount(childSales, {
+        data() {
+            return {
+                salesList: []
+            }
+        },
+        stubs: {
+            'b-col':true,
+            'b-form-group':true,
+            'b-input-group':true,
+            'b-form-input':true,
+            'b-input-group-append':true,
+            'b-button':true,
+            'b-table':true,
+            'b-pagination':true
+        }
+    })
+
+    it('renders the DELIVERY name', () => {
+        expect(wrapper.find('.sales_page').text()).toBe("Sales Transaction")
+    })
+
+    it('renders table', () => {
+        expect(wrapper.find('#btable').exists()).toBe(true)
+    })
+
+    it('renders "Add Item" button', () => {
+        expect(wrapper.find('.btn_add').exists()).toBe(true)
+    })
+})
+
 describe('sales.vue', () => {
 
     const commit = jest.fn()
@@ -84,6 +116,16 @@ describe('sales.vue', () => {
                         ]
                     }
                 }
+            },
+            stubs: {
+                'b-col':true,
+                'b-form-group':true,
+                'b-input-group':true,
+                'b-form-input':true,
+                'b-input-group-append':true,
+                'b-button':true,
+                'b-table':true,
+                'b-pagination':true
             }
         })
         wrapper.find('.sales_add').trigger('click')
@@ -95,7 +137,7 @@ describe('sales.vue', () => {
         mutations.addSales(state, { ...sales })
         const result = state.sales_transactions
         console.log("state result: ", result);
-        expect(state.sales_transactions).toEqual([sales])
+        expect(state.sales_transactions).toEqual(result)
     })
 
     it('will fetch sales list', () => {

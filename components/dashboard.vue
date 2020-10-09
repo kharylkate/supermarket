@@ -130,7 +130,7 @@
 <script>
 import {mapActions} from 'vuex';
 import { mapGetters } from 'vuex';
-import * as CanvasJS from '../node_modules/canvasjs/dist/canvasjs'
+// import * as CanvasJS from '../node_modules/canvasjs/dist/canvasjs'
 import Doughnut from '../components/Doughnut'
 
 export default {

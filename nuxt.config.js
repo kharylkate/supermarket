@@ -55,9 +55,9 @@ module.exports = {
         crossorigin: "anonymous",
         type: "text/javascript"
       },
-      {
-        src: "canvasjs/dist/canvasjs.js"
-      },
+      // {
+      //   src: "canvasjs/dist/canvasjs.js"
+      // },
       {
         src: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"
       },

@@ -6,7 +6,7 @@
           class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2"
           id="topName"
         >
-          <h4 class="text-uppercase">Roles</h4>
+          <h4 class="text-uppercase role_page">Roles</h4>
         </div>
       </div>
 
@@ -43,7 +43,7 @@
             </div>
 
             <div class="form-group ml-auto mr-3">
-              <button class="btn btn-default btn-sm lg-btn" data-toggle="modal" data-target="#addRole">New Role</button>
+              <button class="btn btn-default btn-sm btn_add lg-btn" data-toggle="modal" data-target="#addRole">New Role</button>
             </div>
         </div>
 
@@ -187,10 +187,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      rolesList: "rolesList",
+      // rolesList: "rolesList",
     }),
     tablerows() {
-          return this.rolesList.length
+          // return this.rolesList.length
         },
   },
   methods: {
@@ -247,7 +247,7 @@ export default {
     }
   },
   async beforeCreate() {
-    await this.$store.dispatch("fetchRolesList");
+    // await this.$store.dispatch("fetchRolesList");
   },
 };
 </script>

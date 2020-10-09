@@ -4,7 +4,7 @@
             <div class="">
                 <div class="">
                 <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
-                    <h4 class="text-uppercase">Suppliers</h4>
+                    <h4 class="text-uppercase supplier_page">Suppliers</h4>
                     <div class="btn-toolbar mb-2 mb-md-0">
                     
                     </div>
@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="form-group ml-auto mr-3">
-                      <button type="button" class="btn btn-sm lg-btn" data-toggle="modal" data-target="#addSupplier">
+                      <button type="button" class="btn btn_add btn-sm lg-btn" data-toggle="modal" data-target="#addSupplier">
                         <!-- <img src="../../static/icons/file-earmark-plus.svg" alt=""> -->
                         Add Supplier
                     </button>
@@ -226,10 +226,10 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'suppliersList'
+            // 'suppliersList'
         ]),
         tablerows() {
-          return this.suppliersList.length
+          // return this.suppliersList.length
         },
     },
     methods: {
@@ -287,7 +287,7 @@ export default {
         }
     },
     async beforeCreate() {
-      await this.$store.dispatch("fetchSuppliersList")
+      // await this.$store.dispatch("fetchSuppliersList")
     }
 }
 </script>

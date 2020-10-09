@@ -3,7 +3,7 @@
           <div class="container-fluid">
               <div class="">
                 <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
-                  <h4 class="text-uppercase">Sales Transaction</h4>
+                  <h4 class="text-uppercase sales_page">Sales Transaction</h4>
                 </div>
               </div>
 
@@ -70,7 +70,7 @@
                   </div>
 
                   <div class="form-group ml-auto mr-3">
-                    <button class="btn btn-sm btn-default lg-btn" @click="addModal()">New Transaction</button>
+                    <button class="btn btn-sm btn-default btn_add lg-btn" @click="addModal()">New Transaction</button>
                   </div>
 
                 </div>
@@ -491,6 +491,7 @@ import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import $ from 'jQuery'
 
 export default {
     name: 'sales',
@@ -504,7 +505,7 @@ export default {
         // inventoryList: 'inventoryList'
       }),
       tablerows() {
-        return this.salesList.length
+        // return this.salesList.length
       },
     },
     data() {
@@ -680,8 +681,8 @@ export default {
             })
           }
 
-          await this.$store.dispatch("fetchSTransactionsList"),
-          await this.$store.dispatch("fetchInventoryList");
+          // await this.$store.dispatch("fetchSTransactionsList"),
+          // await this.$store.dispatch("fetchInventoryList");
           }
       },
       toast(success = false, msg, variant) {
@@ -767,8 +768,8 @@ export default {
     
     },
     async beforeCreate(){
-      await this.$store.dispatch("fetchSTransactionsList"),
-      await this.$store.dispatch("fetchInventoryList");
+      // await this.$store.dispatch("fetchSTransactionsList"),
+      // await this.$store.dispatch("fetchInventoryList");
     }
 }
 

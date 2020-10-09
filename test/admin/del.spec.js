@@ -33,6 +33,33 @@ describe('Parent delivery (page)', () => {
     })
 })
 
+describe('Delivery (component)', () => {
+    const wrapper = shallowMount(childTrans, {
+        stubs: {
+            'b-col':true,
+            'b-form-group':true,
+            'b-input-group':true,
+            'b-form-input':true,
+            'b-input-group-append':true,
+            'b-button':true,
+            'b-table':true,
+            'b-pagination':true
+        }
+    })
+
+    it('renders the DELIVERY name', () => {
+        expect(wrapper.find('.del_page').text()).toBe("Delivery")
+    })
+
+    it('renders table', () => {
+        expect(wrapper.find('#btable').exists()).toBe(true)
+    })
+
+    it('renders "Add Item" button', () => {
+        expect(wrapper.find('.btn_add').exists()).toBe(true)
+    })
+})
+
 describe('delivery.vue', () => {
 
     const commit = jest.fn()

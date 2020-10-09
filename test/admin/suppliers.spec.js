@@ -31,6 +31,33 @@ describe('Parent supplier (page)', () => {
     })
 })
 
+describe('Child supplier (component)', () => {
+    const wrapper = mount(child, {
+        stubs: {
+            'b-col':true,
+            'b-form-group':true,
+            'b-input-group':true,
+            'b-form-input':true,
+            'b-input-group-append':true,
+            'b-button':true,
+            'b-table':true,
+            'b-pagination':true
+        }
+    })
+
+    it('renders the SUPPLIERS name', () => {
+        expect(wrapper.find('.supplier_page').text()).toBe("Suppliers")
+    })
+
+    it('renders table', () => {
+        expect(wrapper.find('#btable').exists()).toBe(true)
+    })
+
+    it('renders "Add Item" button', () => {
+        expect(wrapper.find('.btn_add').exists()).toBe(true)
+    })
+})
+
 describe('suppliers.vue', () => {
 
     let actions

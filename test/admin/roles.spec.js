@@ -3,6 +3,7 @@ import actions from '@/store/actions.js'
 import mutations from '@/store/mutations.js'
 import getters from '@/store/getters.js'
 import parent from '@/pages/roles.vue'
+import child from '@/components/roles/roles.vue'
 import addRole from '@/components/roles/add_role.vue'
 
 // describe.only to run only that describe case
@@ -16,6 +17,33 @@ describe("Parent role (page)", () => {
 
     it('mounts child addRole (component)', () => {
         expect(wrapper.findComponent(addRole).exists()).toBe(true)
+    })
+})
+
+describe('Child roles (component)', () => {
+    const wrapper = mount(child, {
+        stubs: {
+            'b-col':true,
+            'b-form-group':true,
+            'b-input-group':true,
+            'b-form-input':true,
+            'b-input-group-append':true,
+            'b-button':true,
+            'b-table':true,
+            'b-pagination':true
+        }
+    })
+
+    it('renders the ROLES name', () => {
+        expect(wrapper.find('.role_page').text()).toBe("Roles")
+    })
+
+    it('renders table', () => {
+        expect(wrapper.find('#btable').exists()).toBe(true)
+    })
+
+    it('renders "Add Item" button', () => {
+        expect(wrapper.find('.btn_add').exists()).toBe(true)
     })
 })
 

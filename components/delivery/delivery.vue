@@ -2,7 +2,7 @@
     <div id="items" role="main" class="main-content col-md-9 ml-sm-auto col-lg-10 px-md-4 bg-light">
         <div>
             <div class="top-name d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 mt-3 px-2" id="topName">
-                <h4 class="text-uppercase">Delivery</h4>
+                <h4 class="text-uppercase del_page">Delivery</h4>
                 
                 <div class="btn-toolbar mb-2 mb-md-0">
                 
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="form-group ml-auto mr-3">
-                  <button type="button" class="btn lg-btn btn-sm" data-toggle="modal" data-target="#addDelTrans">
+                  <button type="button" class="btn lg-btn btn_add btn-sm" data-toggle="modal" data-target="#addDelTrans">
                       <img src="../../static/icons/file-earmark-plus.svg" alt="">
                     Receive Item
                   </button>
@@ -405,9 +405,9 @@ export default {
     },
     computed: {
       ...mapGetters({
-        deliveryList: "deliveryList",
-        suppliersList: "suppliersList",
-        getDateFilteredDelivery: "getDateFilteredDelivery"
+        // deliveryList: "deliveryList",
+        // suppliersList: "suppliersList",
+        // getDateFilteredDelivery: "getDateFilteredDelivery"
       }),
       tablerows() {
         return this.deliveryList.length
@@ -426,66 +426,13 @@ export default {
       // this.$store.dispatch("getDateFilteredDelivery");
     },
     async beforeCreate() {
-      await this.$store.dispatch("fetchDTransactionsList")
-      await this.$store.dispatch("getDateFilteredDelivery");
+      // await this.$store.dispatch("fetchDTransactionsList")
+      // await this.$store.dispatch("getDateFilteredDelivery");
     }
     
 }
 </script>
 
 <style>
-#divtableData {
-  display: none;
-}
 
-.lg-btn {
-  border: none;
-}
-
-.paginations .active .page-link {  
-    background-color: #95c282 !important;  
-    border-color: #95c282 !important;  
-}
-
-.paginations .page-link {
-  color: gray ;
-}
-
-.paginations :hover {
-  color: black;
-  background-color: #bbe1aa!important;
-}
-
-.reportrange-text[data-v-267f4ee2] {
-  border: 1px solid #ccc;
-  height: 2rem;
-  width: 14rem;
-  font-size: 14px;
-}
-
-.daterangepicker.show-ranges .drp-calendar.left {
-  position: relative;
-  right: 8px;
-}
-
-.daterangepicker.show-ranges .drp-calendar.left {
-  border-left: 0px solid #ddd;
-}
-
-.daterangepicker .ranges li.active {
-  background-color: #59726d;
-  color: #fff;
-}
-
-.daterangepicker td.active,
-.daterangepicker td.active:hover {
-  background-color: #59726d;
-  border-color: transparent;
-  color: #fff;
-}
-
-.daterangepicker .ranges li.active {
-  background-color: #59726d;
-  color: #fff;
-}
 </style>
