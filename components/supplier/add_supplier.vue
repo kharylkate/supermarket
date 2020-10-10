@@ -74,14 +74,14 @@ export default {
       ...mapActions(['addSupplier']),
       add(){
         
-        var compname = $("#compname").val()
-        var contactno = $("#contactno").val()
-        var compadd = $("#compadd").val()
+        // var compname = $("#compname").val()
+        // var contactno = $("#contactno").val()
+        // var compadd = $("#compadd").val()
 
-        if((compname == "") || (contactno == "") || (compadd == "")){
-          var msg = "Please check for missing field"
-          this.toast(false, msg, 'danger')
-        } else {
+        // if((compname == "") || (contactno == "") || (compadd == "")){
+        //   var msg = "Please check for missing field"
+        //   this.toast(false, msg, 'danger')
+        // } else {
           this.supplier.supplier_id = this.suppliersList[this.suppliersList.length-1].supplier_id+1
           this.supplier.status = true
           this.supplier.created_by = localStorage.uid
@@ -105,7 +105,7 @@ export default {
             this.toast(false, err.response.data.msg, 'danger')
             
           });
-        }   
+        // }   
       },
       toast(success = false, msg, variant) {
         if(success){

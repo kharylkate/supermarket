@@ -23,7 +23,7 @@ d<template>
                 <div class="form-group col-md-6 mb-4">
                 
                   <label >Supplier: </label>
-                  <select name="suppliers" id="suppliers" v-model="dt.supplier_id" class="form-control form-control-sm">
+                  <select name="suppliers" id="suppliers_dt" v-model="dt.supplier_id" class="form-control form-control-sm">
                     <option selected hidden>Supplier</option>
                     <option v-for="supply in suppliersList" :key="supply.id" :value="supply.supplier_id">{{supply.company_name}}</option>
                   </select>
@@ -181,19 +181,19 @@ export default {
       ...mapActions(['receiveDelivery']),
       async receive(){
 
-        var transdate = $("#input_rtransaction_date").val()
-        var dr_no = $("#input_rtransaction_no").val()
-        var suppliers = $("#suppliers").val()
-        var barcode = $("#rtransaction_barcode").val()
-        var prod_description = $("#rtransaction_prod_description").val()
-        var qty = $("#rtransaction_qty").val()
-        var transcost = $("#rtransaction_cost").val()
+        // var transdate = $("#input_rtransaction_date").val()
+        // var dr_no = $("#input_rtransaction_no").val()
+        // var suppliers = $("#suppliers_dt").val()
+        // var barcode = $("#rtransaction_barcode").val()
+        // var prod_description = $("#rtransaction_prod_description").val()
+        // var qty = $("#rtransaction_qty").val()
+        // var transcost = $("#rtransaction_cost").val()
 
-        if((transdate == null) || (dr_no == null) || (barcode == null) || (suppliers == null) || (prod_description == null) || (qty == null) || (transcost == null)){
-          // alert("Please fill up form")
-          var msg = "Please check for missing fields"
-          this.toast(false, msg, 'danger')
-        } else {
+        // if((transdate == null) || (dr_no == null) || (barcode == null) || (suppliers == null) || (prod_description == null) || (qty == null) || (transcost == null)){
+        //   // alert("Please fill up form")
+        //   var msg = "Please check for missing fields"
+        //   this.toast(false, msg, 'danger')
+        // } else {
           this.dt.items = this.items
           this.dt.created_by = localStorage.uid
           await this.receiveDelivery({
@@ -201,9 +201,6 @@ export default {
           })
           .then((result) => {
             if(result){
-            //   // alert(result.error)
-            //   this.toast(false, result.error, 'danger')
-            // } else {
               $("#addDelTrans").modal('hide');
               $("#add_item_form")[0].reset();
               // alert(result.message)
@@ -212,10 +209,9 @@ export default {
           })
           .catch(err => {
             this.toast(false, err.response.data.msg, 'danger')
-            
           });
 
-        }
+        // }
 
         await this.$store.dispatch("fetchDTransactionsList")
         

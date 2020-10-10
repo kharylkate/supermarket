@@ -68,16 +68,16 @@ export default {
       ...mapActions(['addUser']),
       async add() {
 
-        var employee_code = $("#empcode").val()
-        var username = $("#username").val()
-        var select_role = $("#select_role").val()
+        // var employee_code = $("#empcode").val()
+        // var username = $("#username").val()
+        // var select_role = $("#select_role").val()
 
-        if((employee_code == "") || (username == "") || (select_role == "")){
-          // alert("Please fill the form")
-          var msg = "Please check for missing field"
-          this.toast(false, msg, 'danger')
-        } else {
-           this.user.password = '1234'
+        // if((employee_code == "") || (username == "") || (select_role == "")){
+        //   // alert("Please fill the form")
+        //   var msg = "Please check for missing field"
+        //   this.toast(false, msg, 'danger')
+        // } else {
+          this.user.password = '1234'
           this.user.created_by = localStorage.uid
           this.user.created_at = "today"
           await this.addUser({
@@ -97,7 +97,7 @@ export default {
             this.toast(false, err.response.data.msg, 'danger')
           });
           await this.$store.dispatch("fetchUserList")
-        }
+        // }
       },
       toast(success = false, msg, variant) {
         if(success){

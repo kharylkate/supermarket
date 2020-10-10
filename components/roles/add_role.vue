@@ -78,13 +78,13 @@ export default {
     ...mapActions(['addRole']),
     add(){
 
-      var role_name = $("#role_name").val()
+      // var role_name = $("#role_name").val()
 
-      if(role_name == "") {
-        // alert("Please fill in the form")
-        var msg = "Please check for missing field"
-        this.toast(false, msg, 'danger')
-      } else {
+      // if(role_name == "") {
+      //   // alert("Please fill in the form")
+      //   var msg = "Please check for missing field"
+      //   this.toast(false, msg, 'danger')
+      // } else {
         this.role.created_by = localStorage.uid
         this.role.created_at = "today"
         console.log(this.role);
@@ -103,7 +103,7 @@ export default {
           this.toast(false, err.response.data.msg, 'danger')
           // alert(err.response.data.msg);
         });
-      }
+      // }
       
     },
     toast(success = false, msg, variant) {

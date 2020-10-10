@@ -76,16 +76,16 @@ export default {
       ...mapActions(['addInventory']),
       async add(){
 
-        var barcode = $("#add_barcode").val()
-        var description = $("#add_description").val()
-        var itemcost = $("#add_itemcost").val()
-        var salescost = $("#add_salescost").val()
+        // var barcode = $("#add_barcode").val()
+        // var description = $("#add_description").val()
+        // var itemcost = $("#add_itemcost").val()
+        // var salescost = $("#add_salescost").val()
 
-        if((barcode == "") || (description == "") || (itemcost == "") || (salescost == "")){
-          var msg = "Please check for missing field"
-          this.toast(false, msg, 'danger')
-          // alert("Please fill in the form")
-        } else {
+        // if((barcode == "") || (description == "") || (itemcost == "") || (salescost == "")){
+        //   var msg = "Please check for missing field"
+        //   this.toast(false, msg, 'danger')
+        //   // alert("Please fill in the form")
+        // } else {
           this.inventory.quantity = 0
           this.inventory.created_by = localStorage.uid
           this.inventory.created_at = "today"
@@ -109,7 +109,7 @@ export default {
           });
           
           await this.$store.dispatch("fetchInventoryList")
-        }  
+        // }  
       },
       toast(success = false, msg, variant) {
         if(success){

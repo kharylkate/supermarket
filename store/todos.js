@@ -10,7 +10,7 @@ const state = {
             total_cost: 7260,
             created_at: 'may 02, 2020',
             created_by: 'Maximus',
-            update_by: null,
+            updated_by: null,
             update_at: null
         },
         {
@@ -21,7 +21,7 @@ const state = {
             total_cost: 9742.50,
             created_at: 'May 02, 2020',
             created_by: 'Custody',
-            update_by: null,
+            updated_by: null,
             update_at: null
         },
         {
@@ -32,7 +32,7 @@ const state = {
             total_cost: 7537.10,
             created_at: 'May 01, 2020',
             created_by: 'Maximus',
-            update_by: null,
+            updated_by: null,
             update_at: null
         },
         {
@@ -43,7 +43,7 @@ const state = {
             total_cost: 7537.10,
             created_at: 'April 30, 2020',
             created_by: 'Custody',
-            update_by: null,
+            updated_by: null,
             update_at: null
         }
     ],

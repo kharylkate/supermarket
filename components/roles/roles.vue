@@ -205,7 +205,7 @@ export default {
     },
     ...mapActions(['updateRole']),
      update() {
-       this.role.update_by =  localStorage.uid
+       this.role.updated_by =  localStorage.uid
        this.role.updated_at = "today"
       console.log('clicked_update', this.role)
       this.updateRole({

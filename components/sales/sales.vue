@@ -635,22 +635,22 @@ export default {
       ...mapActions(["addSales"]),
       async saveSales() {
 
-        // get uid and date for logging
-        this.st.created_by = localStorage.uid
-        this.st.created_at = "today"
+        // // get uid and date for logging
+        // this.st.created_by = localStorage.uid
+        // this.st.created_at = "today"
 
-        var barcode = $("#stransaction_barcode").val()
-        var prod_description = $("#stransaction_prod_description").val()
-        var qty = $("#stransaction_qty").val()
-        var transcost = $("#stransaction_cost").val()
-        var payment = $("#stransaction_payment").val()
+        // var barcode = $("#stransaction_barcode").val()
+        // var prod_description = $("#stransaction_prod_description").val()
+        // var qty = $("#stransaction_qty").val()
+        // var transcost = $("#stransaction_cost").val()
+        // var payment = $("#stransaction_payment").val()
 
-        if((barcode == "") || (prod_description == "") || (qty == "") || (transcost == "") || (payment == "")){
-          // alert("Please fill in form")
-          var msg = "Please check for missing field"
-          this.toast(false, msg, 'danger')
+        // if((barcode == "") || (prod_description == "") || (qty == "") || (transcost == "") || (payment == "")){
+        //   // alert("Please fill in form")
+        //   var msg = "Please check for missing field"
+        //   this.toast(false, msg, 'danger')
 
-        } else {
+        // } else {
           //payment should be enough or more than the total cost to continue
           if(this.st.total_cost > this.st.payment_amt){
             // alert("Payment not enough")
@@ -676,7 +676,7 @@ export default {
             .catch(err => {
               this.toast(false, err.response.data.msg, 'danger')
             });
-          }
+          // }
 
           await this.$store.dispatch("fetchSTransactionsList"),
           await this.$store.dispatch("fetchSalesList");
