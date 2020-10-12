@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import mutations from '@/store/mutations.js'
+import mutations from '../../getters/admin/node_modules/@/store/mutations.js.js'
 
 
 // ROLE ===========================================
