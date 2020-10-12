@@ -78,14 +78,14 @@ export default {
     methods: {
       ...mapActions(['addInventory']),
       async add(){
-console.log("yes");
+// console.log("yes");
         var barcode = $("#add_barcode").val()
         var description = $("#add_description").val()
         var itemcost = $("#add_itemcost").val()
         var salescost = $("#add_salescost").val()
-console.log("yes1");
+// console.log("yes1");
         if((barcode == "") || (description == "") || (itemcost == "") || (salescost == "")){
-          console.log("yes2");
+          // console.log("yes2");
           var msg = "Please check for missing field"
           this.toast(false, msg, 'danger')
           // alert("Please fill in the form")

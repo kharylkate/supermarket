@@ -57,7 +57,7 @@ describe("roles.vue", () => {
     it('will dispatch action addRole', async () => {
         actions.addRole({ commit }, { ...role})
         expect(mutations.addRole(state, role)).toHaveBeenCalled
-        console.log(state);
+        // console.log(state);
     })
 
     it("commit mutation with a new role", () => {
@@ -75,14 +75,7 @@ describe("roles.vue", () => {
 
         expect(role).toEqual(state.rolesList[0])
 
-        console.log("state", result[0]);
-    })
-
-    it('will dispatch action updateRole', async () => {
-        const update_item = { role_id: "1", role_name: "governor"}
-        actions.updateRole({ commit }, { ...role})
-        expect(mutations.updateRole(state, update_item)).toHaveBeenCalled
-        console.log(state);
+        // console.log("state", result[0]);
     })
 
 })

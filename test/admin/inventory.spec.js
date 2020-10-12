@@ -121,6 +121,10 @@ describe('inventory.vue', () => {
             "unit_cost":6.50,
             "sales_cost":10.0
         }])
+        
+        const result = getters.inventoryList(state)
+        expect(result).toEqual(state.inventoryList)
+        console.log(state);
     })
 
     it('will dispatch action updateInventory if OK button is clicked', async () => {
@@ -132,7 +136,7 @@ describe('inventory.vue', () => {
                     inventory: {
                         "inventory_id":1,
                         "barcode":4806016700587,
-                        "product_description":"Soft and White Premium Easy-Pack Tissue",
+                        "product_description":"Brown Class A Easy-Pack Tissue",
                         "quantity":0,
                         "unit_cost":6.50,
                         "sales_cost":10.0
@@ -153,12 +157,25 @@ describe('inventory.vue', () => {
 
         wrapper.find('.item_update').trigger('click')
         expect(actions.updateInventory).toHaveBeenCalled()
-    })
+        mutations.updateInventory(state, {
+            "inventory_id":1,
+            "barcode":4806016700587,
+            "product_description":"Brown Class A Easy-Pack Tissue",
+            "quantity":0,
+            "unit_cost":6.50,
+            "sales_cost":10.0
+        })
 
-    it('will fetch inventory list', () => {
         const result = getters.inventoryList(state)
         expect(result).toEqual(state.inventoryList)
+        console.log(state);
     })
+
+    // it('will fetch inventory list', () => {
+    //     const result = getters.inventoryList(state)
+    //     expect(result).toEqual(state.inventoryList)
+    //     console.log(state);
+    // })
 
     
 })

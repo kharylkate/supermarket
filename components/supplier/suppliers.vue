@@ -173,7 +173,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" @click="update()" class="btn btn-primary">OK</button>
+                    <button type="button" @click="update()" class="btn btn-primary supplier_update">OK</button>
                   </div>
                 </form>
               </div>
