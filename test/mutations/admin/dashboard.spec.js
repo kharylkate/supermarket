@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import mutations from '../../getters/admin/node_modules/@/store/mutations.js.js'
+import mutations from '@/store/mutations.js'
 
 
 // ROLE ===========================================
@@ -32,7 +32,6 @@ describe("updateRole", () => {
         expect(state).toEqual({
             rolesList: [{ "role_id":"1", "role_name":"governor"}]
         })
-        
     })
 })
 

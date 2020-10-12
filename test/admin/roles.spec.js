@@ -8,7 +8,7 @@ import addRole from '@/components/roles/add_role.vue'
 
 // describe.only to run only that describe case
 
-describe("Parent role (page)", () => {
+describe("Role (page)", () => {
     const wrapper = shallowMount(parent)
 
     it('mounts child role (component)', () => {
@@ -20,7 +20,7 @@ describe("Parent role (page)", () => {
     })
 })
 
-describe('Child roles (component)', () => {
+describe('Roles (component)', () => {
     const wrapper = mount(child, {
         stubs: {
             'b-col':true,
@@ -77,4 +77,12 @@ describe("roles.vue", () => {
 
         console.log("state", result[0]);
     })
+
+    it('will dispatch action updateRole', async () => {
+        const update_item = { role_id: "1", role_name: "governor"}
+        actions.updateRole({ commit }, { ...role})
+        expect(mutations.updateRole(state, update_item)).toHaveBeenCalled
+        console.log(state);
+    })
+
 })
