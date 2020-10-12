@@ -635,9 +635,9 @@ export default {
       ...mapActions(["addSales"]),
       async saveSales() {
 
-        // // get uid and date for logging
-        // this.st.created_by = localStorage.uid
-        // this.st.created_at = "today"
+        // get uid and date for logging
+        this.st.created_by = localStorage.uid
+        this.st.created_at = "today"
 
         // var barcode = $("#stransaction_barcode").val()
         // var prod_description = $("#stransaction_prod_description").val()
