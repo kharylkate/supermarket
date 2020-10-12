@@ -7,7 +7,7 @@ describe("fetchRolesList", () => {
     it("fetches list of roles", () => {
         
         const state = {
-            roles: [
+            rolesList: [
                 {
                   roles_code: 11,
                   role_id: 1,
@@ -38,7 +38,7 @@ describe("fetchRolesList", () => {
               ],
         }
 
-        expect(state).toEqual(getters.rolesList)
+        expect(state.rolesList).toEqual(getters.rolesList(state))
     })
 })
 
@@ -49,7 +49,7 @@ describe("addUser", () => {
     it("adds a new user", () => {
 
         const state = {
-            users: [
+            userList: [
                 {
                 users_code: 1,
                 employee_code: 153,
@@ -90,7 +90,7 @@ describe("addUser", () => {
             ],
         }
 
-        expect(state).toEqual(getters.userList)
+        expect(state.userList).toEqual(getters.userList(state))
     })
 })
 
@@ -100,7 +100,7 @@ describe("addSupplier", () => {
     it("adds a new supplier", () => {
 
         const state = {
-            suppliers: [
+            suppliersList: [
                 {
                   supplier_code: 1,
                   supplier_id: 1234582,
@@ -164,7 +164,7 @@ describe("addSupplier", () => {
               ],
         }
 
-        expect(state).toEqual(getters.supplierList)
+        expect(state.suppliersList).toEqual(getters.suppliersList(state))
     })
 })
 
@@ -173,7 +173,7 @@ describe("fetchInventoryList", () => {
     it("fetch list of inventory", () => {
 
         const state = {
-            inventory: [
+            inventoryList: [
                 {
                   inventory_code: 1,
                   barcode: 15304218,
@@ -249,7 +249,7 @@ describe("fetchInventoryList", () => {
               ],
         }
 
-        expect(state).toEqual(getters.inventoryList)
+        expect(state.inventoryList).toEqual(getters.inventoryList(state))
     })
 })
 
@@ -257,7 +257,7 @@ describe("fetchDTransactionList", () => {
     it("fetch list of deliveries", () => {
         
         const state = {
-            delivery_transactions: [
+            deliveryList: [
                 {
                   dtransactions_code: 1,
                   dr_no: 567123,
@@ -368,6 +368,8 @@ describe("fetchDTransactionList", () => {
                 }
               ],
         }
+
+        expect(state.deliveryList).toEqual(getters.deliveryList(state))
     })
 })
 
@@ -375,7 +377,7 @@ describe("fetchSTransactionList", () => {
     it("fetch list of sales", () => {
 
         const state = {
-            sales_transactions: [
+            salesList: [
                 {
                   stransactions_code: 1,
                   or_no: 32456789,
@@ -474,6 +476,8 @@ describe("fetchSTransactionList", () => {
                 }
               ],
         }
+
+        expect(state.salesList).toEqual(getters.salesList(state))
     })
 })
 
