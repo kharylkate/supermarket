@@ -12,7 +12,7 @@
           required
         />
         <input
-          class="form-control form-control-sm m-1"
+          class="form-control form-control-sm m-1 form_password"
           v-model="user.password"
           type="password"
           placeholder="Password"
