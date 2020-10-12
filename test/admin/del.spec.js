@@ -16,7 +16,7 @@ import flushPromises from 'flush-promises'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('Parent delivery (page)', () => {
+describe('Delivery (page)', () => {
     const wrapper = shallowMount(parentTrans, {
         stubs: {
             navbar: true,
@@ -35,6 +35,11 @@ describe('Parent delivery (page)', () => {
 
 describe('Delivery (component)', () => {
     const wrapper = shallowMount(childTrans, {
+        data() {
+            return {
+                deliveryList: []
+            }
+        },
         stubs: {
             'b-col':true,
             'b-form-group':true,
@@ -60,7 +65,7 @@ describe('Delivery (component)', () => {
     })
 })
 
-describe('delivery.vue', () => {
+describe('Delivery.vue', () => {
 
     const commit = jest.fn()
     const delivery = {

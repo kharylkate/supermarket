@@ -67,6 +67,7 @@ describe('inventory.vue', () => {
     let store
     let state
     const items = {
+        "inventory_id":1,
         "barcode":4806016700587,
         "product_description":"Soft and White Premium Easy-Pack Tissue",
         "quantity":0,
@@ -79,7 +80,8 @@ describe('inventory.vue', () => {
             inventoryList: []
         }
         actions = {
-            addInventory: jest.fn(key => state.inventoryList[key])
+            addInventory: jest.fn(),
+            updateInventory: jest.fn()
         }
         store = new Vuex.Store({
             actions,
@@ -94,6 +96,7 @@ describe('inventory.vue', () => {
             data(){
                 return {
                     inventory: {
+                        "inventory_id":1,
                         "barcode":4806016700587,
                         "product_description":"Soft and White Premium Easy-Pack Tissue",
                         "quantity":0,
@@ -111,6 +114,7 @@ describe('inventory.vue', () => {
         mutations.addInventory(state, { ...items })
         // console.log("mutations",state.inventoryList);
         expect(state.inventoryList).toEqual([{
+            "inventory_id":1,
             "barcode":4806016700587,
             "product_description":"Soft and White Premium Easy-Pack Tissue",
             "quantity":0,
@@ -119,8 +123,44 @@ describe('inventory.vue', () => {
         }])
     })
 
+    it('will dispatch action updateInventory if OK button is clicked', async () => {
+        const wrapper = mount(child, {
+            store,
+            localVue,
+            data(){
+                return {
+                    inventory: {
+                        "inventory_id":1,
+                        "barcode":4806016700587,
+                        "product_description":"Soft and White Premium Easy-Pack Tissue",
+                        "quantity":0,
+                        "unit_cost":6.50,
+                        "sales_cost":10.0
+                    }
+                }
+            },
+            stubs: {
+                'b-col':true,
+                'b-form-group':true,
+                'b-input-group':true,
+                'b-form-input':true,
+                'b-input-group-append':true,
+                'b-button':true,
+                'b-table':true,
+                'b-pagination':true
+            }
+        })
+
+        wrapper.find('.item_update').trigger('click')
+        expect(actions.updateInventory).toHaveBeenCalled()
+    })
+
     it('will fetch inventory list', () => {
         const result = getters.inventoryList(state)
         expect(result).toEqual(state.inventoryList)
     })
+
+    
 })
+
+

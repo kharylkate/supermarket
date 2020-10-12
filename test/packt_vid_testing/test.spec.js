@@ -5,7 +5,7 @@ import flushPromises from 'flush-promises'
 
 const $axios = {
     get: () => {
-        return Promise.resolve({ data: [{char_id: 1, "username": "123"}]})
+        return Promise.resolve({ result: [{char_id: 1, "username": "123"}]})
     }
 }
 

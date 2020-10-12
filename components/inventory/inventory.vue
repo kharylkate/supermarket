@@ -200,7 +200,7 @@ export default {
         ...mapActions(['updateInventory']),
         async update(){
           this.inventory.updated_by =  localStorage.uid
-          this.inventory.updateby_at = "today"
+          this.inventory.updated_at = "today"
 
           await this.updateInventory({
               inventory: this.inventory,

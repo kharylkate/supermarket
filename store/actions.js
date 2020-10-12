@@ -367,7 +367,7 @@ export default {
   },
 
   async receiveDelivery({commit}, delivery){
-    console.log(delivery.transaction);
+    // console.log(delivery.transaction);
     return await axios({
       method: "POST",
       url: `${this.$axios.defaults.baseURL}/add_delivery`,
