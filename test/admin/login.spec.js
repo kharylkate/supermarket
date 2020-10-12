@@ -1,57 +1,66 @@
-// import Logo from '@/components/Logo.vue'
-// import Vuex from 'vuex'
-// import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue, mount } from '@vue/test-utils'
+import Vuex from 'vuex'
+import login from '@/components/Logo.vue'
 
+const localVue = createLocalVue()
 
-// const localVue = createLocalVue()
-// localVue.user(Vuex)
-// // test('mount a vue component', () => {
-// //     const wrapper = mount(Logo)
-// //     console.log(wrapper);
-// //     // expect(wrapper.html()).toMatchSnapshot()
-// // })
-
-// describe('Logo.vue', () => {
-//     let actions
-//     let store
-
-//     beforeEach(() => {
-//         actions = {
-//             login: jest.fn()
-//         }
-//         store = new Vuex.store({
-//             actions
-//         })
-//     })
-
-//     it('dispatches "login" when input event value is "input"', () => {
-//         const wrapper = shallowMount(Actions, {store, localVue })
-//     })
-// })
-
-import { mount } from '@vue/test-utils'
-import Logo from '@/components/Logo.vue'
+localVue.use(Vuex)
 
 describe('Logo.vue', () => {
     it('renders the system name', () => {
-        const wrapper = mount(Logo)
+        const wrapper = mount(login)
         expect(wrapper.text()).toMatch("LOU GEH")
         expect(wrapper.text()).toMatch("SUPERMARKET")
         // console.log("wrap",wrapper.html());
     })
 })
 
-describe("Login", () => {
-    it("enables login button", async() => {
-        const wrapper = mount(Logo)
+describe('login.vue', () => {
+    let actions
+    let store
 
-        await wrapper.find('[data-username]').setValue("Maximus")
-        await wrapper.find('[data-password]').setValue("emp")
+    beforeEach(() => {
+        actions = {
+            login: jest.fn()
+        }
+        store = new Vuex.Store({
+            actions
+        })
+    })
 
-        // expect(wrapper.find('.form_username').text()
-        
+    it('dispatches "login" action when password input triggered with keyup', () => {
+        const wrapper = shallowMount(login, { 
+            store, 
+            localVue,
+            data() {
+                return {
+                    user: {
+                        username: 'Maximus',
+                        password: 'emp'
+                    }
+                }
+            }
+        })
+
+        wrapper.find('.form_password').trigger('keyup.enter')
+        expect(actions.login).toHaveBeenCalled()
+    })
+
+    it('dispatches "login" action when button is clicked', () => {
+        const wrapper = shallowMount(login, {
+            store, 
+            localVue,
+            data(){
+                return {
+                    user: {
+                        username: 'Maximus',
+                        password: 'emp'
+                    }
+                }
+            }
+        })
+
+        wrapper.find('button').trigger('click')
+        expect(actions.login).toHaveBeenCalled()
     })
 })
-
-
-

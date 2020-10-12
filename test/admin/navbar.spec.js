@@ -22,7 +22,7 @@ describe('navbar.vue', () => {
 })
 
 describe('sidebar.vue', () => {
-    it('renders Welcome username', () => {
+    it('renders Welcome {{username}}', () => {
         const wrapper = mount(Side, {
             data() {
                 return {
@@ -39,7 +39,7 @@ describe('sidebar.vue', () => {
         // console.log("wrap",wrapper.html());
     })
 
-    it('does not render admin and transaction modules if role_name is admin', () => {
+    it('does not render admin and transaction modules if role_name is not admin', () => {
         const wrapper = mount(Side, {
             data() {
                 return {
